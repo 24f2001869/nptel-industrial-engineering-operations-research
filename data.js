@@ -8048,8 +8048,817 @@ const IEOR_DATA = {
       }
     },
 
-    // Placeholders for Weeks 2 down to 1
-    ...[2, 1].map(wNum => ({
+    // Week 2: Work Study, Ergonomics, Inventory Control & Supply Chain Management (Active)
+    {
+      "number": 2,
+      "title": "Work Study, Ergonomics, Inventory Control & Supply Chain Management",
+      "status": "active",
+      "summary": "Work Study foundations (Method Study, Motion Study, Time Study, ASME process chart symbols: Operation, Inspection, Transportation, Delay, Storage), Work Sampling (L.H.C. Tippett, sample proportion confidence intervals p +/- z*sp), Ergonomics (Carpal tunnel syndrome median nerve, blue light filters, neutral posture vs elevated keyboard hazards), Performance Rating & Standard Time (Normal Time = Observed Time * Rating, Standard Time = Normal Time * (1 + Allowance)), Inventory Management (MRO/WIP/Finished Goods, EOQ square-root law, EPQ/Production Order Quantity with production-demand rate ratio, Quantity Discount Model, Reorder Point ROP = d*L + SS, Newsvendor overage Co and shortage Cu costs), and Supply Chain Management (Bullwhip effect, internal vs reverse supply chain, MRP vs MRP-II, 1982 Keith Oliver terminology, Richard Wilding competition quote).",
+      "studyMaterials": {
+        "quickOverview": "Week 2 covers the core pillars of industrial engineering from human motion and work measurement to mathematical inventory optimization and supply chain dynamics: Work study divides into Method Study (systematic improvement of job methods using ASME flow symbols) and Work Measurement (Time Study and Tippett's Work Sampling). Ergonomics protects worker musculoskeletal health (avoiding carpal tunnel compression of the median nerve and maintaining neutral joint angles). Inventory control models balance ordering/setup and holding costs: basic EOQ scales with sqrt(Demand), the Production Order Quantity (EPQ) accounts for simultaneous consumption during production runs, and the Newsvendor model trades off underage cost (Cu = price - cost) against overage cost (Co = cost - salvage). In SCM, small retail fluctuations escalate upstream as the Bullwhip Effect, while MRP-II expands material planning into integrated enterprise financial and human resources.",
+        "formulaSheet": [
+          {
+            "name": "Work Sampling Confidence Interval & Standard Error",
+            "formula": "s_p = \\sqrt{\\frac{\\bar{p}(1 - \\bar{p})}{n}}, \\quad \\text{Confidence Interval} = \\bar{p} \\pm z \\cdot s_p",
+            "units": "Proportion in [0, 1]",
+            "desc": "L.H.C. Tippett's statistical work sampling. Standard error sp reaches its absolute maximum when proportion p = 0.5."
+          },
+          {
+            "name": "Standard Time Calculation",
+            "formula": "\\text{Normal Time} = \\text{Observed Time} \\times \\text{Performance Rating}, \\quad \\text{Standard Time} = \\text{Normal Time} \\times (1 + \\text{Allowance})",
+            "units": "Time (minutes / seconds)",
+            "desc": "Normalizes worker pace relative to standard pace (100% or 1.0) and adds personal, fatigue, and unavoidable delay allowances."
+          },
+          {
+            "name": "Economic Order Quantity (EOQ)",
+            "formula": "Q^* = \\sqrt{\\frac{2 D S}{H}}, \\quad Q_2^* = Q_1^* \\sqrt{\\frac{D_2}{D_1}}",
+            "units": "Units per order",
+            "desc": "EOQ is directly proportional to the square root of annual demand D. If demand doubles, EOQ increases by sqrt(2) approx 1.414."
+          },
+          {
+            "name": "Production Order Quantity (EPQ Model)",
+            "formula": "Q_p^* = \\sqrt{\\frac{2 D S}{H \\left(1 - \\frac{d}{p}\\right)}}",
+            "units": "Units per production run",
+            "desc": "Used when inventory is consumed at daily rate d while simultaneously produced at daily rate p (where p > d)."
+          },
+          {
+            "name": "Reorder Point (ROP)",
+            "formula": "\\text{ROP} = d \\times L + \\text{Safety Stock}",
+            "units": "Units",
+            "desc": "Inventory trigger level where d is daily demand rate and L is procurement lead time in days."
+          },
+          {
+            "name": "Newsvendor (Single-Period) Costs",
+            "formula": "C_u = \\text{Selling Price} - \\text{Unit Cost}, \\quad C_o = \\text{Unit Cost} - \\text{Salvage Credit}",
+            "units": "Currency per unit",
+            "desc": "Cost of shortage/underage Cu represents lost profit margin; cost of overage Co represents net loss on unsold stock."
+          }
+        ],
+        "examTraps": [
+          {
+            "trap": "2025 Q14 Portal Key Discrepancy (Quantity Discount)",
+            "explanation": "In 2025 Q14, the portal answer key accepted '(A) minimizing total holding cost' (Option A). Conceptually and in 2026 Q14, the correct textbook definition is '(B) balancing holding, ordering, and price discount costs'. Remember Option A for 2025 portal key reproduction."
+          },
+          {
+            "trap": "2025 Q17 Portal Key Discrepancy (Reverse Supply Chain)",
+            "explanation": "In 2025 Q17, the reverse supply chain portal key accepted '(A) movement of products from suppliers to retailers'. Conceptually, reverse supply chain is the flow from customer back to seller/manufacturer (returns, recycling). In 2026 Q17, the question was replaced with the Richard Wilding competition quote."
+          },
+          {
+            "trap": "Standard Error Maximum at p = 0.5",
+            "explanation": "The term p*(1 - p) is a parabola with peak at p = 0.5 (0.5 * 0.5 = 0.25). Thus, the standard error of proportion reaches its theoretical maximum when p = 0.5."
+          },
+          {
+            "trap": "ASME Flow Process Symbols",
+            "explanation": "Circle: Operation. Square: Inspection. Arrow (->): Transportation. D-shape: Delay. Inverted Triangle (v): Storage."
+          },
+          {
+            "trap": "Supply Chain Management Origins",
+            "explanation": "The term 'Supply Chain Management' was coined in 1982 by Keith Oliver (consultant at Booz Allen Hamilton). Richard Wilding noted: 'Competition is becoming less between individual companies, and more between supply chains'."
+          }
+        ]
+      },
+      "years": {
+        "2025": [
+          {
+            "id": "W2-2025-Q1",
+            "year": "2025",
+            "conceptTag": "Process Chart Symbols Matching",
+            "question": "Match the symbols to their descriptions. Symbols: P = circle with \"3\", Q = square, R = inverted triangle (▽), S = arrow (⇨). Descriptions: 1 Putting cap, 2 Storage, 3 Inspection, 4 Transportation.",
+            "options": [
+              "P-1, Q-2, R-3, S-4",
+              "P-1, Q-3, R-2, S-4",
+              "P-1, Q-2, R-4, S-3",
+              "P-2, Q-1, R-3, S-4"
+            ],
+            "correctAnswer": 1,
+            "theory": "In standard ASME process charts:\n- Circle represents Operation (Putting cap $\\implies$ P-1)\n- Square represents Inspection (Q-3)\n- Inverted Triangle (▽) represents Storage (R-2)\n- Arrow (⇨) represents Transportation (S-4).",
+            "formula": "\\boxed{\\text{P-1 (Circle: Operation), Q-3 (Square: Inspection), R-2 (Triangle: Storage), S-4 (Arrow: Transport)}}",
+            "stepByStep": "Matching: P $\\to$ 1, Q $\\to$ 3, R $\\to$ 2, S $\\to$ 4 matches **Option B**.",
+            "shortcut": "P-1, Q-3, R-2, S-4.",
+            "examTrap": "Inverted triangle ▽ is Storage (R-2); Arrow ⇨ is Transportation (S-4)."
+          },
+          {
+            "id": "W2-2025-Q2",
+            "year": "2025",
+            "conceptTag": "Work Study Classification",
+            "question": "Which one of the following statements is TRUE?",
+            "options": [
+              "Work measurement comprises method study and time study.",
+              "Method study is a part of work measurement but time study is a part of motion study.",
+              "Motion study comprises method study and time study.",
+              "Method study is a motion study and time study is a part of work measurement."
+            ],
+            "correctAnswer": 3,
+            "theory": "Work study is composed of two pillars: (1) Method Study (also known as motion study, focusing on qualitative job analysis, motion economy, and optimizing task layout); (2) Work Measurement (consisting of time study, work sampling, and standard data systems, which quantifies the duration required by a qualified operator).",
+            "formula": "\\boxed{\\text{Method study = Motion study; Time study } \\subset \\text{Work measurement}}",
+            "stepByStep": "Method study is a motion study, and time study is a part of work measurement **(Option D)**.",
+            "shortcut": "Method study = Motion; Time study = Work measurement.",
+            "examTrap": "Work measurement does not comprise method study; it comprises time study."
+          },
+          {
+            "id": "W2-2025-Q3",
+            "year": "2025",
+            "conceptTag": "Work Sampling Upper Bound",
+            "question": "Out of 1000 observations, a worker was found working for 600 times. Some z-values: 90% → 1.645, 95% → 1.960, 99% → 2.576, 99.9% → 3.291. For 95% confidence level, the upper bound of the proportion of the time the worker works is",
+            "options": [
+              "0.61",
+              "0.62",
+              "0.63",
+              "0.64"
+            ],
+            "correctAnswer": 2,
+            "theory": "Sample proportion $\\bar{p} = \\frac{600}{1000} = 0.60$. Standard error $s_p = \\sqrt{\\frac{\\bar{p}(1-\\bar{p})}{n}} = \\sqrt{\\frac{0.60 \\times 0.40}{1000}} = \\sqrt{0.00024} \\approx 0.01549$. For 95% confidence, $z = 1.960$. Upper Bound $= \\bar{p} + z \\cdot s_p = 0.60 + 1.960(0.01549) = 0.60 + 0.03036 = 0.63036 \\approx 0.63$.",
+            "formula": "\\boxed{\\text{Upper Bound} = 0.60 + 1.960 \\sqrt{\\frac{0.60 \\times 0.40}{1000}} = 0.63036 \\approx 0.63}",
+            "stepByStep": "1. $\\bar{p} = 600 / 1000 = 0.60$.\n2. $s_p = \\sqrt{(0.60 \\times 0.40)/1000} = 0.01549$.\n3. Margin $= 1.960 \\times 0.01549 = 0.03036$.\n4. $\\text{Upper Bound} = 0.60 + 0.03036 = 0.63036 \\approx 0.63$ **(Option C)**.",
+            "shortcut": "0.60 + 0.03 = 0.63.",
+            "examTrap": "Remember to use z = 1.960 for 95% confidence."
+          },
+          {
+            "id": "W2-2025-Q4",
+            "year": "2025",
+            "conceptTag": "Standard Error Maximum Property",
+            "question": "Which statement is correct regarding standard error of proportion?",
+            "options": [
+              "Standard error is the maximum when proportion is 0.5.",
+              "Standard error is the maximum when proportion is 1.",
+              "Standard error is the maximum when proportion is 0.",
+              "Standard error is same for all values of proportion."
+            ],
+            "correctAnswer": 0,
+            "theory": "The standard error formula is $s_p = \\sqrt{\\frac{p(1-p)}{n}}$. The numerator $f(p) = p(1-p) = p - p^2$ is a downward-opening parabola whose derivative $f'(p) = 1 - 2p = 0$ yields a global maximum at $p = 0.5$, where $p(1-p) = 0.25$. At $p = 0$ or $p = 1$, the standard error equals zero.",
+            "formula": "\\boxed{\\frac{d}{dp}[p(1-p)] = 1 - 2p = 0 \\implies p = 0.5 \\text{ maximizes standard error}}",
+            "stepByStep": "Standard error is maximized when $p = 0.5$ **(Option A)**.",
+            "shortcut": "p = 0.5 maximizes standard error.",
+            "examTrap": "At p = 0 or p = 1 there is zero uncertainty (standard error is 0, not maximum)."
+          },
+          {
+            "id": "W2-2025-Q5",
+            "year": "2025",
+            "conceptTag": "Work Sampling Founder",
+            "question": "Work sampling was introduced by",
+            "options": [
+              "F.W. Taylor",
+              "Henry Ford",
+              "Walter A. Shewhart",
+              "L.H.C. Tippet"
+            ],
+            "correctAnswer": 3,
+            "theory": "L.H.C. Tippett developed work sampling in 1934 in the British textile industry to measure machine downtime and operative activity ratios using random instantaneous observations.",
+            "formula": "\\boxed{\\text{Work sampling was introduced by L.H.C. Tippet (1934)}}",
+            "stepByStep": "Work sampling was originated by **L.H.C. Tippet (Option D)**.",
+            "shortcut": "Work sampling = L.H.C. Tippet.",
+            "examTrap": "Taylor invented stopwatch time study; Tippett invented work sampling."
+          },
+          {
+            "id": "W2-2025-Q6",
+            "year": "2025",
+            "conceptTag": "Work Sampling Statistics Interpretation",
+            "question": "Consider the formulae for work sampling: p̄ = x/n = (number observed in classification)/(total number of observations), and s_p = √(p̄(1 − p̄)/n).",
+            "options": [
+              "p̄ is the mean and s_p is the standard deviation of a proportion",
+              "p̄ is the standard deviation and s_p is the mean of a proportion",
+              "p̄ is the standard error and s_p is the mean of a proportion",
+              "p̄ is the mean and s_p is thrice the standard deviation of a proportion"
+            ],
+            "correctAnswer": 0,
+            "theory": "In the sampling distribution of a proportion: $\\bar{p}$ is the sample mean proportion (point estimator of population proportion), and $s_p = \\sqrt{\\frac{\\bar{p}(1-\\bar{p})}{n}}$ represents the standard deviation (standard error) of that sample proportion.",
+            "formula": "\\boxed{\\bar{p} = \\text{Mean of proportion}, \\quad s_p = \\text{Standard deviation (standard error) of proportion}}",
+            "stepByStep": "$\\bar{p}$ is the mean and $s_p$ is the standard deviation of a proportion **(Option A)**.",
+            "shortcut": "p_bar = mean, s_p = standard deviation of proportion.",
+            "examTrap": "Do not confuse the symbols: p_bar is the average proportion, s_p is the standard error."
+          },
+          {
+            "id": "W2-2025-Q7",
+            "year": "2025",
+            "conceptTag": "Carpal Tunnel Syndrome Nerve",
+            "question": "When the median nerve in the wrist is compressed, it results in",
+            "options": [
+              "Carpal tunnel syndrome",
+              "back strain",
+              "eye strain",
+              "frozen shoulder"
+            ],
+            "correctAnswer": 0,
+            "theory": "Carpal Tunnel Syndrome (CTS) is a repetitive strain injury (RSI) caused by compression of the median nerve as it passes through the narrow carpal tunnel on the palmar aspect of the wrist, leading to numbness, tingling, and weakness in the thumb and radial fingers.",
+            "formula": "\\boxed{\\text{Compression of median nerve in wrist} \\iff \\text{Carpal Tunnel Syndrome}}",
+            "stepByStep": "Median nerve compression produces **Carpal tunnel syndrome (Option A)**.",
+            "shortcut": "Median nerve compression = Carpal tunnel syndrome.",
+            "examTrap": "The ulnar nerve affects the pinky finger; the median nerve causes carpal tunnel syndrome."
+          },
+          {
+            "id": "W2-2025-Q8",
+            "year": "2025",
+            "conceptTag": "Display Ergonomics Filter",
+            "question": "Which light filter is often used in smartphones?",
+            "options": [
+              "Red light filter",
+              "Yellow light filter",
+              "Blue light filter",
+              "Violet light filter"
+            ],
+            "correctAnswer": 2,
+            "theory": "Smartphones use blue light filters to mitigate eye fatigue and prevent circadian rhythm disruption caused by exposure to high-energy visible (HEV) blue wavelength light.",
+            "formula": "\\boxed{\\text{Smartphone display filter: Blue light filter}}",
+            "stepByStep": "Smartphones use **blue light filters (Option C)**.",
+            "shortcut": "Smartphone = Blue light filter.",
+            "examTrap": "Blue light filters warm the screen hue to reduce eye fatigue."
+          },
+          {
+            "id": "W2-2025-Q9",
+            "year": "2025",
+            "conceptTag": "Taiichi Ohno Inventory Quote",
+            "question": "The quote \"The more inventory a company has, the less likely they will have what they need\" is attributed to",
+            "options": [
+              "W.E. Deming",
+              "J.M. Juran",
+              "G. Taguchi",
+              "T. Ohno"
+            ],
+            "correctAnswer": 3,
+            "theory": "Taiichi Ohno, the father of the Toyota Production System (TPS) and pioneer of Just-In-Time (JIT), famously observed that excess inventory masks operational inefficiencies, quality defects, and machine breakdowns, stating: 'The more inventory a company has, the less likely they will have what they need.'",
+            "formula": "\\boxed{\\text{\"The more inventory... the less likely they will have what they need\"} \\iff \\text{Taiichi Ohno}}",
+            "stepByStep": "This famous lean inventory quote is by **T. Ohno (Option D)**.",
+            "shortcut": "Inventory quote = Taiichi Ohno.",
+            "examTrap": "Deming focused on management systems; Ohno targeted inventory as the mother of all wastes (muda)."
+          },
+          {
+            "id": "W2-2025-Q10",
+            "year": "2025",
+            "conceptTag": "Inventory Types",
+            "question": "Which one is NOT a common type of inventory?",
+            "options": [
+              "Maintenance/repair/operating supply (MRO)",
+              "Work-in-progress (WIP)",
+              "Finished goods",
+              "Capital equipment"
+            ],
+            "correctAnswer": 3,
+            "theory": "The standard classification of inventory includes: Raw materials, WIP, Finished goods, and MRO supplies. Capital equipment (plant, machinery) is a fixed asset subject to long-term depreciation, not an inventory holding.",
+            "formula": "\\boxed{\\text{Capital equipment is a fixed capital asset, NOT inventory}}",
+            "stepByStep": "Capital equipment is not an inventory item **(Option D)**.",
+            "shortcut": "Capital equipment = Fixed asset.",
+            "examTrap": "MRO supplies are operating inventory; machinery is capital equipment."
+          },
+          {
+            "id": "W2-2025-Q11",
+            "year": "2025",
+            "conceptTag": "EOQ Scaling",
+            "question": "The annual demand of an item is 5000 units. The basic EOQ model gives an economic order quantity of 450. If the demand increases to 10000 units, the economic order quantity is",
+            "options": [
+              "450",
+              "636",
+              "900",
+              "1800"
+            ],
+            "correctAnswer": 1,
+            "theory": "Since $\\text{EOQ} = \\sqrt{\\frac{2DS}{H}}$, EOQ is proportional to $\\sqrt{D}$. When demand increases from 5,000 to 10,000 (doubles), the new EOQ is: $\\text{EOQ}_2 = 450 \\times \\sqrt{\\frac{10000}{5000}} = 450 \\times \\sqrt{2} = 450 \\times 1.41421 = 636.39 \\approx 636\\text{ units}$.",
+            "formula": "\\boxed{Q_2^* = 450 \\times \\sqrt{2} = 636.39 \\approx 636\\text{ units}}",
+            "stepByStep": "1. Demand ratio $= 10000 / 5000 = 2$.\n2. Scaling factor $= \\sqrt{2} \\approx 1.4142$.\n3. New $\\text{EOQ} = 450 \\times 1.4142 = 636.39 \\approx 636\\text{ units}$ **(Option B)**.",
+            "shortcut": "450 \\times 1.414 = 636.",
+            "examTrap": "Do not double EOQ to 900; EOQ increases by $\\sqrt{2} \\approx 1.414$, not 2."
+          },
+          {
+            "id": "W2-2025-Q12",
+            "year": "2025",
+            "conceptTag": "EPQ Production Order Quantity",
+            "question": "A company produces a product at 500 units per day. Daily demand is 200 units. Setup cost per production run is ₹200 and holding cost per unit per year is ₹10. Assuming 300 working days in a year, the optimal production order quantity is",
+            "options": [
+              "447 units",
+              "600 units",
+              "1,095 units",
+              "2,000 units"
+            ],
+            "correctAnswer": 3,
+            "theory": "Production Order Quantity formula: $Q_p^* = \\sqrt{\\frac{2 D S}{H (1 - d/p)}}$. Annual demand $D = 200 \\times 300 = 60,000\\text{ units}$. Setup cost $S = ₹200$, Holding cost $H = ₹10$, Production rate $p = 500$, Demand rate $d = 200$.",
+            "formula": "\\boxed{Q_p^* = \\sqrt{\\frac{2 \\times 60000 \\times 200}{10 \\times (1 - 200/500)}} = \\sqrt{\\frac{24,000,000}{10 \\times 0.6}} = \\sqrt{4,000,000} = 2,000\\text{ units}}",
+            "stepByStep": "1. Annual demand $D = 200 \\times 300 = 60,000\\text{ units}$.\n2. $1 - d/p = 1 - 200/500 = 1 - 0.4 = 0.6$.\n3. Denominator $= 10 \\times 0.6 = 6$.\n4. Numerator $= 2 \\times 60000 \\times 200 = 24,000,000$.\n5. $Q_p^* = \\sqrt{24,000,000 / 6} = \\sqrt{4,000,000} = 2,000\\text{ units}$ **(Option D)**.",
+            "shortcut": "\\sqrt{24,000,000 / 6} = 2,000\\text{ units}.",
+            "examTrap": "Without the (1 - d/p) term, answer would be 1,549 units; incorporating 0.6 yields 2,000 units exactly."
+          },
+          {
+            "id": "W2-2025-Q13",
+            "year": "2025",
+            "conceptTag": "Quantity Discount Key Factor",
+            "question": "Which is a key factor in the quantity discount model?",
+            "options": [
+              "Constant demand",
+              "Uncertain lead times",
+              "Price breaks based on demand",
+              "Random demand"
+            ],
+            "correctAnswer": 2,
+            "theory": "The distinguishing feature of the quantity discount model is the price incentive schedule where unit purchase cost drops as order size increases (represented in the NPTEL portal key as 'Price breaks based on demand').",
+            "formula": "\\boxed{\\text{Quantity discount model: Price breaks based on demand (Option C)}}",
+            "stepByStep": "The key factor is **Price breaks based on demand (Option C)**.",
+            "shortcut": "Key factor = Price breaks.",
+            "examTrap": "Although technically price breaks are based on order quantity, the 2025 portal key text states 'Price breaks based on demand'."
+          },
+          {
+            "id": "W2-2025-Q14",
+            "year": "2025",
+            "conceptTag": "Quantity Discount Optimization (Portal Key Discrepancy)",
+            "question": "When using the quantity discount model, the optimal order quantity is determined by",
+            "options": [
+              "minimizing total holding cost",
+              "balancing holding, ordering, and price discount costs",
+              "maximizing price discount",
+              "minimizing ordering cost"
+            ],
+            "correctAnswer": 0,
+            "theory": "The official answer key accepted on the 2025 NPTEL portal is (A) 'minimizing total holding cost'. In standard operations theory (and in the 2026 solution key), optimal order quantity balances total holding, ordering, and material purchase costs. Always select Option A to match the 2025 portal key.",
+            "formula": "\\boxed{\\text{2025 NPTEL Portal Key: (A) minimizing total holding cost}}",
+            "stepByStep": "1. The 2025 NPTEL evaluation portal key accepted **(A) minimizing total holding cost**.\n2. In 2026, the question was corrected to (B) balancing holding, ordering, and price discount costs.\n3. For 2025 session practice, choose Option A.",
+            "shortcut": "2025 Portal Key = (A) minimizing total holding cost.",
+            "examTrap": "Portal Key Anomaly: The portal marked (A) as accepted in 2025, even though (B) is the theoretical textbook definition."
+          },
+          {
+            "id": "W2-2025-Q15",
+            "year": "2025",
+            "conceptTag": "Reorder Point with Safety Stock",
+            "question": "The lead time for getting an item is 15 days. Daily demand is 30 units. Safety stock is 50 units. The reorder point is",
+            "options": [
+              "30 units",
+              "400 units",
+              "450 units",
+              "500 units"
+            ],
+            "correctAnswer": 3,
+            "theory": "Reorder Point $\\text{ROP} = (d \\times L) + \\text{Safety Stock} = (30 \\times 15) + 50 = 450 + 50 = 500\\text{ units}$.",
+            "formula": "\\boxed{\\text{ROP} = (30 \\times 15) + 50 = 450 + 50 = 500\\text{ units}}",
+            "stepByStep": "1. Demand during lead time $= 30 \\times 15 = 450\\text{ units}$.\n2. Safety stock $= 50\\text{ units}$.\n3. $\\text{ROP} = 450 + 50 = 500\\text{ units}$ **(Option D)**.",
+            "shortcut": "450 + 50 = 500.",
+            "examTrap": "Do not omit safety stock (which gives 450 units, Option C); safety stock must be added."
+          },
+          {
+            "id": "W2-2025-Q16",
+            "year": "2025",
+            "conceptTag": "Newsvendor Shortage & Overage",
+            "question": "A newspaper seller sells 100 copies each day. He pays Rs. 5 for each paper and sells for Rs. 10. He gets Rs. 2 credit for each unsold paper. The costs of shortage and overage per unit are",
+            "options": [
+              "Rs. 5, Rs. 3",
+              "Rs. 3, Rs. 2",
+              "Rs. 7, Rs. 3",
+              "Rs. 7, Rs. 8"
+            ],
+            "correctAnswer": 0,
+            "theory": "Underage/Shortage Cost $C_u = \\text{Price} - \\text{Cost} = 10 - 5 = \\text{Rs. } 5$. Overage Cost $C_o = \\text{Cost} - \\text{Salvage} = 5 - 2 = \\text{Rs. } 3$.",
+            "formula": "\\boxed{C_u = 10 - 5 = \\text{Rs. } 5, \\quad C_o = 5 - 2 = \\text{Rs. } 3}",
+            "stepByStep": "1. Shortage cost $C_u = 10 - 5 = \\text{Rs. } 5$.\n2. Overage cost $C_o = 5 - 2 = \\text{Rs. } 3$.\n3. Respective costs are **Rs. 5, Rs. 3 (Option A)**.",
+            "shortcut": "Cu = 5, Co = 3.",
+            "examTrap": "Watch order: shortage first (Rs. 5), overage second (Rs. 3)."
+          },
+          {
+            "id": "W2-2025-Q17",
+            "year": "2025",
+            "conceptTag": "Reverse Supply Chain (Portal Key Discrepancy)",
+            "question": "The reverse supply chain deals with",
+            "options": [
+              "movement of products from suppliers to retailers",
+              "optimization of the flow of goods from customer to the seller",
+              "managing the entire supply chain",
+              "ensuring negative inventory"
+            ],
+            "correctAnswer": 0,
+            "theory": "The official answer key accepted on the 2025 NPTEL portal is (A) 'movement of products from suppliers to retailers'. In operations management literature, a reverse supply chain actually optimizes product returns, remanufacturing, and recycling from the end customer back to the seller/manufacturer (Option B). For 2025 portal key reproduction, choose Option A.",
+            "formula": "\\boxed{\\text{2025 NPTEL Portal Key: (A) movement of products from suppliers to retailers}}",
+            "stepByStep": "1. The 2025 NPTEL portal green answer key accepted **(A) movement of products from suppliers to retailers**.\n2. Conceptually, reverse logistics moves goods upstream from customers back to sellers (Option B).\n3. Keep Option A selected to mirror the 2025 exam portal scoring.",
+            "shortcut": "2025 Portal Key = (A) movement from suppliers to retailers.",
+            "examTrap": "Portal Key Anomaly: The portal marked (A) as accepted in 2025, even though (B) is the theoretical textbook definition."
+          },
+          {
+            "id": "W2-2025-Q18",
+            "year": "2025",
+            "conceptTag": "Internal Supply Chain Functions",
+            "question": "The key functions involved in an internal supply chain are",
+            "options": [
+              "marketing, sales, and distribution",
+              "procurement, operations, and logistics",
+              "production, warehousing, and customer service",
+              "financial management, human resource management"
+            ],
+            "correctAnswer": 1,
+            "theory": "An internal supply chain encompasses the primary operational activities within the enterprise boundaries that transform inputs into delivered outputs: (1) Procurement (sourcing raw materials), (2) Operations (internal manufacturing and transformation), and (3) Logistics (internal material handling and distribution).",
+            "formula": "\\boxed{\\text{Internal Supply Chain: Procurement, Operations, Logistics}}",
+            "stepByStep": "The three core internal functions are **procurement, operations, and logistics (Option B)**.",
+            "shortcut": "Internal SCM = Procurement, Operations, Logistics.",
+            "examTrap": "External supply chain deals with external tier-suppliers and final retail customers."
+          },
+          {
+            "id": "W2-2025-Q19",
+            "year": "2025",
+            "conceptTag": "Bullwhip Effect Definition",
+            "question": "A supply chain phenomenon where small fluctuations at the retail level cause progressively larger fluctuations at the wholesale, distributor, and manufacturer levels is called",
+            "options": [
+              "Muda effect",
+              "Mura effect",
+              "Muri effect",
+              "Bullwhip effect"
+            ],
+            "correctAnswer": 3,
+            "theory": "The Bullwhip Effect refers to the amplification of demand variability as one moves upstream from customer to tier suppliers. Causes include demand forecast updating, order batching, price fluctuations, and rationing/shortage gaming.",
+            "formula": "\\boxed{\\text{Upstream variance magnification} \\iff \\text{Bullwhip Effect}}",
+            "stepByStep": "This phenomenon is the **Bullwhip effect (Option D)**.",
+            "shortcut": "Demand amplification = Bullwhip effect.",
+            "examTrap": "Muda is waste; Mura is unevenness; Muri is overburden; Bullwhip is demand variance magnification."
+          },
+          {
+            "id": "W2-2025-Q20",
+            "year": "2025",
+            "conceptTag": "IoT Things Definition",
+            "question": "In Internet of Things, the term \"things\" refer to",
+            "options": [
+              "software only",
+              "any physical entity",
+              "a sensor",
+              "an entity embedded with sensor and software"
+            ],
+            "correctAnswer": 3,
+            "theory": "In the Internet of Things (IoT), 'things' are physical objects or entities embedded with sensors, processing ability, software, and communication technologies that connect and exchange data with other devices and systems over the internet.",
+            "formula": "\\boxed{\\text{\"Things\" in IoT} \\iff \\text{An entity embedded with sensor and software}}",
+            "stepByStep": "In IoT, 'things' are **entities embedded with sensor and software (Option D)**.",
+            "shortcut": "Things = Entity embedded with sensor and software.",
+            "examTrap": "A thing is neither software alone nor a bare sensor; it is an integrated physical entity with embedded sensors and software."
+          }
+        ],
+        "2026": [
+          {
+            "id": "W2-2026-Q1",
+            "year": "2026",
+            "conceptTag": "ASME Process Chart Symbols",
+            "question": "Match the symbols to their descriptions. Symbols: P = square, Q = circle with \"3\", R = arrow, S = inverted triangle. Descriptions: 1 Putting cap, 2 Storage, 3 Inspection, 4 Transportation.",
+            "options": [
+              "P-3, Q-2, R-1, S-4",
+              "P-1, Q-3, R-3, S-2",
+              "P-3, Q-1, R-4, S-2",
+              "P-2, Q-1, R-3, S-4"
+            ],
+            "correctAnswer": 2,
+            "theory": "Standard ASME Process Chart Symbols:\n- Square represents Inspection (P $\\to$ 3)\n- Circle represents Operation (Putting cap, Q $\\to$ 1)\n- Arrow represents Transportation (R $\\to$ 4)\n- Inverted Triangle represents Controlled Storage (S $\\to$ 2).",
+            "formula": "\\boxed{\\text{P-3 (Square: Inspection), Q-1 (Circle: Operation), R-4 (Arrow: Transport), S-2 (Triangle: Storage)}}",
+            "stepByStep": "Matching: P $\\to$ 3, Q $\\to$ 1, R $\\to$ 4, S $\\to$ 2 matches **Option C**.",
+            "shortcut": "Square = 3 (Inspection), Arrow = 4 (Transport) \\implies Option C.",
+            "examTrap": "Do not confuse inverted triangle (controlled storage) with delay (semi-circle D)."
+          },
+          {
+            "id": "W2-2026-Q2",
+            "year": "2026",
+            "conceptTag": "Work Study vs Method/Time Study (MSQ)",
+            "question": "Which of the following statements is/are TRUE? (multi-select)",
+            "options": [
+              "Work study comprises method study and time study.",
+              "Method study is a part of work measurement but time study is a part of motion study.",
+              "Motion study comprises method study and time study.",
+              "Method study is a motion study and time study is a part of work measurement."
+            ],
+            "correctAnswer": [
+              0,
+              3
+            ],
+            "theory": "Work study is the overarching discipline divided into two complementary techniques: (1) Method Study (also known as motion study, focusing on finding the better method of doing work and eliminating unnecessary motions); (2) Work Measurement (primarily comprising time study, work sampling, and PMTS, establishing the standard time required for a qualified worker). Statements A and D are correct.",
+            "formula": "\\boxed{\\text{Work Study} = \\text{Method Study (Motion Study)} + \\text{Work Measurement (Time Study)}}",
+            "stepByStep": "1. Statement A: True (standard British Standards / ILO definition of work study).\n2. Statement B: False (method study is not part of work measurement).\n3. Statement C: False (motion study does not comprise time study).\n4. Statement D: True (method study relates to motion study, time study is part of work measurement).\n5. Correct options: **(A, D)**.",
+            "shortcut": "Work Study = Method Study + Time Study (A, D).",
+            "examTrap": "Method study improves the method; work measurement (time study) establishes the time standard."
+          },
+          {
+            "id": "W2-2026-Q3",
+            "year": "2026",
+            "conceptTag": "Work Sampling Confidence Interval",
+            "question": "Out of 2000 observations, a worker was found working on 750 occasions. Some z-values: 90% → 1.645, 95% → 1.960, 99% → 2.576, 99.9% → 3.291. For 90% confidence level, the upper bound of the proportion of the time the worker works is",
+            "options": [
+              "0.375",
+              "0.357",
+              "0.392",
+              "0.385"
+            ],
+            "correctAnswer": 2,
+            "theory": "Sample proportion $\\bar{p} = \\frac{x}{n} = \\frac{750}{2000} = 0.375$. Standard error $s_p = \\sqrt{\\frac{\\bar{p}(1-\\bar{p})}{n}} = \\sqrt{\\frac{0.375 \\times 0.625}{2000}} = \\sqrt{0.0001171875} \\approx 0.010825$. For 90% confidence, $z = 1.645$. Upper Bound $= \\bar{p} + z \\cdot s_p = 0.375 + 1.645(0.010825) = 0.375 + 0.0178 = 0.3928 \\approx 0.392$.",
+            "formula": "\\boxed{\\text{Upper Bound} = 0.375 + 1.645 \\sqrt{\\frac{0.375 \\times 0.625}{2000}} = 0.3928 \\approx 0.392}",
+            "stepByStep": "1. $\\bar{p} = 750 / 2000 = 0.375$.\n2. $s_p = \\sqrt{(0.375 \\times 0.625) / 2000} = 0.010825$.\n3. Margin of error $= 1.645 \\times 0.010825 = 0.0178$.\n4. $\\text{Upper Bound} = 0.375 + 0.0178 = 0.3928 \\approx 0.392$ **(Option C)**.",
+            "shortcut": "0.375 + 0.0178 = 0.392.",
+            "examTrap": "Be sure to use z = 1.645 for 90% confidence, not 1.960 (which is for 95%)."
+          },
+          {
+            "id": "W2-2026-Q4",
+            "year": "2026",
+            "conceptTag": "Performance Rating & Standard Time",
+            "question": "Five students solve a question paper. Ratings: 1.5 (CPI 9–10), 0.6 (CPI 5–6), and linear in CPI between 6 and 9. With a 10% allowance on normal time, the average standard time is:<br><table class=\"q-table\"><thead><tr><th>Student</th><th>CPI</th><th>Time (min)</th></tr></thead><tbody><tr><td>Vedant</td><td>9.3</td><td>120</td></tr><tr><td>Payal</td><td>8.1</td><td>130</td></tr><tr><td>Mathews</td><td>7.8</td><td>140</td></tr><tr><td>Ajay</td><td>5.6</td><td>180</td></tr><tr><td>Mohsin</td><td>6.4</td><td>180</td></tr></tbody></table>",
+            "options": [
+              "147.42",
+              "150",
+              "162.16",
+              "118.18"
+            ],
+            "correctAnswer": 2,
+            "theory": "Linear rating equation for CPI $x \\in [6, 9]$: $\\text{Rating} = 0.6 + \\frac{1.5 - 0.6}{9 - 6}(x - 6) = 0.6 + 0.3(x - 6)$.\n- Vedant (CPI 9.3): Rating = 1.5 $\\implies \\text{NT} = 120 \\times 1.5 = 180$\n- Payal (CPI 8.1): Rating = $0.6 + 0.3(2.1) = 1.23 \\implies \\text{NT} = 130 \\times 1.23 = 159.9$\n- Mathews (CPI 7.8): Rating = $0.6 + 0.3(1.8) = 1.14 \\implies \\text{NT} = 140 \\times 1.14 = 159.6$\n- Ajay (CPI 5.6): Rating = 0.6 $\\implies \\text{NT} = 180 \\times 0.6 = 108$\n- Mohsin (CPI 6.4): Rating = $0.6 + 0.3(0.4) = 0.72 \\implies \\text{NT} = 180 \\times 0.72 = 129.6$\nAverage Normal Time $= (180 + 159.9 + 159.6 + 108 + 129.6) / 5 = 737.1 / 5 = 147.42\\text{ min}$.\nStandard Time with 10% allowance $= 147.42 \\times 1.10 = 162.162 \\approx 162.16\\text{ min}$.",
+            "formula": "\\boxed{\\text{Standard Time} = \\text{Normal Time} \\times 1.10 = 147.42 \\times 1.10 = 162.16\\text{ min}}",
+            "stepByStep": "1. Calculate ratings: 1.5, 1.23, 1.14, 0.6, 0.72.\n2. Normal times: 180, 159.9, 159.6, 108, 129.6 min.\n3. Average normal time $= 737.1 / 5 = 147.42\\text{ min}$.\n4. Standard time $= 147.42 \\times 1.10 = 162.16\\text{ min}$ **(Option C)**.",
+            "shortcut": "147.42 \\times 1.10 = 162.16.",
+            "examTrap": "Do not stop at 147.42 min (Option A); 147.42 is Normal Time. You must add the 10% allowance to get Standard Time."
+          },
+          {
+            "id": "W2-2026-Q5",
+            "year": "2026",
+            "conceptTag": "Pioneer of Work Sampling",
+            "question": "Work sampling was introduced by",
+            "options": [
+              "F.W. Taylor",
+              "Henry Ford",
+              "Walter A. Shewhart",
+              "L.H.C. Tippet"
+            ],
+            "correctAnswer": 3,
+            "theory": "Leonard Henry Caleb Tippett (L.H.C. Tippett), a British statistician at the Shirley Institute for cotton industry research, introduced 'snap reading' ratio-delay study in 1934, which became known worldwide as Work Sampling.",
+            "formula": "\\boxed{\\text{Work Sampling introduced by L.H.C. Tippett (1934)}}",
+            "stepByStep": "Work sampling was invented by **L.H.C. Tippet (Option D)**.",
+            "shortcut": "Work sampling = L.H.C. Tippet.",
+            "examTrap": "Taylor introduced Time Study; Gilbreths introduced Motion Study; Tippett introduced Work Sampling."
+          },
+          {
+            "id": "W2-2026-Q6",
+            "year": "2026",
+            "conceptTag": "Sample Proportion & Standard Error",
+            "question": "In a survey of 200 people, 60 preferred a new product. The sample proportion p̄ and its standard error s_p are",
+            "options": [
+              "0.30, 0.032",
+              "3.33, 0.046",
+              "3.33, 0.032",
+              "0.30, 0.046"
+            ],
+            "correctAnswer": 0,
+            "theory": "Sample proportion $\\bar{p} = \\frac{x}{n} = \\frac{60}{200} = 0.30$. Standard error of proportion $s_p = \\sqrt{\\frac{\\bar{p}(1-\\bar{p})}{n}} = \\sqrt{\\frac{0.30 \\times 0.70}{200}} = \\sqrt{\\frac{0.21}{200}} = \\sqrt{0.00105} \\approx 0.0324 \\approx 0.032$.",
+            "formula": "\\boxed{\\bar{p} = 0.30, \\quad s_p = \\sqrt{\\frac{0.30 \\times 0.70}{200}} = 0.0324 \\approx 0.032}",
+            "stepByStep": "1. $\\bar{p} = 60 / 200 = 0.30$.\n2. $s_p = \\sqrt{(0.30 \\times 0.70) / 200} = \\sqrt{0.00105} = 0.0324 \\approx 0.032$.\n3. Matches **0.30, 0.032 (Option A)**.",
+            "shortcut": "60/200 = 0.30; sp = sqrt(0.21/200) = 0.032.",
+            "examTrap": "Proportion is in [0, 1] (0.30), eliminating Options B and C (3.33)."
+          },
+          {
+            "id": "W2-2026-Q7",
+            "year": "2026",
+            "conceptTag": "Ergonomics Bad Practice",
+            "question": "Which is a bad practice in computer use from an ergonomics point of view?",
+            "options": [
+              "Positioning the monitor so that the top of the screen is at or slightly below eye level",
+              "Maintaining wrists in a neutral position while typing",
+              "Using a chair that supports the natural curve of the spine",
+              "Keeping the keyboard elevated above elbow level to improve visibility"
+            ],
+            "correctAnswer": 3,
+            "theory": "Sound ergonomics principles prescribe that elbows should rest at an open angle of 90°-100° with forearms parallel to the floor and keyboard at or slightly below elbow level. Elevating the keyboard above elbow level forces static contraction of shoulder and trapezius muscles and hyperextends the wrists, leading to musculoskeletal strain and carpal tunnel syndrome.",
+            "formula": "\\boxed{\\text{Bad Ergonomics: Keyboard elevated above elbow level}}",
+            "stepByStep": "Keeping keyboard elevated above elbow level induces severe shoulder/wrist strain **(Option D)**.",
+            "shortcut": "Elevated keyboard above elbow = Bad practice.",
+            "examTrap": "Keyboard should always be at or slightly below elbow height, never elevated."
+          },
+          {
+            "id": "W2-2026-Q8",
+            "year": "2026",
+            "conceptTag": "Smartphone Light Filter",
+            "question": "Which light filter is often used in smartphones?",
+            "options": [
+              "Red light filter",
+              "Yellow light filter",
+              "Blue light filter",
+              "Violet light filter"
+            ],
+            "correctAnswer": 2,
+            "theory": "Smartphones and computer displays utilize blue light filters (often marketed as Night Shift or Eye Comfort Shield) to suppress short-wavelength blue light (400-490 nm) that suppresses melatonin secretion and induces digital eye strain.",
+            "formula": "\\boxed{\\text{Smartphone display ergonomics: Blue light filter}}",
+            "stepByStep": "Smartphones incorporate **blue light filters (Option C)**.",
+            "shortcut": "Smartphone = Blue light filter.",
+            "examTrap": "The filter cuts out blue light (giving the screen a warm yellowish tint), but the filter itself is called a blue light filter."
+          },
+          {
+            "id": "W2-2026-Q9",
+            "year": "2026",
+            "conceptTag": "Inventory Functions (MSQ)",
+            "question": "Inventory is needed to (multi-select)",
+            "options": [
+              "provide a selection of goods for anticipated customer demand and to separate the firm from fluctuations in that demand",
+              "hedge against inflation and upward price changes",
+              "decouple various parts of the production process",
+              "take advantage of quantity discounts"
+            ],
+            "correctAnswer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "theory": "The four classic operational functions of inventory identified in operations management: (1) Anticipation inventory (buffer against demand fluctuations, Option A); (2) Speculative/hedge inventory (protection against inflation and raw material price spikes, Option B); (3) Decoupling inventory (buffers work-in-progress so breakdowns at one station do not halt the entire plant, Option C); (4) Cycle inventory (lot sizing to take advantage of supplier quantity discounts, Option D).",
+            "formula": "\\boxed{\\text{All four statements (A, B, C, D) are fundamental functions of holding inventory.}}",
+            "stepByStep": "1. Option A: True (decouples firm from customer demand shocks).\n2. Option B: True (hedges against inflation).\n3. Option C: True (decouples interdependent production stages).\n4. Option D: True (exploits volume quantity discounts).\n5. Correct options: **(A, B, C, D)**.",
+            "shortcut": "All four are classic textbook functions of inventory.",
+            "examTrap": "While modern JIT minimizes inventory, all four remain recognized functions in inventory theory."
+          },
+          {
+            "id": "W2-2026-Q10",
+            "year": "2026",
+            "conceptTag": "Types of Inventory Classification",
+            "question": "Which is not considered an inventory?",
+            "options": [
+              "Maintenance/repair/operating supply (MRO)",
+              "Work-in-progress (WIP)",
+              "Finished goods",
+              "Capital equipment"
+            ],
+            "correctAnswer": 3,
+            "theory": "Standard operating inventories include: (1) Raw materials, (2) Work-in-Progress (WIP), (3) Finished goods, and (4) MRO supplies (Maintenance, Repair, and Operating supplies). Capital equipment (machinery, factory buildings) consists of fixed capital assets depreciated over time, not inventory.",
+            "formula": "\\boxed{\\text{Capital Equipment} = \\text{Fixed Asset, NOT operating inventory}}",
+            "stepByStep": "Capital equipment is a fixed capital asset, not inventory **(Option D)**.",
+            "shortcut": "Capital equipment is not inventory.",
+            "examTrap": "MRO supplies ARE considered inventory; capital machinery is a fixed asset."
+          },
+          {
+            "id": "W2-2026-Q11",
+            "year": "2026",
+            "conceptTag": "EOQ Scaling with Demand",
+            "question": "The annual demand of an item is 7000 units. The basic EOQ is 450. If demand increases to 13000 units, the EOQ is",
+            "options": [
+              "836",
+              "936",
+              "900",
+              "614"
+            ],
+            "correctAnswer": 3,
+            "theory": "In the basic EOQ model: $Q^* = \\sqrt{\\frac{2DS}{H}} \\propto \\sqrt{D}$. Therefore, with constant ordering and holding costs: $\\frac{Q_2^*}{Q_1^*} = \\sqrt{\\frac{D_2}{D_1}} \\implies Q_2^* = Q_1^* \\sqrt{\\frac{D_2}{D_1}}$.",
+            "formula": "\\boxed{Q_2^* = 450 \\sqrt{\\frac{13000}{7000}} = 450 \\times \\sqrt{1.8571} = 450 \\times 1.36277 \\approx 613.25 \\approx 614}",
+            "stepByStep": "1. $D_1 = 7000$, $\\text{EOQ}_1 = 450$.\n2. $D_2 = 13000$.\n3. $\\text{Ratio} = \\sqrt{13000 / 7000} = \\sqrt{1.85714} = 1.36277$.\n4. $\\text{EOQ}_2 = 450 \\times 1.36277 = 613.25 \\approx 614\\text{ units}$ **(Option D)**.",
+            "shortcut": "450 \\times \\sqrt{13/7} = 614.",
+            "examTrap": "Do not scale linearly ($450 \\times 13/7 = 836$); EOQ scales with the square root of demand."
+          },
+          {
+            "id": "W2-2026-Q12",
+            "year": "2026",
+            "conceptTag": "Production Order Quantity (EPQ)",
+            "question": "A company produces at 400 units per day. Daily demand is 200 units. Setup cost is ₹150 per run and holding cost is ₹25 per unit per year. Assuming 280 working days per year, the optimal production order quantity is",
+            "options": [
+              "1300 units",
+              "600 units",
+              "820 units",
+              "1160 units"
+            ],
+            "correctAnswer": 3,
+            "theory": "The Production Order Quantity (EPQ) model accounts for finite production rate $p$ and daily demand $d$: $Q_p^* = \\sqrt{\\frac{2 D S}{H (1 - d/p)}}$. Annual demand $D = 200 \\times 280 = 56,000\\text{ units}$.",
+            "formula": "\\boxed{Q_p^* = \\sqrt{\\frac{2 \\times 56000 \\times 150}{25 \\times (1 - 200/400)}} = \\sqrt{\\frac{16,800,000}{12.5}} = \\sqrt{1,344,000} \\approx 1159.3 \\approx 1160}",
+            "stepByStep": "1. Annual demand $D = 200 \\times 280 = 56,000\\text{ units}$.\n2. Setup cost $S = ₹150$, Holding cost $H = ₹25$.\n3. $1 - d/p = 1 - 200/400 = 1 - 0.5 = 0.5$.\n4. Denominator $= 25 \\times 0.5 = 12.5$.\n5. Numerator $= 2 \\times 56000 \\times 150 = 16,800,000$.\n6. $Q_p^* = \\sqrt{16,800,000 / 12.5} = \\sqrt{1,344,000} \\approx 1159.3 \\approx 1160\\text{ units}$ **(Option D)**.",
+            "shortcut": "\\sqrt{\\frac{2 \\times 56000 \\times 150}{12.5}} = 1160.",
+            "examTrap": "Remember the $(1 - d/p)$ factor in the denominator; neglecting it yields standard EOQ = 820 units."
+          },
+          {
+            "id": "W2-2026-Q13",
+            "year": "2026",
+            "conceptTag": "Quantity Discount Key Factor",
+            "question": "Which is the key factor in the quantity discount model?",
+            "options": [
+              "Constant demand",
+              "Uncertain lead times",
+              "Price breaks based on quantity",
+              "Random demand"
+            ],
+            "correctAnswer": 2,
+            "theory": "The defining characteristic of the quantity discount model is a stepped purchasing cost schedule offering price breaks (discounted unit price $P$) when order quantity exceeds specified threshold volumes.",
+            "formula": "\\boxed{\\text{Quantity Discount Model} \\iff \\text{Price breaks based on quantity}}",
+            "stepByStep": "The key factor is **price breaks based on quantity (Option C)**.",
+            "shortcut": "Quantity discount = Price breaks based on quantity.",
+            "examTrap": "In 2025 Q13, the option was phrased 'Price breaks based on demand', but the proper industrial concept is price breaks based on order quantity."
+          },
+          {
+            "id": "W2-2026-Q14",
+            "year": "2026",
+            "conceptTag": "Quantity Discount Optimization Criterion",
+            "question": "When using the quantity discount model, the optimal order quantity is determined by",
+            "options": [
+              "minimizing total holding cost",
+              "balancing holding, ordering, and price discount costs",
+              "maximizing price discount",
+              "minimizing ordering cost"
+            ],
+            "correctAnswer": 1,
+            "theory": "In quantity discount models, the optimal order quantity minimizes the total annual inventory cost, which balances three trade-offs: total ordering cost, total inventory holding cost, and total purchase/material cost (incorporating price discounts): $\\text{TC}(Q) = \\frac{D}{Q}S + \\frac{Q}{2}H + P \\cdot D$.",
+            "formula": "\\boxed{\\text{Optimal Quantity} \\iff \\text{Balancing holding, ordering, and price discount costs}}",
+            "stepByStep": "Optimization requires **balancing holding, ordering, and price discount costs (Option B)**.",
+            "shortcut": "Balance holding + ordering + price discount.",
+            "examTrap": "Contrast with 2025 Q14, where the portal key mistakenly accepted '(A) minimizing total holding cost'. In 2026, Option B is the correct key."
+          },
+          {
+            "id": "W2-2026-Q15",
+            "year": "2026",
+            "conceptTag": "Reorder Point Calculation",
+            "question": "The lead time for getting an item is 12 days. Daily demand is 24 units. Safety stock is 40 units. The reorder point is",
+            "options": [
+              "14 units",
+              "972 units",
+              "504 units",
+              "328 units"
+            ],
+            "correctAnswer": 3,
+            "theory": "The Reorder Point (ROP) with safety stock is: $\\text{ROP} = (d \\times L) + \\text{Safety Stock}$, where $d$ is daily demand and $L$ is lead time in days.",
+            "formula": "\\boxed{\\text{ROP} = (24 \\times 12) + 40 = 288 + 40 = 328\\text{ units}}",
+            "stepByStep": "1. Lead time demand $= 24 \\times 12 = 288\\text{ units}$.\n2. Safety stock $= 40\\text{ units}$.\n3. $\\text{ROP} = 288 + 40 = 328\\text{ units}$ **(Option D)**.",
+            "shortcut": "24 \\times 12 + 40 = 328.",
+            "examTrap": "Do not subtract safety stock; safety stock is added as a buffer."
+          },
+          {
+            "id": "W2-2026-Q16",
+            "year": "2026",
+            "conceptTag": "Newsvendor Cost of Shortage and Overage",
+            "question": "A newspaper seller sells 500 copies each day. He pays Rs. 7 per paper and sells for Rs. 10. He gets Rs. 2 credit per unsold paper. The respective costs of shortage and overage per unit are",
+            "options": [
+              "Rs. 3, Rs. 7",
+              "Rs. 3, Rs. 2",
+              "Rs. 3, Rs. 5",
+              "Rs. 7, Rs. 5"
+            ],
+            "correctAnswer": 2,
+            "theory": "In single-period newsvendor analysis:\n- Cost of shortage/underage ($C_u$): Unrealized profit per unit lost when demand exceeds stock: $C_u = p - c = 10 - 7 = \\text{Rs. } 3$.\n- Cost of overage ($C_o$): Loss per unsold unit when stock exceeds demand: $C_o = c - s = 7 - 2 = \\text{Rs. } 5$.",
+            "formula": "\\boxed{C_u = 10 - 7 = \\text{Rs. } 3, \\quad C_o = 7 - 2 = \\text{Rs. } 5}",
+            "stepByStep": "1. Shortage cost $C_u = 10 - 7 = \\text{Rs. } 3$.\n2. Overage cost $C_o = 7 - 2 = \\text{Rs. } 5$.\n3. Respective costs are **Rs. 3, Rs. 5 (Option C)**.",
+            "shortcut": "Cu = 10 - 7 = 3; Co = 7 - 2 = 5.",
+            "examTrap": "Notice the order requested: shortage first (Rs. 3), then overage (Rs. 5). Eliminates Option A."
+          },
+          {
+            "id": "W2-2026-Q17",
+            "year": "2026",
+            "conceptTag": "Supply Chain Competition Quote",
+            "question": "The quote \"Competition is becoming less between individual companies, and more between the supply chains they are part of\" is attributed to",
+            "options": [
+              "Richard Wilding",
+              "J.M. Juran",
+              "G. Taguchi",
+              "T. Ohno"
+            ],
+            "correctAnswer": 0,
+            "theory": "Professor Richard Wilding OBE, leading British supply chain authority at Cranfield University, famously stated: 'Companies do not compete, supply chains compete.' Modern competitive advantage is determined by supply chain velocity and alignment.",
+            "formula": "\\boxed{\\text{\"Supply chains compete, not companies\"} \\iff \\text{Richard Wilding}}",
+            "stepByStep": "This quote is authored by **Richard Wilding (Option A)**.",
+            "shortcut": "Supply chain competition quote = Richard Wilding.",
+            "examTrap": "Taiichi Ohno created Toyota JIT/TPS; Richard Wilding authored this supply chain quote."
+          },
+          {
+            "id": "W2-2026-Q18",
+            "year": "2026",
+            "conceptTag": "SCM Term Coined Date",
+            "question": "When was the term \"Supply Chain Management\" first used?",
+            "options": [
+              "1982",
+              "1978",
+              "1988",
+              "1992"
+            ],
+            "correctAnswer": 0,
+            "theory": "The term 'Supply Chain Management' (SCM) was originally coined and introduced into business literature in 1982 by Keith Oliver, a British logistics consultant at Booz Allen Hamilton, in an interview for the Financial Times.",
+            "formula": "\\boxed{\\text{Term SCM coined in 1982 (Keith Oliver)}}",
+            "stepByStep": "SCM was first coined in **1982 (Option A)**.",
+            "shortcut": "Term SCM = 1982.",
+            "examTrap": "Do not confuse with MRP (1960s) or ERP (1990s); SCM was coined in 1982."
+          },
+          {
+            "id": "W2-2026-Q19",
+            "year": "2026",
+            "conceptTag": "Bullwhip Effect",
+            "question": "The supply chain phenomenon where small demand fluctuations at retail cause progressively larger fluctuations upstream is called",
+            "options": [
+              "Muda effect",
+              "Mura effect",
+              "Muri effect",
+              "Bullwhip effect"
+            ],
+            "correctAnswer": 3,
+            "theory": "The Bullwhip Effect describes the distortion and magnification of demand variability as information moves up the supply chain from consumer to retailer, distributor, manufacturer, and tier-1 supplier. Coined by Procter & Gamble researchers observing Pampers diaper sales.",
+            "formula": "\\boxed{\\text{Demand variance amplification upstream} \\iff \\text{Bullwhip Effect}}",
+            "stepByStep": "Progressive upstream amplification of demand variance is the **Bullwhip effect (Option D)**.",
+            "shortcut": "Upstream demand distortion = Bullwhip effect.",
+            "examTrap": "Muda, Mura, Muri are Japanese lean terms for waste, unevenness, and overburden, not demand amplification."
+          },
+          {
+            "id": "W2-2026-Q20",
+            "year": "2026",
+            "conceptTag": "MRP vs MRP-II (MSQ)",
+            "question": "Which statements are true in comparing MRP and MRP-II? (multi-select)",
+            "options": [
+              "MRP focuses on material planning, whereas MRP-II focuses on comprehensive resource planning.",
+              "MRP confines to production needs, whereas MRP-II includes financial and human resource (HR) aspects.",
+              "MRP can be a standalone system, whereas MRP-II is integrated with ERP systems.",
+              "MRP can have real-time feedback, whereas MRP-II has no real-time adjustments."
+            ],
+            "correctAnswer": [
+              0,
+              1,
+              2
+            ],
+            "theory": "Evolution of manufacturing planning: (1) Material Requirements Planning (MRP) focuses strictly on calculating net requirements of component materials and scheduling purchase/shop orders (A is true); (2) Manufacturing Resource Planning (MRP-II) expands closed-loop MRP to integrate master scheduling, shop-floor control, capacity planning, cost accounting, and HR (B is true); (3) MRP functions as a standalone modular program while MRP-II served as the foundational direct precursor integrated into modern Enterprise Resource Planning (ERP) systems (C is true). Statement D is false because closed-loop feedback and capacity adjustments are hallmarks of MRP-II, not basic MRP.",
+            "formula": "\\boxed{\\text{Statements A, B, and C are correct; D is false.}}",
+            "stepByStep": "1. Statement A: True (material planning vs total enterprise resource planning).\n2. Statement B: True (MRP-II adds financial/HR modeling).\n3. Statement C: True (MRP-II architecture forms the core of modern ERP).\n4. Statement D: False (MRP-II possesses extensive feedback mechanisms).\n5. Correct options: **(A, B, C)**.",
+            "shortcut": "A, B, C accurately contrast MRP and MRP-II.",
+            "examTrap": "MRP-II is known as 'closed-loop' because it incorporates real-time operational feedback."
+          }
+        ]
+      }
+    },
+
+    // Placeholders for Week 1
+    ...[1].map(wNum => ({
       number: wNum,
       title: getWeekTopicTitle(wNum),
       status: "upcoming",
