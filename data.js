@@ -3229,8 +3229,795 @@ const IEOR_DATA = {
       }
     },
 
-    // Placeholders for Weeks 8 down to 1
-    ...[8, 7, 6, 5, 4, 3, 2, 1].map(wNum => ({
+    // Week 8: Linear Programming: Dual Problem & Sensitivity Analysis (Active)
+    {
+      "number": 8,
+      "title": "Linear Programming: Dual Problem & Sensitivity Analysis",
+      "status": "active",
+      "summary": "Primal-dual relationships, symmetric and asymmetric dual formulation, weak and strong duality theorems, complementary slackness, shadow prices (dual variables and Lagrange multipliers), reduced costs, constraint tightness, sensitivity analysis, and integer programming relaxations.",
+      "studyMaterials": {
+        "quickOverview": "Week 8 covers Linear Programming Duality and Sensitivity Analysis: constructing dual problems from primal LPs (transposing constraint matrix, swapping objective coefficients and RHS), interpreting dual variables as shadow prices (marginal worth / imputed cost of resources), Strong Duality Theorem ($Z_{\\text{primal}}^* = W_{\\text{dual}}^*$), Complementary Slackness, sensitivity analysis via Lagrange multipliers ($\\Delta Z = \\lambda \\cdot \\Delta b$), and the effect of adding/relaxing integer constraints.",
+        "formulaSheet": [
+          {
+            "name": "Primal-Dual Canonical Transformation",
+            "formula": "\\text{Primal: } \\max \\mathbf{c}^T \\mathbf{x} \\text{ s.t. } \\mathbf{A}\\mathbf{x} \\le \\mathbf{b}, \\mathbf{x} \\ge \\mathbf{0} \\iff \\text{Dual: } \\min \\mathbf{b}^T \\mathbf{y} \\text{ s.t. } \\mathbf{A}^T \\mathbf{y} \\ge \\mathbf{c}, \\mathbf{y} \\ge \\mathbf{0}",
+            "units": "Variables: m constraints ↔ m dual vars; n vars ↔ n dual constraints",
+            "desc": "Each constraint in primal corresponds to a dual variable; each primal variable corresponds to a dual constraint. Equality constraints yield unrestricted dual variables."
+          },
+          {
+            "name": "Weak and Strong Duality Theorems",
+            "formula": "\\mathbf{c}^T \\mathbf{x} \\le \\mathbf{b}^T \\mathbf{y} \\quad (\\text{Weak Duality}); \\quad \\mathbf{c}^T \\mathbf{x}^* = \\mathbf{b}^T \\mathbf{y}^* \\quad (\\text{Strong Duality})",
+            "units": "Objective value units (₹ / profit / cost)",
+            "desc": "Any feasible primal solution gives a lower bound to any feasible dual solution. At optimality, their objective values are strictly equal."
+          },
+          {
+            "name": "Shadow Price / Marginal Value (Lagrange Multiplier)",
+            "formula": "\\Delta Z = \\lambda \\cdot \\Delta b = y_i^* \\cdot \\Delta b_i = \\frac{\\partial Z^*}{\\partial b_i}",
+            "units": "₹ / unit change in resource RHS",
+            "desc": "The dual variable y_i* (or Lagrange multiplier λ) represents the rate of improvement in optimal objective Z per unit increase in RHS capacity b_i."
+          },
+          {
+            "name": "Reduced Cost (Opportunity Cost)",
+            "formula": "\\bar{c}_j = c_j - \\sum_{i=1}^m a_{ij} y_i \\quad (\\text{or } \\sum_{i=1}^m a_{ij} y_i - c_j)",
+            "units": "₹ / unit of product",
+            "desc": "The net difference between unit revenue c_j and imputed resource cost. For non-basic variables, reduced cost indicates how much c_j must increase before x_j becomes attractive to produce."
+          },
+          {
+            "name": "Complementary Slackness Theorem",
+            "formula": "x_j^* \\cdot \\left(\\sum_{i=1}^m a_{ij} y_i^* - c_j\\right) = 0, \\quad y_i^* \\cdot \\left(b_i - \\sum_{j=1}^n a_{ij} x_j^*\\right) = 0",
+            "units": "Slack / Dual condition",
+            "desc": "If a primal constraint is non-binding (has positive slack), its dual variable is zero. If a primal variable is positive, its dual constraint is satisfied as a strict equality."
+          }
+        ],
+        "examTraps": [
+          {
+            "trap": "Infeasible Primal Dual Outcome Trap",
+            "explanation": "If the primal is infeasible, the dual is EITHER unbounded OR infeasible. On NPTEL exams, when asked for the specific outcome among options, the accepted key is typically 'has unbounded objective'."
+          },
+          {
+            "trap": "Equality Constraint Dual Variable Trap",
+            "explanation": "An equality constraint in the primal ($= b_i$) produces an UNRESTRICTED in sign (URS) dual variable ($y_i \\gtrless 0$), NOT a non-negative variable."
+          },
+          {
+            "trap": "Integer Restriction vs Relaxation Direction",
+            "explanation": "Adding an integer constraint shrinks the feasible space $\\implies Z_{\\text{integer}} \\le Z_{\\text{continuous}}$. Relaxing an integer constraint expands feasible space $\\implies Z_{\\text{continuous}} \\ge Z_{\\text{integer}}$."
+          },
+          {
+            "trap": "Tightest Constraint Rule",
+            "explanation": "For '$\\ge$' constraints, the one with the LARGEST right-hand side is the tightest (most restrictive). For '$\\le$' constraints, the one with the SMALLEST right-hand side is the tightest."
+          }
+        ]
+      },
+      "years": {
+        "2025": [
+          {
+            "id": "W8-2025-Q1",
+            "year": "2025",
+            "conceptTag": "Primal-Dual Dimensions",
+            "question": "If a primal LP has 15 decision variables and 10 constraints, then its dual will have",
+            "options": [
+              "15 decision variables and 10 constraints",
+              "10 decision variables and 15 constraints",
+              "15 decision variables and 15 constraints",
+              "10 decision variables and 10 constraints"
+            ],
+            "correctAnswer": 1,
+            "theory": "In linear programming duality, the constraint matrix is transposed. Therefore, an LP with $m$ constraints and $n$ variables has a dual with $n$ constraints and $m$ variables.",
+            "formula": "\\boxed{n_{\\text{dual}} = m_{\\text{primal}} = 10, \\quad m_{\\text{dual}} = n_{\\text{primal}} = 15}",
+            "stepByStep": "1. Primal constraints $m = 10 \\implies$ Dual variables $= 10$.\n2. Primal variables $n = 15 \\implies$ Dual constraints $= 15$.\n3. Dual has 10 decision variables and 15 constraints **(Option B)**.",
+            "shortcut": "15 vars, 10 constraints $\\to$ 10 vars, 15 constraints.",
+            "examTrap": "Variables and constraints swap roles; do not keep them the same."
+          },
+          {
+            "id": "W8-2025-Q2",
+            "year": "2025",
+            "conceptTag": "Dual Formation of Max LP",
+            "question": "Primal: Maximize 2x₁ + 5x₂ s.t. x₁ + 3x₂ ≤ 40, 3x₁ + x₂ ≤ 24, x₁ + x₂ ≤ 10, x₁, x₂ ≥ 0. Its dual is:",
+            "options": [
+              "Minimize z = 40y₁ + 24y₂ + 10y₃ s.t. y₁ + 3y₂ + 2y₃ ≥ 2, 3y₁ + y₂ + y₃ ≥ 5, y₁, y₂, y₃ ≥ 0",
+              "Minimize z = 40y₁ + 24y₂ + 10y₃ s.t. y₁ + y₂ + y₃ ≥ 2, 3y₁ + y₂ + 3y₃ ≥ 5, y₁, y₂, y₃ ≥ 0",
+              "Maximize z = 40y₁ + 24y₂ + 10y₃ s.t. y₁ + 3y₂ + y₃ ≥ 2, 3y₁ + y₂ + y₃ ≥ 5, y₁, y₂, y₃ ≥ 0",
+              "Minimize z = 40y₁ + 24y₂ + 10y₃ s.t. y₁ + 3y₂ + y₃ ≥ 2, 3y₁ + y₂ + y₃ ≥ 5, y₁, y₂, y₃ ≥ 0"
+            ],
+            "correctAnswer": 3,
+            "theory": "For a canonical Maximize problem with $\\le$ constraints, the dual is a Minimize problem with $\\ge$ constraints. The dual objective coefficients are the primal RHS ($40, 24, 10$), and the dual constraints are formed by columns of the primal constraint matrix.",
+            "formula": "\\boxed{\\text{Dual: } \\min 40y_1 + 24y_2 + 10y_3 \\text{ s.t. } y_1 + 3y_2 + y_3 \\ge 2, 3y_1 + y_2 + y_3 \\ge 5}",
+            "stepByStep": "1. Dual objective: $\\min z = 40y_1 + 24y_2 + 10y_3$.\n2. $x_1$ column: $1y_1 + 3y_2 + 1y_3 \\ge 2$.\n3. $x_2$ column: $3y_1 + 1y_2 + 1y_3 \\ge 5$.\n4. Non-negativity: $y_1, y_2, y_3 \\ge 0$.\n5. Matches **Option D**.",
+            "shortcut": "Dual objective coefficients are RHS (40, 24, 10), and constraints are $\\ge (2, 5)$.",
+            "examTrap": "Notice Option C has 'Maximize', which is incorrect. The dual of Maximize is Minimize."
+          },
+          {
+            "id": "W8-2025-Q3",
+            "year": "2025",
+            "conceptTag": "Equality Constraint Dual Variable",
+            "question": "Primal: Minimize z = x₁ + 3x₂ subject to x₁ + x₂ = 4, x₁, x₂ ≥ 0. Its dual has",
+            "options": [
+              "one unrestricted decision variable",
+              "one non-negative decision variable",
+              "two unrestricted decision variables",
+              "two non-negative decision variables"
+            ],
+            "correctAnswer": 0,
+            "theory": "In LP duality, an equality constraint in the primal ($=$) produces an unrestricted in sign (URS) variable in the dual. Since there is 1 equality constraint, the dual has 1 unrestricted decision variable.",
+            "formula": "\\boxed{\\text{Primal constraint is '=' } \\iff \\text{Dual variable is unrestricted in sign (URS)}}",
+            "stepByStep": "1. The primal has 1 constraint, so the dual has 1 variable.\n2. Because the constraint is an equality ($x_1 + x_2 = 4$), the corresponding dual variable is unrestricted in sign **(Option A)**.",
+            "shortcut": "1 equality constraint $\\implies$ 1 unrestricted decision variable.",
+            "examTrap": "Do not say 'non-negative'; only inequality constraints produce non-negative dual variables."
+          },
+          {
+            "id": "W8-2025-Q4",
+            "year": "2025",
+            "conceptTag": "Primal-Dual Relationships",
+            "question": "Which statement is TRUE about a primal LP and its dual?",
+            "options": [
+              "The dual of a minimization problem is always another minimization problem.",
+              "If the primal has an unbounded solution, then the dual has a feasible optimal solution.",
+              "The number of constraints in the primal becomes the number of variables in the dual.",
+              "The optimal values of the primal and dual are always different."
+            ],
+            "correctAnswer": 2,
+            "theory": "Each constraint in the primal generates a variable in the dual problem. The dual of minimization is maximization, and by Strong Duality, optimal objective values are identical.",
+            "formula": "\\boxed{m_{\\text{primal}} = n_{\\text{dual}}}",
+            "stepByStep": "Evaluating options:\n- A is false (dual of min is max).\n- B is false (unbounded primal $\\implies$ infeasible dual).\n- C is TRUE: number of primal constraints equals number of dual variables **(Option C)**.\n- D is false (optimal values are equal).",
+            "shortcut": "Number of constraints in primal = number of variables in dual.",
+            "examTrap": "If primal is unbounded, dual is INFEASIBLE, never optimal."
+          },
+          {
+            "id": "W8-2025-Q5",
+            "year": "2025",
+            "conceptTag": "Strong Duality Property",
+            "question": "Which is always true for a feasible primal-dual pair?",
+            "options": [
+              "The objective values of primal and dual are always equal.",
+              "If both primal and dual have feasible solutions, then both have optimal solutions and their objective values are equal.",
+              "If the primal has multiple solutions, the dual must be unbounded.",
+              "If the dual has a unique solution, the primal must be infeasible."
+            ],
+            "correctAnswer": 1,
+            "theory": "The Strong Duality Theorem states that if both the primal and dual problems have feasible solutions, both possess optimal solutions and their optimal values are equal ($Z^* = W^*$).",
+            "formula": "\\boxed{\\text{Both Feasible} \\implies \\text{Both have optimal solutions with } Z^* = W^*}",
+            "stepByStep": "By Weak Duality, a feasible dual provides a bound on the primal objective, and vice versa. Hence, both must reach finite optimal solutions with matching optimal objective values **(Option B)**.",
+            "shortcut": "Both feasible $\\implies$ Both optimal and $Z^* = W^*$.",
+            "examTrap": "Objective values are not equal for all feasible solutions, only at optimality."
+          },
+          {
+            "id": "W8-2025-Q6",
+            "year": "2025",
+            "conceptTag": "Objective and Constraint Dual Mapping",
+            "question": "The objective coefficient of variable j in one problem is equal to",
+            "options": [
+              "left-hand side minus right-hand side of constraint j in the other problem",
+              "objective coefficient of variable j in the other problem",
+              "right-hand side minus left-hand side of constraint j in the other problem",
+              "objective coefficient of variable (n − j) in the other problem"
+            ],
+            "correctAnswer": 0,
+            "theory": "In standard duality definitions and complementary slackness equations, the objective coefficient of variable $j$ maps to the boundary value of constraint $j$ in the dual. On the official NPTEL portal, the accepted answer key is designated as Option A.",
+            "formula": "\\boxed{c_j \\leftrightarrow \\text{RHS of constraint } j \\text{ in the dual problem}}",
+            "stepByStep": "The portal marks **Option A** ('left-hand side minus right-hand side of constraint j in the other problem') as the accepted answer.",
+            "shortcut": "Select Option A as keyed by NPTEL.",
+            "examTrap": "This is a direct NPTEL portal verbatim question; remember key is Option A."
+          },
+          {
+            "id": "W8-2025-Q7",
+            "year": "2025",
+            "conceptTag": "Infeasible Primal Dual Outcome",
+            "question": "If the primal LP is infeasible, then the dual problem",
+            "options": [
+              "is also infeasible",
+              "is feasible with a finite value of objective",
+              "has unbounded objective",
+              "has multiple finite values of objective"
+            ],
+            "correctAnswer": 2,
+            "theory": "When a primal LP has no feasible solution, its dual is either infeasible or has an unbounded objective. On the NPTEL portal exam, 'has unbounded objective' is the accepted correct choice.",
+            "formula": "\\boxed{\\text{Primal Infeasible} \\implies \\text{Dual Unbounded (Option C)}}",
+            "stepByStep": "By duality theorems, infeasibility in the primal typically corresponds to an unbounded dual objective **(Option C)**.",
+            "shortcut": "Primal infeasible $\\implies$ Dual has unbounded objective.",
+            "examTrap": "Dual cannot have a finite optimal objective if primal is infeasible."
+          },
+          {
+            "id": "W8-2025-Q8",
+            "year": "2025",
+            "conceptTag": "Non-Redundant Dual Constraint",
+            "question": "Maximize z = 50x₁ + 40x₂ + 30x₃ + 25x₄ + 20x₅ + 10x₆ subject to 5x₁ + 4x₂ + x₃ + x₄ + x₅ + 2x₆ ≤ 10, all xᵢ ≥ 0. The dual has y as its decision variable. The non-redundant constraint in the dual is",
+            "options": [
+              "y ≥ 10",
+              "y ≥ 30",
+              "y = 30",
+              "y ≥ 0"
+            ],
+            "correctAnswer": 1,
+            "theory": "Each primal variable gives a dual constraint $a_j y \\ge c_j \\iff y \\ge c_j / a_j$. The constraint with the maximum ratio $c_j / a_j$ dominates all others and is the single non-redundant constraint.",
+            "formula": "\\boxed{y \\ge \\max_j \\left(\\frac{c_j}{a_j}\\right)}",
+            "stepByStep": "1. $x_1$: $5y \\ge 50 \\implies y \\ge 10$\n2. $x_2$: $4y \\ge 40 \\implies y \\ge 10$\n3. $x_3$: $1y \\ge 30 \\implies y \\ge 30$\n4. $x_4$: $1y \\ge 25 \\implies y \\ge 25$\n5. $x_5$: $1y \\ge 20 \\implies y \\ge 20$\n6. $x_6$: $2y \\ge 10 \\implies y \\ge 5$\n7. The maximum lower bound is 30. If $y \\ge 30$, all other constraints are satisfied. Thus, **y ≥ 30 (Option B)** is the non-redundant constraint.",
+            "shortcut": "Max ratio is $30/1 = 30 \\implies y \\ge 30$.",
+            "examTrap": "Do not pick $y \\ge 10$ ($50/5$ or $40/4$); $y \\ge 30$ is strictly tighter."
+          },
+          {
+            "id": "W8-2025-Q9",
+            "year": "2025",
+            "conceptTag": "Standard LP Form Variable Count",
+            "question": "Maximize z = Σⱼ cⱼxⱼ s.t. Σⱼ aᵢⱼxⱼ ≤ bᵢ (i = 1…m), xⱼ ≥ 0 (j = 1…n). The standard version has",
+            "options": [
+              "n variables",
+              "(m + n) variables",
+              "(n + 2m) variables",
+              "2n variables"
+            ],
+            "correctAnswer": 1,
+            "theory": "Converting $m$ inequality constraints ($le$) into equalities requires adding $m$ slack variables. The standard form LP therefore contains $n$ decision variables plus $m$ slack variables, giving $m + n$ variables.",
+            "formula": "\\boxed{N = n + m}",
+            "stepByStep": "1. $n$ original variables $+ m$ slack variables $= m + n$ total variables **(Option B)**.",
+            "shortcut": "$n$ decision $+ m$ slack $= m + n$.",
+            "examTrap": "Do not add surplus variables; '$\\le$' constraints only use slack variables."
+          },
+          {
+            "id": "W8-2025-Q10",
+            "year": "2025",
+            "conceptTag": "Dual Constraint Mathematical Form",
+            "question": "For a primal with constraints Σⱼ aᵢⱼxⱼ ≤ bᵢ (i = 1…m), the dual has the constraints",
+            "options": [
+              "Σᵢ₌₁ᵐ aᵢⱼyᵢ ≥ cⱼ, j = 1…n",
+              "Σⱼ₌₁ⁿ aᵢⱼyⱼ ≤ cⱼ, i = 1…m",
+              "Σᵢ₌₁ᵐ aᵢⱼyᵢ ≤ cⱼ, j = 1…n",
+              "Σⱼ₌₁ⁿ aᵢⱼyᵢ ≥ cⱼ, j = 1…n"
+            ],
+            "correctAnswer": 0,
+            "theory": "In the dual of a maximization LP with $\\le$ constraints, the constraints are formed by summing over the primal constraint indices $i = 1, \\dots, m$ for each primal variable $j = 1, \\dots, n$, resulting in $\\sum_{i=1}^m a_{ij} y_i \\ge c_j$.",
+            "formula": "\\boxed{\\sum_{i=1}^m a_{ij} y_i \\ge c_j, \\quad j = 1, \\dots, n}",
+            "stepByStep": "The correct index summation is over $i = 1 \\dots m$ with $\\ge c_j$ for each $j = 1 \\dots n$ **(Option A)**.",
+            "shortcut": "Dual constraint sums over $i=1\\dots m$ of $a_{ij}y_i \\ge c_j$.",
+            "examTrap": "Be careful not to confuse the row index $i$ and column index $j$."
+          },
+          {
+            "id": "W8-2025-Q11",
+            "year": "2025",
+            "conceptTag": "Imputed Resource Cost",
+            "question": "Constraints: x + y + z ≤ 10, x + y ≤ 5, x + 2z ≤ 7, x, y ≥ 0. Objective: Maximize ax + by + cz (a, b, c unknown), with maximum value 70. The dual variable for x + y + z ≤ 10 is u and the other two are zero. The imputed cost of all resources used in making product x is",
+            "options": [
+              "0",
+              "7",
+              "10",
+              "70"
+            ],
+            "correctAnswer": 1,
+            "theory": "By Strong Duality, $Z_{\\max} = 10u + 5(0) + 7(0) = 10u = 70 \\implies u = 7$. The imputed cost of product $x$ is the total shadow value of all resources it consumes: $\\sum a_{ix} y_i = 1(u) + 1(0) + 1(0) = 7$.",
+            "formula": "\\boxed{\\text{Imputed Cost} = 1 \\cdot u = \\frac{Z_{\\max}}{b_1} = \\frac{70}{10} = 7}",
+            "stepByStep": "1. $10u = 70 \\implies u = 7$.\n2. Product $x$ uses 1 unit of resource 1, which has shadow price $u = 7$.\n3. Imputed cost $= 1 \\times 7 = \\mathbf{7}$ **(Option B)**.",
+            "shortcut": "$70 / 10 = 7$.",
+            "examTrap": "The other two constraints have dual variables $= 0$, so they contribute zero to the imputed cost."
+          },
+          {
+            "id": "W8-2025-Q12",
+            "year": "2025",
+            "conceptTag": "Reduced Cost of Decision Variable",
+            "question": "Same problem as Q11. The reduced cost of variable x is",
+            "options": [
+              "0",
+              "7",
+              "7 − a",
+              "a"
+            ],
+            "correctAnswer": 2,
+            "theory": "The reduced cost of a variable represents the difference between its imputed resource cost and its objective coefficient: $z_j - c_j = \\sum a_{ij} y_i - c_j = 7 - a$.",
+            "formula": "\\boxed{\\text{Reduced Cost} = z_x - c_x = u - a = 7 - a}",
+            "stepByStep": "1. Imputed resource cost $z_x = 7$.\n2. Objective coefficient $c_x = a$.\n3. Reduced cost $= 7 - a$ **(Option C)**.",
+            "shortcut": "Imputed cost (7) - profit (a) $= 7 - a$.",
+            "examTrap": "Some textbooks write $c_j - z_j$ while others write $z_j - c_j$. Here the options clearly feature $7 - a$."
+          },
+          {
+            "id": "W8-2025-Q13",
+            "year": "2025",
+            "conceptTag": "Nonlinear Constrained Maximization",
+            "question": "With respect to the constraint xy = 10, the maximum value of the objective function x + y is",
+            "options": [
+              "0",
+              "0.1",
+              "10",
+              "∞"
+            ],
+            "correctAnswer": 3,
+            "theory": "Along the curve $xy = 10$, as $x \\to \\infty$, $y = 10/x \\to 0$. The sum $x + y = x + 10/x \\to \\infty$. Therefore, the objective function is unbounded above.",
+            "formula": "\\boxed{x + y = x + \\frac{10}{x} \\xrightarrow{x \\to \\infty} \\infty}",
+            "stepByStep": "1. Let $x \\to \\infty$, then $y = 10/x > 0$ satisfies $xy = 10$.\n2. The objective $x + y \\to \\infty$.\n3. The maximum value is $\\infty$ **(Option D)**.",
+            "shortcut": "Hyperbola extends to infinity $\\implies \\max = \\infty$.",
+            "examTrap": "Do not calculate the local minimum ($x = y = \\sqrt{10} \\approx 3.16 \\implies x+y = 2\\sqrt{10} \\approx 6.32$). The problem asks for the *maximum*, which is unbounded."
+          },
+          {
+            "id": "W8-2025-Q14",
+            "year": "2025",
+            "conceptTag": "2-Variable Dual Optimization Value",
+            "question": "Minimize 200y₁ + 400y₂ s.t. y₁ + 2y₂ ≥ 2, 3y₁ + y₂ ≥ 3, y₁, y₂ ≥ 0. Which statement is TRUE?",
+            "options": [
+              "The minimum value of the dual objective is 400.",
+              "The maximum value of the dual objective is 440.",
+              "The minimum value of the dual objective is 340.",
+              "The maximum value of the dual objective is 400."
+            ],
+            "correctAnswer": 3,
+            "theory": "By Strong Duality, the maximum value of the dual problem equals the minimum value of this primal minimization problem: $\\max W_{\\text{dual}} = \\min Z_{\\text{primal}} = 400$.",
+            "formula": "\\boxed{\\max W_{\\text{dual}} = \\min Z_{\\text{primal}} = 400}",
+            "stepByStep": "1. Corner points of feasible region ($y_1 + 2y_2 \\ge 2, 3y_1 + y_2 \\ge 3$):\n   - $(2, 0): Z = 200(2) + 0 = 400$\n   - $(0, 3): Z = 0 + 400(3) = 1200$\n   - Intersection $(0.8, 0.6): Z = 200(0.8) + 400(0.6) = 160 + 240 = 400$.\n2. Minimum value of primal $= 400$.\n3. By strong duality, maximum value of the dual objective is **400 (Option D)**.",
+            "shortcut": "Minimum primal cost $= 400 \\implies$ Maximum dual objective $= 400$.",
+            "examTrap": "Notice that Option A says 'minimum value of dual objective', but the dual is a maximization problem, so its *maximum* value is 400."
+          },
+          {
+            "id": "W8-2025-Q15",
+            "year": "2025",
+            "conceptTag": "Lagrange Multiplier Sensitivity",
+            "question": "For a maximization LP, the objective is maximized to 50. The Lagrange multiplier for the equality constraint x + y + z = 9 is 3. If the constraint changes to x + y + z = 9.2, the change in objective value is",
+            "options": [
+              "3",
+              "6",
+              "0.3",
+              "0.6"
+            ],
+            "correctAnswer": 3,
+            "theory": "The Lagrange multiplier $\\lambda$ measures the rate of change of the optimal objective function with respect to the RHS of the constraint: $\\Delta Z = \\lambda \\cdot \\Delta b$.",
+            "formula": "\\boxed{\\Delta Z = \\lambda \\cdot \\Delta b = 3 \\times (9.2 - 9.0) = 0.6}",
+            "stepByStep": "1. $\\lambda = 3$.\n2. $\\Delta b = 9.2 - 9 = 0.2$.\n3. $\\Delta Z = 3 \\times 0.2 = \\mathbf{0.6}$ **(Option D)**.",
+            "shortcut": "$\\Delta Z = 3 \\times 0.2 = 0.6$.",
+            "examTrap": "Do not confuse the change $\\Delta Z = 0.6$ with the new total objective $50 + 0.6 = 50.6$."
+          },
+          {
+            "id": "W8-2025-Q16",
+            "year": "2025",
+            "conceptTag": "Dual Lagrange Multiplier Interpretation",
+            "question": "The magnitude of the Lagrange multiplier for an active constraint in the dual problem equals the",
+            "options": [
+              "rate of change of dual objective with respect to change in the RHS of the constraint in the primal problem",
+              "rate of change of primal objective with respect to change in the RHS of the constraint in the dual problem",
+              "zero",
+              "rate of change of the RHS of the constraint in the dual problem with respect to change in objective function value"
+            ],
+            "correctAnswer": 1,
+            "theory": "By linear programming duality, the Lagrange multiplier of an active constraint in the dual equals the optimal primal variable $x_j^*$, which represents the rate of change of the primal objective with respect to the RHS of the dual constraint (i.e. $\\partial Z^* / \\partial c_j$).",
+            "formula": "\\boxed{\\lambda_{\\text{dual constraint}} = \\frac{\\partial Z_{\\text{primal}}^*}{\\partial (\\text{RHS of dual constraint})}}",
+            "stepByStep": "The Lagrange multiplier of a dual constraint indicates how the primal objective changes per unit change in the dual constraint RHS **(Option B)**.",
+            "shortcut": "Dual constraint multiplier = rate of change of primal objective w.r.t. dual constraint RHS.",
+            "examTrap": "Do not select Option A; Option B correctly links the dual constraint sensitivity to the primal objective."
+          },
+          {
+            "id": "W8-2025-Q17",
+            "year": "2025",
+            "conceptTag": "Absolute Value Constraint Equivalence",
+            "question": "The constraint |x| ≤ 10 is equivalent to",
+            "options": [
+              "x ≤ 10 and x ≥ −10",
+              "x ≤ 10 and x ≤ −10",
+              "x ≤ 10 and −x ≤ −10",
+              "x ≤ 10 and x ≤ 10"
+            ],
+            "correctAnswer": 0,
+            "theory": "The absolute value inequality $|x| \\le 10$ defines the interval $[-10, 10]$, which is equivalent to the conjunction of two linear inequalities: $x \\le 10$ and $x \\ge -10$.",
+            "formula": "\\boxed{|x| \\le a \\iff -a \\le x \\le a \\iff x \\le a \\text{ and } x \\ge -a}",
+            "stepByStep": "1. $|x| \\le 10$ means $x$ is within 10 units of 0.\n2. This requires both $x \\le 10$ and $x \\ge -10$ simultaneously **(Option A)**.",
+            "shortcut": "$|x| \\le 10 \\iff x \\le 10$ and $x \\ge -10$.",
+            "examTrap": "In contrast to $|x| \\ge 10$ (which is a union $x \\ge 10$ or $x \\le -10$), $|x| \\le 10$ is an intersection (and)."
+          },
+          {
+            "id": "W8-2025-Q18",
+            "year": "2025",
+            "conceptTag": "Bounded LP with Multiple Optima",
+            "question": "Minimize x, subject to x ≤ y and x, y ≥ 0. Which is TRUE?",
+            "options": [
+              "The solution is unbounded.",
+              "The solution is bounded with x = y.",
+              "The solution is bounded and has multiple solutions.",
+              "There is no feasible solution."
+            ],
+            "correctAnswer": 2,
+            "theory": "For $\\min x$ subject to $0 \\le x \\le y$, the lowest possible value of $x$ is 0. Any point $(0, y)$ with $y \\ge 0$ gives $x=0$, so the objective value is bounded (at 0) and is achieved at multiple (infinitely many) feasible solutions.",
+            "formula": "\\boxed{\\min x = 0 \\quad \\text{at all } (0, y), y \\ge 0 \\implies \\text{Bounded with multiple optima}}",
+            "stepByStep": "1. Feasible points include $(0, 0), (0, 1), (0, 2), \\dots$, all yielding $x=0$.\n2. The objective cannot go below 0 because $x \\ge 0$.\n3. Thus the solution is bounded and has multiple solutions **(Option C)**.",
+            "shortcut": "Bounded at 0 with infinite solutions $(0, y)$ $\\implies$ Option C.",
+            "examTrap": "Do not choose 'unbounded'; the feasible region is unbounded, but the *objective* $\\min x$ is bounded."
+          },
+          {
+            "id": "W8-2025-Q19",
+            "year": "2025",
+            "conceptTag": "Integer Restriction Effect on Max LP",
+            "question": "In a maximization problem, the optimum is 250 when all variables are continuous. If one design variable is restricted to integer values, the new optimum is",
+            "options": [
+              "more than 250",
+              "less than 250",
+              "greater than or equal to 250",
+              "less than or equal to 250"
+            ],
+            "correctAnswer": 3,
+            "theory": "Restricting a variable to take only integer values adds a restriction to the problem, shrinking the feasible region. For a maximization problem, adding constraints can never increase the optimum; the new optimum must be **less than or equal to** 250.",
+            "formula": "\\boxed{Z_{\\text{integer}}^* \\le Z_{\\text{continuous}}^* = 250}",
+            "stepByStep": "1. Continuous feasible space contains the integer feasible points as a subset.\n2. In maximization, optimizing over a subset yields a value $\\le$ optimizing over the full set.\n3. Therefore, new optimum $\\le 250$ **(Option D)**.",
+            "shortcut": "Restricting in Max problem $\\implies \\le 250$.",
+            "examTrap": "Do not say strictly 'less than 250'; if the continuous optimum already had an integer value for that variable, the new optimum equals 250."
+          },
+          {
+            "id": "W8-2025-Q20",
+            "year": "2025",
+            "conceptTag": "Tightest Linear Constraint",
+            "question": "Which is the tightest constraint?",
+            "options": [
+              "x + 2y + 7z ≥ 10",
+              "x + 2y + 7z ≥ 9",
+              "x + 2y + 7z ≥ 11",
+              "−x − 2y − 7z ≤ −10"
+            ],
+            "correctAnswer": 2,
+            "theory": "For a family of parallel '$\\ge$' constraints $\\mathbf{a}^T \\mathbf{x} \\ge b$, the one with the largest RHS ($b = 11$) is the most restrictive (tightest), since any point satisfying it automatically satisfies the constraints with smaller RHS values.",
+            "formula": "\\boxed{\\text{For } \\ge \\text{ constraints: largest RHS } (11) \\implies \\text{tightest}}",
+            "stepByStep": "1. Comparing $b = 10, 9, 11$, and Option D which is $-x-2y-7z \\le -10 \\iff x+2y+7z \\ge 10$.\n2. The largest requirement is $\\ge 11$.\n3. Therefore, $x + 2y + 7z \\ge 11$ is the tightest constraint **(Option C)**.",
+            "shortcut": "Largest RHS for $\\ge$ is tightest $\\implies x + 2y + 7z \\ge 11$.",
+            "examTrap": "Notice Option D is mathematically identical to Option A ($x + 2y + 7z \\ge 10$)."
+          }
+        ],
+        "2026": [
+          {
+            "id": "W8-2026-Q1",
+            "year": "2026",
+            "conceptTag": "Dual Formation with Mixed Inequalities",
+            "question": "Primal: Maximize 3x₁ + 4x₂ s.t. x₁ + 3x₂ ≤ 12, 3x₁ + x₂ ≥ 10, x₁ + 2x₂ ≤ 8, x₁, x₂ ≥ 0. Its dual is:",
+            "options": [
+              "Min z = 12y₁ + 10y₂ + 8y₃ s.t. y₁ + 3y₂ + y₃ ≥ 3, 3y₁ + y₂ + 2y₃ ≥ 4, y₁, y₂, y₃ ≥ 0",
+              "Min z = 12y₁ − 10y₂ + 8y₃ s.t. y₁ + 3y₂ + y₃ ≥ 3, 3y₁ + y₂ + 2y₃ ≥ 4, y₁, y₂, y₃ ≥ 0",
+              "Min z = 12y₁ + 10y₂ + 8y₃ s.t. y₁ − 3y₂ + y₃ ≥ 3, 3y₁ − y₂ + 2y₃ ≥ 4, y₁, y₂, y₃ ≥ 0",
+              "Min z = 12y₁ − 10y₂ + 8y₃ s.t. y₁ − 3y₂ + y₃ ≥ 3, 3y₁ − y₂ + 2y₃ ≥ 4, y₁, y₂, y₃ ≥ 0"
+            ],
+            "correctAnswer": 3,
+            "theory": "To convert a maximization LP to its dual, first express all constraints in standard $\\le$ canonical form: $3x_1 + x_2 \\ge 10 \\iff -3x_1 - x_2 \\le -10$. With all constraints in $\\le$ form and $x_i \\ge 0$, the dual variables $y_1, y_2, y_3 \\ge 0$ minimize $\\mathbf{b}^T \\mathbf{y}$ subject to $\\mathbf{A}^T \\mathbf{y} \\ge \\mathbf{c}$.",
+            "formula": "\\boxed{\\text{Primal: } \\max \\mathbf{c}^T \\mathbf{x} \\text{ s.t. } \\mathbf{A}\\mathbf{x} \\le \\mathbf{b} \\iff \\text{Dual: } \\min \\mathbf{b}^T \\mathbf{y} \\text{ s.t. } \\mathbf{A}^T \\mathbf{y} \\ge \\mathbf{c}}",
+            "stepByStep": "1. Convert constraint 2 to $\\le$ form: $-3x_1 - x_2 \\le -10$.\n2. Right-hand side vector $\\mathbf{b} = [12, -10, 8]^T \\implies$ Dual objective: $\\min z = 12y_1 - 10y_2 + 8y_3$.\n3. Transpose matrix $\\mathbf{A}^T$ for constraints:\n   - For $x_1$: $1y_1 - 3y_2 + 1y_3 \\ge 3$\n   - For $x_2$: $3y_1 - 1y_2 + 2y_3 \\ge 4$\n4. Dual variables: $y_1, y_2, y_3 \\ge 0$.\n5. Matches **Option D**.",
+            "shortcut": "Flip $\\ge 10$ to $\\le -10 \\implies$ Dual has $-10y_2$ and minus signs on $y_2$ in constraints $\\implies$ Option D.",
+            "examTrap": "Do not leave $\\ge 10$ with positive sign without changing the dual variable sign. In canonical form, all max constraints must be $\\le$."
+          },
+          {
+            "id": "W8-2026-Q2",
+            "year": "2026",
+            "conceptTag": "Primal-Dual Dimensions",
+            "question": "If a primal LP has 8 decision variables and 10 constraints, its dual will have",
+            "options": [
+              "10 decision variables and 8 constraints",
+              "8 decision variables and 10 constraints",
+              "8 decision variables and 8 constraints",
+              "10 decision variables and 10 constraints"
+            ],
+            "correctAnswer": 0,
+            "theory": "By linear programming duality, an $m$-constraint, $n$-variable primal problem always transforms into an $n$-constraint, $m$-variable dual problem.",
+            "formula": "\\boxed{m_{\\text{primal}} = n_{\\text{dual}}, \\quad n_{\\text{primal}} = m_{\\text{dual}}}",
+            "stepByStep": "1. Primal has $n = 8$ variables and $m = 10$ constraints.\n2. Dual has $m_{\\text{primal}} = 10$ decision variables and $n_{\\text{primal}} = 8$ constraints **(Option A)**.",
+            "shortcut": "Vars $\\leftrightarrow$ Constraints: 8 vars, 10 constraints $\\implies$ 10 vars, 8 constraints.",
+            "examTrap": "Do not mix up variables with constraints. Number of primal constraints = number of dual variables."
+          },
+          {
+            "id": "W8-2026-Q3",
+            "year": "2026",
+            "conceptTag": "Equality Constraint Dual Variable",
+            "question": "Primal: Minimize z = x₁ + 4x₂ subject to x₁ + x₂ = 6, x₁, x₂ ≥ 0. Its dual has",
+            "options": [
+              "one non-negative decision variable",
+              "one unrestricted decision variable",
+              "two unrestricted decision variables",
+              "two non-negative decision variables"
+            ],
+            "correctAnswer": 1,
+            "theory": "In duality, each primal constraint corresponds to one dual variable. An equality constraint ($=$) in the primal corresponds to an unrestricted in sign (URS) variable in the dual.",
+            "formula": "\\boxed{\\text{Primal } i^{\\text{th}} \\text{ constraint is '=' } \\iff \\text{Dual variable } y_i \\text{ is unrestricted in sign (URS)}}",
+            "stepByStep": "1. The primal has exactly 1 constraint ($x_1 + x_2 = 6$), so the dual has exactly 1 variable.\n2. Since the constraint is an equality ($=$), the dual variable is unrestricted in sign **(Option B)**.",
+            "shortcut": "1 equality constraint $\\implies$ 1 unrestricted dual variable.",
+            "examTrap": "Do not confuse the non-negativity of variables with the constraint type. The primal variables are non-negative, which makes the dual constraints inequalities."
+          },
+          {
+            "id": "W8-2026-Q4",
+            "year": "2026",
+            "conceptTag": "Strong Duality Theorem",
+            "question": "Which is always true for a feasible primal-dual pair?",
+            "options": [
+              "The objective values of primal and dual are always equal.",
+              "If the primal is unbounded, the dual must have multiple solutions.",
+              "If both primal and dual have feasible solutions, then both have optimal solutions and their objective values are equal.",
+              "If the dual has a unique solution, the primal must be infeasible."
+            ],
+            "correctAnswer": 2,
+            "theory": "The Strong Duality Theorem states: If both the primal and dual problems are feasible, then both possess optimal solutions, and the optimal objective values are equal: $\\max \\mathbf{c}^T \\mathbf{x}^* = \\min \\mathbf{b}^T \\mathbf{y}^*$.",
+            "formula": "\\boxed{\\text{Feasible Primal } \\& \\text{ Feasible Dual} \\implies Z_{\\text{primal}}^* = W_{\\text{dual}}^*}",
+            "stepByStep": "When both primal and dual have feasible solutions, the Weak Duality Theorem bounds both problems, guaranteeing that both attain finite optimal solutions with identical objective values **(Option C)**.",
+            "shortcut": "Both feasible $\\implies$ Both optimal and $Z^* = W^*$.",
+            "examTrap": "Objective values are equal ONLY at optimality, not for every arbitrary feasible solution (Weak Duality: $c^T x \\le b^T y$)."
+          },
+          {
+            "id": "W8-2026-Q5",
+            "year": "2026",
+            "conceptTag": "Primal-Dual Fundamental Property",
+            "question": "Which is TRUE about a primal LP and its dual?",
+            "options": [
+              "If the primal has an unbounded solution, then the dual has a feasible optimal solution.",
+              "The dual of a minimization problem is always another minimization problem.",
+              "The optimal values of the primal and dual are always different.",
+              "The number of constraints in the primal becomes the number of variables in the dual."
+            ],
+            "correctAnswer": 3,
+            "theory": "By fundamental duality relationships, each primal constraint generates a dual variable ($m_{\\text{primal}} = n_{\\text{dual}}$). Also, if the primal is unbounded, the dual is infeasible, not optimal.",
+            "formula": "\\boxed{m_{\\text{primal}} = n_{\\text{dual}}}",
+            "stepByStep": "Evaluating options:\n- A is false: Unbounded primal $\\implies$ Infeasible dual.\n- B is false: Dual of minimization is maximization.\n- C is false: Strong duality proves optimal values are equal.\n- D is TRUE: The number of primal constraints equals the number of dual variables **(Option D)**.",
+            "shortcut": "Primal constraints = Dual variables.",
+            "examTrap": "Remember: Dual of Max is Min; Dual of Min is Max."
+          },
+          {
+            "id": "W8-2026-Q6",
+            "year": "2026",
+            "conceptTag": "Infeasible Primal Dual Behavior",
+            "question": "If the primal LP is infeasible, then the dual problem",
+            "options": [
+              "is feasible with a unique value of objective",
+              "is infeasible",
+              "has multiple finite values of objective",
+              "has unbounded objective"
+            ],
+            "correctAnswer": 3,
+            "theory": "By the Duality Theorem: If the primal problem is infeasible, the dual problem is either infeasible or has an unbounded objective. In the NPTEL curriculum and exam key, the standard keyed response is 'has unbounded objective'.",
+            "formula": "\\boxed{\\text{Primal Infeasible} \\implies \\text{Dual Unbounded (or Infeasible)}}",
+            "stepByStep": "When the primal has no feasible solution, its dual objective is not constrained by primal feasibility, leading to an unbounded objective value **(Option D)**.",
+            "shortcut": "Primal infeasible $\\implies$ Dual unbounded (Option D).",
+            "examTrap": "The dual can also theoretically be infeasible, but among the multiple choice options provided, 'has unbounded objective' is the designated accepted answer."
+          },
+          {
+            "id": "W8-2026-Q7",
+            "year": "2026",
+            "conceptTag": "Dual of Minimization LP",
+            "question": "Primal: Minimize 4y₁ + 5y₂ + 7y₃ s.t. y₁ + 3y₂ + y₃ ≥ 2, 3y₁ + y₂ + y₃ ≥ 5, y₁, y₂, y₃ ≥ 0. Its dual is:",
+            "options": [
+              "Maximize w = 2x₁ + 5x₂ s.t. x₁ + 3x₂ ≤ 4, 3x₁ + x₂ ≤ 5, x₁ + x₂ ≤ 7, x ≥ 0",
+              "Minimize w = 2x₁ + 5x₂ with the same constraints (≤)",
+              "Minimize w = 2x₁ + 5x₂ with the constraints reversed to ≥ (≥ 4, ≥ 5, ≥ 7)",
+              "Maximize w = 2x₁ + 5x₂ with the constraints reversed to ≥ (≥ 4, ≥ 5, ≥ 7)"
+            ],
+            "correctAnswer": 0,
+            "theory": "For a canonical minimization LP: $\\min \\mathbf{b}^T \\mathbf{y}$ subject to $\\mathbf{A}^T \\mathbf{y} \\ge \\mathbf{c}, \\mathbf{y} \\ge \\mathbf{0}$, the dual is a maximization LP: $\\max \\mathbf{c}^T \\mathbf{x}$ subject to $\\mathbf{A}\\mathbf{x} \\le \\mathbf{b}, \\mathbf{x} \\ge \\mathbf{0}$.",
+            "formula": "\\boxed{\\text{Dual of Min } (\\ge) \\iff \\text{Max } (\\le)}",
+            "stepByStep": "1. Primal objective coefficients $\\mathbf{b} = [4, 5, 7]^T$ become the RHS of dual constraints.\n2. Primal RHS $\\mathbf{c} = [2, 5]^T$ becomes the dual objective: $\\max w = 2x_1 + 5x_2$.\n3. Dual constraints (transposing matrix):\n   - $1x_1 + 3x_2 \\le 4$\n   - $3x_1 + 1x_2 \\le 5$\n   - $1x_1 + 1x_2 \\le 7$\n   - $x_1, x_2 \\ge 0$.\n4. Matches **Option A**.",
+            "shortcut": "Min $\\ge$ dualizes to Max $\\le$ with swapped RHS and objective coefficients.",
+            "examTrap": "Do not keep the objective as Minimize. Dual of Minimization is ALWAYS Maximization."
+          },
+          {
+            "id": "W8-2026-Q8",
+            "year": "2026",
+            "conceptTag": "Non-Redundant Dual Constraint",
+            "question": "Maximize z = 40x₁ + 35x₂ + 30x₃ + 20x₄ + 15x₅ + 10x₆ s.t. 4x₁ + x₂ + 2x₃ + x₄ + x₅ + 2x₆ ≤ 10, all xᵢ ≥ 0. In the dual (variable y), the non-redundant constraint is",
+            "options": [
+              "y ≥ 10",
+              "y ≥ 35",
+              "y = 10",
+              "y ≥ 0"
+            ],
+            "correctAnswer": 1,
+            "theory": "With a single primal constraint, the dual has a single decision variable $y$. Each primal variable $x_j$ gives a dual constraint $a_j y \\ge c_j \\iff y \\ge c_j / a_j$. The non-redundant constraint is the most restrictive one: $y \\ge \\max_j (c_j / a_j)$.",
+            "formula": "\\boxed{y \\ge \\max_{j} \\left(\\frac{c_j}{a_j}\\right)}",
+            "stepByStep": "1. For $x_1$: $4y \\ge 40 \\implies y \\ge 10$\n2. For $x_2$: $1y \\ge 35 \\implies y \\ge 35$\n3. For $x_3$: $2y \\ge 30 \\implies y \\ge 15$\n4. For $x_4$: $1y \\ge 20 \\implies y \\ge 20$\n5. For $x_5$: $1y \\ge 15 \\implies y \\ge 15$\n6. For $x_6$: $2y \\ge 10 \\implies y \\ge 5$\n7. The most restrictive requirement is $y \\ge 35$. If $y \\ge 35$, all other constraints ($y \\ge 10, 15, 20, 5$) are automatically satisfied and redundant.\n8. Thus, the non-redundant constraint is **y ≥ 35 (Option B)**.",
+            "shortcut": "Compute ratios $c_j / a_j$: $40/4=10, 35/1=35, 30/2=15 \\dots \\implies \\max = 35 \\implies y \\ge 35$.",
+            "examTrap": "Do not pick $y \\ge 10$ from the first variable or from RHS 10; the maximum ratio determines the non-redundant bound."
+          },
+          {
+            "id": "W8-2026-Q9",
+            "year": "2026",
+            "conceptTag": "Standard LP Form Variable Count",
+            "question": "Maximize z = Σⱼ cⱼxⱼ s.t. Σⱼ aᵢⱼxⱼ ≤ bᵢ (i = 1…m), xⱼ ≥ 0 (j = 1…n). The standard version has",
+            "options": [
+              "(m + n) variables",
+              "2m variables",
+              "(2m + n) variables",
+              "2n variables"
+            ],
+            "correctAnswer": 0,
+            "theory": "In standard linear programming form, each '$\\le$' inequality constraint is converted into an equality by adding one non-negative slack variable ($s_i \\ge 0$). With $m$ constraints and $n$ original decision variables, the total number of variables becomes $m + n$.",
+            "formula": "\\boxed{N_{\\text{standard}} = n_{\\text{decision}} + m_{\\text{slack}} = m + n}",
+            "stepByStep": "1. There are $n$ original decision variables $x_1, \\dots, x_n$.\n2. There are $m$ inequality constraints ($le$), requiring $m$ slack variables $s_1, \\dots, s_m$.\n3. Total variables in standard equality form $= m + n$ **(Option A)**.",
+            "shortcut": "$n$ decision $+ m$ slack $= m + n$ variables.",
+            "examTrap": "Surplus or artificial variables are not needed here because all constraints are '$\\le$' with non-negative RHS."
+          },
+          {
+            "id": "W8-2026-Q10",
+            "year": "2026",
+            "conceptTag": "Imputed Cost of Resources",
+            "question": "Constraints: x + y + z ≤ 20, x + y ≤ 5, x + 2z ≤ 7, x, y ≥ 0. Objective: Maximize ax + by + cz, with maximum value 80. The dual variable for x + y + z ≤ 20 is u and the other two are zero. The imputed cost of all resources in making product x is",
+            "options": [
+              "0",
+              "4",
+              "20",
+              "80"
+            ],
+            "correctAnswer": 1,
+            "theory": "By Strong Duality, $Z_{\\max} = \\sum b_i y_i$. Since dual variables for constraints 2 and 3 are zero, $Z_{\\max} = 20u = 80 \\implies u = 4$. The imputed cost (shadow price) of all resources used in making one unit of product $x$ is $\\sum a_{i, x} y_i = 1(u) + 1(0) + 1(0) = u$.",
+            "formula": "\\boxed{\\text{Imputed Cost} = \\sum_{i=1}^m a_{ix} y_i = 1 \\cdot u = \\frac{Z_{\\max}}{b_1} = \\frac{80}{20} = 4}",
+            "stepByStep": "1. Dual objective: $W = 20u + 5(0) + 7(0) = 20u$.\n2. By strong duality, $W = Z_{\\max} = 80 \\implies 20u = 80 \\implies u = 4$.\n3. Product $x$ uses 1 unit of resource 1 (coefficient is 1) and its imputed cost is $1 \\times 4 = \\mathbf{4}$ **(Option B)**.",
+            "shortcut": "$u = 80 / 20 = 4 \\implies$ Imputed cost $= 1 \\times 4 = 4$.",
+            "examTrap": "In 2025 the RHS was 10 and max value was 70 ($u=7$). In 2026 the RHS is 20 and max value is 80 ($u=4$)."
+          },
+          {
+            "id": "W8-2026-Q11",
+            "year": "2026",
+            "conceptTag": "Dual Constraint Summation Notation",
+            "question": "A primal has constraints Σⱼ aᵢⱼxⱼ ≤ bᵢ (i = 1…m) and objective Maximize Σ cⱼxⱼ. The dual has the constraints",
+            "options": [
+              "Σⱼ₌₁ⁿ aᵢⱼyⱼ ≥ cⱼ, i = 1…m",
+              "Σᵢ₌₁ᵐ aᵢⱼyᵢ ≤ cⱼ, j = 1…n",
+              "Σⱼ₌₁ⁿ aᵢⱼyᵢ ≥ cⱼ, j = 1…n",
+              "Σᵢ₌₁ᵐ aᵢⱼyᵢ ≥ cⱼ, j = 1…n"
+            ],
+            "correctAnswer": 3,
+            "theory": "For a primal maximization problem with $m$ constraints and $n$ variables, each dual constraint corresponds to a primal variable $x_j$ ($j = 1, \\dots, n$). The coefficients are obtained by summing over all primal constraints $i = 1, \\dots, m$ with dual variables $y_i$: $\\sum_{i=1}^m a_{ij} y_i \\ge c_j$.",
+            "formula": "\\boxed{\\sum_{i=1}^m a_{ij} y_i \\ge c_j, \\quad j = 1, 2, \\dots, n}",
+            "stepByStep": "1. Dual variables $y_i$ are indexed by primal constraints ($i = 1 \\dots m$).\n2. Dual constraints are indexed by primal variables ($j = 1 \\dots n$).\n3. For maximization $\\le$ primal, dual constraints are $\\ge c_j$.\n4. Therefore: $\\sum_{i=1}^m a_{ij}y_i \\ge c_j$ for $j = 1\\dots n$ **(Option D)**.",
+            "shortcut": "Sum over $i=1\\dots m$ of $a_{ij}y_i \\ge c_j$ for each $j=1\\dots n$.",
+            "examTrap": "Watch the summation index: summing over $j$ is incorrect because $y$ is indexed by $i$."
+          },
+          {
+            "id": "W8-2026-Q12",
+            "year": "2026",
+            "conceptTag": "Reduced Cost Calculation",
+            "question": "Constraints: x + y + z ≤ 12, x + y ≤ 5, x + 2z ≤ 7, x, y ≥ 0. Objective: Maximize ax + by + cz, with maximum feasible value 72. The dual variable for x + y + z ≤ 12 is u and the other two are zero. The reduced cost of variable x is",
+            "options": [
+              "0",
+              "12",
+              "a − 6",
+              "a"
+            ],
+            "correctAnswer": 2,
+            "theory": "From strong duality, $12u = 72 \\implies u = 6$. The opportunity/imputed cost is $z_x = \\sum a_{ix} y_i = 1(6) + 1(0) + 1(0) = 6$. The reduced cost of variable $x$ in simplex criteria ($c_j - z_j$) is $a - 6$.",
+            "formula": "\\boxed{\\bar{c}_x = c_x - z_x = a - u = a - 6}",
+            "stepByStep": "1. Maximum value $12u = 72 \\implies u = 6$.\n2. Imputed cost of product $x = 1 \\times u = 6$.\n3. Reduced cost $= c_x - z_x = a - 6$ **(Option C)**.",
+            "shortcut": "$u = 72 / 12 = 6 \\implies \\text{Reduced cost} = a - 6$.",
+            "examTrap": "Notice that 2025 keyed $7 - a$ (using $z_j - c_j$), while 2026 docx specifically options and keys $a - 6$ (using $c_j - z_j$)."
+          },
+          {
+            "id": "W8-2026-Q13",
+            "year": "2026",
+            "conceptTag": "Nonlinear Constrained Maximization",
+            "question": "With respect to the constraint xy = 10, the maximum value of x + 1/y is",
+            "options": [
+              "0",
+              "1",
+              "10",
+              "∞"
+            ],
+            "correctAnswer": 3,
+            "theory": "From the constraint $xy = 10$, we have $y = 10/x \\implies 1/y = x/10$. Substituting into the objective function yields: $f(x) = x + \\frac{1}{y} = x + \\frac{x}{10} = 1.1x$. As $x \\to \\infty$, $f(x) \\to \\infty$.",
+            "formula": "\\boxed{x + \\frac{1}{y} = x + \\frac{x}{10} = 1.1x \\xrightarrow{x \\to \\infty} \\infty}",
+            "stepByStep": "1. Substitute $y = 10/x$ into the expression: $x + 1/y = x + x/10 = 1.1x$.\n2. Since $x$ can grow arbitrarily large (with $y = 10/x > 0$ remaining feasible), the maximum value is unbounded ($\\infty$) **(Option D)**.",
+            "shortcut": "$x + 1/y = 1.1x \\to \\infty$.",
+            "examTrap": "Do not assume $x$ or $y$ must be bounded; the hyperbola $xy = 10$ extends to infinity in the first quadrant."
+          },
+          {
+            "id": "W8-2026-Q14",
+            "year": "2026",
+            "conceptTag": "Lagrange Multiplier Sensitivity",
+            "question": "For a maximization LP, the objective is maximized to 50. The Lagrange multiplier for x + y + z = 6 is 2. If the constraint changes to x + y + z = 6.4, the change in objective value is",
+            "options": [
+              "2",
+              "6",
+              "0.4",
+              "0.8"
+            ],
+            "correctAnswer": 3,
+            "theory": "The Lagrange multiplier $\\lambda$ represents the marginal change in the optimal objective value per unit change in the constraint right-hand side: $\\Delta Z = \\lambda \\cdot \\Delta b$.",
+            "formula": "\\boxed{\\Delta Z = \\lambda \\cdot \\Delta b = 2 \\times (6.4 - 6.0) = 0.8}",
+            "stepByStep": "1. Given $\\lambda = 2$.\n2. Change in RHS: $\\Delta b = 6.4 - 6.0 = 0.4$.\n3. Change in objective: $\\Delta Z = \\lambda \\times \\Delta b = 2 \\times 0.4 = \\mathbf{0.8}$ **(Option D)**.",
+            "shortcut": "$\\Delta Z = 2 \\times 0.4 = 0.8$.",
+            "examTrap": "Do not add 50; the question asks for the *change* in objective value, which is 0.8."
+          },
+          {
+            "id": "W8-2026-Q15",
+            "year": "2026",
+            "conceptTag": "2-Variable Dual Optimization Value",
+            "question": "Minimize 300y₁ + 400y₂ s.t. y₁ + 2y₂ ≥ 4, 3y₁ + y₂ ≥ 3, y₁, y₂ ≥ 0. Which is TRUE?",
+            "options": [
+              "The minimum value of the dual objective is 480.",
+              "The maximum value of the dual objective is 840.",
+              "The minimum value of the dual objective is 800.",
+              "The maximum value of the dual objective is 400."
+            ],
+            "correctAnswer": 1,
+            "theory": "By Strong Duality, the maximum value of the dual problem equals the minimum value of this primal minimization problem: $\\max W_{\\text{dual}} = \\min Z_{\\text{primal}}$.",
+            "formula": "\\boxed{\\max W_{\\text{dual}} = \\min Z_{\\text{primal}} = 840}",
+            "stepByStep": "1. Evaluate corner points of feasible region ($y_1 + 2y_2 \\ge 4$, $3y_1 + y_2 \\ge 3$):\n   - Point $(4, 0)$: $Z = 300(4) + 400(0) = 1200$\n   - Point $(0, 3)$: $Z = 300(0) + 400(3) = 1200$\n   - Intersection: $y_1 = 4 - 2y_2 \\implies 3(4 - 2y_2) + y_2 = 3 \\implies 12 - 5y_2 = 3 \\implies y_2 = 1.8, y_1 = 0.4$.\n   - At $(0.4, 1.8)$: $Z = 300(0.4) + 400(1.8) = 120 + 720 = \\mathbf{840}$.\n2. The minimum value of this problem is 840.\n3. By Strong Duality, the maximum value of the dual objective is **840 (Option B)**.",
+            "shortcut": "Intersection point $(0.4, 1.8) \\implies 120 + 720 = 840$.",
+            "examTrap": "The problem asks for the maximum value of the *dual* objective, which equals the minimum value of this minimization problem by strong duality."
+          },
+          {
+            "id": "W8-2026-Q16",
+            "year": "2026",
+            "conceptTag": "Dual Lagrange Multiplier Interpretation",
+            "question": "The magnitude of the Lagrange multiplier for an active constraint in the dual problem equals",
+            "options": [
+              "zero",
+              "one",
+              "the magnitude of the rate of change of primal objective with respect to change in the RHS of the constraint in the dual problem",
+              "the rate of change of the RHS of the constraint in the dual problem with respect to change in objective function value"
+            ],
+            "correctAnswer": 2,
+            "theory": "By symmetric duality, the dual of the dual is the primal. Hence, the Lagrange multiplier of an active constraint in the dual problem corresponds to the optimal primal decision variable, representing the rate of change of the primal objective with respect to changes in the dual constraint RHS.",
+            "formula": "\\boxed{\\lambda_{\\text{dual constraint } j} = x_j^* = \\frac{\\partial Z_{\\text{primal}}^*}{\\partial c_j}}",
+            "stepByStep": "The sensitivity of the dual constraint directly reflects the rate of change of the primal objective value with respect to that dual constraint's RHS **(Option C)**.",
+            "shortcut": "Dual Lagrange multiplier = rate of change of primal objective w.r.t. dual constraint RHS.",
+            "examTrap": "Do not confuse primal constraint sensitivity (rate of change of dual objective) with dual constraint sensitivity."
+          },
+          {
+            "id": "W8-2026-Q17",
+            "year": "2026",
+            "conceptTag": "Absolute Value Constraint Equivalence",
+            "question": "The constraint |x| ≥ 5 is equivalent to",
+            "options": [
+              "x ≥ 5 and x ≤ −5",
+              "x ≤ 5 and x ≤ −5",
+              "x ≤ 5 and −x ≤ −5",
+              "x ≤ 5 and x ≥ −5"
+            ],
+            "correctAnswer": 0,
+            "theory": "The inequality $|x| \\ge 5$ defines points with distance at least 5 from the origin, meaning $x \\ge 5$ or $x \\le -5$. On the printed exam solution document, Option A ('x ≥ 5 and x ≤ −5') is designated as the accepted key.",
+            "formula": "\\boxed{|x| \\ge a \\iff x \\ge a \\text{ or } x \\le -a}",
+            "stepByStep": "1. For any real number $x$, $|x| \\ge 5$ splits into $x \\ge 5$ (for $x \\ge 0$) and $-x \\ge 5 \\iff x \\le -5$ (for $x < 0$).\n2. The official key marks **Option A** as correct.",
+            "shortcut": "$|x| \\ge 5 \\implies x \\ge 5$ or $x \\le -5$ (Option A).",
+            "examTrap": "Mathematically it is a logical 'or' (union), but option A is printed with 'and' in the paper; select Option A as keyed."
+          },
+          {
+            "id": "W8-2026-Q18",
+            "year": "2026",
+            "conceptTag": "Bounded LP with Multiple Optima",
+            "question": "Minimize x, subject to x ≤ y and x, y ≥ 0. Which is TRUE?",
+            "options": [
+              "The problem has redundant constraints.",
+              "There is no feasible solution.",
+              "The solution is unbounded.",
+              "The solution is bounded and has multiple solutions."
+            ],
+            "correctAnswer": 3,
+            "theory": "The objective is to minimize $x$. Since $x \\ge 0$, the smallest possible value for $x$ is 0. For any chosen value $y \\ge 0$, the point $(x=0, y)$ satisfies $x \\le y$ ($0 \\le y$) and $x, y \\ge 0$. Thus, the minimum objective value is 0 (bounded), achieved at infinitely many points along the non-negative y-axis.",
+            "formula": "\\boxed{\\min x = 0 \\quad \\text{at all points } (0, y) \\text{ for } y \\in [0, \\infty)}",
+            "stepByStep": "1. Feasible space: $y \\ge x \\ge 0$.\n2. Objective is $\\min x$.\n3. Since $x \\ge 0$, minimum is $x^* = 0$.\n4. Any point $(0, y)$ with $y \\ge 0$ gives $x=0$, so there are infinite optimal solutions.\n5. The objective value is bounded (finite at 0) and has multiple solutions **(Option D)**.",
+            "shortcut": "Bounded optimal value (0) with infinitely many solutions $(0, y)$ $\\implies$ Option D.",
+            "examTrap": "Do not confuse an unbounded feasible region with an unbounded optimal solution. The feasible region extends to infinity along $y$, but the objective $\\min x$ is bounded at 0."
+          },
+          {
+            "id": "W8-2026-Q19",
+            "year": "2026",
+            "conceptTag": "Continuous Relaxation of Integer Program",
+            "question": "In a maximization problem, the optimum is 150 when all variables are integer. If one design variable is relaxed to be continuous, the new optimum is",
+            "options": [
+              "more than 150",
+              "less than 150",
+              "greater than or equal to 150",
+              "less than or equal to 150"
+            ],
+            "correctAnswer": 2,
+            "theory": "Relaxing an integer constraint allows the variable to take any continuous real value. This enlarges (or leaves unchanged) the feasible solution space. For a maximization problem, enlarging the feasible region cannot decrease the optimum; the new optimum must be **greater than or equal to** the original value.",
+            "formula": "\\boxed{\\text{Relaxing constraints in Max problem} \\implies Z_{\\text{relaxed}}^* \\ge Z_{\\text{original}}^*}",
+            "stepByStep": "1. The integer optimal solution (giving 150) is still feasible in the continuous relaxation.\n2. Relaxing constraints expands the search space, potentially uncovering higher objective values.\n3. Therefore, the new optimum must be $\\ge 150$ **(Option C)**.",
+            "shortcut": "Relaxing constraint in Max LP $\\implies \\ge 150$.",
+            "examTrap": "If we *added* an integer constraint to a continuous problem, the optimum would be $\\le 250$ (as in 2025 Q19). Here we are *relaxing* an integer constraint, so it is $\\ge 150$."
+          },
+          {
+            "id": "W8-2026-Q20",
+            "year": "2026",
+            "conceptTag": "Tightest Linear Constraint",
+            "question": "Which is the tightest constraint?",
+            "options": [
+              "2x + y + z ≥ 8",
+              "2x + y + z ≥ 15",
+              "2x + y + z ≥ 11",
+              "−2x − y − z ≤ −8"
+            ],
+            "correctAnswer": 1,
+            "theory": "For parallel linear inequalities of the form $\\mathbf{a}^T \\mathbf{x} \\ge b$, the constraint with the largest right-hand side $b$ is the most restrictive (tightest), because satisfying $\\mathbf{a}^T \\mathbf{x} \\ge 15$ automatically satisfies $\\ge 11$ and $\\ge 8$.",
+            "formula": "\\boxed{\\text{For } \\mathbf{a}^T \\mathbf{x} \\ge b: \\quad b = 15 \\implies \\text{Tightest constraint}}",
+            "stepByStep": "1. Options A, B, C are in $\\ge$ form.\n2. Option D is $-2x - y - z \\le -8 \\iff 2x + y + z \\ge 8$ (identical to A).\n3. Comparing RHS: $15 > 11 > 8$.\n4. $2x + y + z \\ge 15$ is the most restrictive constraint, eliminating the largest volume of space **(Option B)**.",
+            "shortcut": "For $\\ge$ constraints, largest RHS = tightest $\\implies 2x + y + z \\ge 15$.",
+            "examTrap": "For $\\le$ constraints, the SMALLEST RHS is tightest; but for $\\ge$ constraints, the LARGEST RHS is tightest."
+          }
+        ]
+      }
+    },
+
+    // Placeholders for Weeks 7 down to 1
+    ...[7, 6, 5, 4, 3, 2, 1].map(wNum => ({
       number: wNum,
       title: getWeekTopicTitle(wNum),
       status: "upcoming",
