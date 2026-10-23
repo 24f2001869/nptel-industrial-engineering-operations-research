@@ -1626,15 +1626,824 @@ const IEOR_DATA = {
             theory: "In a single-server queue with arrival rate $\\lambda$ and service rate $\\mu$, the server is idle when there are zero customers, with probability $P_0 = 1 - \\rho = 1 - \\lambda / \\mu$.",
             formula: "\\boxed{P_{\\text{idle}} = 1 - \\rho = 1 - \\frac{\\lambda}{\\mu}}",
             stepByStep: "Given: $\\lambda = 10\\text{/hr}, \\mu = 12\\text{/hr}$.\n$$\\rho = \\frac{10}{12} = \\frac{5}{6} \\approx 0.8333$$\n$$P_{\\text{idle}} = 1 - \\frac{5}{6} = \\frac{1}{6} \\approx \\mathbf{0.167} \\quad (\\text{Option A})$$",
-            variant: "2026 Variant: $\\lambda = 8, \\mu = 10 \\implies \\rho = 0.8 \\implies P_{\\text{idle}} = 1 - 0.8 = \\mathbf{0.200}$.",
-            trap: "0.833 is the server utilization (busy probability); idle probability is $1 - 0.833 = 0.167$."
+            shortcut: "Idle fraction is always $(1 - \\rho) = 1 - (10/12) = 2/12 = 1/6 = 0.1667$.",
+            examTrap: "Do not confuse idle probability ($1 - \\rho = 0.167$) with utilization factor ($\\rho = 0.833$)."
+          }
+        ]
+      }
+    },
+    // Week 10: Project Management: CPM, PERT, Network Analysis & Crashing (Active)
+    {
+      number: 10,
+      title: "Project Management: CPM, PERT & Crashing",
+      status: "active",
+      summary: "Critical Path Method (CPM), Project Evaluation and Review Technique (PERT), network diagrams, forward/backward pass, Total & Free Floats, Beta distribution expected time and variance, and project crashing.",
+      
+      studyMaterials: {
+        quickOverview: "Week 10 covers Project Management and Network Scheduling: Deterministic CPM (Morgan Walker & James Kelley, DuPont, 1950s) vs Probabilistic PERT (US Navy Polaris project, Booz Allen Hamilton), forward pass (ES, EF) and backward pass (LS, LF), Total/Free/Independent float calculations, and cost-time crashing tradeoffs along the critical path.",
+        
+        formulaSheet: [
+          {
+            name: "Forward & Backward Pass",
+            formula: "EF = ES + D, \\quad ES_j = \\max_i(EF_i); \\quad LS = LF - D, \\quad LF_i = \\min_j(LS_j)",
+            units: "Time units (days/weeks)",
+            desc: "Determines the earliest start/finish times moving forward and latest start/finish times moving backward through the network."
+          },
+          {
+            name: "Total Float (TF)",
+            formula: "TF = LS - ES = LF - EF = L_j - E_i - D_{ij}",
+            units: "Time units",
+            desc: "The maximum amount of time an activity can be delayed without delaying the overall project completion date."
+          },
+          {
+            name: "Free Float (FF)",
+            formula: "FF = E_j - E_i - D_{ij} = ES_{\\text{successor}} - EF",
+            units: "Time units",
+            desc: "The amount of time an activity can be delayed without affecting the earliest start time of any immediate successor activity."
+          },
+          {
+            name: "Independent Float (IF)",
+            formula: "IF = \\max(0, E_j - L_i - D_{ij})",
+            units: "Time units",
+            desc: "Float available when preceding activity finishes at latest possible time and successor starts at earliest possible time."
+          },
+          {
+            name: "PERT Expected Duration (te)",
+            formula: "t_e = \\frac{a + 4m + b}{6}",
+            units: "Time units",
+            desc: "Weighted average duration based on Beta distribution: optimistic time a, most likely time m, and pessimistic time b."
+          },
+          {
+            name: "PERT Activity Variance (σ²)",
+            formula: "\\sigma^2 = \\left(\\frac{b - a}{6}\\right)^2, \\quad \\sigma = \\frac{b - a}{6}",
+            units: "Time units squared",
+            desc: "Variance of individual activity duration; project variance is the sum of variances of critical path activities."
+          },
+          {
+            name: "Probability of Project Completion (Z-score)",
+            formula: "Z = \\frac{T_s - T_e}{\\sigma_{\\text{project}}} \\implies P(T \\le T_e) = \\Phi(0) = 0.50",
+            units: "Standard normal quantile",
+            desc: "Target completion date Ts relative to expected project duration Te; when Ts = Te, the completion probability is exactly 50% (0.5)."
+          },
+          {
+            name: "Cost Slope (Crashing)",
+            formula: "\\text{Cost Slope} = \\frac{\\text{Crash Cost} - \\text{Normal Cost}}{\\text{Normal Time} - \\text{Crash Time}} = \\frac{\\Delta C}{\\Delta T}",
+            units: "₹ / day",
+            desc: "Direct cost incurred per unit time reduction when accelerating an activity; always crash critical activities with lowest cost slope first."
+          }
+        ],
+        
+        examTraps: [
+          {
+            trap: "Total Float vs Free Float Trap",
+            explanation: "Remember: $TF = L_j - E_i - D$, while $FF = E_j - E_i - D$. Free float uses the EARLIEST time of the head event ($E_j$). Free float can NEVER exceed Total Float ($FF \\le TF$)."
+          },
+          {
+            trap: "Crashing Non-Critical Activities Trap",
+            explanation: "Crashing an activity that is NOT on the critical path only costs money and wastes resources; it will NEVER reduce the overall project completion time!"
+          },
+          {
+            trap: "Calendar Date Calculation (Day 1 Inclusive)",
+            explanation: "If an activity starts on April 12 and has duration 12 days, its finish date is $12 + 12 - 1 = \\text{April 23}$, NOT April 24, because the starting day itself is day 1 of work."
+          },
+          {
+            trap: "Brooks' Law in Project Manpower",
+            explanation: "Adding manpower does NOT always reduce project time. In activities requiring coordination or specialized handoffs, communication overhead can actually INCREASE project completion time."
+          }
+        ]
+      },
+
+      years: {
+        "2026": [
+          {
+            id: "W10-2026-Q1",
+            year: "2026",
+            conceptTag: "Critical Path Definition",
+            question: "Critical path corresponds to the",
+            options: [
+              "shortest time path through the network",
+              "longest time path through the network",
+              "path with the most activities",
+              "path with the maximum float"
+            ],
+            correctAnswer: 1,
+            theory: "The critical path is the continuous sequence of connected activities through the network with the longest cumulative duration, dictating the minimum time needed to complete the entire project.",
+            formula: "\\boxed{\\text{Critical Path} = \\text{Longest time path through the network}}",
+            stepByStep: "Direct definition: The critical path is the longest time path through the project network (Option B). Any delay on this path delays the entire project.",
+            variant: "2025 Variant: Identical question. Correct is longest time path.",
+            trap: "Do not choose 'shortest time path'—all activities must finish, so the project cannot complete sooner than its longest bottleneck path."
+          },
+          {
+            id: "W10-2026-Q2",
+            year: "2026",
+            conceptTag: "History of CPM",
+            question: "Critical Path Method (CPM) was developed in",
+            options: [
+              "1930s",
+              "1940s",
+              "1950s",
+              "1970s"
+            ],
+            correctAnswer: 2,
+            theory: "CPM was developed between 1956 and 1957 by Morgan R. Walker of DuPont and James E. Kelley Jr. of Remington Rand to manage industrial plant maintenance and construction.",
+            formula: "\\boxed{\\text{CPM Origin: 1950s (1956–1957)}}",
+            stepByStep: "Historical timeline: The Critical Path Method was developed in the 1950s (Option C).",
+            variant: "2025 Variant: Developed by Morgan R. Walker and James E. Kelley Jr. independently.",
+            trap: "Do not guess 1940s (WWII operations research) or 1970s (MRP era)."
+          },
+          {
+            id: "W10-2026-Q3",
+            year: "2026",
+            conceptTag: "Earliest & Latest Times Calculation",
+            question: "A project consists of the following activities and durations:\n\nActivity A (—): 4 days\nActivity B (A): 3 days\nActivity C (A): 2 days\nActivity D (B, C): 4 days\nActivity E (D): 5 days\n\nFor activity D, (earliest start, earliest finish, latest start, latest finish) times (in days) are",
+            options: [
+              "(7, 11, 7, 12)",
+              "(7, 11, 7, 11)",
+              "(5, 10, 7, 12)",
+              "(5, 12, 7, 12)"
+            ],
+            correctAnswer: 1,
+            theory: "Forward pass: $ES_D = \\max(EF_B, EF_C)$, $EF_D = ES_D + D_D$. Backward pass: $LF_D = LS_E$, $LS_D = LF_D - D_D$.",
+            formula: "\\boxed{ES = \\max(EF_{\\text{preds}}), \\quad EF = ES + D; \\quad LF = \\min(LS_{\\text{succs}}), \\quad LS = LF - D}",
+            stepByStep: "1. Forward pass:\n- $A$: $ES=0, EF=0+4=4$\n- $B$ (pred $A$): $ES=4, EF=4+3=7$\n- $C$ (pred $A$): $ES=4, EF=4+2=6$\n- $D$ (pred $B, C$): $ES = \\max(7, 6) = 7, \\; EF = 7 + 4 = 11$\n- $E$ (pred $D$): $ES=11, EF=11+5=16$\n2. Backward pass:\n- Project completion $= 16$\n- $E$: $LF=16, LS=16-5=11$\n- $D$: $LF = LS_E = 11, \\; LS = 11 - 4 = 7$\nResult for $D$: **(7, 11, 7, 11) (Option B)**.",
+            variant: "2025 Variant: Durations [A:3, B:4, C:2, D:5, E:2] $\\implies (ES, EF, LS, LF) = (7, 12, 7, 12)$.",
+            trap: "Notice activity D lies on the critical path ($ES=LS=7, EF=LF=11$), so its total float is 0."
+          },
+          {
+            id: "W10-2026-Q4",
+            year: "2026",
+            conceptTag: "Network Project Duration",
+            question: "A project consists of 14 activities, A to N. The duration of activities in weeks are shown: A(3): 1→2, B(2): 2→3, C(4): 2→4, D(2): 2→5, E(4): 3→10, F(2): 4→6, G(4): 4→7, H(4): 5→9, I(5): 7→9, J(2): 6→8, K(3): 8→9, L(2): 9→11, M(3): 10→11, N(2): 11→12. The minimum duration of the project is",
+            options: [
+              "14 weeks",
+              "18 weeks",
+              "19 weeks",
+              "20 weeks"
+            ],
+            correctAnswer: 3,
+            theory: "The minimum project duration equals the length of the critical path (the longest path connecting source node 1 to terminal node 12).",
+            formula: "\\boxed{\\text{Duration} = \\max_{\\text{paths}} \\sum D_i}",
+            stepByStep: "Evaluate all paths from node 1 to node 12:\n1. Via $1 \\to 2 \\to 3 \\to 10 \\to 11 \\to 12$:\n   $A(3) + B(2) + E(4) + M(3) + N(2) = 14\\text{ weeks}$\n2. Via $1 \\to 2 \\to 5 \\to 9 \\to 11 \\to 12$:\n   $A(3) + D(2) + H(4) + L(2) + N(2) = 13\\text{ weeks}$\n3. Via $1 \\to 2 \\to 4 \\to 6 \\to 8 \\to 9 \\to 11 \\to 12$:\n   $A(3) + C(4) + F(2) + J(2) + K(3) + L(2) + N(2) = 18\\text{ weeks}$\n4. Via $1 \\to 2 \\to 4 \\to 7 \\to 9 \\to 11 \\to 12$:\n   $A(3) + C(4) + G(4) + I(5) + L(2) + N(2) = 3 + 4 + 4 + 5 + 2 + 2 = \\mathbf{20\\text{ weeks}} \\quad (\\text{Option D})$$",
+            variant: "2025 Variant: Activity $A(2)$ and $B(3) \\implies$ Critical path length $= 2 + 4 + 4 + 5 + 2 + 2 = \\mathbf{19\\text{ weeks}}$.",
+            trap: "Do not overlook the middle sub-path $4 \\to 7 \\to 9$ with duration $4 + 5 = 9$, which exceeds $4 \\to 6 \\to 8 \\to 9$ ($2 + 2 + 3 = 7$)."
+          },
+          {
+            id: "W10-2026-Q5",
+            year: "2026",
+            conceptTag: "Calendar Date Calculation",
+            question: "A project can be completed after the completion of activities P (duration: 12 days) and Q (duration: 14 days). Earliest starting dates of P and Q are April 12, 2026 and April 8, 2026, respectively. The project will be completed on",
+            options: [
+              "April 23, 2028",
+              "April 24, 2026",
+              "April 22, 2026",
+              "April 21, 2026"
+            ],
+            correctAnswer: 0,
+            theory: "When the start date is counted as day 1, the finish date of an activity is $\\text{Finish Date} = \\text{Start Date} + \\text{Duration} - 1$. The project finishes when ALL final activities finish: $\\max(\\text{Finish}_P, \\text{Finish}_Q)$.",
+            formula: "\\boxed{\\text{Finish Date} = \\text{Start Date} + \\text{Duration} - 1}",
+            stepByStep: "1. For activity P: Starts April 12, duration 12 days:\n$$\\text{Finish}_P = 12 + 12 - 1 = \\text{April 23}$$\n2. For activity Q: Starts April 8, duration 14 days:\n$$\\text{Finish}_Q = 8 + 14 - 1 = \\text{April 21}$$\n3. Project completion date $= \\max(\\text{April 23}, \\text{April 21}) = \\mathbf{\\text{April 23}} \\quad (\\text{Option A, printed with year 2028 in portal key})$.",
+            variant: "2025 Variant: P (10 days, April 13) $\\to$ April 22; Q (15 days, April 7) $\\to$ April 21. Max $= \\mathbf{\\text{April 22, 2026}}$.",
+            trap: "Remember day 1 is inclusive ($12 + 12 - 1 = 23$). The exam paper had a typo showing 2028 instead of 2026 in option A, but Option A is the portal accepted answer."
+          },
+          {
+            id: "W10-2026-Q6",
+            year: "2026",
+            conceptTag: "Network Diagram Precedence",
+            question: "It is planned to launch a smart fitness device in the market. Total 7 activities are needed:\nA: Market survey (—)\nB: Design (A)\nC: Market strategy (A)\nD: Design of production facility (C)\nE: Selection of advertising method (B)\nF: Prototype testing (D, E)\nG: Launching (F)\n\nThe suitable network diagram is (arrows are activity: from-node→to-node)",
+            options: [
+              "A: 1→2, B: 2→3, D: 3→5, C: 2→4, E: 4→5, F: 5→6, G: 6→7",
+              "A: 1→2, C: 2→4, D: 4→5, B: 2→3, E: 3→5, F: 5→6, G: 6→7",
+              "A: 1→2, B: 2→3, D: 3→5, F: 5→6, C: 2→4, E: 4→6, G: 6→7",
+              "A: 1→2, C: 2→4, D: 4→5, F: 5→6, B: 2→4, E: dotted line 4→6, G: 6→7"
+            ],
+            correctAnswer: 1,
+            theory: "A valid Activity-on-Arrow (AOA) diagram must satisfy all precedence constraints without redundant dummy arrows or cycle loops.",
+            formula: "\\boxed{\\text{Precedence: } A \\to (B, C); \\quad C \\to D; \\quad B \\to E; \\quad (D, E) \\to F \\to G}",
+            stepByStep: "Tracing Option B:\n- $A: 1 \\to 2$\n- $C: 2 \\to 4$ (follows $A$), $D: 4 \\to 5$ (follows $C$)\n- $B: 2 \\to 3$ (follows $A$), $E: 3 \\to 5$ (follows $B$)\n- $F: 5 \\to 6$ (follows $D$ and $E$ converging at node 5)\n- $G: 6 \\to 7$ (follows $F$)\nMatches all dependencies perfectly: **Option B**.",
+            variant: "2025 Variant: Predecessor of $D$ is $B$, and $E$ is $C \\implies$ Option A.",
+            trap: "Check predecessors of D and E carefully: in 2026 D depends on C (node 4 to 5) and E depends on B (node 3 to 5)."
+          },
+          {
+            id: "W10-2026-Q7",
+            year: "2026",
+            conceptTag: "Latest Finish Time of Predecessor",
+            question: "Immediate predecessor of activities B (duration: 7 days) as well as C (duration: 6 days) is activity A. Latest finish times of activities B and C are 12 and 17 days, respectively. Latest finish time of activity A is",
+            options: [
+              "4 days",
+              "5 days",
+              "12 days",
+              "11 days"
+            ],
+            correctAnswer: 1,
+            theory: "In the backward pass, the latest finish time of an activity is the minimum of the latest start times of all its immediate successors: $LF_A = \\min(LS_B, LS_C) = \\min(LF_B - D_B, LF_C - D_C)$.",
+            formula: "\\boxed{LF_A = \\min_j(LF_j - D_j)}",
+            stepByStep: "Given:\n- $B$: $LF_B = 12, D_B = 7 \\implies LS_B = 12 - 7 = 5\\text{ days}$\n- $C$: $LF_C = 17, D_C = 6 \\implies LS_C = 17 - 6 = 11\\text{ days}$\n$$LF_A = \\min(LS_B, LS_C) = \\min(5, 11) = \\mathbf{5\\text{ days}} \\quad (\\text{Option B})$$",
+            variant: "2025 Variant: $B(6, LF=10) \\implies LS=4$; $C(5, LF=15) \\implies LS=10$. $LF_A = \\min(4, 10) = \\mathbf{4\\text{ days}}$.",
+            trap: "Take the MINIMUM of the latest start times in backward pass, not the maximum."
+          },
+          {
+            id: "W10-2026-Q8",
+            year: "2026",
+            conceptTag: "Critical Path Identification",
+            question: "A project comprises 5 activities:\nA (—): 2 days\nB (A): 4 days\nC (A): 7 days\nD (B, C): 5 days\nE (C): 3 days\n\nThe critical path and the project's minimum completion time are",
+            options: [
+              "Critical Path: A-B-D, Minimum time: 10 days",
+              "Critical Path: A-C-D, Minimum time: 14 days",
+              "Critical Path: A-C-E, Minimum time: 12 days",
+              "Critical Path: A-B-D, Minimum time: 9 days"
+            ],
+            correctAnswer: 1,
+            theory: "Calculate total duration for each discrete path from start to end; the path with the largest total duration is the critical path.",
+            formula: "\\boxed{\\text{Path Duration} = \\sum D_i}",
+            stepByStep: "Evaluate all paths:\n1. Path A-B-D: $2 + 4 + 5 = 11\\text{ days}$\n2. Path A-C-D: $2 + 7 + 5 = \\mathbf{14\\text{ days}}$\n3. Path A-C-E: $2 + 7 + 3 = 12\\text{ days}$\nThe longest path is A-C-D with minimum completion time of **14 days (Option B)**.",
+            variant: "2025 Variant: A(1), B(4), C(2), D(5), E(3) $\\implies$ Path A-B-D = $1+4+5=10\\text{ days}$ (Option A).",
+            trap: "Make sure to check all converging paths into activity D ($A \\to B \\to D$ vs $A \\to C \\to D$)."
+          },
+          {
+            id: "W10-2026-Q9",
+            year: "2026",
+            conceptTag: "Activity Time Definitions",
+            question: "An activity has duration D. Its earliest start time is x and latest start time is y. Its earliest completion and latest completion times are",
+            options: [
+              "(x + D) and (x − D), respectively",
+              "(x − D) and (x + D), respectively",
+              "(x + D) and (y − D), respectively",
+              "(x + D) and (y + D), respectively"
+            ],
+            correctAnswer: 3,
+            theory: "By definition:\n- Earliest completion (EF) = Earliest start + Duration = $x + D$\n- Latest completion (LF) = Latest start + Duration = $y + D$.",
+            formula: "\\boxed{EF = ES + D = x + D, \\quad LF = LS + D = y + D}",
+            stepByStep: "Given $ES = x$ and $LS = y$:\n- Earliest completion $= x + D$\n- Latest completion $= y + D$\nResult: **(x + D) and (y + D), respectively (Option D)**.",
+            variant: "2025 Variant: Given $ES = x$ and $LF = y \\implies EF = x + D, LS = y - D$ (Option C).",
+            trap: "Notice the given parameters: 2026 gives $ES$ and $LS$ (so add D to both), whereas 2025 gives $ES$ and $LF$ (so add D to x and subtract D from y)."
+          },
+          {
+            id: "W10-2026-Q10",
+            year: "2026",
+            conceptTag: "Total Float & Free Float Calculation",
+            question: "The earliest and latest occurrence times of event 1 are 2 days. The earliest and latest occurrence time of event 3 are 8 and 11 days, respectively. Total float (TF) and free float (FF) of activity 1-3 (duration: 4 days) are",
+            options: [
+              "TF = 5 days, FF = 2 days",
+              "TF = 6 days, FF = 3 days",
+              "TF = 2 days, FF = 2 days",
+              "TF = 4 days, FF = 1 day"
+            ],
+            correctAnswer: 0,
+            theory: "Float formulas for activity $i \\to j$:\n- Total Float: $TF = L_j - E_i - D_{ij}$\n- Free Float: $FF = E_j - E_i - D_{ij}$.",
+            formula: "\\boxed{TF = L_j - E_i - D_{ij}, \\quad FF = E_j - E_i - D_{ij}}",
+            stepByStep: "Given: $E_1 = 2, L_1 = 2$; $E_3 = 8, L_3 = 11$; duration $D_{13} = 4$.\n1. Total Float:\n$$TF = L_3 - E_1 - D_{13} = 11 - 2 - 4 = \\mathbf{5\\text{ days}}$$\n2. Free Float:\n$$FF = E_3 - E_1 - D_{13} = 8 - 2 - 4 = \\mathbf{2\\text{ days}}$$\nResult: **TF = 5 days, FF = 2 days (Option A)**.",
+            variant: "2025 Variant: Duration $D_{13} = 5 \\implies TF = 11-2-5 = 4, FF = 8-2-5 = 1$ (Option D).",
+            trap: "Always use $L_j$ for Total Float and $E_j$ for Free Float. Subtract $E_i$ and $D$ from both."
+          },
+          {
+            id: "W10-2026-Q11",
+            year: "2026",
+            conceptTag: "Critical Activity Float Property",
+            question: "In a CPM network, Activity 2-3 has a duration of 5 days. Its earliest start is 4, and latest start is also 4. The total float of this activity (in days) is",
+            options: [
+              "0",
+              "–4",
+              "4",
+              "5"
+            ],
+            correctAnswer: 0,
+            theory: "Total Float is defined as $TF = LS - ES$. When an activity has zero flexibility ($LS = ES$), its total float is identically zero, making it a critical activity.",
+            formula: "\\boxed{TF = LS - ES = 4 - 4 = 0}",
+            stepByStep: "Given: $ES = 4, LS = 4$.\n$$TF = LS - ES = 4 - 4 = \\mathbf{0} \\quad (\\text{Option A})$$",
+            variant: "2025 Variant: $ES = 3, LS = 3 \\implies TF = 0$.",
+            trap: "When $ES = LS$, total float is zero. It cannot be negative in standard scheduling."
+          },
+          {
+            id: "W10-2026-Q12",
+            year: "2026",
+            conceptTag: "Red-Flagged Activities (Float Sensitivity)",
+            question: "Total float (TF) and free float (FF) of four activities are as follows:\n1: TF = 5, FF = 5\n2: TF = 3, FF = 2\n3: TF = 4, FF = 4\n4: TF = 2, FF = 1\n\nFollowing activities should be red-flagged:",
+            options: [
+              "1, 3",
+              "1, 4",
+              "2, 4",
+              "1, 2, 3"
+            ],
+            correctAnswer: 2,
+            theory: "Activities where Free Float is strictly less than Total Float ($FF < TF$) cannot absorb delays without encroaching on the float of successor activities, requiring project managers to red-flag and monitor them closely.",
+            formula: "\\boxed{\\text{Red-flag criteria: } FF < TF \\text{ (interfering float present)}}",
+            stepByStep: "Evaluate each activity:\n- Activity 1: $TF=5, FF=5 \\implies FF = TF$ (Independent, no interference)\n- Activity 2: $TF=3, FF=2 \\implies FF < TF$ (**Red-flag**)\n- Activity 3: $TF=4, FF=4 \\implies FF = TF$ (Independent, no interference)\n- Activity 4: $TF=2, FF=1 \\implies FF < TF$ (**Red-flag**)\nRed-flagged activities: **2, 4 (Option C)**.",
+            variant: "2025 Variant: 1: (TF=5, FF=2), 2: (TF=3, FF=3), 3: (TF=4, FF=4), 4: (TF=1, FF=0) $\\implies$ **1, 4**.",
+            trap: "When $FF = TF$, the activity has full independent slack and does not interfere with successors."
+          },
+          {
+            id: "W10-2026-Q13",
+            year: "2026",
+            conceptTag: "PERT Expected Time (te)",
+            question: "The pessimistic, most likely and optimistic times estimates of an activity are 22, 17 and 15 days, respectively. The expected time of completion of the activity is",
+            options: [
+              "13.5 days",
+              "15.5 days",
+              "17.5 days",
+              "18.5 days"
+            ],
+            correctAnswer: 2,
+            theory: "In PERT, expected activity time follows a Beta distribution approximation: $t_e = \\frac{a + 4m + b}{6}$, where a is optimistic, m is most likely, and b is pessimistic.",
+            formula: "\\boxed{t_e = \\frac{a + 4m + b}{6}}",
+            stepByStep: "Given: Optimistic $a = 15$, Most likely $m = 17$, Pessimistic $b = 22$.\n$$t_e = \\frac{15 + 4(17) + 22}{6} = \\frac{15 + 68 + 22}{6} = \\frac{105}{6} = \\mathbf{17.5\\text{ days}} \\quad (\\text{Option C})$$",
+            variant: "2025 Variant: $a = 14, m = 16, b = 20 \\implies t_e = \\frac{14 + 64 + 20}{6} = \\frac{98}{6} = \\mathbf{16.33\\text{ days}}$.",
+            trap: "Do not compute a simple average $\\frac{15+17+22}{3} = 18.0$. PERT weights most likely by 4 and divides by 6."
+          },
+          {
+            id: "W10-2026-Q14",
+            year: "2026",
+            conceptTag: "PERT Project Expected Time & SD",
+            question: "A project comprises three activities in series:\nA (Optimistic: 12, Most likely: 15, Pessimistic: 21)\nB (Optimistic: 22, Most likely: 30, Pessimistic: 41)\nC (Optimistic: 17, Most likely: 20, Pessimistic: 26)\n\nThe expected time for project completion and its standard deviation (in days) are",
+            options: [
+              "65, 4",
+              "65, 16",
+              "66.5, 14.53",
+              "66.5, 3.81"
+            ],
+            correctAnswer: 3,
+            theory: "Project expected time is the sum of expected times $T_e = \\sum t_e$. Variances add along the path $\\sigma^2 = \\sum \\left(\\frac{b - a}{6}\\right)^2$, and project standard deviation is $\\sigma = \\sqrt{\\sum \\sigma_i^2}$.",
+            formula: "\\boxed{T_e = \\sum t_e, \\quad \\sigma_{\\text{project}} = \\sqrt{\\sum \\left(\\frac{b_i - a_i}{6}\\right)^2}}",
+            stepByStep: "1. Expected times:\n- $t_{eA} = \\frac{12 + 4(15) + 21}{6} = \\frac{93}{6} = 15.5$\n- $t_{eB} = \\frac{22 + 4(30) + 41}{6} = \\frac{183}{6} = 30.5$\n- $t_{eC} = \\frac{17 + 4(20) + 26}{6} = \\frac{123}{6} = 20.5$\n$$T_e = 15.5 + 30.5 + 20.5 = \\mathbf{66.5\\text{ days}}$$\n2. Variances:\n- $\\sigma_A^2 = ((21 - 12)/6)^2 = (9/6)^2 = 1.5^2 = 2.25$\n- $\\sigma_B^2 = ((41 - 22)/6)^2 = (19/6)^2 = 3.1667^2 = 10.0278$\n- $\\sigma_C^2 = ((26 - 17)/6)^2 = (9/6)^2 = 1.5^2 = 2.25$\n$$\\sigma^2_{\\text{total}} = 2.25 + 10.0278 + 2.25 = 14.5278$$\n$$\\sigma = \\sqrt{14.5278} \\approx \\mathbf{3.81\\text{ days}}$$\nResult: **66.5, 3.81 (Option D)**.",
+            variant: "2025 Variant: A(10,15,20), B(20,30,40), C(15,20,25) $\\implies T_e = 65, \\sigma = \\sqrt{16.67} \\approx \\mathbf{4}$.",
+            trap: "Standard deviations do NOT add linearly! You must sum variances and take the square root."
+          },
+          {
+            id: "W10-2026-Q15",
+            year: "2026",
+            conceptTag: "Origin of PERT",
+            question: "PERT was initially introduced to satisfy the demands of U.S. Navy by",
+            options: [
+              "Booz-Allen and Hamilton",
+              "Boston Consulting Group",
+              "Deloitte",
+              "McKinsey & Company"
+            ],
+            correctAnswer: 0,
+            theory: "Program Evaluation and Review Technique (PERT) was developed in 1958 by the consulting firm Booz, Allen & Hamilton along with Lockheed Corporation for the U.S. Navy's Special Projects Office (Polaris submarine project).",
+            formula: "\\boxed{\\text{PERT Founder: Booz, Allen & Hamilton (1958) for US Navy}}",
+            stepByStep: "Historical fact: Booz-Allen and Hamilton (Option A).",
+            variant: "2025 Variant: Developed for the US Navy.",
+            trap: "DuPont created CPM, while Booz-Allen & Hamilton created PERT."
+          },
+          {
+            id: "W10-2026-Q16",
+            year: "2026",
+            conceptTag: "Completion Probability at Expected Time",
+            question: "Expected time of the completion of a project is 10 days. Project will start on October 1, 2026. The probability that it will be completed on October 10, 2026 is",
+            options: [
+              "0.99",
+              "0.95",
+              "0.25",
+              "0.5"
+            ],
+            correctAnswer: 3,
+            theory: "Under the Central Limit Theorem, total project duration is approximately normally distributed around its expected mean $T_e$. When target scheduled completion time equals expected completion time ($T_s = T_e$), the standard normal deviate is $Z = 0$, giving $P(T \\le T_e) = \\Phi(0) = 0.50$.",
+            formula: "\\boxed{Z = \\frac{T_s - T_e}{\\sigma} = \\frac{10 - 10}{\\sigma} = 0 \\implies P(Z \\le 0) = 0.50}",
+            stepByStep: "Target date $T_s = 10\\text{ days}$, Expected date $T_e = 10\\text{ days}$:\n$$Z = \\frac{10 - 10}{\\sigma} = 0 \\implies P(Z \\le 0) = \\mathbf{0.5} \\quad (\\text{Option D})$$",
+            variant: "2025 Variant: $T_e = 20\\text{ days}$, Target date $= 20\\text{ days} \\implies P = \\mathbf{0.5}$.",
+            trap: "Students mistakenly think 'expected completion' means 100% or 95% guaranteed. The probability of finishing on or before the expected time is exactly 50%!"
+          },
+          {
+            id: "W10-2026-Q17",
+            year: "2026",
+            conceptTag: "Manpower Effects (Brooks' Law)",
+            question: "Increasing manpower for executing a project activity",
+            options: [
+              "has no influence on the critical path",
+              "has no effect on the project completion time",
+              "always increases the project completion time",
+              "may reduce or increase the project completion time depending on the nature of the activity"
+            ],
+            correctAnswer: 3,
+            theory: "While adding manpower can shorten manual parallel tasks, in complex engineering tasks it introduces communication, coordination, and training overhead (Brooks' Law), which may actually lengthen duration.",
+            formula: "\\boxed{\\text{Brooks' Law: Adding manpower to a project may reduce OR increase completion time}}",
+            stepByStep: "Real-world engineering principle: It may reduce or increase completion time depending on activity nature (Option D).",
+            variant: "2025 Variant: Identical conceptual question.",
+            trap: "Never select 'always reduces'—excess manpower creates congestion and coordination delays."
+          },
+          {
+            id: "W10-2026-Q18",
+            year: "2026",
+            conceptTag: "Project Crashing Definition",
+            question: "In project management, project crashing means",
+            options: [
+              "discontinuing a project to pursue better alternative",
+              "postponing non-critical activities to control costs.",
+              "reducing the project duration by allocating additional resources",
+              "delaying non-critical tasks to manage budget constraints"
+            ],
+            correctAnswer: 2,
+            theory: "Crashing is a schedule compression technique used to shorten project duration for the least incremental cost by adding resources (overtime, extra shifts, additional machinery).",
+            formula: "\\boxed{\\text{Crashing} = \\text{Compressing project duration by adding resources}}",
+            stepByStep: "Definition: Reducing the project duration by allocating additional resources (Option C).",
+            variant: "2025 Variant: Identical wording.",
+            trap: "Crashing does not mean project failure or cancellation."
+          },
+          {
+            id: "W10-2026-Q19",
+            year: "2026",
+            conceptTag: "CPM Characteristics",
+            question: "Consider the following statements on Critical Path Method (CPM):\n(1) CPM uses probabilistic approach for time estimation\n(2) CPM give three time estimates for each activity\n(3) CPM is activity oriented technique\n(4) CPM focuses on management of predictable activities\n\nWhich of the statements are TRUE?",
+            options: [
+              "1, 2 and 3",
+              "2 and 3",
+              "3 and 4",
+              "2, 3 and 4"
+            ],
+            correctAnswer: 2,
+            theory: "Comparison between CPM and PERT:\n- CPM: Deterministic (1 time estimate), Activity-oriented, predictable/repetitive industrial activities (Statements 3 and 4 are TRUE).\n- PERT: Probabilistic (3 time estimates: a, m, b), Event-oriented, research and development (Statements 1 and 2 describe PERT).",
+            formula: "\\boxed{\\text{CPM: Activity-oriented, deterministic, predictable}}",
+            stepByStep: "Statements 3 and 4 are TRUE (Option C). Statements 1 and 2 pertain to PERT.",
+            variant: "If asking about PERT: PERT is probabilistic (1), uses three time estimates (2), and is event-oriented.",
+            trap: "Do not confuse CPM (activity-oriented) with PERT (event-oriented)."
+          },
+          {
+            id: "W10-2026-Q20",
+            year: "2026",
+            conceptTag: "Crashing Strategy",
+            question: "Crashing is most effective when applied to an activity that",
+            options: [
+              "has least free float",
+              "lies on the critical path",
+              "has high uncertainty in its duration estimates",
+              "is not on the critical path"
+            ],
+            correctAnswer: 1,
+            theory: "Because the critical path dictates the overall project length, crashing a non-critical activity only absorbs its float without shortening the project. Crashing is only effective on critical path activities.",
+            formula: "\\boxed{\\text{Only crashing critical path activities reduces total project duration}}",
+            stepByStep: "Strategic rule: Crashing must be applied to activities lying on the critical path (Option B).",
+            variant: "2025 Variant: Same concept. Only critical activities reduce project time.",
+            trap: "Crashing an activity with large duration or uncertainty is useless unless that activity is on the critical path!"
+          }
+        ],
+
+        "2025": [
+          {
+            id: "W10-2025-Q1",
+            year: "2025",
+            conceptTag: "CPM Development History",
+            question: "Critical Path Method (CPM) was developed by",
+            options: [
+              "Morgan R. Walker and James E. Kelley Jr, jointly",
+              "Morgan R. Walker and James E. Kelley Jr, independently",
+              "George B. Dantzig and Narendra Karmarkar, jointly",
+              "George B. Dantzig and Narendra Karmarkar, independently"
+            ],
+            correctAnswer: 1,
+            theory: "CPM was developed between 1956 and 1957 by Morgan R. Walker of DuPont and James E. Kelley Jr. of Remington Rand working independently on computerizing plant scheduling.",
+            formula: "\\boxed{\\text{CPM Creators: Morgan R. Walker & James E. Kelley Jr, independently}}",
+            stepByStep: "Historical fact: Morgan R. Walker and James E. Kelley Jr, independently (Option B).",
+            variant: "2026 Variant: Developed in the 1950s.",
+            trap: "Dantzig and Karmarkar are famous for Linear Programming (Simplex and Interior Point), not CPM."
+          },
+          {
+            id: "W10-2025-Q2",
+            year: "2025",
+            conceptTag: "Critical Path Definition",
+            question: "Critical path corresponds to the",
+            options: [
+              "longest time path through the network",
+              "shortest time path through the network",
+              "path with the most activities",
+              "path with the least cost"
+            ],
+            correctAnswer: 0,
+            theory: "The critical path is the longest sequence of dependent activities from start to finish, determining the shortest possible time to complete the project.",
+            formula: "\\boxed{\\text{Critical Path} = \\text{Longest time path through the network}}",
+            stepByStep: "Direct definition: Longest time path through the network (Option A).",
+            variant: "2026 Variant: Same question.",
+            trap: "It has the longest duration, which defines the minimum project completion time."
+          },
+          {
+            id: "W10-2025-Q3",
+            year: "2025",
+            conceptTag: "Network Project Duration",
+            question: "A project consists of 14 activities, A to N. The duration of activities in weeks are shown: A(2): 1→2, B(3): 2→3, C(4): 2→4, D(2): 2→5, E(4): 3→10, F(2): 4→6, G(4): 4→7, H(4): 5→9, I(5): 7→9, J(2): 6→8, K(3): 8→9, L(2): 9→11, M(3): 10→11, N(2): 11→12. The minimum duration of the project is",
+            options: [
+              "10 weeks",
+              "13 weeks",
+              "19 weeks",
+              "21 weeks"
+            ],
+            correctAnswer: 2,
+            theory: "The minimum project duration equals the length of the critical path (the longest path connecting source node 1 to terminal node 12).",
+            formula: "\\boxed{\\text{Duration} = \\max_{\\text{paths}} \\sum D_i}",
+            stepByStep: "Evaluate all paths from node 1 to node 12:\n1. Path $1 \\to 2 \\to 3 \\to 10 \\to 11 \\to 12$:\n   $A(2) + B(3) + E(4) + M(3) + N(2) = 14\\text{ weeks}$\n2. Path $1 \\to 2 \\to 5 \\to 9 \\to 11 \\to 12$:\n   $A(2) + D(2) + H(4) + L(2) + N(2) = 12\\text{ weeks}$\n3. Path $1 \\to 2 \\to 4 \\to 6 \\to 8 \\to 9 \\to 11 \\to 12$:\n   $A(2) + C(4) + F(2) + J(2) + K(3) + L(2) + N(2) = 17\\text{ weeks}$\n4. Path $1 \\to 2 \\to 4 \\to 7 \\to 9 \\to 11 \\to 12$:\n   $A(2) + C(4) + G(4) + I(5) + L(2) + N(2) = 2 + 4 + 4 + 5 + 2 + 2 = \\mathbf{19\\text{ weeks}} \\quad (\\text{Option C})$$",
+            variant: "2026 Variant: $A(3), B(2) \\implies$ Critical path length $= 3 + 4 + 4 + 5 + 2 + 2 = \\mathbf{20\\text{ weeks}}$.",
+            trap: "Path $4 \\to 7 \\to 9$ has duration $4+5=9$, which is longer than $4 \\to 6 \\to 8 \\to 9$ ($2+2+3=7$)."
+          },
+          {
+            id: "W10-2025-Q4",
+            year: "2025",
+            conceptTag: "Earliest & Latest Times Calculation",
+            question: "A project consists of the following activities and durations:\n\nActivity A (—): 3 days\nActivity B (A): 4 days\nActivity C (A): 2 days\nActivity D (B, C): 5 days\nActivity E (D): 2 days\n\nFor activity D, (earliest start, earliest finish, latest start, latest finish) times (in days) are",
+            options: [
+              "(7, 12, 7, 12)",
+              "(5, 10, 5, 10)",
+              "(5, 10, 7, 12)",
+              "(5, 12, 7, 12)"
+            ],
+            correctAnswer: 0,
+            theory: "Forward pass: $ES_D = \\max(EF_B, EF_C)$, $EF_D = ES_D + D_D$. Backward pass: $LF_D = LS_E$, $LS_D = LF_D - D_D$.",
+            formula: "\\boxed{ES = \\max(EF_{\\text{preds}}), \\quad EF = ES + D; \\quad LF = \\min(LS_{\\text{succs}}), \\quad LS = LF - D}",
+            stepByStep: "1. Forward pass:\n- $A$: $ES=0, EF=0+3=3$\n- $B$ (pred $A$): $ES=3, EF=3+4=7$\n- $C$ (pred $A$): $ES=3, EF=3+2=5$\n- $D$ (pred $B, C$): $ES = \\max(7, 5) = 7, \\; EF = 7 + 5 = 12$\n- $E$ (pred $D$): $ES=12, EF=12+2=14$\n2. Backward pass:\n- Project completion $= 14$\n- $E$: $LF=14, LS=14-2=12$\n- $D$: $LF = LS_E = 12, \\; LS = 12 - 5 = 7$\nResult for $D$: **(7, 12, 7, 12) (Option A)**.",
+            variant: "2026 Variant: Durations [A:4, B:3, C:2, D:4, E:5] $\\implies (ES, EF, LS, LF) = (7, 11, 7, 11)$.",
+            trap: "Notice activity D lies on the critical path ($ES=LS=7, EF=LF=12$), with zero float."
+          },
+          {
+            id: "W10-2025-Q5",
+            year: "2025",
+            conceptTag: "Network Diagram Precedence",
+            question: "It is planned to launch an electric car in the market. Total 7 activities are needed:\nA: Market survey (—)\nB: Design (A)\nC: Market strategy (A)\nD: Design of production facility (B)\nE: Selection of advertising method (C)\nF: Prototype testing (D, E)\nG: Launching (F)\n\nThe suitable network diagram is (arrows are activity: from-node→to-node)",
+            options: [
+              "A: 1→2, B: 2→3, D: 3→5, C: 2→4, E: 4→5, F: 5→6, G: 6→7",
+              "A: 1→2, C: 2→4, D: 4→5, B: 2→3, E: 3→5, F: 5→6, G: 6→7",
+              "A: 1→2, B: 2→3, D: 3→5, F: 5→6, C: 2→4, E: 4→6, G: 6→7",
+              "A: 1→2, C: 2→4, D: 4→5, F: 5→6, B: 2→4, E: dotted line 4→6, G: 6→7"
+            ],
+            correctAnswer: 0,
+            theory: "Network diagrams must correctly reflect predecessor dependencies. Here D depends on B, and E depends on C.",
+            formula: "\\boxed{\\text{Precedence: } A \\to (B, C); \\quad B \\to D; \\quad C \\to E; \\quad (D, E) \\to F \\to G}",
+            stepByStep: "Tracing Option A:\n- $A: 1 \\to 2$\n- $B: 2 \\to 3$ (follows $A$), $D: 3 \\to 5$ (follows $B$)\n- $C: 2 \\to 4$ (follows $A$), $E: 4 \\to 5$ (follows $C$)\n- $F: 5 \\to 6$ (follows $D$ and $E$ converging at node 5)\n- $G: 6 \\to 7$ (follows $F$)\nMatches all dependencies perfectly: **Option A**.",
+            variant: "2026 Variant: $D$ follows $C$ (4 to 5) and $E$ follows $B$ (3 to 5) $\\implies$ Option B.",
+            trap: "Notice that in 2025, D follows B (3 to 5), whereas in 2026, D follows C (4 to 5)."
+          },
+          {
+            id: "W10-2025-Q6",
+            year: "2025",
+            conceptTag: "Calendar Date Calculation",
+            question: "A project can be completed after the completion of activities P (duration: 10 days) and Q (duration: 15 days). Earliest starting dates of P and Q are April 13, 2026, and April 7, 2026, respectively. The project will be completed on",
+            options: [
+              "April 28, 2028",
+              "April 23, 2026",
+              "April 22, 2026",
+              "April 21, 2026"
+            ],
+            correctAnswer: 2,
+            theory: "When the start date is counted as day 1: $\\text{Finish Date} = \\text{Start Date} + \\text{Duration} - 1$. Project finishes at $\\max(\\text{Finish}_P, \\text{Finish}_Q)$.",
+            formula: "\\boxed{\\text{Finish Date} = \\text{Start Date} + \\text{Duration} - 1}",
+            stepByStep: "1. For activity P: Starts April 13, duration 10 days:\n$$\\text{Finish}_P = 13 + 10 - 1 = \\text{April 22, 2026}$$\n2. For activity Q: Starts April 7, duration 15 days:\n$$\\text{Finish}_Q = 7 + 15 - 1 = \\text{April 21, 2026}$$\n3. Project completion date $= \\max(\\text{April 22}, \\text{April 21}) = \\mathbf{\\text{April 22, 2026}} \\quad (\\text{Option C})$.",
+            variant: "2026 Variant: P (12 days, April 12) $\\to$ April 23; Q (14 days, April 8) $\\to$ April 21. Max $= \\mathbf{\\text{April 23}}$.",
+            trap: "Remember day 1 is inclusive: $13 + 10 - 1 = 22$, not 23."
+          },
+          {
+            id: "W10-2025-Q7",
+            year: "2025",
+            conceptTag: "Latest Finish Time of Predecessor",
+            question: "Immediate predecessor activity of B (duration: 6 days) as well as C (duration: 5 days) is activity A. Latest finish times of activities B and C are 10 and 15 days, respectively. Latest finish time of activity A is",
+            options: [
+              "4 day",
+              "5 day",
+              "10 day",
+              "11 day"
+            ],
+            correctAnswer: 0,
+            theory: "In the backward pass, the latest finish time of an activity is the minimum of the latest start times of all its immediate successors: $LF_A = \\min(LS_B, LS_C) = \\min(LF_B - D_B, LF_C - D_C)$.",
+            formula: "\\boxed{LF_A = \\min_j(LF_j - D_j)}",
+            stepByStep: "Given:\n- $B$: $LF_B = 10, D_B = 6 \\implies LS_B = 10 - 6 = 4\\text{ days}$\n- $C$: $LF_C = 15, D_C = 5 \\implies LS_C = 15 - 5 = 10\\text{ days}$\n$$LF_A = \\min(LS_B, LS_C) = \\min(4, 10) = \\mathbf{4\\text{ days}} \\quad (\\text{Option A})$$",
+            variant: "2026 Variant: $B(7, LF=12) \\implies LS=5$; $C(6, LF=17) \\implies LS=11$. $LF_A = \\min(5, 11) = \\mathbf{5\\text{ days}}$.",
+            trap: "Take the MINIMUM of the latest start times in backward pass, not the maximum."
+          },
+          {
+            id: "W10-2025-Q8",
+            year: "2025",
+            conceptTag: "Critical Path Identification",
+            question: "A project comprises 5 activities:\nA (—): 1 day\nB (A): 4 days\nC (A): 2 days\nD (B, C): 5 days\nE (C): 3 days\n\nThe critical path and the project's minimum completion time are",
+            options: [
+              "Critical Path: A-B-D, Minimum time: 10 days",
+              "Critical Path: A-C-D, Minimum time: 10 days",
+              "Critical Path: A-C-E, Minimum time: 8 days",
+              "Critical Path: A-B-D, Minimum time: 9 days"
+            ],
+            correctAnswer: 0,
+            theory: "The critical path is the sequence with the longest total duration.",
+            formula: "\\boxed{\\text{Path Duration} = \\sum D_i}",
+            stepByStep: "Evaluate all paths:\n1. Path A-B-D: $1 + 4 + 5 = \\mathbf{10\\text{ days}}$\n2. Path A-C-D: $1 + 2 + 5 = 8\\text{ days}$\n3. Path A-C-E: $1 + 2 + 3 = 6\\text{ days}$\nThe longest path is A-B-D with minimum completion time of **10 days (Option A)**.",
+            variant: "2026 Variant: A(2), B(4), C(7), D(5), E(3) $\\implies$ Path A-C-D = $2+7+5=14\\text{ days}$ (Option B).",
+            trap: "Notice path A-C-D has length 8, while A-B-D has length 10."
+          },
+          {
+            id: "W10-2025-Q9",
+            year: "2025",
+            conceptTag: "Activity Time Definitions",
+            question: "An activity has duration D. Its earliest start time is x and latest completion time is y. Its earliest completion and latest start times are",
+            options: [
+              "(x + D) and (x − D), respectively",
+              "(x − D) and (x + D), respectively",
+              "(x + D) and (y − D), respectively",
+              "(x + D) and (y + D), respectively"
+            ],
+            correctAnswer: 2,
+            theory: "By definition:\n- Earliest completion (EF) = Earliest start + Duration = $x + D$\n- Latest start (LS) = Latest completion - Duration = $y - D$.",
+            formula: "\\boxed{EF = ES + D = x + D, \\quad LS = LF - D = y - D}",
+            stepByStep: "Given $ES = x$ and $LF = y$:\n- Earliest completion $= x + D$\n- Latest start $= y - D$\nResult: **(x + D) and (y − D), respectively (Option C)**.",
+            variant: "2026 Variant: Given $ES = x$ and $LS = y \\implies EF = x + D, LF = y + D$ (Option D).",
+            trap: "Look closely at the given input: here y is latest COMPLETION time (LF), so $LS = y - D$."
+          },
+          {
+            id: "W10-2025-Q10",
+            year: "2025",
+            conceptTag: "Total Float & Free Float Calculation",
+            question: "The earliest and latest occurrence times of event 1 are 2 days. The earliest and latest occurrence time of event 3 are 8 and 11 days, respectively. Total float (TF) and free float (FF) of activity 1-3 (duration: 5 days) are",
+            options: [
+              "TF = 5 days, FF = 2 days",
+              "TF = 6 days, FF = 3 days",
+              "TF = 2 days, FF = 2 days",
+              "TF = 4 days, FF = 1 day"
+            ],
+            correctAnswer: 3,
+            theory: "Float formulas for activity $i \\to j$:\n- Total Float: $TF = L_j - E_i - D_{ij}$\n- Free Float: $FF = E_j - E_i - D_{ij}$.",
+            formula: "\\boxed{TF = L_j - E_i - D_{ij}, \\quad FF = E_j - E_i - D_{ij}}",
+            stepByStep: "Given: $E_1 = 2, L_1 = 2$; $E_3 = 8, L_3 = 11$; duration $D_{13} = 5$.\n1. Total Float:\n$$TF = L_3 - E_1 - D_{13} = 11 - 2 - 5 = \\mathbf{4\\text{ days}}$$\n2. Free Float:\n$$FF = E_3 - E_1 - D_{13} = 8 - 2 - 5 = \\mathbf{1\\text{ day}}$$\nResult: **TF = 4 days, FF = 1 day (Option D)**.",
+            variant: "2026 Variant: Duration $D_{13} = 4 \\implies TF = 5, FF = 2$ (Option A).",
+            trap: "Always use $L_j$ for Total Float and $E_j$ for Free Float."
+          },
+          {
+            id: "W10-2025-Q11",
+            year: "2025",
+            conceptTag: "Red-Flagged Activities (Float Sensitivity)",
+            question: "Total float (TF) and free float (FF) of four activities are as follows:\n1: TF = 5, FF = 2\n2: TF = 3, FF = 3\n3: TF = 4, FF = 4\n4: TF = 1, FF = 0\n\nFollowing activities should be red-flagged:",
+            options: [
+              "1, 4",
+              "1, 3",
+              "2, 3",
+              "1, 2, 3"
+            ],
+            correctAnswer: 0,
+            theory: "Activities with interfering float ($FF < TF$) or critical zero free float ($FF = 0$) risk propagating delays to successor tasks and must be red-flagged by management.",
+            formula: "\\boxed{\\text{Red-flag criteria: } FF < TF}",
+            stepByStep: "Evaluate:\n- Activity 1: $TF=5, FF=2 \\implies FF < TF$ (**Red-flag**)\n- Activity 2: $TF=3, FF=3 \\implies FF = TF$ (Safe)\n- Activity 3: $TF=4, FF=4 \\implies FF = TF$ (Safe)\n- Activity 4: $TF=1, FF=0 \\implies FF < TF$ (**Red-flag**)\nRed-flagged activities: **1, 4 (Option A)**.",
+            variant: "2026 Variant: 1: (5,5), 2: (3,2), 3: (4,4), 4: (2,1) $\\implies$ **2, 4** (Option C).",
+            trap: "When $FF = TF$, delaying the activity within its float does not affect any successor."
+          },
+          {
+            id: "W10-2025-Q12",
+            year: "2025",
+            conceptTag: "Critical Activity Float Property",
+            question: "In a CPM network, Activity 2-3 has a duration of 5 days. Its earliest start is 3, and latest start is also 3. The total float of this activity (in days) is",
+            options: [
+              "−5",
+              "0",
+              "3",
+              "5"
+            ],
+            correctAnswer: 1,
+            theory: "Total Float is $TF = LS - ES$. When $LS = ES$, the activity has zero schedule leeway.",
+            formula: "\\boxed{TF = LS - ES = 3 - 3 = 0}",
+            stepByStep: "Given: $ES = 3, LS = 3$.\n$$TF = LS - ES = 3 - 3 = \\mathbf{0} \\quad (\\text{Option B})$$",
+            variant: "2026 Variant: $ES = 4, LS = 4 \\implies TF = 0$.",
+            trap: "Float cannot be negative unless the project has an externally imposed deadline that is earlier than possible."
+          },
+          {
+            id: "W10-2025-Q13",
+            year: "2025",
+            conceptTag: "PERT Expected Time (te)",
+            question: "The pessimistic, most likely and optimistic times estimates of an activity are 20, 16 and 14 days, respectively. The expected time of completion of the activity is",
+            options: [
+              "14.67",
+              "16.33 days",
+              "16.67 days",
+              "18 days"
+            ],
+            correctAnswer: 1,
+            theory: "In PERT, expected activity time follows a Beta distribution approximation: $t_e = \\frac{a + 4m + b}{6}$.",
+            formula: "\\boxed{t_e = \\frac{a + 4m + b}{6}}",
+            stepByStep: "Given: Optimistic $a = 14$, Most likely $m = 16$, Pessimistic $b = 20$.\n$$t_e = \\frac{14 + 4(16) + 20}{6} = \\frac{14 + 64 + 20}{6} = \\frac{98}{6} = \\mathbf{16.33\\text{ days}} \\quad (\\text{Option B})$$",
+            variant: "2026 Variant: $a = 15, m = 17, b = 22 \\implies t_e = \\frac{15 + 68 + 22}{6} = \\frac{105}{6} = \\mathbf{17.5\\text{ days}}$.",
+            trap: "Do not divide by 3; the PERT formula has weight 1 for a, 4 for m, 1 for b, divided by 6."
+          },
+          {
+            id: "W10-2025-Q14",
+            year: "2025",
+            conceptTag: "Origin of PERT",
+            question: "Initially, the PERT was developed for the",
+            options: [
+              "US Navy",
+              "British Airways",
+              "US Army",
+              "US Air Force"
+            ],
+            correctAnswer: 0,
+            theory: "PERT was developed in 1958 for the U.S. Navy's Special Projects Office by Booz, Allen & Hamilton to accelerate the Polaris submarine missile program.",
+            formula: "\\boxed{\\text{PERT Sponsor: US Navy (Polaris Project, 1958)}}",
+            stepByStep: "Historical fact: Developed for the US Navy (Option A).",
+            variant: "2026 Variant: Developed for the US Navy by Booz-Allen and Hamilton.",
+            trap: "Do not choose US Air Force or US Army; it was specifically the US Navy Special Projects Office."
+          },
+          {
+            id: "W10-2025-Q15",
+            year: "2025",
+            conceptTag: "PERT Project Expected Time & SD",
+            question: "A project comprises three activities in series:\nA (Optimistic: 10, Most likely: 15, Pessimistic: 20)\nB (Optimistic: 20, Most likely: 30, Pessimistic: 40)\nC (Optimistic: 15, Most likely: 20, Pessimistic: 25)\n\nThe expected time for project completion and its standard deviation (in days) are",
+            options: [
+              "65, 16",
+              "65, 4",
+              "63.33, 4",
+              "63.33, 16"
+            ],
+            correctAnswer: 1,
+            theory: "Project expected time is $T_e = \\sum t_e$. Variances add along the path $\\sigma^2 = \\sum \\left(\\frac{b - a}{6}\\right)^2$, and project standard deviation is $\\sigma = \\sqrt{\\sum \\sigma_i^2}$.",
+            formula: "\\boxed{T_e = \\sum t_e, \\quad \\sigma_{\\text{project}} = \\sqrt{\\sum \\left(\\frac{b_i - a_i}{6}\\right)^2}}",
+            stepByStep: "1. Expected times:\n- $t_{eA} = \\frac{10 + 4(15) + 20}{6} = \\frac{90}{6} = 15$\n- $t_{eB} = \\frac{20 + 4(30) + 40}{6} = \\frac{180}{6} = 30$\n- $t_{eC} = \\frac{15 + 4(20) + 25}{6} = \\frac{120}{6} = 20$\n$$T_e = 15 + 30 + 20 = \\mathbf{65\\text{ days}}$$\n2. Variances:\n- $\\sigma_A^2 = ((20 - 10)/6)^2 = (10/6)^2 = 100/36 = 2.778$\n- $\\sigma_B^2 = ((40 - 20)/6)^2 = (20/6)^2 = 400/36 = 11.111$\n- $\\sigma_C^2 = ((25 - 15)/6)^2 = (10/6)^2 = 100/36 = 2.778$\n$$\\sigma^2_{\\text{total}} = \\frac{100 + 400 + 100}{36} = \\frac{600}{36} = 16.667$$\n$$\\sigma = \\sqrt{16.667} = 4.08 \\approx \\mathbf{4\\text{ days}}$$\nResult: **65, 4 (Option B)**.",
+            variant: "2026 Variant: A(12,15,21), B(22,30,41), C(17,20,26) $\\implies T_e = 66.5, \\sigma = \\mathbf{3.81}$.",
+            trap: "Notice that 16 is the variance ($\sigma^2$), not the standard deviation! The question asks for standard deviation, so $\\sqrt{16.67} \\approx 4$."
+          },
+          {
+            id: "W10-2025-Q16",
+            year: "2025",
+            conceptTag: "Completion Probability at Expected Time",
+            question: "Expected time of the completion of a project is 20 days. Project is started on July 1, 2026. The probability that it will be completed on July 20, 2026 is",
+            options: [
+              "0.99",
+              "0.95",
+              "0.67",
+              "0.5"
+            ],
+            correctAnswer: 3,
+            theory: "Project completion time is symmetrically distributed around the expected mean $T_e$. At target time equal to expected time ($T_s = T_e$), the completion probability is $\\Phi(0) = 0.50$ (50%).",
+            formula: "\\boxed{Z = \\frac{T_s - T_e}{\\sigma} = 0 \\implies P(T \\le T_e) = 0.50}",
+            stepByStep: "Target date $T_s = 20\\text{ days}$, Expected date $T_e = 20\\text{ days}$:\n$$Z = \\frac{20 - 20}{\\sigma} = 0 \\implies P(Z \\le 0) = \\mathbf{0.5} \\quad (\\text{Option D})$$",
+            variant: "2026 Variant: $T_e = 10\\text{ days}$, Target date $= 10\\text{ days} \\implies P = \\mathbf{0.5}$.",
+            trap: "The probability is 50% (0.5), NOT 1.0 or 0.95."
+          },
+          {
+            id: "W10-2025-Q17",
+            year: "2025",
+            conceptTag: "Project Crashing Definition",
+            question: "In project management, project crashing means",
+            options: [
+              "terminating a project due to a failed concept",
+              "abandoning the project in favor of another opportunity",
+              "reducing the project duration by allocating additional resources",
+              "delaying non-critical tasks to manage budget constraints"
+            ],
+            correctAnswer: 2,
+            theory: "Crashing is a schedule compression technique used to shorten project duration for the least incremental cost by adding resources (overtime, extra shifts, additional machinery).",
+            formula: "\\boxed{\\text{Crashing} = \\text{Compressing project duration by adding resources}}",
+            stepByStep: "Definition: Reducing the project duration by allocating additional resources (Option C).",
+            variant: "2026 Variant: Same question.",
+            trap: "Crashing does not mean project failure or abandoning tasks."
+          },
+          {
+            id: "W10-2025-Q18",
+            year: "2025",
+            conceptTag: "Manpower Effects (Brooks' Law)",
+            question: "Increasing manpower for executing a project activity",
+            options: [
+              "always reduces the project completion time",
+              "has no effect on the project completion time",
+              "always increases the project completion time",
+              "may reduce or increase the project completion time depending on the nature of the activity"
+            ],
+            correctAnswer: 3,
+            theory: "Brooks' law states that adding manpower to a project may reduce or increase completion time depending on the activity's task partitioning and communication complexity.",
+            formula: "\\boxed{\\text{Manpower Impact: May reduce OR increase completion time}}",
+            stepByStep: "Correct assessment: May reduce or increase the project completion time depending on the nature of the activity (Option D).",
+            variant: "2026 Variant: Identical question.",
+            trap: "Never select 'always reduces'—training and coordination overhead can slow down late projects."
+          },
+          {
+            id: "W10-2025-Q19",
+            year: "2025",
+            conceptTag: "Crashing Strategy",
+            question: "Crashing is most effective when applied to an activity that",
+            options: [
+              "lies on the critical path",
+              "has the longest individual duration in the project",
+              "is not on the critical path",
+              "has high uncertainty in its duration estimates"
+            ],
+            correctAnswer: 0,
+            theory: "Because the critical path dictates the overall project length, crashing a non-critical activity only absorbs its float without shortening the project. Crashing is only effective on critical path activities.",
+            formula: "\\boxed{\\text{Only crashing critical path activities reduces total project duration}}",
+            stepByStep: "Strategic rule: Lies on the critical path (Option A).",
+            variant: "2026 Variant: Identical concept.",
+            trap: "Crashing an activity with long duration is useless unless that activity is on the critical path."
+          },
+          {
+            id: "W10-2025-Q20",
+            year: "2025",
+            conceptTag: "Identifying Crashing Candidates",
+            question: "The network diagram for a project has event times E/L in brackets:\nA(4): 1→2 [Node 1: E=0, L=0; Node 2: E=4, L=4]\nB(6): 2→3 [Node 3: E=10, L=10]\nC(5): 2→4 [Node 4: E=9, L=15]\nD(8): 3→5 [Node 5: E=18, L=18]\nE(3): 4→5\nF(7): 5→6 [Node 6: E=25, L=25]\nG(4): 6→7 [Node 7: E=29, L=29]\n\nThe following activities should be explored for crashing:",
+            options: [
+              "A, C, E, F, G",
+              "C, E",
+              "A, B, D, F, G",
+              "B, D, C, E"
+            ],
+            correctAnswer: 2,
+            theory: "Crashing candidates must lie on the critical path. Critical events are those where Earliest Event Time equals Latest Event Time ($E = L$): Node 1 (0,0), Node 2 (4,4), Node 3 (10,10), Node 5 (18,18), Node 6 (25,25), Node 7 (29,29).",
+            formula: "\\boxed{\\text{Critical Path: Nodes with } E = L \\implies 1 \\to 2 \\to 3 \\to 5 \\to 6 \\to 7}",
+            stepByStep: "1. Node 4 has $E=9, L=15$ ($E \\ne L$), so activities C ($2 \\to 4$) and E ($4 \\to 5$) are non-critical.\n2. The critical path connecting critical events ($E=L$) is:\n$$1 \\xrightarrow{A} 2 \\xrightarrow{B} 3 \\xrightarrow{D} 5 \\xrightarrow{F} 6 \\xrightarrow{G} 7$$\n3. Activities on the critical path to be explored for crashing: **A, B, D, F, G (Option C)**.",
+            variant: "If Node 4 had $E=L$, alternate critical paths would need to be checked.",
+            trap: "Do not include C or E; Node 4 has 6 days of slack ($L - E = 15 - 9 = 6$), so C and E are not on the critical path."
           }
         ]
       }
     },
 
-    // Placeholders for Weeks 10 down to 1
-    ...[10, 9, 8, 7, 6, 5, 4, 3, 2, 1].map(wNum => ({
+    // Placeholders for Weeks 9 down to 1
+    ...[9, 8, 7, 6, 5, 4, 3, 2, 1].map(wNum => ({
       number: wNum,
       title: getWeekTopicTitle(wNum),
       status: "upcoming",
@@ -1645,14 +2454,13 @@ const IEOR_DATA = {
         "2025": []
       }
     }))
-
   ]
 };
 
 function getWeekTopicTitle(num) {
   const titles = {
-    11: "Queuing Models & PERT/CPM Project Management",
-    10: "Dynamic Programming & Integer Programming",
+    11: "Queuing Models & Waiting Line Analysis",
+    10: "Project Management: CPM, PERT & Crashing",
     9: "Transportation & Assignment Models (VAM & MODI)",
     8: "Linear Programming: Dual Problem & Sensitivity Analysis",
     7: "Linear Programming: Simplex Method & Big-M",

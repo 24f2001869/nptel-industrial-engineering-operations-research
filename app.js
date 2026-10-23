@@ -139,7 +139,8 @@
       
       tab.addEventListener('click', () => {
         if (!isAvailable) {
-          alert(`Week ${num} assignment module will be unlocked as you work backward! Currently Weeks 12 and 11 are active.`);
+          const activeWeeks = IEOR_DATA.weeks.filter(w => w.status === 'active').map(w => w.number).join(', ');
+          alert(`Week ${num} assignment module will be unlocked as you work backward! Currently Weeks ${activeWeeks} are active.`);
           return;
         }
         loadWeekAndYear(num, state.currentYear);
