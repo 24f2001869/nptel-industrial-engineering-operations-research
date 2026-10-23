@@ -658,7 +658,8 @@
     if (!week || !week.studyMaterials) return;
 
     let formulasHtml = `<h3 style="margin-bottom:0.75rem; color:var(--primary);">📐 Core Exam Formulas (Week ${week.number}: ${week.title})</h3>`;
-    week.studyMaterials.formulaSheet.forEach(item => {
+    const formulaSheet = week.studyMaterials.formulaSheet || [];
+    formulaSheet.forEach(item => {
       formulasHtml += `
         <div class="formula-item">
           <div class="formula-name">${item.name} (${item.units})</div>
@@ -668,14 +669,17 @@
       `;
     });
 
-    formulasHtml += '<h3 style="margin: 1.5rem 0 0.75rem 0; color:var(--warning);">⚠️ High-Frequency Exam Traps</h3>';
-    week.studyMaterials.examTraps.forEach(trap => {
-      formulasHtml += `
-        <div class="trap-box" style="margin-bottom:0.75rem;">
-          <strong>${trap.trap}:</strong><br>${trap.explanation}
-        </div>
-      `;
-    });
+    const examTraps = week.studyMaterials.examTraps || [];
+    if (examTraps.length > 0) {
+      formulasHtml += '<h3 style="margin: 1.5rem 0 0.75rem 0; color:var(--warning);">⚠️ High-Frequency Exam Traps</h3>';
+      examTraps.forEach(trap => {
+        formulasHtml += `
+          <div class="trap-box" style="margin-bottom:0.75rem;">
+            <strong>${trap.trap}:</strong><br>${trap.explanation}
+          </div>
+        `;
+      });
+    }
 
     elements.formulaModalContent.innerHTML = formulasHtml;
     renderMath(elements.formulaModalContent);
