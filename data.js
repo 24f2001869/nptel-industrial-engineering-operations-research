@@ -4809,8 +4809,795 @@ const IEOR_DATA = {
       }
     },
 
-    // Placeholders for Weeks 6 down to 1
-    ...[6, 5, 4, 3, 2, 1].map(wNum => ({
+    // Week 6: Data Science, Machine Learning, IoT & Smart Factory (Active)
+    {
+      "number": 6,
+      "title": "Data Science, Machine Learning, IoT & Smart Factory",
+      "status": "active",
+      "summary": "Big Data (4Vs, storage scales from Gigabytes to Zettabytes), regression diagnostics (Cook's distance, leverage, residuals), Machine Learning foundations (supervised/unsupervised, classification metrics: Accuracy, Precision, Recall), Mechatronics and sensors (capacitive vs inductive), IoT & LoRa protocols, Cyber-Physical Systems (CPS), Industry 3.0 vs 4.0, and Digital Twins.",
+      "studyMaterials": {
+        "quickOverview": "Week 6 covers modern data-driven industrial engineering paradigms: Big Data characteristics (Volume, Velocity, Variety, Veracity), data storage units (1 ZB = 10^21 bytes = 8 x 10^21 bits), linear regression influence diagnostics (Cook's distance and leverage), Machine Learning (Arthur Samuel 1959, classification metrics: Accuracy, Precision, Recall), Mechatronics origins (Tetsuro Mori, Yaskawa 1969/1971), proximity sensors (capacitive detects metallic & non-metallic; inductive detects all metals), IoT communication (LoRa: long range, low power), Cyber-Physical Systems (CPS) in smart factories, and the distinction between Industry 3.0 (electronics, robotics, PLCs) and Industry 4.0 (CPS, IIoT, digital twins).",
+        "formulaSheet": [
+          {
+            "name": "Classification Confusion Matrix Metrics",
+            "formula": "\\text{Accuracy} = \\frac{\\text{TP} + \\text{TN}}{\\text{TP} + \\text{TN} + \\text{FP} + \\text{FN}}, \\quad \\text{Precision} = \\frac{\\text{TP}}{\\text{TP} + \\text{FP}}, \\quad \\text{Recall} = \\frac{\\text{TP}}{\\text{TP} + \\text{FN}}",
+            "units": "Dimensionless ratio in [0, 1]",
+            "desc": "Precision measures exactness (fraction of positive predictions that are true), while Recall (Sensitivity) measures completeness (fraction of actual positives identified)."
+          },
+          {
+            "name": "Cook's Distance & High Leverage in Regression",
+            "formula": "D_i = \\frac{e_i^2}{p \\cdot \\text{MSE}} \\cdot \\left[\\frac{h_{ii}}{(1 - h_{ii})^2}\\right], \\quad h_{ii} = \\mathbf{x}_i^T (\\mathbf{X}^T \\mathbf{X})^{-1} \\mathbf{x}_i",
+            "units": "Influence index",
+            "desc": "Leverage h_ii measures how far predictor x_i lies from the mean of independent variables. Cook's distance D_i measures the overall influence of deleting the i-th point on all fitted values."
+          },
+          {
+            "name": "Data Storage Unit Hierarchy",
+            "formula": "1 \\text{ Zettabyte (ZB)} = 10^{21} \\text{ bytes} = 8 \\times 10^{21} \\text{ bits} = 1000 \\text{ Exabytes (EB)}",
+            "units": "Bytes / Bits",
+            "desc": "Kilo (10^3) -> Mega (10^6) -> Giga (10^9) -> Tera (10^12) -> Peta (10^15) -> Exa (10^18) -> Zetta (10^21) -> Yotta (10^24)."
+          },
+          {
+            "name": "Kalman Filter Dynamic State Estimation",
+            "formula": "\\hat{\\mathbf{x}}_{k|k} = \\hat{\\mathbf{x}}_{k|k-1} + \\mathbf{K}_k (\\mathbf{z}_k - \\mathbf{H}_k \\hat{\\mathbf{x}}_{k|k-1})",
+            "units": "State vector",
+            "desc": "Optimally estimates the dynamic state of a physical system by fusing noisy sensor measurements with a mathematical prediction model."
+          },
+          {
+            "name": "Industrial Revolutions Roadmap",
+            "formula": "\\text{Ind 1.0 (Steam/Mech)} \\to \\text{Ind 2.0 (Electric/Mass)} \\to \\text{Ind 3.0 (Electronics/Robotics/PLC)} \\to \\text{Ind 4.0 (CPS/IIoT)}",
+            "units": "Chronological eras",
+            "desc": "Industry 3.0 automated machines using PLCs and electronics; Industry 4.0 integrates physical equipment with cyber-physical networks, cloud, and digital twins."
+          }
+        ],
+        "examTraps": [
+          {
+            "trap": "Zettabyte: Bits vs Bytes Trap",
+            "explanation": "Pay extreme attention to units: 1 ZB = $10^{21}$ BYTES, but since 1 Byte = 8 bits, 1 ZB = $8 \\times 10^{21}$ BITS! In 2025 Q2 the correct option was $8 \\times 10^{21}$ bits; in 2026 Q1 it was $1 \\times 10^{21}$ bytes."
+          },
+          {
+            "trap": "Capacitive vs Inductive Sensor Detection",
+            "explanation": "Inductive proximity sensors detect ONLY METALLIC objects (both ferrous and non-ferrous). Capacitive proximity sensors detect BOTH metallic and non-metallic objects (liquids, plastics, wood, glass)."
+          },
+          {
+            "trap": "Industry 3.0 vs Industry 4.0 Feature Trap",
+            "explanation": "Electronics, computers, and industrial robotics for manufacturing efficiency characterize Industry 3.0! Cyber-Physical Systems (CPS), smart factories, and IIoT characterize Industry 4.0."
+          },
+          {
+            "trap": "Arthur Samuel (1959) vs Tetsuro Mori (Mechatronics)",
+            "explanation": "Arthur Samuel coined 'Machine Learning' in 1959. Tetsuro Mori of Yaskawa Electric coined and registered 'Mechatronics' in 1969/1971."
+          }
+        ]
+      },
+      "years": {
+        "2025": [
+          {
+            "id": "W6-2025-Q1",
+            "year": "2025",
+            "conceptTag": "Big Data 4Vs: Veracity",
+            "question": "Veracity of data refers to",
+            "options": [
+              "reliability",
+              "variety",
+              "velocity",
+              "compatibility"
+            ],
+            "correctAnswer": 0,
+            "theory": "In the Big Data framework (Volume, Velocity, Variety, Veracity), Veracity refers to the trustworthiness, truthfulness, accuracy, and **reliability** of the collected data.",
+            "formula": "\\boxed{\\text{Veracity} = \\text{Data Reliability and Quality}}",
+            "stepByStep": "Veracity indicates data credibility and reliability **(Option A)**.",
+            "shortcut": "Veracity = Reliability.",
+            "examTrap": "Variety refers to diverse formats; Velocity refers to processing speed; Veracity refers to reliability."
+          },
+          {
+            "id": "W6-2025-Q2",
+            "year": "2025",
+            "conceptTag": "Zettabyte in Bits Conversion",
+            "question": "One zettabyte is equal to",
+            "options": [
+              "1×10¹⁸ bits",
+              "8×10¹⁸ bits",
+              "1×10²¹ bits",
+              "8×10²¹ bits"
+            ],
+            "correctAnswer": 3,
+            "theory": "1 zettabyte (ZB) = $10^{21}$ bytes. Since each byte consists of 8 bits, 1 zettabyte in bits equals $8 \\times 10^{21}$ bits.",
+            "formula": "\\boxed{1 \\text{ ZB} = 10^{21} \\text{ bytes} \\times 8 \\frac{\\text{bits}}{\\text{byte}} = 8 \\times 10^{21} \\text{ bits}}",
+            "stepByStep": "1. 1 ZB $= 10^{21}$ bytes.\n2. Convert bytes to bits: $10^{21} \\times 8 = \\mathbf{8 \\times 10^{21}\\text{ bits}}$ **(Option D)**.",
+            "shortcut": "$10^{21} \\times 8 = 8 \\times 10^{21}$ bits.",
+            "examTrap": "Option C says $1 \\times 10^{21}$ bits, but that's in bytes! In bits, it is multiplied by 8."
+          },
+          {
+            "id": "W6-2025-Q3",
+            "year": "2025",
+            "conceptTag": "Cook's Distance Metric",
+            "question": "In regression analysis, Cook's Distance measures the",
+            "options": [
+              "standard error of the regression coefficients",
+              "variance of residuals",
+              "influence of a data point on the fitted regression model",
+              "correlation between independent variables"
+            ],
+            "correctAnswer": 2,
+            "theory": "Cook's distance ($D_i$) evaluates the influence of the $i$-th observation on the overall fitted regression model by measuring changes in predicted response values when that point is removed.",
+            "formula": "\\boxed{D_i = \\text{Influence of data point on fitted model}}",
+            "stepByStep": "Cook's distance measures point influence on regression model parameters **(Option C)**.",
+            "shortcut": "Cook's Distance = Influence of a data point.",
+            "examTrap": "Cook's distance is an influence metric, not coefficient variance or standard error."
+          },
+          {
+            "id": "W6-2025-Q4",
+            "year": "2025",
+            "conceptTag": "High Leverage Definition",
+            "question": "A data point with high leverage",
+            "options": [
+              "must always have a large residual",
+              "lies far from the mean of the independent variables",
+              "always improves the model fit",
+              "has a minimal impact on the regression coefficients"
+            ],
+            "correctAnswer": 1,
+            "theory": "Leverage ($h_{ii}$) quantifies the geometric distance of a data point's independent variables ($x_i$) from the mean (centroid $\\bar{x}$) of all independent variables in predictor space.",
+            "formula": "\\boxed{\\text{High leverage } h_{ii} \\iff x_i \\text{ lies far from } \\bar{x}}",
+            "stepByStep": "A point with high leverage has extreme $X$ coordinates, lying far from the mean of independent variables **(Option B)**.",
+            "shortcut": "High leverage = far from predictor mean.",
+            "examTrap": "A high-leverage point does not necessarily have a large residual; if the regression line passes right through it, its residual is small."
+          },
+          {
+            "id": "W6-2025-Q5",
+            "year": "2025",
+            "conceptTag": "Machine Learning Definition Origin",
+            "question": "Machine learning is a field of study that gives computers the ability to learn on their own. This definition was given by",
+            "options": [
+              "Bill Gates",
+              "Alan Turing",
+              "T.M. Mitchell",
+              "Arthur Samuel"
+            ],
+            "correctAnswer": 3,
+            "theory": "The definition was coined in 1959 by pioneer **Arthur Samuel** during his research on machine learning at IBM.",
+            "formula": "\\boxed{\\text{Arthur Samuel (IBM, 1959)}}",
+            "stepByStep": "Arthur Samuel defined machine learning as computers learning on their own **(Option D)**.",
+            "shortcut": "Definition by Arthur Samuel.",
+            "examTrap": "Tom Mitchell gave the operational definition in 1997 ($P, T, E$), while Arthur Samuel gave the original 1959 definition."
+          },
+          {
+            "id": "W6-2025-Q6",
+            "year": "2025",
+            "conceptTag": "Supervised Learning Taxonomy",
+            "question": "The classification is a part of",
+            "options": [
+              "supervised learning",
+              "unsupervised learning",
+              "reinforcement learning",
+              "clustering"
+            ],
+            "correctAnswer": 0,
+            "theory": "Classification algorithms are trained on known, labelled historical target classes, making classification a primary branch of **supervised learning**.",
+            "formula": "\\boxed{\\text{Classification} \\subset \\text{Supervised Learning}}",
+            "stepByStep": "Classification uses labelled target outputs, belonging to supervised learning **(Option A)**.",
+            "shortcut": "Classification = Supervised learning.",
+            "examTrap": "Clustering is unsupervised; classification is supervised."
+          },
+          {
+            "id": "W6-2025-Q7",
+            "year": "2025",
+            "conceptTag": "Precision Calculation",
+            "question": "A model gives TP = 50, TN = 30, FP = 10, FN = 5. The precision of the model is",
+            "options": [
+              "0.71",
+              "0.83",
+              "0.84",
+              "0.91"
+            ],
+            "correctAnswer": 1,
+            "theory": "Precision is the ratio of true positive predictions to total predicted positives: $\\text{Precision} = \\frac{\\text{TP}}{\\text{TP} + \\text{FP}}$.",
+            "formula": "\\boxed{\\text{Precision} = \\frac{\\text{TP}}{\\text{TP} + \\text{FP}} = \\frac{50}{50 + 10} = \\frac{50}{60} \\approx 0.8333}",
+            "stepByStep": "1. $\\text{TP} = 50, \\text{FP} = 10$.\n2. $\\text{Precision} = \\frac{50}{60} = \\frac{5}{6} \\approx \\mathbf{0.83}$ **(Option B)**.",
+            "shortcut": "$50 / 60 = 5/6 \\approx 0.83$.",
+            "examTrap": "0.84 is the accuracy ($80/95$); precision is 0.83."
+          },
+          {
+            "id": "W6-2025-Q8",
+            "year": "2025",
+            "conceptTag": "Accuracy Calculation",
+            "question": "Same results (TP = 50, TN = 30, FP = 10, FN = 5). The accuracy of the model is",
+            "options": [
+              "0.71",
+              "0.83",
+              "0.84",
+              "0.91"
+            ],
+            "correctAnswer": 2,
+            "theory": "Accuracy measures the total correct classifications over all predictions: $\\text{Accuracy} = \\frac{\\text{TP} + \\text{TN}}{\\text{Total}}$.",
+            "formula": "\\boxed{\\text{Accuracy} = \\frac{50 + 30}{50 + 30 + 10 + 5} = \\frac{80}{95} \\approx 0.8421}",
+            "stepByStep": "1. Correct $= 50 + 30 = 80$.\n2. Total $= 50 + 30 + 10 + 5 = 95$.\n3. $\\text{Accuracy} = \\frac{80}{95} \\approx \\mathbf{0.84}$ **(Option C)**.",
+            "shortcut": "$80 / 95 \\approx 0.84$.",
+            "examTrap": "Do not confuse accuracy (0.84) with precision (0.83) or recall (0.91)."
+          },
+          {
+            "id": "W6-2025-Q9",
+            "year": "2025",
+            "conceptTag": "Mechatronics Trademark Origin",
+            "question": "The term mechatronics was first used as a trademark by",
+            "options": [
+              "Yaskawa Electric Corporation",
+              "Mitsubishi Electric Corporation",
+              "Siemens AG",
+              "Hitachi, Ltd."
+            ],
+            "correctAnswer": 0,
+            "theory": "The trademark for 'Mechatronics' was officially registered in 1971 by **Yaskawa Electric Corporation** in Japan.",
+            "formula": "\\boxed{\\text{Trademark registered by Yaskawa Electric Corporation (1971)}}",
+            "stepByStep": "Yaskawa Electric Corporation registered the trademark for mechatronics in Japan **(Option A)**.",
+            "shortcut": "Mechatronics trademark = Yaskawa Electric.",
+            "examTrap": "Yaskawa later released the trademark to the public domain in 1982."
+          },
+          {
+            "id": "W6-2025-Q10",
+            "year": "2025",
+            "conceptTag": "ENIAC Physical Weight",
+            "question": "The approximate weight of ENIAC, the first general purpose computer, was",
+            "options": [
+              "500 kg",
+              "3 tons",
+              "13 tons",
+              "30 tons"
+            ],
+            "correctAnswer": 3,
+            "theory": "ENIAC (Electronic Numerical Integrator and Computer), completed in 1945 at the University of Pennsylvania, contained nearly 18,000 vacuum tubes and weighed approximately **30 tons** (over 27 metric tons).",
+            "formula": "\\boxed{\\text{ENIAC weight } \\approx 30 \\text{ tons}}",
+            "stepByStep": "ENIAC was massive, weighing roughly **30 tons (Option D)**.",
+            "shortcut": "ENIAC weight = 30 tons.",
+            "examTrap": "Do not guess small values like 500 kg or 3 tons; early vacuum tube computers were room-sized giants."
+          },
+          {
+            "id": "W6-2025-Q11",
+            "year": "2025",
+            "conceptTag": "Capacitive Sensor Detection Capability",
+            "question": "A capacitive proximity sensor can detect",
+            "options": [
+              "only metallic object",
+              "only non-metallic object",
+              "both metallic and non-metallic object",
+              "only non-magnetic object"
+            ],
+            "correctAnswer": 2,
+            "theory": "Capacitive sensors measure changes in capacitance when any target material enters its electrostatic field. Because any material with a dielectric constant greater than air alters the capacitance, capacitive sensors can detect **both metallic and non-metallic objects** (plastics, powders, liquids, glass, wood, metals).",
+            "formula": "\\boxed{\\text{Capacitive sensor detects both metallic and non-metallic objects}}",
+            "stepByStep": "Capacitive proximity sensors detect conductive metals as well as dielectric non-metals **(Option C)**.",
+            "shortcut": "Capacitive = Both metallic and non-metallic.",
+            "examTrap": "Inductive sensors detect only metals; capacitive sensors detect both metals and non-metals."
+          },
+          {
+            "id": "W6-2025-Q12",
+            "year": "2025",
+            "conceptTag": "LoRa Protocol Definition",
+            "question": "Which best describes LoRa in the context of IoT communication?",
+            "options": [
+              "A short-range, high-data-rate wireless protocol",
+              "A long-range, low-power wireless communication protocol",
+              "A high-power, long-range video transmission protocol",
+              "A short-range, high-latency wired communication standard"
+            ],
+            "correctAnswer": 1,
+            "theory": "LoRa stands for Long Range. It is a proprietary low-power, long-distance wireless radio technology designed for IoT sensor networks operating on unlicensed ISM radio bands.",
+            "formula": "\\boxed{\\text{LoRa} = \\text{Long Range, Low Power protocol}}",
+            "stepByStep": "LoRa provides long-range coverage with minimal battery power consumption **(Option B)**.",
+            "shortcut": "LoRa = Long-range, low-power.",
+            "examTrap": "LoRa trades data throughput for range and battery longevity."
+          },
+          {
+            "id": "W6-2025-Q13",
+            "year": "2025",
+            "conceptTag": "Smart Factory Architectural Definition",
+            "question": "A smart factory can be best described as",
+            "options": [
+              "an Internet of Things (IoT) system",
+              "an Industrial Internet of Things (IIoT) system",
+              "a Cyber-Physical System (CPS)",
+              "a cloud computing platform"
+            ],
+            "correctAnswer": 2,
+            "theory": "A smart factory is the core embodiment of a **Cyber-Physical System (CPS)**, where physical production assets are seamlessly merged with computational models and real-time network feedback.",
+            "formula": "\\boxed{\\text{Smart Factory} \\equiv \\text{Cyber-Physical System (CPS)}}",
+            "stepByStep": "The overarching architectural classification of a smart factory is a Cyber-Physical System **(Option C)**.",
+            "shortcut": "Smart Factory = Cyber-Physical System (CPS).",
+            "examTrap": "IoT and IIoT are subsystems within the comprehensive CPS of a smart factory."
+          },
+          {
+            "id": "W6-2025-Q14",
+            "year": "2025",
+            "conceptTag": "IoT and CPS Interrelationship",
+            "question": "Which best describes the relationship between IoT and Cyber-Physical Systems (CPS)?",
+            "options": [
+              "IoT and CPS are completely unrelated technologies",
+              "CPS is a subset of IoT focused only on physical devices",
+              "IoT is a part or enabler within the broader concept of CPS",
+              "IoT replaces the need for CPS in smart systems"
+            ],
+            "correctAnswer": 2,
+            "theory": "Cyber-Physical Systems (CPS) represent the overarching integration of physical operations with computational control loops. The Internet of Things (IoT) provides the networking infrastructure and device connectivity, acting as an enabler and key component of CPS.",
+            "formula": "\\boxed{\\text{IoT} \\subset \\text{Enabling components of CPS}}",
+            "stepByStep": "IoT functions as an enabling communication layer inside the broader CPS architecture **(Option C)**.",
+            "shortcut": "IoT is a part / enabler of CPS.",
+            "examTrap": "CPS is NOT a subset of IoT; CPS is the broader multidisciplinary concept."
+          },
+          {
+            "id": "W6-2025-Q15",
+            "year": "2025",
+            "conceptTag": "Embedded Sensor Purpose",
+            "question": "Which best describes an embedded sensor?",
+            "options": [
+              "A sensor that operates independently and transmits data manually",
+              "A sensor integrated into a larger system to collect data and support real-time decision-making",
+              "A sensor that can only function when connected to the internet",
+              "A handheld sensor used only for laboratory measurements"
+            ],
+            "correctAnswer": 1,
+            "theory": "An embedded sensor is built directly into a host device or mechanical assembly to continuously monitor physical parameters (temperature, vibration, pressure) and supply telemetry for automated real-time decision-making and control.",
+            "formula": "\\boxed{\\text{Embedded Sensor} = \\text{Integrated sensor for continuous real-time monitoring}}",
+            "stepByStep": "Embedded sensors are integrated into larger hardware to support automated real-time decisions **(Option B)**.",
+            "shortcut": "Embedded sensor = integrated for real-time decisions.",
+            "examTrap": "Embedded sensors do not require internet connection; many operate in closed local control loops."
+          },
+          {
+            "id": "W6-2025-Q16",
+            "year": "2025",
+            "conceptTag": "Latency Concept in Networks",
+            "question": "In a communication or computing system, the latency refers to the",
+            "options": [
+              "maximum amount of data that can be transferred per second",
+              "delay between the input or request and the corresponding response or action",
+              "number of users that can access the system simultaneously",
+              "distance between two communicating devices"
+            ],
+            "correctAnswer": 1,
+            "theory": "Latency is the transit time or lag between sending an instruction or request and receiving the expected response or triggering an action.",
+            "formula": "\\boxed{\\text{Latency} = \\text{Time delay from request to response}}",
+            "stepByStep": "Latency measures the delay between input and response **(Option B)**.",
+            "shortcut": "Latency = Delay between input and response.",
+            "examTrap": "Data transfer speed is bandwidth; latency is time delay."
+          },
+          {
+            "id": "W6-2025-Q17",
+            "year": "2025",
+            "conceptTag": "Digital Manufacturing Era",
+            "question": "Digital manufacturing, characterized by the integration of cyber-physical systems, IIoT, and data-driven decision-making, is a key feature of which industrial revolution?",
+            "options": [
+              "Industry 2.0",
+              "Industry 3.0",
+              "Industry 4.0",
+              "Industry 5.0"
+            ],
+            "correctAnswer": 2,
+            "theory": "Industry 4.0 is defined by the convergence of digital technologies, Cyber-Physical Systems, Industrial IoT, big data analytics, and cloud computing in manufacturing.",
+            "formula": "\\boxed{\\text{CPS + IIoT + Data-driven decisions} \\iff \\text{Industry 4.0}}",
+            "stepByStep": "Integration of CPS, IIoT, and digital manufacturing defines **Industry 4.0 (Option C)**.",
+            "shortcut": "Cyber-Physical + IIoT = Industry 4.0.",
+            "examTrap": "Industry 3.0 introduced automation and computers; Industry 4.0 connects them via cyber-physical networks."
+          },
+          {
+            "id": "W6-2025-Q18",
+            "year": "2025",
+            "conceptTag": "Transistor Invention Nobel Prize",
+            "question": "William Shockley of Bell Labs received the Nobel Prize in Physics for his contribution to the invention of the",
+            "options": [
+              "Laser",
+              "Transistor",
+              "Integrated Circuit",
+              "Light Emitting Diode (LED)"
+            ],
+            "correctAnswer": 1,
+            "theory": "William Shockley, along with John Bardeen and Walter Brattain, co-invented the point-contact and junction transistor at Bell Labs in 1947, receiving the Nobel Prize in Physics in 1956.",
+            "formula": "\\boxed{\\text{William Shockley } \\implies \\text{Nobel Prize for the Transistor (1956)}}",
+            "stepByStep": "Shockley led the solid-state physics group that created the transistor **(Option B)**.",
+            "shortcut": "William Shockley = Transistor.",
+            "examTrap": "Jack Kilby won the Nobel prize for the Integrated Circuit (IC), not Shockley."
+          },
+          {
+            "id": "W6-2025-Q19",
+            "year": "2025",
+            "conceptTag": "ML Reliability Scaling",
+            "question": "How does the reliability of a machine learning model's predictions typically change as the size of the training dataset increases?",
+            "options": [
+              "It decreases exponentially due to overfitting",
+              "It improves linearly without any limit",
+              "It improves asymptotically, approaching a maximum as more data is added",
+              "It remains constant regardless of data size"
+            ],
+            "correctAnswer": 2,
+            "theory": "Empirical learning curves demonstrate that model reliability improves rapidly with initial data and then increases asymptotically, reaching a plateau limited by the irreducible error (Bayes rate).",
+            "formula": "\\boxed{\\text{Reliability improves asymptotically towards an upper ceiling}}",
+            "stepByStep": "Prediction accuracy improves asymptotically towards an upper performance bound as data volume grows **(Option C)**.",
+            "shortcut": "Improves asymptotically approaching a maximum.",
+            "examTrap": "Growth is never strictly linear without limit; diminishing returns always occur."
+          },
+          {
+            "id": "W6-2025-Q20",
+            "year": "2025",
+            "conceptTag": "Kalman Filter Function",
+            "question": "The primary purpose of a Kalman filter in control and estimation systems is to",
+            "options": [
+              "amplify sensor noise for better detection",
+              "optimally estimate the state of a dynamic system by combining noisy measurements and a predictive model",
+              "generate random data for simulations",
+              "store large datasets efficiently"
+            ],
+            "correctAnswer": 1,
+            "theory": "A Kalman filter is an optimal linear quadratic recursive estimator that produces accurate estimates of unknown dynamic state variables by combining mathematical model predictions with statistical measurements corrupted by Gaussian noise.",
+            "formula": "\\boxed{\\text{Kalman Filter: Optimal state estimation from noisy measurements and system dynamics}}",
+            "stepByStep": "The Kalman filter fuses noisy sensor observations with state predictions to minimize mean squared estimation error **(Option B)**.",
+            "shortcut": "Kalman filter = Optimal state estimation from noisy measurements.",
+            "examTrap": "The Kalman filter filters out (reduces) noise; it does not amplify noise."
+          }
+        ],
+        "2026": [
+          {
+            "id": "W6-2026-Q1",
+            "year": "2026",
+            "conceptTag": "Data Storage Units (Zettabyte in Bytes)",
+            "question": "One zettabyte is equal to",
+            "options": [
+              "1×10²¹ bytes",
+              "8×10¹⁸ bits",
+              "1×10²¹ bits",
+              "8×10²¹ bytes"
+            ],
+            "correctAnswer": 0,
+            "theory": "In standard decimal data storage metrics, the SI prefixes scale by powers of $10^3$: Kilo ($10^3$), Mega ($10^6$), Giga ($10^9$), Tera ($10^{12}$), Peta ($10^{15}$), Exa ($10^{18}$), Zetta ($10^{21}$), and Yotta ($10^{24}$). Therefore, 1 zettabyte (ZB) equals $10^{21}$ bytes.",
+            "formula": "\\boxed{1 \\text{ Zettabyte (ZB)} = 10^{21} \\text{ bytes}}",
+            "stepByStep": "1. 1 Gigabyte $= 10^9$ bytes\n2. 1 Terabyte $= 10^{12}$ bytes\n3. 1 Petabyte $= 10^{15}$ bytes\n4. 1 Exabyte $= 10^{18}$ bytes\n5. 1 Zettabyte $= 10^{21}$ bytes **(Option A)**.",
+            "shortcut": "Zetta $= 10^{21}$ bytes.",
+            "examTrap": "Do not confuse bits and bytes: $10^{21}$ bytes $= 8 \\times 10^{21}$ bits. Option A is in bytes ($10^{21}$ bytes)."
+          },
+          {
+            "id": "W6-2026-Q2",
+            "year": "2026",
+            "conceptTag": "Data Interoperability & Compatibility",
+            "question": "The ability of different data formats to work together is referred to as",
+            "options": [
+              "reliability",
+              "variety",
+              "velocity",
+              "compatibility"
+            ],
+            "correctAnswer": 3,
+            "theory": "Compatibility (or interoperability) describes the capability of different computing architectures, software systems, and data formats to exchange information seamlessly and execute cooperative tasks without manual translation.",
+            "formula": "\\boxed{\\text{Multi-format interoperability} \\iff \\text{Compatibility}}",
+            "stepByStep": "The property enabling heterogeneous formats and systems to interoperate smoothly is **compatibility (Option D)**.",
+            "shortcut": "Different formats working together = Compatibility.",
+            "examTrap": "'Variety' refers to the diversity of data types (structured, unstructured), while 'compatibility' is the ability to work together."
+          },
+          {
+            "id": "W6-2026-Q3",
+            "year": "2026",
+            "conceptTag": "Leverage in Regression Analysis",
+            "question": "A data point with low leverage",
+            "options": [
+              "must always have a large residual",
+              "lies close to the mean of the independent variables",
+              "always improves the model fit",
+              "has a high impact on the regression coefficients"
+            ],
+            "correctAnswer": 1,
+            "theory": "Leverage ($h_{ii}$) measures how far the values of independent variables for a given observation deviate from the sample mean of the independent variables (centroid). An observation with low leverage has predictor values that lie close to the mean of the independent variables.",
+            "formula": "\\boxed{h_{ii} \\propto (x_i - \\bar{x})^2 \\implies \\text{Low leverage } h_{ii} \\iff x_i \\approx \\bar{x}}",
+            "stepByStep": "1. Leverage is determined solely by the position of $x_i$ relative to $\\bar{x}$.\n2. High leverage points lie far from the centroid of predictors.\n3. Low leverage points lie close to the mean of the independent variables **(Option B)**.",
+            "shortcut": "Low leverage = near predictor mean $\\bar{x}$.",
+            "examTrap": "Leverage depends ONLY on the independent variables $X$, independent of the residual or response $Y$."
+          },
+          {
+            "id": "W6-2026-Q4",
+            "year": "2026",
+            "conceptTag": "Cook's Distance Influence Metric",
+            "question": "In regression analysis, Cook's Distance measures the",
+            "options": [
+              "standard error of the regression coefficients",
+              "correlation between independent variables",
+              "variance of residuals",
+              "influence of a data point on the fitted regression model"
+            ],
+            "correctAnswer": 3,
+            "theory": "Cook's distance ($D_i$) is an overall influence diagnostic in regression analysis that quantifies how much all fitted values ($\\hat{y}$) change when the $i$-th observation is omitted from the dataset. It combines both the residual size and the leverage of the point.",
+            "formula": "\\boxed{D_i = \\frac{\\sum_{j=1}^n (\\hat{y}_j - \\hat{y}_{j(i)})^2}{p \\cdot \\text{MSE}} = \\text{Influence on fitted model}}",
+            "stepByStep": "Cook's Distance measures the influence of an individual data point on the entire fitted regression model **(Option D)**.",
+            "shortcut": "Cook's Distance = Influence of a data point.",
+            "examTrap": "Cook's distance is NOT just leverage or residual alone; it is the product of leverage and squared standardized residual."
+          },
+          {
+            "id": "W6-2026-Q5",
+            "year": "2026",
+            "conceptTag": "Machine Learning Historical Origin",
+            "question": "The definition of machine learning, \"the field of study that gives computers the ability to learn on their own\", was given in the year",
+            "options": [
+              "1947",
+              "1952",
+              "1959",
+              "1965"
+            ],
+            "correctAnswer": 2,
+            "theory": "Arthur Samuel of IBM coined the term and definition of Machine Learning as 'the field of study that gives computers the ability to learn without being explicitly programmed' in **1959** in his seminal research paper on computer checkers.",
+            "formula": "\\boxed{\\text{Arthur Samuel defined Machine Learning in 1959}}",
+            "stepByStep": "Arthur Samuel published his landmark checkers-playing machine learning paper in **1959 (Option C)**.",
+            "shortcut": "Arthur Samuel ML definition $\\implies$ 1959.",
+            "examTrap": "1952 was the year Samuel wrote his first checkers program, but the formal definition paper was published in 1959."
+          },
+          {
+            "id": "W6-2026-Q6",
+            "year": "2026",
+            "conceptTag": "Supervised Learning Taxonomy",
+            "question": "Linear regression is a part of",
+            "options": [
+              "supervised learning",
+              "unsupervised learning",
+              "reinforcement learning",
+              "clustering"
+            ],
+            "correctAnswer": 0,
+            "theory": "Supervised learning algorithms learn a mapping from input features $X$ to continuous or categorical targets $Y$ using ground-truth labelled training pairs $(x_i, y_i)$. Because linear regression predicts a continuous output $y$ from labelled data, it is a canonical **supervised learning** task.",
+            "formula": "\\boxed{\\text{Linear Regression: } \\hat{y} = \\mathbf{w}^T \\mathbf{x} + b \\implies \\text{Supervised Learning}}",
+            "stepByStep": "Linear regression maps inputs to labelled target continuous outcomes $\\implies$ Supervised learning **(Option A)**.",
+            "shortcut": "Model trained on labelled inputs/outputs $\\implies$ Supervised.",
+            "examTrap": "Clustering and PCA are unsupervised; regression and classification are supervised."
+          },
+          {
+            "id": "W6-2026-Q7",
+            "year": "2026",
+            "conceptTag": "Model Evaluation: Accuracy",
+            "question": "A model gives TP = 40, TN = 20, FP = 15, FN = 10. The accuracy of the model is",
+            "options": [
+              "0.82",
+              "0.78",
+              "0.88",
+              "0.71"
+            ],
+            "correctAnswer": 3,
+            "theory": "Accuracy is the ratio of correctly classified instances (both positive and negative) to the total number of evaluated instances: $\\text{Accuracy} = \\frac{\\text{TP} + \\text{TN}}{\\text{TP} + \\text{TN} + \\text{FP} + \\text{FN}}$.",
+            "formula": "\\boxed{\\text{Accuracy} = \\frac{\\text{TP} + \\text{TN}}{\\text{Total}} = \\frac{40 + 20}{40 + 20 + 15 + 10} = \\frac{60}{85} \\approx 0.7059}",
+            "stepByStep": "1. Correct predictions $= \\text{TP} + \\text{TN} = 40 + 20 = 60$.\n2. Total instances $= 40 + 20 + 15 + 10 = 85$.\n3. $\\text{Accuracy} = \\frac{60}{85} \\approx \\mathbf{0.71}$ **(Option D)**.",
+            "shortcut": "$60 / 85 = 0.706 \\approx 0.71$.",
+            "examTrap": "Do not divide by only positive cases ($40+15$); accuracy divides by the entire population (85)."
+          },
+          {
+            "id": "W6-2026-Q8",
+            "year": "2026",
+            "conceptTag": "Model Evaluation: Recall",
+            "question": "A model gives TP = 50, TN = 30, FP = 10, FN = 5. The recall of the model is",
+            "options": [
+              "0.71",
+              "0.91",
+              "0.84",
+              "0.98"
+            ],
+            "correctAnswer": 1,
+            "theory": "Recall (also known as Sensitivity or True Positive Rate) measures the proportion of actual positive instances that were correctly identified by the model: $\\text{Recall} = \\frac{\\text{TP}}{\\text{TP} + \\text{FN}}$.",
+            "formula": "\\boxed{\\text{Recall} = \\frac{\\text{TP}}{\\text{TP} + \\text{FN}} = \\frac{50}{50 + 5} = \\frac{50}{55} \\approx 0.9091}",
+            "stepByStep": "1. $\\text{TP} = 50$, $\\text{FN} = 5$.\n2. Total actual positives $= 50 + 5 = 55$.\n3. $\\text{Recall} = \\frac{50}{55} = \\frac{10}{11} \\approx \\mathbf{0.91}$ **(Option B)**.",
+            "shortcut": "Recall $= 50 / 55 = 10/11 \\approx 0.91$.",
+            "examTrap": "Do not confuse Recall (divides by actual positives, $\\text{TP}+\\text{FN}$) with Precision (divides by predicted positives, $\\text{TP}+\\text{FP}$)."
+          },
+          {
+            "id": "W6-2026-Q9",
+            "year": "2026",
+            "conceptTag": "Model Evaluation: Precision",
+            "question": "A model gives TP = 40, TN = 25, FP = 10, FN = 5. The precision of the model is",
+            "options": [
+              "0.8",
+              "0.2",
+              "0.25",
+              "0.6"
+            ],
+            "correctAnswer": 0,
+            "theory": "Precision measures the proportion of predicted positive instances that are truly positive: $\\text{Precision} = \\frac{\\text{TP}}{\\text{TP} + \\text{FP}}$.",
+            "formula": "\\boxed{\\text{Precision} = \\frac{\\text{TP}}{\\text{TP} + \\text{FP}} = \\frac{40}{40 + 10} = \\frac{40}{50} = 0.80}",
+            "stepByStep": "1. $\\text{TP} = 40$, $\\text{FP} = 10$.\n2. Predicted positives $= 40 + 10 = 50$.\n3. $\\text{Precision} = \\frac{40}{50} = \\mathbf{0.8}$ **(Option A)**.",
+            "shortcut": "Precision $= 40 / 50 = 0.80$.",
+            "examTrap": "Check denominators carefully: Precision uses $\\text{FP}$, Recall uses $\\text{FN}$."
+          },
+          {
+            "id": "W6-2026-Q10",
+            "year": "2026",
+            "conceptTag": "Mechatronics Term Originator",
+            "question": "The term mechatronics was first registered by",
+            "options": [
+              "T.M. Mitchell",
+              "Tetsuro Mori",
+              "Bill Gates",
+              "Arthur Samuel"
+            ],
+            "correctAnswer": 1,
+            "theory": "The term 'mechatronics' (combining mechanics and electronics) was coined in 1969 by **Tetsuro Mori**, a senior engineer at the Japanese company Yaskawa Electric Corporation, and registered as a trademark in 1971.",
+            "formula": "\\boxed{\\text{Tetsuro Mori (Yaskawa Electric, 1969/1971)}}",
+            "stepByStep": "Tetsuro Mori first created and registered the trademark 'mechatronics' **(Option B)**.",
+            "shortcut": "Mechatronics originator = Tetsuro Mori.",
+            "examTrap": "In 2025 the question asked for the *corporation* (Yaskawa Electric), whereas here it asks for the *individual* (Tetsuro Mori)."
+          },
+          {
+            "id": "W6-2026-Q11",
+            "year": "2026",
+            "conceptTag": "Microprocessor 4004 Clock Speed",
+            "question": "Microprocessor 4004, introduced in 1971, had a clock speed of",
+            "options": [
+              "108 kHz",
+              "50 MHz",
+              "500 kHz",
+              "80 MHz"
+            ],
+            "correctAnswer": 0,
+            "theory": "The Intel 4004, designed by Federico Faggin, Ted Hoff, and Masatoshi Shima and launched in November 1971, was the world's first commercially produced monolithic 4-bit microprocessor. It operated at a nominal clock rate of **108 kHz** (maximum clock frequency 740 kHz).",
+            "formula": "\\boxed{\\text{Intel 4004 Clock Speed: } 108 \\text{ kHz (1971)}}",
+            "stepByStep": "The Intel 4004 operated at a base clock speed of **108 kHz (Option A)**.",
+            "shortcut": "Intel 4004 $\\implies$ 108 kHz.",
+            "examTrap": "Do not guess MHz values; in 1971 computing clock speeds were measured in kilohertz (kHz)."
+          },
+          {
+            "id": "W6-2026-Q12",
+            "year": "2026",
+            "conceptTag": "Inductive Proximity Sensor Scope",
+            "question": "An inductive proximity sensor can detect",
+            "options": [
+              "only ferrous object",
+              "only non-metallic object",
+              "both ferrous and non-ferrous metallic object",
+              "only non-magnetic object"
+            ],
+            "correctAnswer": 2,
+            "theory": "Inductive proximity sensors operate by generating a high-frequency alternating electromagnetic field from an internal coil. When any conductive metal enters this field, eddy currents are induced, dampening the oscillation. Thus, inductive sensors can detect **all metallic objects**, including both ferrous (iron, steel) and non-ferrous (copper, aluminum, brass) metals.",
+            "formula": "\\boxed{\\text{Inductive Sensor} \\implies \\text{Metallic objects only (both ferrous and non-ferrous)}}",
+            "stepByStep": "Inductive sensors work via electromagnetic induction and eddy currents, making them capable of detecting all conductive metals (ferrous and non-ferrous) **(Option C)**.",
+            "shortcut": "Inductive = All metals (ferrous + non-ferrous).",
+            "examTrap": "Inductive sensors CANNOT detect non-metallic objects. To detect non-metallic objects (liquids, plastics), capacitive sensors are used."
+          },
+          {
+            "id": "W6-2026-Q13",
+            "year": "2026",
+            "conceptTag": "LoRa Wireless Protocol Characteristics",
+            "question": "Which best describes LoRa in the context of IoT communication?",
+            "options": [
+              "A short-range, high-data-rate wireless protocol",
+              "A short-range, high-latency wired communication standard",
+              "A high-power, long-range video transmission protocol",
+              "A long-range, low-power wireless communication protocol"
+            ],
+            "correctAnswer": 3,
+            "theory": "LoRa (Long Range) is a proprietary spread-spectrum radio modulation technique developed by Semtech. It forms the physical layer of LPWAN (Low-Power Wide-Area Networks), enabling battery-operated devices to transmit data over long ranges (10–15 km in rural areas) with very low power consumption.",
+            "formula": "\\boxed{\\text{LoRa} = \\text{Long Range, Low Power wireless IoT protocol}}",
+            "stepByStep": "LoRa is specifically engineered for long-distance, low-power wireless communications with low bandwidth **(Option D)**.",
+            "shortcut": "LoRa = Long Range + Low Power.",
+            "examTrap": "LoRa is low-power and low-data-rate; it cannot be used for high-bandwidth applications like video streaming."
+          },
+          {
+            "id": "W6-2026-Q14",
+            "year": "2026",
+            "conceptTag": "Relationship: IoT vs Cyber-Physical Systems",
+            "question": "Which best describes the relationship between IoT and Cyber-Physical Systems (CPS)?",
+            "options": [
+              "IoT and CPS are completely unrelated technologies",
+              "CPS is a subset of IoT focused only on sensors",
+              "CPS integrates physical and cyber components while IoT is a network of interconnected devices",
+              "CPS is a network of interconnected devices and IoT monitors the physical processes"
+            ],
+            "correctAnswer": 2,
+            "theory": "A Cyber-Physical System (CPS) is an overarching framework that integrates computing, networking, and physical dynamics through closed-loop feedback and control. IoT provides the network layer of interconnected sensors, actuators, and communication devices that enables CPS to gather data and interact.",
+            "formula": "\\boxed{\\text{CPS: Integrated Cyber-Physical feedback loop; IoT: Network of connected devices}}",
+            "stepByStep": "CPS integrates computational and physical components, whereas IoT represents the networked infrastructure of devices **(Option C)**.",
+            "shortcut": "CPS = Cyber + Physical integration; IoT = Network of connected devices.",
+            "examTrap": "CPS is not a subset of IoT; rather, IoT serves as the connectivity enabler within CPS."
+          },
+          {
+            "id": "W6-2026-Q15",
+            "year": "2026",
+            "conceptTag": "Smart Factory as Cyber-Physical System",
+            "question": "A smart factory can be best described as",
+            "options": [
+              "an Internet of Things (IoT) system",
+              "an Industrial Internet of Things (IIoT) system",
+              "a Cyber-Physical System (CPS)",
+              "a cloud computing platform"
+            ],
+            "correctAnswer": 2,
+            "theory": "In Industry 4.0, a smart factory integrates physical manufacturing machinery, robotics, and sensors with computational intelligence, edge analytics, and automated control algorithms, functioning as a comprehensive **Cyber-Physical System (CPS)**.",
+            "formula": "\\boxed{\\text{Smart Factory} \\equiv \\text{Cyber-Physical System (CPS)}}",
+            "stepByStep": "A smart factory embodies the closed-loop convergence of physical machines and cyber analytics, forming a Cyber-Physical System **(Option C)**.",
+            "shortcut": "Smart Factory = Cyber-Physical System (CPS).",
+            "examTrap": "While it uses IoT, IIoT, and Cloud, its definitive architectural classification is a CPS."
+          },
+          {
+            "id": "W6-2026-Q16",
+            "year": "2026",
+            "conceptTag": "Augmented Reality Definition",
+            "question": "Which best describes augmented reality?",
+            "options": [
+              "A technology that creates a completely virtual environment for users",
+              "A technology that involves digital information superimposed on reality",
+              "A technology that replaces human intelligence with machines",
+              "A technology used for gathering data in laboratory measurements"
+            ],
+            "correctAnswer": 1,
+            "theory": "Augmented Reality (AR) enhances the real-world physical environment by overlaying computer-generated perceptual information (visuals, sensor metrics, 3D models) onto the user's real-time view of the real world.",
+            "formula": "\\boxed{\\text{Augmented Reality (AR)} = \\text{Digital information superimposed on real physical environment}}",
+            "stepByStep": "AR superimposes digital assets and sensor data onto the real world without replacing it **(Option B)**.",
+            "shortcut": "AR = Digital data superimposed on reality.",
+            "examTrap": "Option A describes Virtual Reality (VR), which creates an entirely artificial environment."
+          },
+          {
+            "id": "W6-2026-Q17",
+            "year": "2026",
+            "conceptTag": "Latency Definition",
+            "question": "In a communication or computing system, the latency refers to the",
+            "options": [
+              "delay between the input or request and the corresponding response or action",
+              "maximum amount of data that can be transferred per second",
+              "number of users that can access the system simultaneously",
+              "distance between two communicating devices"
+            ],
+            "correctAnswer": 0,
+            "theory": "Latency is the time delay between the initiation of an input, request, or instruction and the receipt of the corresponding output, response, or physical action in a computing/communication network.",
+            "formula": "\\boxed{\\text{Latency} = t_{\\text{response}} - t_{\\text{request}}}",
+            "stepByStep": "Latency quantifies the response delay in communication and computational systems **(Option A)**.",
+            "shortcut": "Latency = Delay between request and response.",
+            "examTrap": "Maximum data transferred per second is bandwidth / throughput, not latency."
+          },
+          {
+            "id": "W6-2026-Q18",
+            "year": "2026",
+            "conceptTag": "Nobel Prize for Transistor Invention",
+            "question": "John Bardeen, Walter Brattain and William Shockley received the Nobel Prize in Physics for their contribution to the invention of the",
+            "options": [
+              "Laser",
+              "Transistor",
+              "Integrated Circuit",
+              "Light Emitting Diode (LED)"
+            ],
+            "correctAnswer": 1,
+            "theory": "John Bardeen, Walter Brattain, and William Shockley of Bell Telephone Laboratories jointly received the 1956 Nobel Prize in Physics 'for their researches on semiconductors and their discovery of the transistor effect'.",
+            "formula": "\\boxed{\\text{Bardeen, Brattain, Shockley } \\implies \\text{1956 Nobel Prize for Transistor}}",
+            "stepByStep": "The trio developed the point-contact and junction transistors at Bell Labs, earning the Nobel Prize for the **Transistor (Option B)**.",
+            "shortcut": "Bardeen, Brattain, Shockley = Transistor.",
+            "examTrap": "The Integrated Circuit was invented later by Jack Kilby and Robert Noyce (Kilby won the 2000 Nobel Prize)."
+          },
+          {
+            "id": "W6-2026-Q19",
+            "year": "2026",
+            "conceptTag": "Industry 3.0 Characteristics",
+            "question": "Integration of electronics and robotics for enhancing efficiency in manufacturing is a key feature of which industrial revolution?",
+            "options": [
+              "Industry 2.0",
+              "Industry 3.0",
+              "Industry 4.0",
+              "Industry 5.0"
+            ],
+            "correctAnswer": 1,
+            "theory": "The Third Industrial Revolution (Industry 3.0), beginning in the late 1960s, was characterized by the introduction of semiconductors, mainframe and personal computing, PLCs (programmable logic controllers), and industrial robotics to automate manufacturing lines.",
+            "formula": "\\boxed{\\text{Industry 3.0} = \\text{Computers, Electronics, PLCs, and Robotics Automation}}",
+            "stepByStep": "Automating factory processes using electronics, computers, and robotics is the hallmark of **Industry 3.0 (Option B)**.",
+            "shortcut": "Electronics + Robotics = Industry 3.0.",
+            "examTrap": "Do not choose Industry 4.0; Industry 4.0 specifically adds Cyber-Physical Systems, IoT, Cloud, and AI."
+          },
+          {
+            "id": "W6-2026-Q20",
+            "year": "2026",
+            "conceptTag": "Learning Curves & Dataset Size Scaling",
+            "question": "How does the reliability of a machine learning model's predictions typically change as the size of the training dataset increases?",
+            "options": [
+              "It decreases exponentially due to overfitting",
+              "It improves linearly as more data is fitted",
+              "It remains constant regardless of data size",
+              "It improves asymptotically, approaching a maximum as more data is added"
+            ],
+            "correctAnswer": 3,
+            "theory": "In machine learning learning curve theory, increasing the training set size reduces variance and estimation error. Prediction accuracy and reliability improve rapidly at first and then level off asymptotically, approaching the Bayes optimal error rate (diminishing returns).",
+            "formula": "\\boxed{\\lim_{N \\to \\infty} \\text{Error}(N) = \\text{Bayes Error} \\implies \\text{Reliability improves asymptotically}}",
+            "stepByStep": "Model reliability exhibits logarithmic/asymptotic growth, approaching an upper ceiling determined by inherent noise **(Option D)**.",
+            "shortcut": "Improves asymptotically approaching a maximum.",
+            "examTrap": "It does NOT improve linearly without limit, because performance is bounded by the Bayes error rate."
+          }
+        ]
+      }
+    },
+
+    // Placeholders for Weeks 5 down to 1
+    ...[5, 4, 3, 2, 1].map(wNum => ({
       number: wNum,
       title: getWeekTopicTitle(wNum),
       status: "upcoming",
