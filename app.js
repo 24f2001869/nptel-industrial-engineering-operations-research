@@ -10,13 +10,13 @@
   // State Management
   const state = {
     currentWeek: 12,
+    currentYear: '2026', // '2026' or '2025'
     currentQuestionIndex: 0,
     mode: 'study', // 'study' (instant theory & formula) or 'exam' (TCS simulated)
     theme: localStorage.getItem('ieor_theme') || 'light',
     
-    // Status tracking for each question:
-    // status: 'not-visited' | 'not-answered' | 'answered' | 'review' | 'answered-review'
-    // selectedOption: null | number
+    // Status tracking keyed by week and year:
+    // state.userResponses[week][year][qIdx] = { selectedOption, status }
     userResponses: {},
     
     // Exam Timer
@@ -39,6 +39,10 @@
     
     // Navigation & Workspace
     weeksTabsList: document.getElementById('weeks-tabs-list'),
+    btnYear2026: document.getElementById('btn-year-2026'),
+    btnYear2025: document.getElementById('btn-year-2025'),
+    yearSessionDesc: document.getElementById('year-session-desc'),
+    
     qNumberDisplay: document.getElementById('q-number-display'),
     qConceptTag: document.getElementById('q-concept-tag'),
     questionCard: document.getElementById('question-card-container'),
@@ -93,7 +97,7 @@
   function init() {
     applyTheme(state.theme);
     renderWeeksNav();
-    loadWeek(state.currentWeek);
+    loadWeekAndYear(state.currentWeek, state.currentYear);
     startTimer();
     attachEventListeners();
     setupCalculator();
@@ -117,7 +121,6 @@
   function renderWeeksNav() {
     elements.weeksTabsList.innerHTML = '';
     
-    // Order weeks descending: 12, 11, 10, ... 1
     const weekNumbers = [12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
     
     weekNumbers.forEach(num => {
@@ -136,10 +139,10 @@
       
       tab.addEventListener('click', () => {
         if (!isAvailable) {
-          alert(`Week ${num} assignment module will be unlocked as you work backward! Start with Week 12 master assignment.`);
+          alert(`Week ${num} assignment module will be unlocked as you work backward! Start with Week 12.`);
           return;
         }
-        loadWeek(num);
+        loadWeekAndYear(num, state.currentYear);
       });
       
       elements.weeksTabsList.appendChild(tab);
@@ -147,28 +150,45 @@
   }
 
   /**
-   * Load Specific Week Data
+   * Load Specific Week and Year Questions
    */
-  function loadWeek(weekNum) {
+  function loadWeekAndYear(weekNum, year) {
     state.currentWeek = weekNum;
+    state.currentYear = year;
     state.currentQuestionIndex = 0;
-    
+
+    // Update Year selector buttons UI
+    if (elements.btnYear2026 && elements.btnYear2025) {
+      elements.btnYear2026.classList.toggle('active', year === '2026');
+      elements.btnYear2025.classList.toggle('active', year === '2025');
+    }
+
+    if (elements.yearSessionDesc) {
+      elements.yearSessionDesc.textContent = `Week ${weekNum} • ${year} Proctored Assignment (20 Questions)`;
+    }
+
     const weekData = IEOR_DATA.weeks.find(w => w.number === weekNum);
     if (!weekData) return;
-    
-    // Initialize response state for questions
-    state.userResponses = {};
-    weekData.assignmentQuestions.forEach((q, idx) => {
-      state.userResponses[idx] = {
-        selectedOption: null,
-        status: idx === 0 ? 'not-answered' : 'not-visited'
-      };
-    });
-    
-    if (elements.paletteWeekIndicator) {
-      elements.paletteWeekIndicator.textContent = `Week ${weekNum}`;
+
+    // Ensure state tracking for this week and year
+    if (!state.userResponses[weekNum]) {
+      state.userResponses[weekNum] = {};
     }
-    
+    if (!state.userResponses[weekNum][year]) {
+      state.userResponses[weekNum][year] = {};
+      const questions = getQuestionsList();
+      questions.forEach((_, idx) => {
+        state.userResponses[weekNum][year][idx] = {
+          selectedOption: null,
+          status: idx === 0 ? 'not-answered' : 'not-visited'
+        };
+      });
+    }
+
+    if (elements.paletteWeekIndicator) {
+      elements.paletteWeekIndicator.textContent = `Week ${weekNum} (${year})`;
+    }
+
     renderWeeksNav();
     renderQuestion();
     renderPalette();
@@ -182,11 +202,30 @@
   }
 
   /**
+   * Get Current Questions List (for active week and year)
+   */
+  function getQuestionsList() {
+    const week = getCurrentWeek();
+    if (!week || !week.years) return [];
+    return week.years[state.currentYear] || [];
+  }
+
+  /**
    * Get Current Question Object
    */
   function getCurrentQuestion() {
-    const week = getCurrentWeek();
-    return week ? week.assignmentQuestions[state.currentQuestionIndex] : null;
+    const list = getQuestionsList();
+    return list[state.currentQuestionIndex] || null;
+  }
+
+  /**
+   * Get Response State for Current Question
+   */
+  function getCurrentResponse() {
+    if (!state.userResponses[state.currentWeek] || !state.userResponses[state.currentWeek][state.currentYear]) {
+      return null;
+    }
+    return state.userResponses[state.currentWeek][state.currentYear][state.currentQuestionIndex];
   }
 
   /**
@@ -194,42 +233,51 @@
    */
   function renderQuestion() {
     const q = getCurrentQuestion();
-    const week = getCurrentWeek();
+    const questions = getQuestionsList();
     if (!q) return;
 
-    const totalQuestions = week.assignmentQuestions.length;
-    const response = state.userResponses[state.currentQuestionIndex];
+    const totalQuestions = questions.length;
+    const response = getCurrentResponse();
 
     // Update Meta Bar
-    elements.qNumberDisplay.textContent = `Question ${state.currentQuestionIndex + 1} of ${totalQuestions}`;
+    elements.qNumberDisplay.textContent = `Question ${state.currentQuestionIndex + 1} of ${totalQuestions} (${state.currentYear})`;
     elements.qConceptTag.textContent = q.conceptTag || 'Inventory Optimization';
 
-    // Build Question HTML
+    // Build Question Table HTML if question contains a demand matrix
     let tableHtml = '';
-    // Special handling for tables in Q5 and Q6
-    if (q.id === 'W12-Q5') {
+    if (q.id === 'W12-2026-Q5') {
       tableHtml = `
         <div class="q-table-wrap">
           <table class="q-table">
-            <thead>
-              <tr><th>Month</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th></tr>
-            </thead>
-            <tbody>
-              <tr><td><strong>Demand (units)</strong></td><td>100</td><td>110</td><td>80</td><td>60</td><td>90</td><td>70</td></tr>
-            </tbody>
+            <thead><tr><th>Month</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th></tr></thead>
+            <tbody><tr><td><strong>Demand (units)</strong></td><td>100</td><td>110</td><td>80</td><td>60</td><td>90</td><td>70</td></tr></tbody>
           </table>
         </div>
       `;
-    } else if (q.id === 'W12-Q6') {
+    } else if (q.id === 'W12-2026-Q6') {
       tableHtml = `
         <div class="q-table-wrap">
           <table class="q-table">
-            <thead>
-              <tr><th>Month</th><th>1</th><th>2</th><th>3</th><th>4</th></tr>
-            </thead>
-            <tbody>
-              <tr><td><strong>Demand (units)</strong></td><td>120</td><td>140</td><td>80</td><td>70</td></tr>
-            </tbody>
+            <thead><tr><th>Month</th><th>1</th><th>2</th><th>3</th><th>4</th></tr></thead>
+            <tbody><tr><td><strong>Demand (units)</strong></td><td>120</td><td>140</td><td>80</td><td>70</td></tr></tbody>
+          </table>
+        </div>
+      `;
+    } else if (q.id === 'W12-2025-Q6') {
+      tableHtml = `
+        <div class="q-table-wrap">
+          <table class="q-table">
+            <thead><tr><th>Month</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th></tr></thead>
+            <tbody><tr><td><strong>Demand (units)</strong></td><td>100</td><td>120</td><td>80</td><td>60</td><td>90</td><td>70</td></tr></tbody>
+          </table>
+        </div>
+      `;
+    } else if (q.id === 'W12-2025-Q7') {
+      tableHtml = `
+        <div class="q-table-wrap">
+          <table class="q-table">
+            <thead><tr><th>Month</th><th>1</th><th>2</th><th>3</th><th>4</th></tr></thead>
+            <tbody><tr><td><strong>Demand (units)</strong></td><td>100</td><td>150</td><td>80</td><td>70</td></tr></tbody>
           </table>
         </div>
       `;
@@ -237,13 +285,13 @@
 
     let optionsHtml = '<div class="options-list">';
     q.options.forEach((optText, optIdx) => {
-      const isSelected = response.selectedOption === optIdx;
+      const isSelected = response && response.selectedOption === optIdx;
       const isCorrect = optIdx === q.correctAnswer;
       
       let extraClass = '';
       let badgeHtml = '';
       
-      if (state.mode === 'study' && response.selectedOption !== null) {
+      if (state.mode === 'study' && response && response.selectedOption !== null) {
         if (isSelected) {
           extraClass = isCorrect ? 'correct' : 'wrong';
           badgeHtml = isCorrect 
@@ -283,13 +331,12 @@
     });
 
     // Handle Theory Display
-    if (state.mode === 'study' && response.selectedOption !== null) {
+    if (state.mode === 'study' && response && response.selectedOption !== null) {
       showTheoryCard(q);
     } else {
       elements.theoryCard.style.display = 'none';
     }
 
-    // Trigger Math Rendering
     renderMath();
     updatePaletteCounts();
   }
@@ -301,7 +348,9 @@
     const q = getCurrentQuestion();
     if (!q) return;
 
-    const response = state.userResponses[state.currentQuestionIndex];
+    const response = getCurrentResponse();
+    if (!response) return;
+
     response.selectedOption = optIdx;
     
     if (response.status === 'review' || response.status === 'answered-review') {
@@ -326,13 +375,13 @@
     elements.theoryCard.style.display = 'block';
     
     // Core Concept
-    elements.theoryConceptText.innerHTML = q.theory || 'No theory summary available.';
+    elements.theoryConceptText.innerHTML = q.theory || 'Direct conceptual evaluation.';
     
     // Direct Formula
     elements.theoryFormulaMath.innerHTML = q.formula ? `$$${q.formula}$$` : '$$\\text{Direct logical deduction}$$';
     
     // Step by Step
-    elements.theoryStepsText.innerHTML = q.stepByStep || 'Direct conceptual evaluation.';
+    elements.theoryStepsText.innerHTML = q.stepByStep || 'Direct logical substitution.';
     
     // Value Changed Shortcuts
     elements.theoryVariantText.innerHTML = q.variant 
@@ -345,8 +394,6 @@
       : 'Be careful with units and standard deviation vs variance!';
 
     renderMath(elements.theoryCard);
-    
-    // Smooth scroll if needed
     elements.theoryCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
@@ -354,18 +401,16 @@
    * Render TCS Question Palette Buttons (1 to 20)
    */
   function renderPalette() {
-    const week = getCurrentWeek();
-    if (!week) return;
-
+    const questions = getQuestionsList();
     elements.paletteGrid.innerHTML = '';
     
-    week.assignmentQuestions.forEach((q, idx) => {
+    questions.forEach((q, idx) => {
       const btn = document.createElement('button');
       btn.className = 'palette-btn';
       btn.textContent = idx + 1;
       btn.title = `Question ${idx + 1}: ${q.conceptTag || ''}`;
       
-      const response = state.userResponses[idx];
+      const response = state.userResponses[state.currentWeek]?.[state.currentYear]?.[idx];
       if (response) {
         if (response.status === 'answered') btn.classList.add('answered');
         else if (response.status === 'not-answered') btn.classList.add('not-answered');
@@ -391,16 +436,14 @@
    * Update Status Counts in Legend
    */
   function updatePaletteCounts() {
-    const week = getCurrentWeek();
-    if (!week) return;
-
+    const questions = getQuestionsList();
     let answered = 0;
     let notAnswered = 0;
     let review = 0;
     let notVisited = 0;
 
-    week.assignmentQuestions.forEach((_, idx) => {
-      const r = state.userResponses[idx];
+    questions.forEach((_, idx) => {
+      const r = state.userResponses[state.currentWeek]?.[state.currentYear]?.[idx];
       if (!r || r.status === 'not-visited') notVisited++;
       else if (r.status === 'answered') answered++;
       else if (r.status === 'not-answered') notAnswered++;
@@ -417,14 +460,14 @@
    * Navigate to Specific Question Index
    */
   function navigateToQuestion(targetIdx) {
-    const currentResp = state.userResponses[state.currentQuestionIndex];
+    const currentResp = getCurrentResponse();
     if (currentResp && currentResp.status === 'not-visited') {
       currentResp.status = 'not-answered';
     }
 
     state.currentQuestionIndex = targetIdx;
     
-    const targetResp = state.userResponses[targetIdx];
+    const targetResp = getCurrentResponse();
     if (targetResp && targetResp.status === 'not-visited') {
       targetResp.status = 'not-answered';
     }
@@ -437,8 +480,8 @@
    * Action Controls Handlers
    */
   function handleNext() {
-    const week = getCurrentWeek();
-    if (state.currentQuestionIndex < week.assignmentQuestions.length - 1) {
+    const questions = getQuestionsList();
+    if (state.currentQuestionIndex < questions.length - 1) {
       navigateToQuestion(state.currentQuestionIndex + 1);
     }
   }
@@ -450,7 +493,7 @@
   }
 
   function handleClear() {
-    const r = state.userResponses[state.currentQuestionIndex];
+    const r = getCurrentResponse();
     if (r) {
       r.selectedOption = null;
       r.status = 'not-answered';
@@ -460,7 +503,7 @@
   }
 
   function handleReview() {
-    const r = state.userResponses[state.currentQuestionIndex];
+    const r = getCurrentResponse();
     if (r) {
       if (r.selectedOption !== null) {
         r.status = 'answered-review';
@@ -475,15 +518,13 @@
    * Submit Exam & Show Scorecard
    */
   function submitExam() {
-    const week = getCurrentWeek();
-    if (!week) return;
-
+    const questions = getQuestionsList();
     let correct = 0;
     let wrong = 0;
     let unattempted = 0;
 
-    week.assignmentQuestions.forEach((q, idx) => {
-      const r = state.userResponses[idx];
+    questions.forEach((q, idx) => {
+      const r = state.userResponses[state.currentWeek]?.[state.currentYear]?.[idx];
       if (!r || r.selectedOption === null) {
         unattempted++;
       } else if (r.selectedOption === q.correctAnswer) {
@@ -493,7 +534,7 @@
       }
     });
 
-    const total = week.assignmentQuestions.length;
+    const total = questions.length;
     const pct = Math.round((correct / total) * 100);
 
     elements.scorePercentage.textContent = `${pct}%`;
@@ -502,7 +543,7 @@
     elements.scoreUnattemptedCount.textContent = unattempted;
 
     if (pct >= 75) {
-      elements.scoreStatusText.textContent = '🌟 Elite Mastery! Ready for Exam Centre';
+      elements.scoreStatusText.textContent = `🌟 Elite Mastery on ${state.currentYear}! Ready for Exam Centre`;
       elements.scoreStatusText.style.color = 'var(--success)';
     } else if (pct >= 50) {
       elements.scoreStatusText.textContent = '👍 Good Passing Base. Revise Traps & Variations';
@@ -590,7 +631,6 @@
           .replace(/pi/g, 'Math.PI')
           .replace(/e/g, 'Math.E');
 
-        // Safe evaluation
         const result = Function(`'use strict'; return (${sanitized})`)();
         const rounded = Number.isInteger(result) ? result : parseFloat(result.toFixed(6));
         elements.calcScreen.textContent = rounded;
@@ -648,6 +688,18 @@
     elements.themeToggleBtn.addEventListener('click', () => {
       applyTheme(state.theme === 'dark' ? 'light' : 'dark');
     });
+
+    // Year Switcher Tabs
+    if (elements.btnYear2026) {
+      elements.btnYear2026.addEventListener('click', () => {
+        loadWeekAndYear(state.currentWeek, '2026');
+      });
+    }
+    if (elements.btnYear2025) {
+      elements.btnYear2025.addEventListener('click', () => {
+        loadWeekAndYear(state.currentWeek, '2025');
+      });
+    }
 
     // Practice Mode Switcher
     elements.btnModeStudy.addEventListener('click', () => {
