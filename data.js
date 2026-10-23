@@ -8857,18 +8857,815 @@ const IEOR_DATA = {
       }
     },
 
-    // Placeholders for Week 1
-    ...[1].map(wNum => ({
-      number: wNum,
-      title: getWeekTopicTitle(wNum),
-      status: "upcoming",
-      summary: `Upcoming assignment practice module for Week ${wNum}. Questions and rapid theories will be unlocked here as you progress backward!`,
-      studyMaterials: null,
-      years: {
-        "2026": [],
-        "2025": []
+    // Week 1: Introduction to Industrial Engineering, Production Planning & Product Design (Active)
+    {
+      "number": 1,
+      "title": "Introduction to Industrial Engineering, Production Planning & Product Design",
+      "status": "active",
+      "summary": "Historical foundations of IE & OR (Archimedes as first military engineer, John Smeaton's Civil Engineering, watermill & chimney mill, F.W. Taylor 1851-1930 scientific management, 1939-1945 WWII formal OR origin, 1947 Transistor & Dantzig's Simplex Method), Production Planning and Control (Routing, Scheduling, Dispatching, Expediting, short-range planning <= 3 months, intermediate 3-12 months, long-range > 1 year), Revenue Management (dynamic pricing, yield management), Capacity Planning (workforce, equipment, materials vs sales basis), Product Design & Development (Stages: Conceptual -> Embodiment -> Detailed, Morphological Matrix for design alternatives, Pugh concept selection matrix with +, -, and 's' datum), Decision Theory & Utilities (Cardinal utils vs Ordinal preference ranking, Analytic Hierarchy Process AHP 1-9 Saaty scale & axiomatic foundation, Fuzzy Compensating Strategy geometric mean mu_overall = (mu1*mu2*mu3)^(1/3), multi-criteria weighted scoring), and Production Systems (Job, Batch with process layout grouping similar machines, Flow production with high efficiency, low flexibility & heavy capital, Transparent vs Collaborative mass customization, batch size economics: Total Cost = Fixed + Variable*x, unit cost = C_fixed/x + C_var).",
+      "studyMaterials": {
+        "quickOverview": "Week 1 introduces the origins, methodologies, and engineering economics of Industrial Engineering and Operations Research: Historical evolution spans Archimedes (first military engineer) to John Smeaton (Father of Civil Engineering, 1767 watermill), F.W. Taylor (1851-1930 scientific management), and the twin breakthroughs of 1947 (the transistor and Dantzig's Simplex method). Production Planning & Control (PPC) governs operations via Routing (sequence), Scheduling (timing), and Dispatching (action authorization). Product design advances systematically from Conceptual through Embodiment to Detailed design, using Morphological matrices for combinatorial alternative exploration and Pugh matrices for datum-referenced screening. Decision-making incorporates Cardinal utility (utils), Ordinal ranking, Saaty's Analytic Hierarchy Process (AHP, 1-9 scale), and fuzzy compensating multi-attribute evaluations (geometric mean of membership grades). Finally, manufacturing systems are categorized into Job, Batch (process/functional layout), and Flow (product layout, high volume, low flexibility).",
+        "formulaSheet": [
+          {
+            "name": "Compensating Strategy (Geometric Mean Overall Membership)",
+            "formula": "\\mu_{\\text{overall}} = \\left(\\prod_{i=1}^m \\mu_i\\right)^{1/m} = \\sqrt[m]{\\mu_1 \\cdot \\mu_2 \\cdots \\mu_m}",
+            "units": "Normalized score in [0, 1]",
+            "desc": "Compensating multi-attribute aggregation where strengths in one criterion balance weaknesses in another via geometric mean."
+          },
+          {
+            "name": "Multi-Criteria Weighted Linear Score",
+            "formula": "\\text{Score} = \\sum_{i=1}^n w_i \\cdot r_i, \\quad \\text{where } \\sum w_i = 1",
+            "units": "Weighted rating score",
+            "desc": "Linear additive combination of criterion weights w_i and individual rating scores r_i."
+          },
+          {
+            "name": "Carpenter Piece/Daily Wage Work Trade-off",
+            "formula": "\\text{Total Man-Hours} = D_{\\text{std}} \\times H_{\\text{std}}, \\quad \\text{Actual Days} = \\frac{\\text{Total Man-Hours}}{H_{\\text{actual}}}, \\quad \\text{Total Cost} = \\text{Actual Days} \\times (H_{\\text{std}} \\times \\text{Wage Rate})",
+            "units": "Currency (₹)",
+            "desc": "Calculates total expenditure when daily wages are contracted on standard daily hours but the worker works fewer hours per day."
+          },
+          {
+            "name": "Batch Size from Unit Production Cost",
+            "formula": "\\text{Unit Cost} = \\frac{C_{\\text{setup}} + C_{\\text{variable}} \\cdot x}{x} = \\frac{C_{\\text{setup}}}{x} + C_{\\text{variable}} \\implies x = \\frac{C_{\\text{setup}}}{\\text{Unit Cost} - C_{\\text{variable}}}",
+            "units": "Units per batch (x)",
+            "desc": "Determines the required production batch size to amortize fixed setup costs down to a target average unit cost."
+          },
+          {
+            "name": "Planning Horizons in PPC",
+            "formula": "\\text{Short-Range} \\le 3\\text{ months}, \\quad \\text{Intermediate-Range} = 3\\text{ to }12\\text{ months}, \\quad \\text{Long-Range} > 12\\text{ months (1 year)}",
+            "units": "Time duration",
+            "desc": "Standard operational timeframes: short-range handles daily/weekly scheduling, intermediate handles aggregate planning, and long-range covers capacity/facility expansion."
+          }
+        ],
+        "examTraps": [
+          {
+            "trap": "2026 Q16 Numerical Cross-Pairing Discrepancy",
+            "explanation": "In 2026 Q16, the question table provides Performance: A=8, B=7 and Economy: A=6, B=9 with weights 38% (0.38) and 62% (0.62). The official solution inadvertently cross-multiplies: A = (8*0.38) + (7*0.62) = 7.38 and B = (6*0.38) + (9*0.62) = 7.86, selecting (B) 7.38, 7.86. Remember Option B (7.38, 7.86) for exact reproduction."
+          },
+          {
+            "trap": "2026 Q18 Typo in Solution Text vs Highlighted Option",
+            "explanation": "In 2026 Q18, Setup = ₹40,000, Var = ₹90, Unit Cost = ₹120. Formula gives x = 40,000 / (120 - 90) = 1333.34 units. Option (A) is 1333 and is highlighted in red in the PDF, though the concluding text mistakenly states 'Hence, option (B) is correct'. The true accepted option is (A) 1333."
+          },
+          {
+            "trap": "Father of Civil Engineering vs Mechanical Engineering",
+            "explanation": "John Smeaton is formally hailed as the 'Father of Civil Engineering' (2025 Q1 Option B). He coined the term 'civil engineer' to distinguish non-military engineering from military engineering."
+          },
+          {
+            "trap": "Process Layout is for Batch Production",
+            "explanation": "Process/functional layout groups similar machines (lathes together, milling machines together) and is ideal for Batch production with moderate variety and volume. Flow/product layout is for mass/continuous production."
+          },
+          {
+            "trap": "AHP Saaty Scale Range",
+            "explanation": "Saaty's Analytic Hierarchy Process (AHP) utilizes a 1 to 9 scale of relative importance (1 = equal, 3 = moderate, 5 = strong, 7 = very strong, 9 = extreme)."
+          }
+        ]
+      },
+      "years": {
+        "2025": [
+          {
+            "id": "W1-2025-Q1",
+            "year": "2025",
+            "conceptTag": "History of Civil Engineering",
+            "question": "John Smeaton is often credited as the father of",
+            "options": [
+              "Mechanical Engineering",
+              "Civil Engineering",
+              "Electrical Engineering",
+              "Industrial Engineering"
+            ],
+            "correctAnswer": 1,
+            "theory": "John Smeaton (1724–1792) was an English civil engineer responsible for the design of bridges, canals, harbors, and lighthouses (notably the third Eddystone Lighthouse). He was the first person to describe himself formally as a 'civil engineer' to distinguish non-military engineering from military engineering, establishing the Society of Civil Engineers in 1771.",
+            "formula": "\\boxed{\\text{Father of Civil Engineering} = \\text{John Smeaton}}",
+            "stepByStep": "John Smeaton coined the title 'civil engineer' and founded the world's first civil engineering society. Hence, **Civil Engineering (Option B)** is correct.",
+            "shortcut": "John Smeaton = Father of Civil Engineering.",
+            "examTrap": "Do not select Mechanical Engineering; Smeaton explicitly distinguished his public infrastructure works as 'Civil' engineering."
+          },
+          {
+            "id": "W1-2025-Q2",
+            "year": "2025",
+            "conceptTag": "Smeaton Innovations",
+            "question": "Who devised a water engine in 1761 and a watermill in 1767?",
+            "options": [
+              "John Smeaton",
+              "L.A. Pelton",
+              "James Francis",
+              "F.W. Taylor"
+            ],
+            "correctAnswer": 0,
+            "theory": "John Smeaton conducted celebrated scientific experiments on waterwheels and water engines. He devised a water engine in 1761 and an advanced watermill in 1767, demonstrating that overshot waterwheels were significantly more efficient than undershot wheels.",
+            "formula": "\\boxed{\\text{Water engine (1761) \\& Watermill (1767)} \\implies \\text{John Smeaton}}",
+            "stepByStep": "John Smeaton's empirical experimental work produced the 1761 water engine and 1767 watermill. Hence, **John Smeaton (Option A)** is correct.",
+            "shortcut": "1761 water engine / 1767 watermill = John Smeaton.",
+            "examTrap": "Taylor worked on metal cutting and work study over a century later."
+          },
+          {
+            "id": "W1-2025-Q3",
+            "year": "2025",
+            "conceptTag": "Scientific Management Era",
+            "question": "F.W. Taylor's active contribution falls in the period",
+            "options": [
+              "1750–1850",
+              "1851–1930",
+              "1931–1960",
+              "1961–2010"
+            ],
+            "correctAnswer": 1,
+            "theory": "Frederick Winslow Taylor lived from 1856 to 1915. His career began in earnest upon graduating with his mechanical engineering degree in 1883, and his pioneering methodologies in time study, high-speed tool steel, and scientific shop management dominated the industrial landscape between 1851 and 1930.",
+            "formula": "\\boxed{\\text{F.W. Taylor Active Era} = 1851 - 1930}",
+            "stepByStep": "Taylor's life (1856–1915) and scientific management revolution fall within **1851–1930 (Option B)**.",
+            "shortcut": "Taylor = 1851–1930.",
+            "examTrap": "Do not confuse with the post-WWII statistical management era (1931–1960)."
+          },
+          {
+            "id": "W1-2025-Q4",
+            "year": "2025",
+            "conceptTag": "Pivotal Technological Events 1947",
+            "question": "Two remarkable events of year 1947 are",
+            "options": [
+              "Invention of transistor and development of Simplex Method",
+              "Invention of computer and development of Simplex Method",
+              "Invention of computer and development of Finite Element Method",
+              "Invention of transistor and development of Finite Element Method"
+            ],
+            "correctAnswer": 0,
+            "theory": "The year 1947 witnessed two monumental milestones that shaped modern computing and optimization:\n1. The invention of the point-contact transistor at Bell Telephone Laboratories by John Bardeen, Walter Brattain, and William Shockley.\n2. The invention of the Simplex Method for solving linear programming problems by George B. Dantzig at the U.S. Air Force.",
+            "formula": "\\boxed{1947 \\implies \\text{Invention of Transistor \\& Development of Simplex Method}}",
+            "stepByStep": "The twin technological breakthroughs of 1947 are the **transistor (Bell Labs) and the Simplex Method (George Dantzig) (Option A)**.",
+            "shortcut": "1947 = Transistor + Simplex Method.",
+            "examTrap": "Finite Element Method (FEM) developed in the mid-1950s (Turner, Clough, Martin, and Topp, 1956)."
+          },
+          {
+            "id": "W1-2025-Q5",
+            "year": "2025",
+            "conceptTag": "PPC Functions - Routing",
+            "question": "Defining the sequence of operations and processes required to produce a product or service is called",
+            "options": [
+              "Planning",
+              "Routing",
+              "Scheduling",
+              "Dispatching"
+            ],
+            "correctAnswer": 1,
+            "theory": "In Production Planning and Control:\n- Routing determines the exact path, sequence of operations, workstations, and machine tools required to manufacture a component.\n- Scheduling attaches calendar dates and start/finish times to those operations.\n- Dispatching authorizes the actual execution on the shop floor.",
+            "formula": "\\boxed{\\text{Sequence of operations} \\iff \\text{Routing}}",
+            "stepByStep": "The determination of operation sequences is the definition of **Routing (Option B)**.",
+            "shortcut": "Routing = Operation sequence & path; Scheduling = Timing; Dispatching = Execution.",
+            "examTrap": "Scheduling determines 'when'; Routing determines 'where' and in 'what sequence'."
+          },
+          {
+            "id": "W1-2025-Q6",
+            "year": "2025",
+            "conceptTag": "PPC Functions - Dispatching",
+            "question": "Issuing instructions to start production activities and ensuring that they are carried out according to the schedule is called",
+            "options": [
+              "Planning",
+              "Routing",
+              "Scheduling",
+              "Dispatching"
+            ],
+            "correctAnswer": 3,
+            "theory": "Dispatching is the execution phase of PPC. It involves releasing work orders, issuing shop travelers, blueprints, and tooling instructions to machine operators, and authorizing the commencement of work in strict accordance with the planned schedule.",
+            "formula": "\\boxed{\\text{Issuing work orders \\& starting production activities} \\iff \\text{Dispatching}}",
+            "stepByStep": "The action of releasing instructions and authorizing work according to schedule is **Dispatching (Option D)**.",
+            "shortcut": "Releasing instructions / orders = Dispatching.",
+            "examTrap": "Expediting/follow-up monitors progress; dispatching releases the initial instructions."
+          },
+          {
+            "id": "W1-2025-Q7",
+            "year": "2025",
+            "conceptTag": "Revenue Management",
+            "question": "Airlines adjust ticket fares based on factors like demand, weather, and festive seasons. This practice is called",
+            "options": [
+              "Aggregate Planning",
+              "Revenue Management",
+              "Capacity Scheduling",
+              "Demand Forecasting"
+            ],
+            "correctAnswer": 1,
+            "theory": "Revenue management (yield management) adjusts prices dynamically according to consumer price sensitivity, booking lead times, weather disruptions, and holiday surges to maximize total revenue from a fixed, perishable capacity of seats.",
+            "formula": "\\boxed{\\text{Airlines dynamic ticket pricing} \\iff \\text{Revenue Management}}",
+            "stepByStep": "Adjusting ticket prices to match demand fluctuations is **Revenue Management (Option B)**.",
+            "shortcut": "Ticket dynamic pricing = Revenue Management.",
+            "examTrap": "Forecasting estimates future numbers; revenue management actively adjusts prices to optimize returns."
+          },
+          {
+            "id": "W1-2025-Q8",
+            "year": "2025",
+            "conceptTag": "MRP vs MRP-II",
+            "question": "The key difference between MRP and MRP-II is that",
+            "options": [
+              "MRP-II is only used for service industries, while MRP is used for manufacturing",
+              "MRP focuses on financial planning, whereas MRP-II focuses only on materials",
+              "MRP deals with material planning, while MRP-II integrates material planning with other functions like finance and human resources",
+              "MRP-II is a simpler version of MRP with fewer features"
+            ],
+            "correctAnswer": 2,
+            "theory": "Material Requirements Planning (MRP) is focused strictly on time-phased component schedules and bills of materials. Manufacturing Resource Planning (MRP-II) expands MRP to integrate the entire manufacturing enterprise, including machine capacity, master scheduling, financial accounting, sales forecasting, and human resource management.",
+            "formula": "\\boxed{\\text{MRP-II} = \\text{MRP (Materials)} + \\text{Finance, HR, Capacity \\& Marketing Integration}}",
+            "stepByStep": "MRP handles materials, whereas MRP-II coordinates materials with financial, capacity, and human resource systems. Hence, **Option (C)** is correct.",
+            "shortcut": "MRP = Materials only; MRP-II = Comprehensive Enterprise Resources (Finance, HR, Capacity).",
+            "examTrap": "MRP-II is more advanced and comprehensive, never simpler than MRP."
+          },
+          {
+            "id": "W1-2025-Q9",
+            "year": "2025",
+            "conceptTag": "Product Life Cycle (PLC)",
+            "question": "Which one of the following statements correctly describes the stages of the Product Life Cycle (PLC) and the corresponding characteristics at each stage?",
+            "options": [
+              "In the Introduction stage, sales are high, competition is intense, and companies focus on cost reduction.",
+              "During the Growth stage, sales decline, promotional efforts are reduced, and profits start to fall.",
+              "In the Maturity stage, sales peak, market becomes saturated, and the focus shifts to product differentiation and defending market share.",
+              "The Decline stage is marked by increased customer demand, high profitability, and aggressive marketing campaigns."
+            ],
+            "correctAnswer": 2,
+            "theory": "The standard Product Life Cycle (PLC) comprises four phases:\n1. Introduction: Low sales, high development costs, negative or zero profit, heavy promotional push.\n2. Growth: Rapidly rising sales, increasing competition, rising profits, economies of scale.\n3. Maturity: Peak sales volume, saturated market, intense competition, focus shifts to product differentiation, cost efficiency, and defending market share.\n4. Decline: Shrinking sales, falling profits, customer preference shifts.",
+            "formula": "\\boxed{\\text{Maturity Stage} \\iff \\text{Peak sales, market saturation, defending market share}}",
+            "stepByStep": "Statement (C) accurately describes the maturity phase where sales peak and firms defend market share. Statements (A), (B), and (D) contradict basic PLC dynamics. Hence, **Option (C)** is correct.",
+            "shortcut": "Maturity = Sales peak + market saturation + defending share.",
+            "examTrap": "Introduction has low sales (not high); growth has rising sales (not declining); decline has falling sales."
+          },
+          {
+            "id": "W1-2025-Q10",
+            "year": "2025",
+            "conceptTag": "Sequence of Design Stages",
+            "question": "The proper sequence of design stages is",
+            "options": [
+              "Conceptual design, Embodiment design and Detailed design",
+              "Conceptual design, Detailed design and Embodiment design",
+              "Embodiment design, Conceptual design and Detailed design",
+              "Embodiment design, Detailed design and Conceptual design"
+            ],
+            "correctAnswer": 0,
+            "theory": "In engineering design methodology, the proper chronological progression is:\n1. Conceptual Design: Problem definition, functional decomposition, and generation of concept alternatives.\n2. Embodiment Design: Layout development, material selection, preliminary sizing, and spatial integration.\n3. Detailed Design: Final production drawings, geometric dimensioning & tolerancing (GD&T), and manufacturing specifications.",
+            "formula": "\\boxed{\\text{Sequence: Conceptual Design } \\to \\text{ Embodiment Design } \\to \\text{ Detailed Design}}",
+            "stepByStep": "The chronological engineering sequence is **Conceptual design, Embodiment design and Detailed design (Option A)**.",
+            "shortcut": "C -> E -> D (Conceptual, Embodiment, Detailed).",
+            "examTrap": "Embodiment design must precede Detailed design because overall layout and architecture must be locked before creating detailed shop drawings."
+          },
+          {
+            "id": "W1-2025-Q11",
+            "year": "2025",
+            "conceptTag": "Morphological Matrix",
+            "question": "The primary purpose of a morphological matrix in product design is to",
+            "options": [
+              "reduce product weight",
+              "generate and explore design alternatives",
+              "finalize the best manufacturing method",
+              "To perform market analysis"
+            ],
+            "correctAnswer": 1,
+            "theory": "A morphological matrix maps out sub-functions against various possible technological solutions. Crossing columns and rows yields a structured combinatoric space, systematically generating and exploring potential design alternatives.",
+            "formula": "\\boxed{\\text{Morphological Matrix Purpose} = \\text{Generate and explore design alternatives}}",
+            "stepByStep": "The morphological matrix is a concept generation tool designed to **generate and explore design alternatives (Option B)**.",
+            "shortcut": "Morphological Matrix = Generate design alternatives.",
+            "examTrap": "It does not select or optimize a single method; it opens up the design space."
+          },
+          {
+            "id": "W1-2025-Q12",
+            "year": "2025",
+            "conceptTag": "Ordinal Utility Theory",
+            "question": "The ordinal utility theory assumes that",
+            "options": [
+              "consumers can only rank their preferences for goods and services, rather than quantify the satisfaction derived from them",
+              "utility can be measured numerically, using units called \"utils\", and that these units can be compared and added up",
+              "consumers always choose the most expensive option available",
+              "the preferences of one consumer can be directly compared with those of another"
+            ],
+            "correctAnswer": 0,
+            "theory": "Ordinal utility theory (associated with Pareto, Hicks, and Allen) posits that utility is subjective and cannot be measured on an absolute numerical scale. Consumers can only rank-order their preferences (e.g., bundle A is preferred to bundle B), without expressing by how many 'utils' A exceeds B.",
+            "formula": "\\boxed{\\text{Ordinal Utility} \\iff \\text{Ranking preferences without numerical quantification}}",
+            "stepByStep": "Ordinal utility is based on relative preference rankings rather than numerical measurement. Hence, **Option (A)** is correct.",
+            "shortcut": "Ordinal = Ordering/Ranking; Cardinal = Counting 'utils'.",
+            "examTrap": "Option (B) describes Cardinal utility theory."
+          },
+          {
+            "id": "W1-2025-Q13",
+            "year": "2025",
+            "conceptTag": "Analytic Hierarchy Process (AHP)",
+            "question": "The primary purpose of the Analytical Hierarchy Process (AHP) is to",
+            "options": [
+              "solve linear programming problems",
+              "analyze large data sets for trends",
+              "make structured, multi-criteria decision-making easier",
+              "perform regression analysis"
+            ],
+            "correctAnswer": 2,
+            "theory": "The Analytic Hierarchy Process (AHP) is a structured multi-criteria decision-making (MCDM) method. By structuring decisions into hierarchies and using pairwise comparisons, it enables decision-makers to evaluate complex quantitative and qualitative criteria objectively.",
+            "formula": "\\boxed{\\text{Primary Purpose of AHP} = \\text{Make structured, multi-criteria decision-making easier}}",
+            "stepByStep": "AHP simplifies and structures complex decisions with multiple competing criteria. Hence, **Option (C)** is correct.",
+            "shortcut": "AHP = Multi-criteria decision making (MCDM).",
+            "examTrap": "AHP is not an LP solver or regression engine."
+          },
+          {
+            "id": "W1-2025-Q14",
+            "year": "2025",
+            "conceptTag": "AHP Pairwise Comparison Scale",
+            "question": "In AHP, pairwise comparisons are typically rated using",
+            "options": [
+              "a 1–5 Likert scale",
+              "a binary yes/no choice",
+              "a 1–9 scale of relative importance",
+              "probabilistic weights"
+            ],
+            "correctAnswer": 2,
+            "theory": "Saaty's AHP methodology relies on a fundamental scale from 1 to 9, where 1 indicates equal importance, 3 moderate, 5 strong, 7 very strong, and 9 extreme importance of one element over another.",
+            "formula": "\\boxed{\\text{AHP Comparison Scale} = 1 \\text{ to } 9}",
+            "stepByStep": "Pairwise comparisons in AHP are standardized on **a 1–9 scale of relative importance (Option C)**.",
+            "shortcut": "AHP pairwise rating = 1 to 9 scale.",
+            "examTrap": "1 to 5 is a Likert scale; AHP strictly uses 1 to 9."
+          },
+          {
+            "id": "W1-2025-Q15",
+            "year": "2025",
+            "conceptTag": "Compensating Strategy Multi-Attribute Ranking",
+            "question": "Membership grades for the excellence in three subjects are given in the table:\n\n| Name | Physics | Mathematics | English |\n|---|---|---|---|\n| Shubham | 0.72 | 0.63 | 0.69 |\n| Suyash | 0.85 | 0.78 | 0.81 |\n| Tanya | 0.94 | 0.91 | 0.87 |\n| Vaibhav | 0.67 | 0.84 | 0.93 |\n| Vandana | 0.88 | 0.96 | 0.75 |\n\nAs per compensating strategy, the ranking of student (from best to worst) is",
+            "options": [
+              "Shubham, Suyash, Tanya, Vandana, Vaibhav",
+              "Shubham, Suyash, Tanya, Vaibhav, Vandana",
+              "Tanya, Shubham, Suyash, Vaibhav, Vandana",
+              "Tanya, Vandana, Suyash, Vaibhav, Shubham"
+            ],
+            "correctAnswer": 3,
+            "theory": "Under the fuzzy compensating strategy, overall score is given by the geometric mean of membership grades:\n$\\mu_{\\text{overall}} = (\\mu_1 \\cdot \\mu_2 \\cdot \\mu_3)^{1/3}$\nRanking follows descending order of overall score.",
+            "formula": "\\mu_{\\text{overall}} = \\sqrt[3]{\\mu_P \\cdot \\mu_M \\cdot \\mu_E}",
+            "stepByStep": "Compute overall geometric mean scores:\n1. Tanya: $(0.94 \\times 0.91 \\times 0.87)^{1/3} = (0.7442)^{1/3} \\approx 0.9062$\n2. Vandana: $(0.88 \\times 0.96 \\times 0.75)^{1/3} = (0.6336)^{1/3} \\approx 0.8589$\n3. Suyash: $(0.85 \\times 0.78 \\times 0.81)^{1/3} = (0.53703)^{1/3} \\approx 0.8128$\n4. Vaibhav: $(0.67 \\times 0.84 \\times 0.93)^{1/3} = (0.523396)^{1/3} \\approx 0.8058$\n5. Shubham: $(0.72 \\times 0.63 \\times 0.69)^{1/3} = (0.3130)^{1/3} \\approx 0.6790$\n\nDescending Ranking: **Tanya, Vandana, Suyash, Vaibhav, Shubham (Option D)**.",
+            "shortcut": "Tanya has highest ratings in almost all subjects (0.94, 0.91, 0.87) -> Rank 1. Shubham has lowest -> Rank 5.",
+            "examTrap": "Check Tanya > Vandana > Suyash > Vaibhav > Shubham."
+          },
+          {
+            "id": "W1-2025-Q16",
+            "year": "2025",
+            "conceptTag": "Weighted Multi-Criteria Evaluation",
+            "question": "The ratings of products X and Y in a scale of 1 (poor) to 10 (Excellent) in two criteria are given in the table:\n\n| Criterion | X | Y |\n|---|---|---|\n| Performance | 7 | 9 |\n| Economy | 8 | 6 |\n\nIf 40% importance is given to performance and 60% to economy, the scores of product X and Y are",
+            "options": [
+              "7.6, 7.2",
+              "7.2, 7.6",
+              "7.4, 7.4",
+              "7.8, 7.2"
+            ],
+            "correctAnswer": 0,
+            "theory": "Linear weighted multi-attribute rating score:\n$\\text{Score} = w_P \\cdot R_P + w_E \\cdot R_E$\nGiven weights: $w_P = 0.40$, $w_E = 0.60$.",
+            "formula": "\\text{Score}_X = (7 \\times 0.40) + (8 \\times 0.60), \\quad \\text{Score}_Y = (9 \\times 0.40) + (6 \\times 0.60)",
+            "stepByStep": "1. Score of Product X = $(7 \\times 0.40) + (8 \\times 0.60) = 2.8 + 4.8 = 7.6$\n2. Score of Product Y = $(9 \\times 0.40) + (6 \\times 0.60) = 3.6 + 3.6 = 7.2$\nHence, the respective scores are **7.6, 7.2 (Option A)**.",
+            "shortcut": "X = 2.8 + 4.8 = 7.6; Y = 3.6 + 3.6 = 7.2.",
+            "examTrap": "Do not reverse the order of X and Y (Option B is 7.2, 7.6)."
+          },
+          {
+            "id": "W1-2025-Q17",
+            "year": "2025",
+            "conceptTag": "Daily Wage & Work Efficiency",
+            "question": "A carpenter typically takes 4 days to make one chair, working 8 hours per day. He charges ₹150 per hour. You hired him on a daily wage basis, paying him for 8 hours of work each day. However, due to laziness and personal needs, he worked only 6 hours per day. What is the total amount you will end up paying the carpenter for making one chair?",
+            "options": [
+              "₹4800",
+              "₹6000",
+              "₹6400",
+              "₹8000"
+            ],
+            "correctAnswer": 2,
+            "theory": "Contracting on a daily wage based on standard hours requires paying the full daily wage for each calendar day the worker is present, regardless of actual productive hours worked per day.",
+            "formula": "\\text{Total Man-Hours} = 4 \\times 8 = 32, \\quad \\text{Days} = \\frac{32}{6}, \\quad \\text{Daily Pay} = 8 \\times 150 = ₹1200",
+            "stepByStep": "1. Total required man-hours = $4 \\times 8 = 32\\text{ hours}$.\n2. At 6 hours per day, days needed = $\\frac{32}{6} = \\frac{16}{3}\\text{ days}$.\n3. Daily pay contracted (for 8 hours) = $8 \\times 150 = ₹1200\\text{ per day}$.\n4. Total payment = $\\frac{16}{3} \\times 1200 = 16 \\times 400 = \\mathbf{₹6400\\text{ (Option C)}}.$",
+            "shortcut": "Total Cost = (32 / 6) * 1200 = 32 * 200 = ₹6400.",
+            "examTrap": "Do not multiply 32 hours * ₹150 = ₹4800. Since he is hired on a daily wage of ₹1200/day and takes 5.33 days, the employer pays ₹6400."
+          },
+          {
+            "id": "W1-2025-Q18",
+            "year": "2025",
+            "conceptTag": "Batch Production Sizing",
+            "question": "Setup cost for a machine is ₹3000. Variable cost for making one unit of product is ₹100. If the production cost per unit comes out to be ₹150, how many units should be produced in a batch?",
+            "options": [
+              "30",
+              "60",
+              "90",
+              "150"
+            ],
+            "correctAnswer": 1,
+            "theory": "Average unit production cost in batch manufacturing:\n$\\text{Unit Cost} = \\frac{\\text{Setup Cost}}{x} + \\text{Variable Cost}$\nSolving for batch quantity $x$:\n$x = \\frac{\\text{Setup Cost}}{\\text{Unit Cost} - \\text{Variable Cost}}$",
+            "formula": "x = \\frac{3000}{150 - 100} = \\frac{3000}{50}",
+            "stepByStep": "1. $\\text{Unit Cost} = 150$.\n2. $150 = \\frac{3000}{x} + 100$.\n3. $\\frac{3000}{x} = 50$.\n4. $x = \\frac{3000}{50} = \\mathbf{60\\text{ units (Option B)}}.$",
+            "shortcut": "Batch size = 3000 / 50 = 60.",
+            "examTrap": "Simple direct division: 3000 / (150 - 100) = 60."
+          },
+          {
+            "id": "W1-2025-Q19",
+            "year": "2025",
+            "conceptTag": "Plant Layout & Batch Production",
+            "question": "Which type of production is most likely to involve a process layout?",
+            "options": [
+              "Flow production",
+              "Batch production",
+              "Mass production",
+              "Job production"
+            ],
+            "correctAnswer": 1,
+            "theory": "In a process layout (functional layout), machinery is grouped according to operational process (lathes, milling, grinding). This flexible arrangement is best suited for Batch Production, where parts move between work centers in designated batch sizes.",
+            "formula": "\\boxed{\\text{Process Layout} \\iff \\text{Batch Production}}",
+            "stepByStep": "Batch production requires routing through specialized departmental machine groups, which constitutes a **Process layout (Option B)**.",
+            "shortcut": "Process layout = Batch production.",
+            "examTrap": "Flow and mass production use a product/line layout."
+          },
+          {
+            "id": "W1-2025-Q20",
+            "year": "2025",
+            "conceptTag": "Mass Customization Approaches",
+            "question": "Which of the following is an example of a transparent customization approach?",
+            "options": [
+              "A customer designing a custom phone case.",
+              "The website recommending videos based on a user's viewing history.",
+              "A company offering a variety of colors for a product on its website.",
+              "A tailor making a suit specifically for a customer."
+            ],
+            "correctAnswer": 1,
+            "theory": "Joseph Pine and James Gilmore defined four distinct approaches to mass customization:\n1. Collaborative: Firm conducts direct dialogue with customers to help them articulate their needs (custom phone case design, custom tailored suit).\n2. Adaptive: Standard product is manufactured, but users can alter it themselves.\n3. Cosmetic: Standard physical product is packaged specially for different customers.\n4. Transparent: Firm provides unique, customized products/services to individual customers without explicitly informing them that the offering has been customized (e.g., streaming platforms dynamically recommending video feeds based on viewing history).",
+            "formula": "\\boxed{\\text{Transparent Customization} \\iff \\text{Customizing without explicitly asking or telling the user}}",
+            "stepByStep": "Recommending personalized videos based on past browsing history without explicit user configuration is the textbook example of **Transparent Customization (Option B)**.",
+            "shortcut": "Transparent customization = Covert personalization (algorithmic recommendations).",
+            "examTrap": "Designing a phone case or tailor-making a suit is Collaborative customization, not transparent."
+          }
+        ],
+        "2026": [
+          {
+            "id": "W1-2026-Q1",
+            "year": "2026",
+            "conceptTag": "History of Engineering",
+            "question": "Who among the following is considered the first military engineer?",
+            "options": [
+              "John Smeaton",
+              "Archimedes",
+              "Isaac Newton",
+              "Hans Christian Ørsted"
+            ],
+            "correctAnswer": 1,
+            "theory": "Archimedes of Syracuse (c. 287 – 212 BC) is historically recognized as the first military engineer. During the Siege of Syracuse by the Roman Republic, Archimedes designed formidable defensive war machines, including the Claw of Archimedes (ship-shaking crane) and specialized catapults, establishing the discipline of military engineering.",
+            "formula": "\\boxed{\\text{First Military Engineer} = \\text{Archimedes (287–212 BC)}}",
+            "stepByStep": "Archimedes is celebrated for pioneering mechanical devices specifically for wartime defense and siege tactics. Hence, **Archimedes (Option B)** is correct.",
+            "shortcut": "First military engineer = Archimedes.",
+            "examTrap": "Do not confuse with John Smeaton, who was the first self-proclaimed Civil Engineer."
+          },
+          {
+            "id": "W1-2026-Q2",
+            "year": "2026",
+            "conceptTag": "Mechanical Engineering History",
+            "question": "Who devised a Chimney Mill in Britain in 1782 and a watermill in 1767?",
+            "options": [
+              "John Smeaton",
+              "L.A. Pelton",
+              "James Francis",
+              "F.W. Taylor"
+            ],
+            "correctAnswer": 0,
+            "theory": "John Smeaton contributed foundational innovations to early mechanical and civil engineering in Britain. He devised a watermill in 1767 and an innovative Chimney Mill in 1782, conducting rigorous scale-model experiments on waterwheels and windmills that established empirical mechanical power principles.",
+            "formula": "\\boxed{\\text{Chimney Mill (1782) \\& Watermill (1767)} \\implies \\text{John Smeaton}}",
+            "stepByStep": "John Smeaton conducted pioneering experimental studies on the efficiency of watermills (1767) and windmills/chimney mills (1782). Thus, **John Smeaton (Option A)** is correct.",
+            "shortcut": "1767 watermill & 1782 chimney mill = John Smeaton.",
+            "examTrap": "L.A. Pelton and James Francis lived in the 19th century and invented specific hydraulic turbines (Pelton wheel and Francis turbine)."
+          },
+          {
+            "id": "W1-2026-Q3",
+            "year": "2026",
+            "conceptTag": "Scientific Management Era",
+            "question": "F.W. Taylor's active contribution falls in the period",
+            "options": [
+              "1750–1850",
+              "1851–1930",
+              "1931–1960",
+              "1961–2010"
+            ],
+            "correctAnswer": 1,
+            "theory": "Frederick Winslow Taylor (1856–1915), known as the 'Father of Scientific Management', made his active professional and academic contributions during the industrial transformation between 1851 and 1930. He earned his mechanical engineering degree in 1883 and published his seminal works (Shop Management in 1903 and Principles of Scientific Management in 1911) during this era.",
+            "formula": "\\boxed{\\text{F.W. Taylor Era} = 1851 - 1930}",
+            "stepByStep": "Taylor was born in 1856 and passed away in 1915. His active career and widespread implementation of scientific management spanned **1851–1930 (Option B)**.",
+            "shortcut": "Taylor's lifetime (1856–1915) falls squarely within 1851–1930.",
+            "examTrap": "Do not choose 1750–1850 (First Industrial Revolution / steam engine era) or 1931–1960 (Operations Research & statistical quality era)."
+          },
+          {
+            "id": "W1-2026-Q4",
+            "year": "2026",
+            "conceptTag": "Origins of Operations Research",
+            "question": "When did Operations Research (OR) formally develop?",
+            "options": [
+              "1939–1945",
+              "1914–1918",
+              "1947",
+              "1925"
+            ],
+            "correctAnswer": 0,
+            "theory": "Operations Research (OR) formally developed during World War II (1939–1945). Military leadership in Britain (Blackett's Circus) and the United States mobilized multidisciplinary scientific teams to optimize radar deployment, anti-submarine warfare, and convoy logistics using mathematical and statistical models.",
+            "formula": "\\boxed{\\text{Formal Development of OR} = 1939 - 1945 \\text{ (World War II)}}",
+            "stepByStep": "The formal discipline of Operations Research was born out of urgent wartime resource allocation and radar coordination between **1939 and 1945 (Option A)**.",
+            "shortcut": "OR birth = WWII (1939–1945).",
+            "examTrap": "1947 was the post-war year when George Dantzig developed the Simplex method and Bell Labs invented the transistor, but OR itself formally developed during 1939–1945."
+          },
+          {
+            "id": "W1-2026-Q5",
+            "year": "2026",
+            "conceptTag": "Objectives of PPC",
+            "isMultiSelect": true,
+            "question": "Which of the following is/are an objective/s of Production Planning and Control? (Select all that apply)",
+            "options": [
+              "Reducing costs",
+              "Improving product quality",
+              "Efficient resource utilisation",
+              "Financial Accounting"
+            ],
+            "correctAnswer": [
+              0,
+              1,
+              2
+            ],
+            "theory": "Production Planning and Control (PPC) coordinates men, machines, materials, and methods to achieve optimal manufacturing performance. Primary objectives include:\n1. Efficient utilization of plant capacity, workforce, and raw materials\n2. Meeting promised delivery deadlines\n3. Minimizing idle time and overall production costs\n4. Maintaining and improving product quality through consistent routing and process control.\nFinancial Accounting is a corporate financial compliance function, not an operational objective of PPC.",
+            "formula": "\\boxed{\\text{PPC Objectives} = \\{\\text{Cost Reduction, Quality Improvement, Resource Utilization}\\}}",
+            "stepByStep": "Options (A), (B), and (C) are direct core goals of PPC. Option (D) Financial Accounting deals with balance sheets and ledger bookkeeping, which belongs to corporate accounting, not PPC. Therefore, **(A), (B), and (C)** are correct.",
+            "shortcut": "PPC focuses on plant floor operations: Cost, Quality, Utilization.",
+            "examTrap": "This is a Multi-Select Question (MSQ). Selecting only one or including Financial Accounting results in zero marks."
+          },
+          {
+            "id": "W1-2026-Q6",
+            "year": "2026",
+            "conceptTag": "Planning Horizons in PPC",
+            "question": "In a planning process, the duration of short-range planning is",
+            "options": [
+              "up to 3 months",
+              "3 to 12 months",
+              "12 to 24 months",
+              "more than 24 months"
+            ],
+            "correctAnswer": 0,
+            "theory": "Standard operations management categorizes planning horizons into three distinct tiers:\n- Short-range planning: up to 3 months (machine loading, daily dispatching, job sequencing)\n- Intermediate-range planning: 3 to 12 months (aggregate planning, workforce sizing, seasonal inventory)\n- Long-range planning: over 1 year / 12 months (capital equipment acquisition, new facility location, R&D).",
+            "formula": "\\boxed{\\text{Short-range: } \\le 3\\text{ months}, \\quad \\text{Intermediate: } 3-12\\text{ months}, \\quad \\text{Long-range: } > 12\\text{ months}}",
+            "stepByStep": "Short-range plans govern immediate tactical execution spanning **up to 3 months (Option A)**.",
+            "shortcut": "Short <= 3 mo, Medium = 3-12 mo, Long > 1 yr.",
+            "examTrap": "3 to 12 months corresponds to intermediate (aggregate) planning."
+          },
+          {
+            "id": "W1-2026-Q7",
+            "year": "2026",
+            "conceptTag": "Revenue Management",
+            "question": "Airlines adjust ticket fares based on factors like demand, weather, and festive seasons. This practice is called",
+            "options": [
+              "Aggregate Planning",
+              "Revenue Management",
+              "Capacity Scheduling",
+              "Demand Forecasting"
+            ],
+            "correctAnswer": 1,
+            "theory": "Revenue Management (also known as Yield Management) is the practice of dynamically pricing perishable capacity (such as airline seats or hotel rooms) based on real-time demand, customer willingness to pay, booking lead time, weather, and seasonal peaks to maximize total operating revenue.",
+            "formula": "\\boxed{\\text{Dynamic pricing of perishable capacity} \\iff \\text{Revenue (Yield) Management}}",
+            "stepByStep": "Dynamic pricing of flights to capture varying consumer surplus is the classic definition of **Revenue Management (Option B)**.",
+            "shortcut": "Airlines dynamic fares = Revenue / Yield Management.",
+            "examTrap": "Aggregate planning determines quarterly production and workforce levels, not individual ticket prices."
+          },
+          {
+            "id": "W1-2026-Q8",
+            "year": "2026",
+            "conceptTag": "Capacity Planning",
+            "isMultiSelect": true,
+            "question": "Capacity planning involves determining the required (Select all that apply)",
+            "options": [
+              "equipment",
+              "workforce",
+              "materials",
+              "sales"
+            ],
+            "correctAnswer": [
+              0,
+              1,
+              2
+            ],
+            "theory": "Capacity planning determines the productive resources required to meet forecasted demand. These productive resources comprise physical equipment/machinery, labor/workforce hours, and raw materials/inventory buffers. Projected sales is an independent input that drives capacity requirements rather than a resource determined by capacity planning.",
+            "formula": "\\boxed{\\text{Capacity Resources} = \\{\\text{Equipment, Workforce, Materials}\\}}",
+            "stepByStep": "Capacity planning determines what equipment, workforce, and materials are required to fulfill expected demand. Sales is an external forecast, not a capacity resource. Hence, **(A), (B), and (C)** are all correct.",
+            "shortcut": "Inputs to capacity: Equipment, Workforce, Materials. Output targeted: Meeting forecasted Sales.",
+            "examTrap": "MSQ question: Ensure all three internal productive resources (A, B, C) are selected."
+          },
+          {
+            "id": "W1-2026-Q9",
+            "year": "2026",
+            "conceptTag": "Pugh Concept Selection Matrix",
+            "isMultiSelect": true,
+            "question": "In the Pugh matrix for the concept selection technique, which of the following statement/s is/are true? (Select all that apply)",
+            "options": [
+              "Best concept will be one with the minimum 's' symbols.",
+              "For concepts better than the datum concept, the '+' symbol is assigned.",
+              "For concepts worse than the datum concept, the '−' symbol is assigned.",
+              "'s' indicates a datum level concept."
+            ],
+            "correctAnswer": [
+              1,
+              2,
+              3
+            ],
+            "theory": "In Stuart Pugh's concept selection matrix, alternative design concepts are qualitatively evaluated against a baseline 'datum' concept across a set of design criteria:\n- '+' indicates a concept is better than the datum\n- '−' indicates a concept is worse than the datum\n- 's' (same) indicates parity with the datum level\nThe best overall concept is identified by the highest net score (maximum '+' symbols or $\\sum + - \\sum -$), not by having the minimum 's' symbols.",
+            "formula": "\\boxed{\\text{Pugh Symbols: } + (\\text{better}), \\quad - (\\text{worse}), \\quad s (\\text{same as datum})}",
+            "stepByStep": "Statements (B), (C), and (D) accurately describe Pugh matrix scoring conventions. Statement (A) is false because a winning concept may have many 's' ratings as long as its '+' ratings dominate. Hence, **(B), (C), and (D)** are correct.",
+            "shortcut": "Pugh: '+' = better, '−' = worse, 's' = same/datum. Winner = max (+).",
+            "examTrap": "Do not select (A); minimum 's' is irrelevant to concept superiority."
+          },
+          {
+            "id": "W1-2026-Q10",
+            "year": "2026",
+            "conceptTag": "Product Design Stages",
+            "question": "Which of the following is not a part of the proper sequence of design stages?",
+            "options": [
+              "Conceptual",
+              "Embodiment",
+              "Detailed",
+              "Manufacturing"
+            ],
+            "correctAnswer": 3,
+            "theory": "The classic systematic engineering design process (Pahl & Beitz) consists of three successive engineering design stages:\n1. Conceptual Design: Formulates functional requirements and generates abstract solution concepts.\n2. Embodiment Design: Develops engineering architecture, layout, spatial compatibility, and preliminary component geometry.\n3. Detailed Design: Finalizes exact dimensions, tolerances, materials, and comprehensive manufacturing blueprints.\nManufacturing is the post-design production execution phase, not an internal design stage.",
+            "formula": "\\boxed{\\text{Engineering Design Stages: Conceptual } \\to \\text{ Embodiment } \\to \\text{ Detailed}}",
+            "stepByStep": "The three recognized stages of the design process are Conceptual, Embodiment, and Detailed design. **Manufacturing (Option D)** is the subsequent production phase, not a design stage.",
+            "shortcut": "Design = Conceptual -> Embodiment -> Detailed. Manufacturing is production.",
+            "examTrap": "Look for the word 'NOT' in the question stem."
+          },
+          {
+            "id": "W1-2026-Q11",
+            "year": "2026",
+            "conceptTag": "Morphological Matrix",
+            "question": "The primary purpose of a morphological matrix in a product design is to",
+            "options": [
+              "reduce product weight",
+              "generate and explore design alternatives",
+              "finalize the best manufacturing method",
+              "To perform market analysis"
+            ],
+            "correctAnswer": 1,
+            "theory": "A Morphological Matrix (Zwicky box) is a structured creativity and concept generation technique. The design problem is decomposed into sub-functions along the rows, and various physical means/mechanisms to fulfill each sub-function are listed in the columns. Combining one solution principle from each row generates a vast array of novel design alternatives.",
+            "formula": "\\boxed{\\text{Morphological Matrix} \\iff \\text{Generate \\& explore combinatorial design alternatives}}",
+            "stepByStep": "The morphological matrix systematically lays out sub-functions and alternative working principles to **generate and explore design alternatives (Option B)**.",
+            "shortcut": "Morphological Matrix = Systematic generation of design alternatives.",
+            "examTrap": "Evaluation matrices (like Pugh or AHP) select the best concept; morphological matrices generate the alternatives."
+          },
+          {
+            "id": "W1-2026-Q12",
+            "year": "2026",
+            "conceptTag": "Utility Theory",
+            "question": "In Cardinal utility, the unit of utility is",
+            "options": [
+              "dollar",
+              "number of units",
+              "utils",
+              "utilities"
+            ],
+            "correctAnswer": 2,
+            "theory": "Cardinal utility theory postulates that consumer satisfaction or preference intensity can be measured and expressed quantitatively on an absolute numerical scale. The theoretical, standardized unit used to quantify cardinal utility is called the 'util'.",
+            "formula": "\\boxed{\\text{Cardinal Utility Unit} = \\text{utils}}",
+            "stepByStep": "In neoclassical consumer economics, satisfaction in cardinal utility is measured in arbitrary units called **utils (Option C)**.",
+            "shortcut": "Cardinal utility unit = utils.",
+            "examTrap": "Ordinal utility uses rankings without units. Cardinal utility uses 'utils'."
+          },
+          {
+            "id": "W1-2026-Q13",
+            "year": "2026",
+            "conceptTag": "Analytic Hierarchy Process (AHP)",
+            "isMultiSelect": true,
+            "question": "For the Analytical Hierarchy Process (AHP), which of the following statement/s is/are true? (Select all that apply)",
+            "options": [
+              "It is a part of linear programming problems.",
+              "It has an axiomatic foundation.",
+              "It makes structured, multi-criteria decision-making easier.",
+              "It performs regression analysis."
+            ],
+            "correctAnswer": [
+              1,
+              2
+            ],
+            "theory": "Developed by Thomas L. Saaty, the Analytic Hierarchy Process (AHP) is a multi-criteria decision-making (MCDM) methodology grounded in a rigorous axiomatic foundation (reciprocal condition, homogeneity, dependence, expectations). It decomposes complex decisions into a multi-level hierarchy of goals, criteria, sub-criteria, and alternatives. It is neither linear programming nor regression analysis.",
+            "formula": "\\boxed{\\text{AHP Features: Axiomatic foundation \\& structured multi-criteria decision-making}}",
+            "stepByStep": "Statements (B) and (C) correctly define AHP's theoretical foundation and practical application. AHP does not solve LPPs nor perform statistical regression. Hence, **(B) and (C)** are correct.",
+            "shortcut": "AHP = Axiomatic + Structured multi-criteria decision making.",
+            "examTrap": "MSQ question: Ensure both (B) and (C) are selected."
+          },
+          {
+            "id": "W1-2026-Q14",
+            "year": "2026",
+            "conceptTag": "AHP Rating Scale",
+            "question": "In AHP, pairwise comparisons are typically rated using",
+            "options": [
+              "a 1–5 Likert scale",
+              "a binary yes/no choice",
+              "probabilistic weights",
+              "a 1–9 scale of relative importance"
+            ],
+            "correctAnswer": 3,
+            "theory": "In Saaty's Analytic Hierarchy Process, pairwise comparisons between elements at the same hierarchical level are evaluated using a fundamental 1 to 9 scale:\n- 1: Equal importance\n- 3: Moderate importance\n- 5: Strong importance\n- 7: Very strong / demonstrated importance\n- 9: Extreme importance\nEven numbers (2, 4, 6, 8) serve as intermediate compromise values, with reciprocals (1/3, 1/5, etc.) assigned to inverse comparisons.",
+            "formula": "\\boxed{\\text{Saaty Scale: } 1, 2, \\dots, 9}",
+            "stepByStep": "Saaty established the standardized **1–9 scale of relative importance (Option D)** for populating pairwise comparison matrices.",
+            "shortcut": "AHP pairwise scale = 1 to 9.",
+            "examTrap": "A standard Likert scale is 1 to 5; AHP specifically uses 1 to 9."
+          },
+          {
+            "id": "W1-2026-Q15",
+            "year": "2026",
+            "conceptTag": "Compensating Strategy Multi-Attribute Evaluation",
+            "question": "Membership grades for the triathlon sports event in three sports are given in the table:\n\n| Name | Swimming | Bicycling | Running |\n|---|---|---|---|\n| Anurag | 0.65 | 0.73 | 0.81 |\n| Rohan | 0.77 | 0.85 | 0.91 |\n| Vikash | 0.90 | 0.66 | 0.78 |\n| Harsh | 0.84 | 0.93 | 0.69 |\n| Sourav | 0.98 | 0.87 | 0.74 |\n\nAs per the compensating strategy, the ranking of athletes (from best to worst) is",
+            "options": [
+              "Anurag, Vikash, Harsh, Rohan, Sourav",
+              "Rohan, Sourav, Vikash, Harsh, Anurag",
+              "Harsh, Sourav, Rohan, Anurag, Vikash",
+              "Sourav, Rohan, Harsh, Vikash, Anurag"
+            ],
+            "correctAnswer": 3,
+            "theory": "In multi-attribute fuzzy decision analysis, a compensating strategy aggregates individual attribute membership grades via the geometric mean:\n$\\mu_{\\text{overall}} = (\\mu_1 \\cdot \\mu_2 \\cdot \\mu_3)^{1/3}$\nCandidates are ranked in descending order of their overall membership grades.",
+            "formula": "\\mu_{\\text{overall}} = \\sqrt[3]{\\mu_{\\text{Swim}} \\cdot \\mu_{\\text{Bike}} \\cdot \\mu_{\\text{Run}}}",
+            "stepByStep": "Compute the geometric mean for each athlete:\n1. Sourav: $(0.98 \\times 0.87 \\times 0.74)^{1/3} = (0.630924)^{1/3} \\approx 0.8577$\n2. Rohan: $(0.77 \\times 0.85 \\times 0.91)^{1/3} = (0.595595)^{1/3} \\approx 0.8413$\n3. Harsh: $(0.84 \\times 0.93 \\times 0.69)^{1/3} = (0.539028)^{1/3} \\approx 0.8138$\n4. Vikash: $(0.90 \\times 0.66 \\times 0.78)^{1/3} = (0.46332)^{1/3} \\approx 0.7738$\n5. Anurag: $(0.65 \\times 0.73 \\times 0.81)^{1/3} = (0.384345)^{1/3} \\approx 0.7271$\n\nRanking (best to worst): **Sourav > Rohan > Harsh > Vikash > Anurag (Option D)**.",
+            "shortcut": "Multiply the 3 scores: Sourav=0.631, Rohan=0.596, Harsh=0.539, Vikash=0.463, Anurag=0.384. Highest product = highest rank.",
+            "examTrap": "Do not use arithmetic mean; compensating strategy in fuzzy sets requires the geometric mean."
+          },
+          {
+            "id": "W1-2026-Q16",
+            "year": "2026",
+            "conceptTag": "Weighted Multi-Criteria Scoring",
+            "question": "The ratings of products A and B in a scale of 1 (poor) to 10 (Excellent) in two criteria are given in the table:\n\n| Criterion | A | B |\n|---|---|---|\n| Performance | 8 | 7 |\n| Economy | 6 | 9 |\n\nIf 38% importance is given to performance and 62% to economy, the scores of product A and B are respectively",
+            "options": [
+              "7.6, 7.38",
+              "7.38, 7.86",
+              "7.38, 7.6",
+              "7.86, 7.4"
+            ],
+            "correctAnswer": 1,
+            "theory": "In multi-criteria weighted evaluation, the overall score of a product is the linear combination of weights and criterion scores:\n$\\text{Score} = w_P \\cdot R_P + w_E \\cdot R_E$\nNote: In the official NPTEL 2026 assignment solution, the author cross-paired numbers to arrive at the solution:\n$\\text{Score}_A = (8 \\times 0.38) + (7 \\times 0.62) = 3.04 + 4.34 = 7.38$\n$\\text{Score}_B = (6 \\times 0.38) + (9 \\times 0.62) = 2.28 + 5.58 = 7.86$",
+            "formula": "\\text{Score}_A = 7.38, \\quad \\text{Score}_B = 7.86 \\implies \\text{Option (B)}",
+            "stepByStep": "Applying the portal's published solution arithmetic:\n- Score A: $8 \\times 0.38 + 7 \\times 0.62 = 3.04 + 4.34 = 7.38$\n- Score B: $6 \\times 0.38 + 9 \\times 0.62 = 2.28 + 5.58 = 7.86$\nHence, the accepted result is **7.38, 7.86 (Option B)**.",
+            "shortcut": "Official key is Option B (7.38, 7.86).",
+            "examTrap": "Notice the exam trap: The question setter accidentally used 7 (B's performance) instead of 6 for A's economy, and 6 instead of 7 for B's performance, yielding 7.38 and 7.86. Memorize Option B for the exam."
+          },
+          {
+            "id": "W1-2026-Q17",
+            "year": "2026",
+            "conceptTag": "Productivity & Wage Calculations",
+            "question": "A carpenter typically takes 5 days to make one chair, working 7 hours per day. He charges ₹80 per hour. You hired him on a daily wage basis, paying him for 7 hours of work each day. However, due to laziness and personal needs, he worked only 6 hours per day. What is the total amount you will end up paying the carpenter for making one chair?",
+            "options": [
+              "₹ 3267",
+              "₹ 2800",
+              "₹ 3000",
+              "₹ 2333"
+            ],
+            "correctAnswer": 0,
+            "theory": "When a worker is contracted on a daily wage based on standard daily hours, each day worked incurs a fixed charge of $H_{\\text{standard}} \\times \\text{Rate}$. If the worker works fewer hours per day ($H_{\\text{actual}} < H_{\\text{standard}}$), it requires more calendar days to accumulate the necessary man-hours, increasing the employer's total payment.",
+            "formula": "\\text{Total Cost} = \\left(\\frac{\\text{Total Required Man-Hours}}{H_{\\text{actual}}}\\right) \\times (H_{\\text{standard}} \\times \\text{Hourly Rate})",
+            "stepByStep": "1. Total required man-hours to make one chair = $5 \\times 7 = 35\\text{ man-hours}$.\n2. Since he works only 6 hours per day, total days needed = $\\frac{35}{6}\\text{ days} \\approx 5.8333\\text{ days}$.\n3. Daily wage contracted (paid for 7 hours) = $7 \\times 80 = ₹560\\text{ per day}$.\n4. Total payment = $\\frac{35}{6} \\times 560 = \\frac{19600}{6} = ₹3266.67 \\approx \\mathbf{₹3267\\text{ (Option A)}}$.",
+            "shortcut": "Total Cost = (35 / 6) * 560 = ₹3266.67 ≈ ₹3267.",
+            "examTrap": "Do not calculate based on 35 hours * ₹80 = ₹2800. The employer pays for 7 hours every day he shows up, so working only 6 hours/day inflates the total cost."
+          },
+          {
+            "id": "W1-2026-Q18",
+            "year": "2026",
+            "conceptTag": "Batch Production Sizing",
+            "question": "Setup cost for a machine is ₹40000. Variable cost for making one unit of product is ₹90. If the production cost per unit comes out to be ₹120, how many units are produced in a batch?",
+            "options": [
+              "1333",
+              "1000",
+              "333",
+              "30000"
+            ],
+            "correctAnswer": 0,
+            "theory": "Average production cost per unit in batch production comprises the amortized fixed setup cost plus unit variable cost:\n$\\text{Unit Cost} = \\frac{\\text{Fixed Setup Cost}}{x} + \\text{Variable Cost}$\nSolving for batch size $x$:\n$x = \\frac{\\text{Setup Cost}}{\\text{Unit Cost} - \\text{Variable Cost}}$",
+            "formula": "x = \\frac{C_S}{\\text{Unit Cost} - C_V} = \\frac{40000}{120 - 90}",
+            "stepByStep": "1. Let $x$ be the batch size.\n2. Total cost = $40000 + 90x$.\n3. Average cost per unit = $\\frac{40000 + 90x}{x} = 120$.\n4. $40000 + 90x = 120x \\implies 30x = 40000$.\n5. $x = \\frac{40000}{30} = 1333.33 \\approx \\mathbf{1333\\text{ units (Option A)}}.$",
+            "shortcut": "Batch size x = 40000 / (120 - 90) = 40000 / 30 = 1333.",
+            "examTrap": "In the 2026 PDF, the calculation explicitly yields 1333.34 and Option (A) 1333 is highlighted in red, but the text conclusion inadvertently typed '(B)'. The correct answer is Option A (1333)."
+          },
+          {
+            "id": "W1-2026-Q19",
+            "year": "2026",
+            "conceptTag": "Plant Layout & Production Types",
+            "question": "Which type of production usually needs a process layout?",
+            "options": [
+              "Flow production",
+              "Batch production",
+              "Mass production",
+              "Job production"
+            ],
+            "correctAnswer": 1,
+            "theory": "A Process Layout (also called Functional Layout) groups machines performing similar operations together (e.g., all milling machines in one department, all lathes in another). This layout is characteristic of Batch Production, where products move between specialized departments in discrete batches according to their individual operation routings.",
+            "formula": "\\boxed{\\text{Process / Functional Layout} \\iff \\text{Batch Production}}",
+            "stepByStep": "Batch production requires flexible routing through specialized equipment departments, which is provided by a **Process layout (Option B)**.",
+            "shortcut": "Process Layout = Batch Production; Product Layout = Flow/Mass Production.",
+            "examTrap": "Flow and mass production utilize a Product (Line) layout, not a process layout."
+          },
+          {
+            "id": "W1-2026-Q20",
+            "year": "2026",
+            "conceptTag": "Flow Production Characteristics",
+            "question": "Which one of the following is not a characteristic of flow production?",
+            "options": [
+              "Low flexibility",
+              "High flexibility",
+              "High efficiency",
+              "Significant initial investment"
+            ],
+            "correctAnswer": 1,
+            "theory": "Flow Production (Continuous/Mass Line Production) is designed for dedicated high-volume output of standardized goods. Its defining attributes are:\n1. Dedicated special-purpose machinery (high capital investment)\n2. High operating efficiency and minimal material handling delay\n3. Rigid sequence and low flexibility to product design changes.\nTherefore, 'High flexibility' is false and NOT a characteristic of flow production.",
+            "formula": "\\boxed{\\text{Flow Production: High efficiency, Low flexibility, High capital investment}}",
+            "stepByStep": "Flow production lines are highly rigid and dedicated, meaning they have very low flexibility. Thus, **High flexibility (Option B)** is NOT a characteristic.",
+            "shortcut": "Flow production has LOW flexibility, so 'High flexibility' is the false statement.",
+            "examTrap": "Note the word 'NOT' in the question stem."
+          }
+        ]
       }
-    }))
+    }
   ]
 };
 
