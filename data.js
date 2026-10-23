@@ -4016,8 +4016,801 @@ const IEOR_DATA = {
       }
     },
 
-    // Placeholders for Weeks 7 down to 1
-    ...[7, 6, 5, 4, 3, 2, 1].map(wNum => ({
+    // Week 7: Linear Programming: Simplex Method & Big-M (Active)
+    {
+      "number": 7,
+      "title": "Linear Programming: Simplex Method & Big-M",
+      "status": "active",
+      "summary": "Linear programming fundamentals: convex sets, basic feasible solutions (BFS), graphical method, simplex algorithm, slack/surplus/artificial variables, Big-M method, Two-Phase method, unrestricted variables, degeneracy, cycling, and alternative/unbounded/infeasible solutions.",
+      "studyMaterials": {
+        "quickOverview": "Week 7 covers the foundation and algorithmic mechanics of Linear Programming (LP): convex sets (line segment joining any two points lies within the set), identifying extreme points as basic feasible solutions (BFS, at most n choose m basic solutions), standard form conversion (slack variables for <=, surplus & artificial variables for >= and =), simplex tableau pivot operations (minimum ratio test for leaving variable), Big-M penalty formulation (+M in min, -M in max), Phase 1/Phase 2 of the Two-Phase method, and diagnosing special cases (degeneracy/cycling, multiple optima, unboundedness, and infeasibility).",
+        "formulaSheet": [
+          {
+            "name": "Convex Set Definition",
+            "formula": "\\mathbf{x}_1, \\mathbf{x}_2 \\in S \\implies \\lambda \\mathbf{x}_1 + (1 - \\lambda) \\mathbf{x}_2 \\in S, \\quad \\forall \\lambda \\in [0, 1]",
+            "units": "Geometric property",
+            "desc": "A set is convex if the entire line segment connecting any two points in the set lies completely inside the set."
+          },
+          {
+            "name": "Total Possible Basic Solutions",
+            "formula": "N_{\\text{basic solutions}} = \\binom{n}{m} = \\frac{n!}{m!(n - m)!}",
+            "units": "Count of solutions",
+            "desc": "Maximum number of basic solutions in an LP with n variables (including slack/surplus) and m independent equality constraints."
+          },
+          {
+            "name": "Standard LP Form Conversions",
+            "formula": "\\sum a_{ij}x_j \\le b_i \\implies +S_i; \\quad \\sum a_{ij}x_j \\ge b_i \\implies -S_i + R_i; \\quad \\sum a_{ij}x_j = b_i \\implies +R_i",
+            "units": "Variables: S_i (slack/surplus >= 0), R_i (artificial >= 0)",
+            "desc": "Add slack to <=; subtract surplus and add artificial to >=; add artificial to = constraints."
+          },
+          {
+            "name": "Big-M Penalty in Objective Function",
+            "formula": "\\text{Max: } Z = \\mathbf{c}^T \\mathbf{x} - M \\sum R_i; \\quad \\text{Min: } Z = \\mathbf{c}^T \\mathbf{x} + M \\sum R_i \\quad (M \\gg 0)",
+            "units": "M = very large penalty (e.g. 1000)",
+            "desc": "Heavily penalizes artificial variables to drive them out of the basis. If any R_i > 0 remains at optimality, the LP is infeasible."
+          },
+          {
+            "name": "Minimum Ratio Test (Leaving Variable)",
+            "formula": "\\theta = \\min \\left\\{ \\frac{b_i}{a_{i, \\text{pivot}}} \\;\\middle|\\; a_{i, \\text{pivot}} > 0 \\right\\}",
+            "units": "Non-negative ratio",
+            "desc": "Determines which basic variable leaves the basis to maintain non-negativity. If all pivot column entries are <= 0, the LP is unbounded."
+          },
+          {
+            "name": "Unrestricted Variable Decomposition",
+            "formula": "x_j = x_j^+ - x_j^-, \\quad x_j^+ \\ge 0, \\; x_j^- \\ge 0",
+            "units": "Difference of non-negative reals",
+            "desc": "Any unrestricted decision variable is represented as the difference between two non-negative variables."
+          }
+        ],
+        "examTraps": [
+          {
+            "trap": "Infeasible Constraints Key Anomaly (2025 Q7 & Q8)",
+            "explanation": "In 2025 Q7 ($2x+y \\ge 10, x+y \\le 3$) and Q8 ($3x+y \\ge 17, x+y \\le 3$), mathematically the problems have NO feasible solution. However, the official NPTEL portal key accepted 'feasible solution'. Both the mathematical derivation and portal key are highlighted."
+          },
+          {
+            "trap": "Big-M Sign Trap (Max vs Min)",
+            "explanation": "Remember: For MINIMIZATION, add $+M R_i$ (increasing cost). For MAXIMIZATION, subtract $-M R_i$ (reducing profit). Don't mix up the signs!"
+          },
+          {
+            "trap": "Degeneracy vs Cycling",
+            "explanation": "Degeneracy occurs when at least one BASIC variable has a value of ZERO. Cycling is an endless repetition of tableaus that can ONLY happen when degeneracy is present."
+          },
+          {
+            "trap": "Alternative (Multiple) Optima Detection",
+            "explanation": "Multiple optima occur in simplex when a NON-BASIC variable has a reduced cost of ZERO ($\\Delta_j = 0$ or $c_j - z_j = 0$) in the optimal tableau, allowing it to enter without changing optimal Z."
+          }
+        ]
+      },
+      "years": {
+        "2025": [
+          {
+            "id": "W7-2025-Q1",
+            "year": "2025",
+            "conceptTag": "History of Operations Research",
+            "question": "Operations Research Society of America was formed in the year",
+            "options": [
+              "1949",
+              "1952",
+              "1955",
+              "1957"
+            ],
+            "correctAnswer": 1,
+            "theory": "The Operations Research Society of America (ORSA) was founded in 1952 in the United States to advance the theory and practice of operations research.",
+            "formula": "\\boxed{\\text{ORSA Founded: 1952}}",
+            "stepByStep": "ORSA was formally established in **1952 (Option B)**.",
+            "shortcut": "ORSA formation $\\implies$ 1952.",
+            "examTrap": "In 1995, ORSA merged with TIMS to form INFORMS."
+          },
+          {
+            "id": "W7-2025-Q2",
+            "year": "2025",
+            "conceptTag": "Equivalent Optimization Formulations",
+            "question": "Maximize z = 1/(x² + y²) is equivalent to",
+            "options": [
+              "Maximize z = −(x² + y²)",
+              "Minimize z = −(x² + y²)",
+              "Maximize z = −1/(x² + y²)",
+              "Minimize z = 1/(x² + y²)"
+            ],
+            "correctAnswer": 0,
+            "theory": "Maximizing the reciprocal $1/(x^2 + y^2)$ requires minimizing $(x^2 + y^2)$. Minimizing $(x^2 + y^2)$ is mathematically equivalent to maximizing $-(x^2 + y^2)$.",
+            "formula": "\\boxed{\\max \\frac{1}{x^2 + y^2} \\iff \\min (x^2 + y^2) \\iff \\max -(x^2 + y^2)}",
+            "stepByStep": "1. To make $1/(x^2 + y^2)$ as large as possible, we must make $(x^2 + y^2)$ as small as possible: $\\min (x^2 + y^2)$.\n2. Any minimization problem $\\min f(x)$ is equivalent to $\\max -f(x)$.\n3. Thus, it is equivalent to Maximize $z = -(x^2 + y^2)$ **(Option A)**.",
+            "shortcut": "$\\max(1/u) \\iff \\min(u) \\iff \\max(-u)$.",
+            "examTrap": "Notice Option B has 'Minimize', which would be equivalent to maximizing $(x^2 + y^2)$."
+          },
+          {
+            "id": "W7-2025-Q3",
+            "year": "2025",
+            "conceptTag": "Non-Convex Set Identification",
+            "question": "Which one of the following sets is a non-convex set?",
+            "options": [
+              "Set of real numbers",
+              "Set of natural numbers",
+              "Set of complex numbers",
+              "Set of positive real numbers"
+            ],
+            "correctAnswer": 1,
+            "theory": "A set is convex if the line segment connecting any two points in the set lies entirely within the set. The set of natural numbers $\\mathbb{N} = \\{1, 2, 3, \\dots\\}$ is discrete; the line segment connecting 1 and 2 contains non-integers (e.g. 1.5) which are not natural numbers.",
+            "formula": "\\boxed{1, 2 \\in \\mathbb{N}, \\text{ but } 0.5(1) + 0.5(2) = 1.5 \\notin \\mathbb{N} \\implies \\text{Non-convex}}",
+            "stepByStep": "1. Take two natural numbers: $x_1 = 1, x_2 = 2$.\n2. Midpoint $= 1.5 \\notin \\mathbb{N}$.\n3. The set of natural numbers is non-convex **(Option B)**.",
+            "shortcut": "Discrete sets (natural/integers) are always non-convex.",
+            "examTrap": "Real numbers, positive reals, and complex numbers are all continuous convex sets."
+          },
+          {
+            "id": "W7-2025-Q4",
+            "year": "2025",
+            "conceptTag": "Basic Solutions Formula",
+            "question": "In an LP with 10 decision variables and 9 equality constraints, the number of basic solutions is",
+            "options": [
+              "1",
+              "9",
+              "10",
+              "45"
+            ],
+            "correctAnswer": 2,
+            "theory": "The maximum number of basic solutions in a system of $m$ equality constraints with $n$ variables is $\\binom{n}{m}$.",
+            "formula": "\\boxed{N_{\\text{basic}} = \\binom{n}{m} = \\binom{10}{9} = 10}",
+            "stepByStep": "1. $n = 10, m = 9$.\n2. $\\binom{10}{9} = \\binom{10}{1} = \\mathbf{10}$ **(Option C)**.",
+            "shortcut": "$\\binom{10}{9} = 10$.",
+            "examTrap": "Do not compute $\\binom{10}{2} = 45$."
+          },
+          {
+            "id": "W7-2025-Q5",
+            "year": "2025",
+            "conceptTag": "Number of BFS in 2D Problem",
+            "question": "Maximize 2X₁ + 3X₂ subject to X₁ + 3X₂ ≤ 40 (1), 3X₁ + X₂ ≤ 24 (2), X₁, X₂ ≥ 0. The number of basic feasible solutions is",
+            "options": [
+              "0",
+              "3",
+              "4",
+              "6"
+            ],
+            "correctAnswer": 2,
+            "theory": "Each extreme point of the bounded feasible polygon in the first quadrant corresponds to a Basic Feasible Solution (BFS).",
+            "formula": "\\boxed{N_{\\text{BFS}} = \\text{Number of extreme points} = 4}",
+            "stepByStep": "1. Extreme points of feasible region:\n   - Origin: $(0, 0)$\n   - On $X_1$-axis: $(8, 0)$ from $3X_1 \\le 24$\n   - On $X_2$-axis: $(0, 40/3)$ from $3X_2 \\le 40$\n   - Intersection of (1) and (2): $X_1 = 4, X_2 = 12$.\n2. All 4 points satisfy non-negativity and constraints.\n3. Exactly 4 basic feasible solutions **(Option C)**.",
+            "shortcut": "Standard 2-constraint bounded quadrant has 4 vertices $\\implies 4$ BFS.",
+            "examTrap": "Total basic solutions is $\\binom{4}{2} = 6$, but 2 lie outside the non-negative quadrant."
+          },
+          {
+            "id": "W7-2025-Q6",
+            "year": "2025",
+            "conceptTag": "Production Planning Optimal Profit",
+            "question": "A company produces two products, P₁ and P₂. Each unit of P₁ requires 2 hours on Machine A and 1 hour on Machine B. Each unit of P₂ requires 1 hour on Machine A and 3 hours on Machine B. Machine A has 100 hours and Machine B has 90 hours available. Profit is ₹40 per unit of P₁ and ₹50 per unit of P₂. The maximum profit is",
+            "options": [
+              "₹2000",
+              "₹2200",
+              "₹2400",
+              "₹2480"
+            ],
+            "correctAnswer": 3,
+            "theory": "Formulate the LP: $\\max Z = 40x_1 + 50x_2$ subject to $2x_1 + x_2 \\le 100$ and $x_1 + 3x_2 \\le 90$ with $x_1, x_2 \\ge 0$.",
+            "formula": "\\boxed{Z = 40x_1 + 50x_2}",
+            "stepByStep": "1. Corner points:\n   - $(0, 0) \\implies Z = 0$\n   - $(50, 0) \\implies Z = 40(50) = 2000$\n   - $(0, 30) \\implies Z = 50(30) = 1500$\n   - Intersection: $2x_1 + x_2 = 100$ and $x_1 + 3x_2 = 90$.\n     - Multiply second by 2: $2x_1 + 6x_2 = 180$.\n     - Subtract first: $5x_2 = 80 \\implies x_2 = 16$.\n     - Then $x_1 = 90 - 3(16) = 90 - 48 = 42$.\n   - Profit at $(42, 16) = 40(42) + 50(16) = 1680 + 800 = \\mathbf{₹2480}$.\n2. Maximum profit is **₹2480 (Option D)**.",
+            "shortcut": "Intersection $(42, 16) \\implies 1680 + 800 = ₹2480$.",
+            "examTrap": "Check all corner points; $(42, 16)$ beats $(50, 0)$."
+          },
+          {
+            "id": "W7-2025-Q7",
+            "year": "2025",
+            "conceptTag": "Incompatible Linear Inequalities",
+            "question": "Maximize z = 5x + 8y subject to 2x + y ≥ 10, x + y ≤ 3. The problem has",
+            "options": [
+              "infeasible solution",
+              "feasible solution",
+              "redundant constraint",
+              "no solution"
+            ],
+            "correctAnswer": 1,
+            "theory": "Mathematically: For non-negative $x, y$, $2x + y \\le 2(x + y) \\le 2(3) = 6 < 10$, so the constraints are contradictory and infeasible. However, on the official NPTEL portal, the accepted answer key is marked as 'feasible solution'. Both the math and portal key are noted here.",
+            "formula": "\\boxed{\\text{Portal Accepted Key: Feasible solution (Option B)}}",
+            "stepByStep": "1. The NPTEL portal evaluation system keyed **Option B (feasible solution)** as the accepted answer.\n2. Note for study: In standard linear programming, $2x + y \\le 6 < 10$ makes this mathematically infeasible, but students must select Option B for portal alignment.",
+            "shortcut": "Select Option B as keyed on the NPTEL portal.",
+            "examTrap": "This is a known NPTEL portal key inconsistency; select 'feasible solution' to match the portal grade."
+          },
+          {
+            "id": "W7-2025-Q8",
+            "year": "2025",
+            "conceptTag": "Incompatible Linear Inequalities",
+            "question": "Maximize z = 5x + 8y subject to 3x + y ≥ 17, x + y ≤ 3. This problem has",
+            "options": [
+              "infeasible solution",
+              "feasible solution",
+              "redundant constraint",
+              "no solution"
+            ],
+            "correctAnswer": 1,
+            "theory": "Mathematically: $3x + y \\le 3(x + y) \\le 3(3) = 9 < 17$, which is inconsistent. However, the official NPTEL portal accepted key is marked as 'feasible solution'. Both the mathematics and portal key are explained.",
+            "formula": "\\boxed{\\text{Portal Accepted Key: Feasible solution (Option B)}}",
+            "stepByStep": "1. The official portal key accepts **Option B (feasible solution)**.\n2. Note: Mathematically $3x + y$ cannot exceed 9 when $x+y \\le 3$, so it is strictly infeasible, but Option B was the official key.",
+            "shortcut": "Portal key is Option B (feasible solution).",
+            "examTrap": "Like Q7, this is an official portal key anomaly; choose Option B."
+          },
+          {
+            "id": "W7-2025-Q9",
+            "year": "2025",
+            "conceptTag": "Slack and Surplus Variables Count",
+            "question": "Maximize z = 2x₁ + x₂ s.t. 4x₁ + 3x₂ ≤ 12, 2x₁ + x₂ ≥ 4, x₁ + x₂ ≤ 6, x₁, x₂ ≥ 0. The standard LP will contain",
+            "options": [
+              "3 slack variables",
+              "2 slack and 1 surplus variables",
+              "2 surplus and 1 slack variables",
+              "3 surplus variables"
+            ],
+            "correctAnswer": 1,
+            "theory": "Constraints 1 and 3 are '$\\le$' (requiring 2 slack variables), while Constraint 2 is '$\\ge$' (requiring 1 surplus variable).",
+            "formula": "\\boxed{2 \\times (\\le) \\implies 2 \\text{ slack}; \\quad 1 \\times (\\ge) \\implies 1 \\text{ surplus}}",
+            "stepByStep": "1. $4x_1 + 3x_2 \\le 12 \\implies +S_1$ (slack)\n2. $2x_1 + x_2 \\ge 4 \\implies -S_2$ (surplus)\n3. $x_1 + x_2 \\le 6 \\implies +S_3$ (slack)\n4. Total: **2 slack and 1 surplus variables (Option B)**.",
+            "shortcut": "Two $\\le$ and one $\\ge \\implies$ 2 slack and 1 surplus.",
+            "examTrap": "Do not count artificial variables when asked specifically for slack and surplus variables."
+          },
+          {
+            "id": "W7-2025-Q10",
+            "year": "2025",
+            "conceptTag": "Active vs Inactive Constraints",
+            "question": "Maximize z = 25A + 50B + 80C + 60D + 70E subject to:\n- Constraint 1: A + B + C + D + E ≤ 10\n- Constraint 2: D + E ≥ 5\n- Constraint 3: C ≥ 0.5(A + B + C)\n- Constraint 4: (0.1A + 0.1B + 0.3C + 0.5D + 1.2E) / (A + B + C + D + E) ≤ 0.4\n- A, B, C, D, E ≥ 0\n\nThe problem is converted to an LP and solved by simplex, giving A = 0, B = 2.5000, C = 2.5000, D = 4.2857, E = 0.7143. Considering two decimal place accuracy:",
+            "options": [
+              "constraint 4 is inactive",
+              "constraint 3 is inactive",
+              "no constraint is inactive",
+              "constraint 1 is inactive"
+            ],
+            "correctAnswer": 2,
+            "theory": "Substitute the optimal values into each constraint. If all four constraints are satisfied as exact equalities, none of the constraints has positive slack/surplus, meaning no constraint is inactive.",
+            "formula": "\\boxed{\\text{All constraints satisfied with equality} \\implies \\text{No constraint is inactive}}",
+            "stepByStep": "1. C1: $0 + 2.5 + 2.5 + 4.2857 + 0.7143 = 10.00 = 10$ (Active).\n2. C2: $D + E = 4.2857 + 0.7143 = 5.00 = 5$ (Active).\n3. C3: $C = 2.5 = 0.5(0 + 2.5 + 2.5) = 2.5$ (Active).\n4. C4: $\\frac{0.1(0) + 0.1(2.5) + 0.3(2.5) + 0.5(4.2857) + 1.2(0.7143)}{10} = \\frac{0.25 + 0.75 + 2.14285 + 0.85716}{10} = \\frac{4.00}{10} = 0.40$ (Active).\n5. All 4 constraints hold with exact equality, so **no constraint is inactive (Option C)**.",
+            "shortcut": "All LHS = RHS $\\implies$ No constraint is inactive.",
+            "examTrap": "Check all 4 constraints; even constraint 4 with its fraction holds as exact equality."
+          },
+          {
+            "id": "W7-2025-Q11",
+            "year": "2025",
+            "conceptTag": "Exploring Alternate Optima via Simplex",
+            "question": "Maximize z = 2x + 4y subject to x + 2y + S₁ = 5, x + y + S₂ = 4, x, y, S₁, S₂ ≥ 0. The optimized simplex table is:\n\n| Basic | x | y | S₁ | S₂ | Solution |\n|---|---|---|---|---|---|\n| z | 0 | 0 | 2 | 0 | 10 |\n| y | 0 | 1 | 1 | −1 | 1 |\n| x | 1 | 0 | −1 | 2 | 3 |\n\nIf it is decided to explore another optimum point, then",
+            "options": [
+              "leaving variable is S₂ and entering variable y",
+              "leaving variable is x and entering variable S₂",
+              "leaving variable is S₁ and entering variable y",
+              "leaving variable is S₁ and entering variable x"
+            ],
+            "correctAnswer": 1,
+            "theory": "In an optimal tableau, if a non-basic variable has a zero coefficient in the objective row ($z$-row), entering that variable explores an alternate optimal solution without changing the optimal objective value. The leaving variable is determined by the minimum positive ratio test.",
+            "formula": "\\boxed{\\text{Entering: } S_2 \\text{ (since } z_{S_2} = 0); \\quad \\text{Leaving: } \\min \\left(\\frac{3}{2}\\right) \\implies x}",
+            "stepByStep": "1. Non-basic variable $S_2$ has coefficient 0 in the $z$-row $\\implies$ **Entering variable is S₂**.\n2. Ratios under column $S_2$:\n   - Row $y$: $1 / (-1) \\implies$ negative, ignored.\n   - Row $x$: $3 / 2 = 1.5 > 0 \\implies$ **Leaving variable is x**.\n3. Therefore, leaving variable is $x$ and entering variable is $S_2$ **(Option B)**.",
+            "shortcut": "$S_2$ has 0 in $z$-row $\\implies$ enters; only row $x$ has positive entry (2) $\\implies x$ leaves.",
+            "examTrap": "Do not divide by negative numbers in the ratio test; row $y$ has $-1$ so it cannot leave."
+          },
+          {
+            "id": "W7-2025-Q12",
+            "year": "2025",
+            "conceptTag": "Unrestricted Variable Definition",
+            "question": "In a linear problem, if a decision variable is unrestricted, then it is expressed as",
+            "options": [
+              "an unsigned variable",
+              "the difference of two positive numbers",
+              "the difference of two real numbers",
+              "the difference of two non-negative numbers"
+            ],
+            "correctAnswer": 3,
+            "theory": "An unrestricted variable $x_j$ can be positive, negative, or zero. In LP formulation, it is decomposed into the difference of two non-negative numbers: $x_j = x_j' - x_j''$ where $x_j', x_j'' \\ge 0$.",
+            "formula": "\\boxed{x_j = x_j^+ - x_j^-, \\quad x_j^+, x_j^- \\ge 0}",
+            "stepByStep": "By standard LP convention, an unrestricted variable is replaced by the difference of two non-negative numbers **(Option D)**.",
+            "shortcut": "Unrestricted variable = difference of two non-negative numbers.",
+            "examTrap": "Do not choose 'positive numbers' because zero must be permissible."
+          },
+          {
+            "id": "W7-2025-Q13",
+            "year": "2025",
+            "conceptTag": "Two-Phase vs Big-M Solvability",
+            "question": "Minimize z = 4x₁ + x₂ subject to 3x₁ + x₂ = 3, 4x₁ + 3x₂ ≥ 6, x₁ + 2x₂ ≤ 4, x₁, x₂ ≥ 0. This problem can be solved",
+            "options": [
+              "by two-phase method but not by big M method",
+              "by big M method but not by two-phase method",
+              "either by two-phase method or by big M method",
+              "neither by two-phase method nor by big M method"
+            ],
+            "correctAnswer": 2,
+            "theory": "Problems requiring artificial variables (due to $\\ge$ and $=$ constraints) can be solved by either the Two-Phase method or the Big-M method; both are standard, universally applicable approaches.",
+            "formula": "\\boxed{\\text{LPs with artificial variables can be solved by either Two-Phase or Big-M method}}",
+            "stepByStep": "Both algorithms handle artificial variables systematically and yield the identical optimal solution **(Option C)**.",
+            "shortcut": "Either Two-Phase or Big-M.",
+            "examTrap": "Neither method has exclusivity; they are mathematically equivalent in capability."
+          },
+          {
+            "id": "W7-2025-Q14",
+            "year": "2025",
+            "conceptTag": "Big-M Objective for Minimization",
+            "question": "For minimization of z = 13x₁ + 3x₂, two artificial variables R₁ and R₂ are needed. A proper objective of the problem is",
+            "options": [
+              "Maximize 13x₁ + 3x₂ + 1000R₁ + 1000R₂",
+              "Maximize 13x₁ + 3x₂ − 1000R₁ − 1000R₂",
+              "Minimize 13x₁ + 3x₂ − 1000R₁ − 1000R₂",
+              "Minimize 13x₁ + 3x₂ + 1000R₁ + 1000R₂"
+            ],
+            "correctAnswer": 3,
+            "theory": "In minimization problems, artificial variables are penalized by adding a huge positive cost ($+M$) to the objective function, so that minimizing the objective drives them to zero.",
+            "formula": "\\boxed{\\text{Min } Z = \\mathbf{c}^T \\mathbf{x} + M \\sum R_i \\implies \\text{Minimize } 13x_1 + 3x_2 + 1000R_1 + 1000R_2}",
+            "stepByStep": "1. The problem is a Minimization problem.\n2. Artificial variables must incur a heavy penalty, which requires adding $+MR$.\n3. Therefore: Minimize $13x_1 + 3x_2 + 1000R_1 + 1000R_2$ **(Option D)**.",
+            "shortcut": "Minimization $\\implies +1000R_1 + 1000R_2$.",
+            "examTrap": "Do not subtract $-1000R$; subtracting penalties applies only to MAXIMIZATION."
+          },
+          {
+            "id": "W7-2025-Q15",
+            "year": "2025",
+            "conceptTag": "Two-Phase Consistent Initial Table",
+            "question": "The initial simplex table in the first phase of two-phase simplex method is:\n\n| Basic | x₁ | x₂ | R | RHS |\n|---|---|---|---|---|\n| Objective row | 0 | 0 | −1 | 0 |\n| R | 1 | 1 | 1 | 4 |\n\nThe consistent table is (R row is 1, 1, 1 | 4 in every option; only the objective row differs):",
+            "options": [
+              "Objective row: −1, −1, 0 | 4",
+              "Objective row: 1, 1, 0 | 4",
+              "Objective row: 1, 1, 1 | 4",
+              "Objective row: 1, 1, 0 | 0"
+            ],
+            "correctAnswer": 1,
+            "theory": "In Phase 1, the basic variable $R$ must have a coefficient of 0 in the objective row. Adding the constraint row for $R$ ($1, 1, 1 \\mid 4$) to the objective row ($0, 0, -1 \\mid 0$) yields the canonical objective row: $[1, 1, 0 \\mid 4]$.",
+            "formula": "\\boxed{\\text{New Objective Row} = [0+1, 0+1, -1+1 \\mid 0+4] = [1, 1, 0 \\mid 4]}",
+            "stepByStep": "1. Add row $R$ ($1, 1, 1 \\mid 4$) to objective row ($0, 0, -1 \\mid 0$).\n2. New row: $[1, 1, 0 \\mid 4]$ **(Option B)**.",
+            "shortcut": "$[0, 0, -1 \\mid 0] + [1, 1, 1 \\mid 4] = [1, 1, 0 \\mid 4]$.",
+            "examTrap": "Remember to add the RHS as well: $0 + 4 = 4$."
+          },
+          {
+            "id": "W7-2025-Q16",
+            "year": "2025",
+            "conceptTag": "Two-Phase Infeasibility Identification",
+            "question": "At the end of the first phase, the following table is obtained:\n\n| Basis | A | B | C | D | E | R₁ | R₂ | Solution |\n|---|---|---|---|---|---|---|---|---|\n| r | 0 | 0 | 0 | 0 | 0 | −1 | −1 | 2 |\n| B | 0 | 1 | −1 | 0 | 1 | 1 | −1 | 4 |\n| D | 0 | 0 | −5 | 1 | 7 | 5 | −7 | 14 |\n| R₁ | 1 | 0 | 1 | 0 | −2 | −1 | 2 | 2 |\n\nThis problem has",
+            "options": [
+              "infeasible solution",
+              "feasible solution",
+              "redundant constraint",
+              "no solution"
+            ],
+            "correctAnswer": 0,
+            "theory": "At the end of Phase 1, the objective value is $r = 2 > 0$ and artificial variable $R_1 = 2 > 0$ is in the basis. Since the artificial variables cannot be eliminated, the original problem is infeasible.",
+            "formula": "\\boxed{\\text{Phase 1 terminates with } r > 0 \\implies \\text{Infeasible}}",
+            "stepByStep": "1. The Phase 1 objective reaches optimality with value $r = 2 \\ne 0$.\n2. Artificial variable $R_1$ is still non-zero in the basis.\n3. The problem has an **infeasible solution (Option A)**.",
+            "shortcut": "Artificial variable remaining in basis with value $>0 \\implies$ Infeasible.",
+            "examTrap": "Phase 2 can never start if Phase 1 terminates with $r > 0$."
+          },
+          {
+            "id": "W7-2025-Q17",
+            "year": "2025",
+            "conceptTag": "Cycling in Simplex",
+            "question": "In simplex method, cycling occurs due to",
+            "options": [
+              "infeasible solution",
+              "unbounded solution",
+              "multiple solution",
+              "degeneracy"
+            ],
+            "correctAnswer": 3,
+            "theory": "Cycling in the simplex method refers to the phenomenon where a sequence of pivots returns to a previously visited tableau without increasing the objective value. Cycling can occur **only when degeneracy is present** (a pivot step with zero improvement).",
+            "formula": "\\boxed{\\text{Cycling occurs due to Degeneracy in Simplex}}",
+            "stepByStep": "When a basic variable is zero, a pivot step may result in zero increase in $Z$ (degenerate pivot). A sequence of degenerate pivots can cycle back to an identical tableau, leading to infinite loops **(Option D)**.",
+            "shortcut": "Cycling $\\implies$ Degeneracy.",
+            "examTrap": "Bland's anti-cycling rule prevents cycling in degenerate linear programs."
+          },
+          {
+            "id": "W7-2025-Q18",
+            "year": "2025",
+            "conceptTag": "Big-M Solution Calculation",
+            "question": "Big M method: Maximize z = 5x + 3y subject to x + y = 8, x − y = 4, x, y ≥ 0. The value of z is",
+            "options": [
+              "40",
+              "36",
+              "12",
+              "0"
+            ],
+            "correctAnswer": 1,
+            "theory": "Solve the linear system $x + y = 8$ and $x - y = 4$. At optimality, artificial variables equal zero.",
+            "formula": "\\boxed{x = \\frac{8+4}{2} = 6, \\quad y = \\frac{8-4}{2} = 2 \\implies z = 5(6) + 3(2) = 36}",
+            "stepByStep": "1. Adding equations: $2x = 12 \\implies x = 6$.\n2. Subtracting equations: $2y = 4 \\implies y = 2$.\n3. Both $x, y \\ge 0$ are feasible.\n4. $z = 5(6) + 3(2) = 30 + 6 = \\mathbf{36}$ **(Option B)**.",
+            "shortcut": "$x=6, y=2 \\implies z = 5(6) + 3(2) = 36$.",
+            "examTrap": "Do not forget to substitute into $5x + 3y$."
+          },
+          {
+            "id": "W7-2025-Q19",
+            "year": "2025",
+            "conceptTag": "Degeneracy Criterion",
+            "question": "In a maximization problem solved by simplex, the basic variables and their values at a particular iteration are x₁ = 0, x₂ = 2, S₁ = 0, S₂ = 3. Which statement is most appropriate?",
+            "options": [
+              "Degeneracy occurs due to x₁ = 0",
+              "Degeneracy occurs due to more than one variable being zero",
+              "Degeneracy occurs because at least one basic variable is zero",
+              "This is not a degenerate solution"
+            ],
+            "correctAnswer": 2,
+            "theory": "The standard definition of degeneracy in linear programming is that **at least one basic variable equals zero**.",
+            "formula": "\\boxed{\\text{Degeneracy } \\iff \\text{At least one basic variable equals zero}}",
+            "stepByStep": "A basic solution is defined as degenerate if at least one basic variable has a zero value **(Option C)**.",
+            "shortcut": "At least one basic variable is zero $\\implies$ Degenerate.",
+            "examTrap": "It does not require more than one basic variable to be zero; one is sufficient."
+          },
+          {
+            "id": "W7-2025-Q20",
+            "year": "2025",
+            "conceptTag": "Multiple Optimal Solutions",
+            "question": "Maximize Z = x + y subject to x + y ≤ 4, 0 ≤ x ≤ 3, 0 ≤ y ≤ 5. The problem",
+            "options": [
+              "has no feasible solution",
+              "is unbounded",
+              "has a unique optimal solution",
+              "has multiple optimal solutions"
+            ],
+            "correctAnswer": 3,
+            "theory": "The objective function $Z = x + y$ is parallel to the constraint line $x + y = 4$. Multiple points along the segment from $(0, 4)$ to $(3, 1)$ achieve the maximum value $Z = 4$.",
+            "formula": "\\boxed{Z = x + y = 4 \\text{ along the boundary segment} \\implies \\text{Multiple optimal solutions}}",
+            "stepByStep": "1. The objective is $x + y$, and the boundary constraint is $x + y = 4$.\n2. All points on the line segment connecting $(0, 4)$ and $(3, 1)$ yield $Z = 4$.\n3. Therefore, the problem has **multiple optimal solutions (Option D)**.",
+            "shortcut": "Objective parallel to binding constraint $\\implies$ Multiple optimal solutions.",
+            "examTrap": "Do not choose 'unique'; there are infinitely many points giving $Z = 4$."
+          }
+        ],
+        "2026": [
+          {
+            "id": "W7-2026-Q1",
+            "year": "2026",
+            "conceptTag": "History of Operations Research in India",
+            "question": "Operations Research unit at the Indian Statistical Institute, Kolkata was established in the year",
+            "options": [
+              "1949",
+              "1953",
+              "1957",
+              "1960"
+            ],
+            "correctAnswer": 1,
+            "theory": "The Operations Research (OR) unit at the Indian Statistical Institute (ISI), Kolkata, was founded in 1953 under the leadership of Professor P. C. Mahalanobis to promote statistical quality control and industrial planning in India.",
+            "formula": "\\boxed{\\text{ISI Kolkata OR Unit Established: 1953}}",
+            "stepByStep": "Prof. P. C. Mahalanobis established the first formal OR and SQC unit at the Indian Statistical Institute, Kolkata in **1953 (Option B)**.",
+            "shortcut": "ISI Kolkata OR unit $\\implies$ 1953.",
+            "examTrap": "Do not confuse with the formation of the Operational Research Society of America (ORSA), which occurred in 1952 (2025 Q1)."
+          },
+          {
+            "id": "W7-2026-Q2",
+            "year": "2026",
+            "conceptTag": "Equivalent Optimization Formulations",
+            "question": "Minimize z = 1/(x² + y²) is equivalent to",
+            "options": [
+              "Maximize z = −(x + y)",
+              "Minimize z = −(x² + y²)",
+              "Maximize z = −1/(x + y)",
+              "Minimize z = −1/(x² + y²)"
+            ],
+            "correctAnswer": 1,
+            "theory": "Minimizing $1/f(u)$ for $f(u) > 0$ is equivalent to maximizing $f(u)$, which in turn is equivalent to minimizing $-f(u)$. Hence, minimizing $1/(x^2 + y^2)$ is equivalent to minimizing $-(x^2 + y^2)$.",
+            "formula": "\\boxed{\\min \\frac{1}{x^2 + y^2} \\iff \\max (x^2 + y^2) \\iff \\min -(x^2 + y^2)}",
+            "stepByStep": "1. Minimizing the reciprocal $1/(x^2 + y^2)$ requires maximizing the denominator $(x^2 + y^2)$.\n2. Maximizing $(x^2 + y^2)$ is mathematically equivalent to minimizing its negative: $\\min -(x^2 + y^2)$ **(Option B)**.",
+            "shortcut": "$\\min(1/u) \\iff \\max(u) \\iff \\min(-u)$.",
+            "examTrap": "In 2025 the problem asked for $\\max 1/(x^2 + y^2) \\equiv \\max -(x^2 + y^2)$. Here in 2026 it asks for $\\min 1/(x^2 + y^2) \\equiv \\min -(x^2 + y^2)$."
+          },
+          {
+            "id": "W7-2026-Q3",
+            "year": "2026",
+            "conceptTag": "Number of Basic Solutions",
+            "question": "In an LP with 9 decision variables and 8 equality constraints, the number of basic solutions is",
+            "options": [
+              "10",
+              "45",
+              "9",
+              "12"
+            ],
+            "correctAnswer": 2,
+            "theory": "In an LP with $n$ variables and $m$ independent equality constraints, the maximum number of basic solutions is the number of ways to choose $m$ basic variables from $n$ total variables: $\\binom{n}{m}$.",
+            "formula": "\\boxed{N_{\\text{basic solutions}} = \\binom{n}{m} = \\binom{9}{8} = \\frac{9!}{8! \\cdot 1!} = 9}",
+            "stepByStep": "1. Given $n = 9$ variables and $m = 8$ constraints.\n2. Total basic solutions $= \\binom{9}{8} = \\binom{9}{1} = \\mathbf{9}$ **(Option C)**.",
+            "shortcut": "$\\binom{n}{n-1} = n \\implies \\binom{9}{8} = 9$.",
+            "examTrap": "Do not compute $\\binom{9}{2} = 36$ or $\\binom{10}{9}$; the formula strictly uses $\\binom{n}{m} = \\binom{9}{8} = 9$."
+          },
+          {
+            "id": "W7-2026-Q4",
+            "year": "2026",
+            "conceptTag": "Convex Set Definition",
+            "question": "Which best defines a convex set?",
+            "options": [
+              "A set in which the entire line segment joining any two points of the set lies completely within the set.",
+              "A set in which the line joining any two points of the set intersects the set at more than one point.",
+              "A set in which the midpoint of any two points in the set always lies within the set.",
+              "A set in which every boundary point can be expressed as a convex combination of interior points."
+            ],
+            "correctAnswer": 0,
+            "theory": "A set $S \\subseteq \\mathbb{R}^n$ is defined as convex if for every pair of points $\\mathbf{x}_1, \\mathbf{x}_2 \\in S$, the entire line segment connecting them lies completely inside $S$: $\\lambda \\mathbf{x}_1 + (1 - \\lambda) \\mathbf{x}_2 \\in S$ for all $\\lambda \\in [0, 1]$.",
+            "formula": "\\boxed{\\forall \\mathbf{x}_1, \\mathbf{x}_2 \\in S, \\; \\lambda \\in [0, 1] \\implies \\lambda \\mathbf{x}_1 + (1 - \\lambda) \\mathbf{x}_2 \\in S}",
+            "stepByStep": "By standard mathematical definition, a set is convex if and only if the entire line segment connecting any two points in the set belongs entirely to the set **(Option A)**.",
+            "shortcut": "Convex set = entire line segment connecting any two points lies within the set.",
+            "examTrap": "Option C mentions only the 'midpoint' (which is necessary but not sufficient for general sets unless closed/measurable)."
+          },
+          {
+            "id": "W7-2026-Q5",
+            "year": "2026",
+            "conceptTag": "Number of Basic Feasible Solutions",
+            "question": "Maximize 3X₁ + 2X₂ subject to X₁ + 3X₂ ≤ 30 (1), 3X₁ + X₂ ≤ 25 (2), X₁, X₂ ≥ 0. The number of basic feasible solutions is",
+            "options": [
+              "0",
+              "3",
+              "4",
+              "6"
+            ],
+            "correctAnswer": 2,
+            "theory": "In linear programming, each vertex (corner point) of the bounded feasible polygon represents an extreme point, which corresponds to a distinct Basic Feasible Solution (BFS).",
+            "formula": "\\boxed{N_{\\text{BFS}} = \\text{Number of extreme points (vertices) of feasible region} = 4}",
+            "stepByStep": "1. Feasible region is bounded in the first quadrant ($X_1, X_2 \\ge 0$).\n2. Vertex 1 (Origin): $(0, 0)$.\n3. Vertex 2 ($X_1$-intercept): $X_2 = 0 \\implies X_1 = \\min(30/1, 25/3) = 25/3 \\approx 8.33 \\implies (25/3, 0)$.\n4. Vertex 3 ($X_2$-intercept): $X_1 = 0 \\implies X_2 = \\min(30/3, 25/1) = 10 \\implies (0, 10)$.\n5. Vertex 4 (Intersection of 1 and 2): $X_1 + 3X_2 = 30$ and $3X_1 + X_2 = 25$.\n   - Multiply first by 3: $3X_1 + 9X_2 = 90$.\n   - Subtract: $8X_2 = 65 \\implies X_2 = 65/8 = 8.125, X_1 = 45/8 = 5.625$.\n6. There are exactly 4 extreme points $\\implies \\mathbf{4}$ basic feasible solutions **(Option C)**.",
+            "shortcut": "Bounded 2D LP with 2 non-redundant constraints + non-negativity forms a 4-sided polygon $\\implies 4$ BFS.",
+            "examTrap": "Total basic solutions is $\\binom{4}{2} = 6$, but 2 of them violate non-negativity (infeasible). Exactly 4 are basic *feasible* solutions."
+          },
+          {
+            "id": "W7-2026-Q6",
+            "year": "2026",
+            "conceptTag": "Product Mix Graphical Optimization",
+            "question": "A company produces P₁ and P₂. Each unit of P₁ requires 1 hour on Machine A and 1 hour on Machine B. Each unit of P₂ requires 2 hours on Machine A and 3 hours on Machine B. Machine A has 100 hours, Machine B has 90 hours. Profit is ₹30 per unit of P₁ and ₹40 per unit of P₂. The maximum profit is",
+            "options": [
+              "₹2000",
+              "₹2200",
+              "₹2400",
+              "₹2700"
+            ],
+            "correctAnswer": 3,
+            "theory": "Formulate the LP: $\\max Z = 30x_1 + 40x_2$ subject to $x_1 + 2x_2 \\le 100$ (Machine A), $x_1 + 3x_2 \\le 90$ (Machine B), $x_1, x_2 \\ge 0$. Find profit at each vertex.",
+            "formula": "\\boxed{Z_{\\max} = \\max \\{30x_1 + 40x_2\\}}",
+            "stepByStep": "1. Corner points of feasible region:\n   - $(0, 0) \\implies Z = 0$\n   - $(0, 30) \\implies Z = 30(0) + 40(30) = 1200$\n   - Point $(90, 0)$: $x_1 = 90, x_2 = 0$. Checks: $90 + 2(0) = 90 \\le 100$ (Machine A OK), $90 + 3(0) = 90 \\le 90$ (Machine B OK). Feasible!\n   - Profit at $(90, 0) = 30(90) + 40(0) = \\mathbf{₹2700}$.\n   - Intersection of constraints: $x_1 + 2x_2 = 100$ and $x_1 + 3x_2 = 90 \\implies x_2 = -10$ (infeasible, lines don't intersect in first quadrant).\n2. Comparing values, maximum profit is **₹2700 (Option D)**.",
+            "shortcut": "Machine B allows $x_1 = 90 \\implies Z = 90 \\times 30 = ₹2700$.",
+            "examTrap": "Notice Machine B is tighter than Machine A for producing P1 and P2; the lines do not intersect in the positive quadrant."
+          },
+          {
+            "id": "W7-2026-Q7",
+            "year": "2026",
+            "conceptTag": "Infeasible Constraints (No Solution)",
+            "question": "Maximize z = 5x + 8y subject to x + 2y ≥ 10, x + y ≤ 3, x, y ≥ 0. This problem has",
+            "options": [
+              "redundant constraint",
+              "feasible solution",
+              "no solution",
+              "unique solution"
+            ],
+            "correctAnswer": 2,
+            "theory": "For $x, y \\ge 0$, if $x + y \\le 3$, then $y \\le 3$. Therefore, $x + 2y = (x + y) + y \\le 3 + 3 = 6$. The second constraint requires $x + 2y \\ge 10$, which is impossible because $6 < 10$. Hence, the feasible region is empty.",
+            "formula": "\\boxed{x + 2y \\le 6 < 10 \\implies \\text{Empty feasible set} \\implies \\text{No solution}}",
+            "stepByStep": "1. Since $x, y \\ge 0$ and $x + y \\le 3$, the maximum possible value of $x + 2y$ occurs at $(0, 3)$, which gives $0 + 2(3) = 6$.\n2. But constraint 1 requires $x + 2y \\ge 10$.\n3. Since $6 < 10$, no $(x, y)$ can satisfy both constraints.\n4. Therefore, the problem has **no solution (infeasible) (Option C)**.",
+            "shortcut": "Max possible LHS is $2 \\times 3 = 6 < 10 \\implies$ Infeasible / No solution.",
+            "examTrap": "In 2026 this is keyed as 'no solution' (Option C), whereas in 2025's portal screenshot the portal accepted 'feasible solution'."
+          },
+          {
+            "id": "W7-2026-Q8",
+            "year": "2026",
+            "conceptTag": "Feasibility of Linear Inequalities",
+            "question": "Maximize z = 3x + 7y subject to 2x + y ≥ 8, x + y ≤ 15, x, y ≥ 0. This problem has",
+            "options": [
+              "infeasible solution",
+              "feasible solution",
+              "redundant constraint",
+              "no solution"
+            ],
+            "correctAnswer": 1,
+            "theory": "Check if points exist satisfying both $2x + y \\ge 8$ and $x + y \\le 15$ with $x, y \\ge 0$. For instance, at $(x=0, y=10)$: $2(0) + 10 = 10 \\ge 8$ and $0 + 10 = 10 \\le 15$. Both constraints are satisfied, so a non-empty feasible region exists.",
+            "formula": "\\boxed{(0, 10) \\implies 10 \\ge 8 \\text{ and } 10 \\le 15 \\implies \\text{Feasible solution exists}}",
+            "stepByStep": "1. Testing candidate point $(0, 10)$:\n   - $2(0) + 10 = 10 \\ge 8$ (Satisfied)\n   - $0 + 10 = 10 \\le 15$ (Satisfied)\n   - $x \\ge 0, y \\ge 0$ (Satisfied)\n2. The feasible region is non-empty and bounded.\n3. The problem has a **feasible solution (Option B)**.",
+            "shortcut": "Points like $(0, 10)$ or $(5, 5)$ easily satisfy both inequalities $\\implies$ Feasible solution.",
+            "examTrap": "The problem is completely feasible and has a finite bounded optimal solution."
+          },
+          {
+            "id": "W7-2026-Q9",
+            "year": "2026",
+            "conceptTag": "Slack and Surplus Variables Count",
+            "question": "Maximize z = 5x₁ + x₂ s.t. 4x₁ + x₂ ≤ 12, 2x₁ + x₂ ≥ 4, x₁ + x₂ ≥ 6, x₁, x₂ ≥ 0. The standard LP will contain",
+            "options": [
+              "3 slack variables",
+              "2 slack and 1 surplus variables",
+              "2 surplus and 1 slack variables",
+              "3 surplus variables"
+            ],
+            "correctAnswer": 2,
+            "theory": "In standard LP conversions: each '$\\le$' constraint introduces one non-negative slack variable ($+S_i$), and each '$\\ge$' constraint introduces one non-negative surplus variable ($-S_i$).",
+            "formula": "\\boxed{\\le \\implies \\text{Slack}; \\quad \\ge \\implies \\text{Surplus}}",
+            "stepByStep": "1. Constraint 1: $4x_1 + x_2 \\le 12 \\implies$ 1 slack variable.\n2. Constraint 2: $2x_1 + x_2 \\ge 4 \\implies$ 1 surplus variable.\n3. Constraint 3: $x_1 + x_2 \\ge 6 \\implies$ 1 surplus variable.\n4. Total: **2 surplus and 1 slack variables (Option C)**.",
+            "shortcut": "One $\\le$ (slack) + Two $\\ge$ (surplus) $\\implies$ 2 surplus and 1 slack variables.",
+            "examTrap": "Count carefully: 2025 Q9 had two $\\le$ and one $\\ge$ (2 slack, 1 surplus), whereas 2026 has one $\\le$ and two $\\ge$ (2 surplus, 1 slack)."
+          },
+          {
+            "id": "W7-2026-Q10",
+            "year": "2026",
+            "conceptTag": "Active Constraints at Simplex Optimum",
+            "question": "Maximize z = 4A + 5B + 6C + 7D + 8E subject to:\n- Constraint 1: A + B + C + D + E ≤ 10\n- Constraint 2: D + E ≥ 5\n- Constraint 3: C ≥ A + B\n- Constraint 4: A + 0.2B + 0.4C ≥ 3\n- A, B, C, D, E ≥ 0\n\nThe simplex optimum is A = 2, B = 0, C = 3, D = 0, E = 5. The active constraints are",
+            "options": [
+              "constraints 1 and 4",
+              "constraints 1 and 2",
+              "constraints 2 and 4",
+              "constraints 3 and 4"
+            ],
+            "correctAnswer": 1,
+            "theory": "A constraint is active (binding) at an optimal solution if it is satisfied with strict equality (LHS = RHS). If LHS $\\ne$ RHS, the constraint has slack/surplus and is inactive.",
+            "formula": "\\boxed{\\text{Active constraint: LHS } = \\text{ RHS}}",
+            "stepByStep": "Substitute $A = 2, B = 0, C = 3, D = 0, E = 5$:\n1. Constraint 1: $2 + 0 + 3 + 0 + 5 = 10 = 10$ $\\implies$ **Active**.\n2. Constraint 2: $0 + 5 = 5 = 5$ $\\implies$ **Active**.\n3. Constraint 3: $C = 3 \\ge 2 + 0 = 2 \\implies 3 > 2$ $\\implies$ Inactive (strict inequality).\n4. Constraint 4: $2 + 0.2(0) + 0.4(3) = 2 + 1.2 = 3.2 > 3$ $\\implies$ Inactive (strict inequality).\n5. Therefore, the active constraints are **constraints 1 and 2 (Option B)**.",
+            "shortcut": "C1 ($10=10$) and C2 ($5=5$) are exact equalities $\\implies$ 1 and 2.",
+            "examTrap": "Strict inequalities ($3 > 2$ and $3.2 > 3$) mean the constraint is NOT binding (inactive)."
+          },
+          {
+            "id": "W7-2026-Q11",
+            "year": "2026",
+            "conceptTag": "Big-M Penalty for Maximization",
+            "question": "For maximization of z = 7x₁ + 10x₂, two artificial variables R₁ and R₂ are needed. A proper objective is",
+            "options": [
+              "Maximize 7x₁ + 10x₂ + 1000R₁ + 1000R₂",
+              "Minimize 7x₁ + 10x₂ + 1000R₁ + 1000R₂",
+              "Minimize 7x₁ + 10x₂ − 1000R₁ − 1000R₂",
+              "Maximize 7x₁ + 10x₂ − 1000R₁ − 1000R₂"
+            ],
+            "correctAnswer": 3,
+            "theory": "In the Big-M method for a maximization problem, artificial variables are assigned a huge negative coefficient ($-M$) in the objective function so that the simplex algorithm drives them to zero.",
+            "formula": "\\boxed{\\text{Max } Z = \\mathbf{c}^T \\mathbf{x} - M \\sum R_i \\implies \\text{Maximize } 7x_1 + 10x_2 - 1000R_1 - 1000R_2}",
+            "stepByStep": "1. The problem is a Maximization problem.\n2. Artificial variables must penalize profit, which requires subtracting a large positive quantity $M$ (e.g. $M = 1000$).\n3. Objective: Maximize $7x_1 + 10x_2 - 1000R_1 - 1000R_2$ **(Option D)**.",
+            "shortcut": "Max problem $\\implies -M R_1 - M R_2$.",
+            "examTrap": "For minimization, we add $+MR$; for maximization, we subtract $-MR$."
+          },
+          {
+            "id": "W7-2026-Q12",
+            "year": "2026",
+            "conceptTag": "Multiple Optimal Solutions",
+            "question": "Maximize Z = 2x + 3y subject to 2x + 3y ≤ 9, 0 ≤ x ≤ 3, 0 ≤ y ≤ 5. The problem",
+            "options": [
+              "has no feasible solution",
+              "is unbounded",
+              "has a unique optimal solution",
+              "has multiple optimal solutions"
+            ],
+            "correctAnswer": 3,
+            "theory": "When the objective function is parallel to a binding boundary constraint, all points on that constraint segment yield the identical maximum value of $Z$, resulting in an infinite number of alternative (multiple) optimal solutions.",
+            "formula": "\\boxed{\\nabla Z \\parallel \\nabla g_1 \\implies \\text{Infinitely many optimal solutions on the boundary segment}}",
+            "stepByStep": "1. The objective function is $Z = 2x + 3y$.\n2. The main constraint is $2x + 3y \\le 9$.\n3. Notice the objective coefficients $(2, 3)$ are exactly identical to the constraint coefficients $(2, 3)$.\n4. Every point on the line segment $2x + 3y = 9$ between $(0, 3)$ and $(3, 1)$ achieves $Z = 9$.\n5. Therefore, the problem has **multiple optimal solutions (Option D)**.",
+            "shortcut": "Objective $2x+3y$ is parallel to constraint $2x+3y \\le 9 \\implies$ Multiple optimal solutions.",
+            "examTrap": "Do not say 'unique'; any point on the boundary line segment gives $Z = 9$."
+          },
+          {
+            "id": "W7-2026-Q13",
+            "year": "2026",
+            "conceptTag": "Unbounded Solution in Simplex",
+            "question": "In simplex method, if the objective function increases indefinitely without violating constraints, the problem has",
+            "options": [
+              "infeasible solution",
+              "unbounded solution",
+              "multiple solution",
+              "degeneracy"
+            ],
+            "correctAnswer": 1,
+            "theory": "If the objective function of an LP can be improved without limit within the feasible region (which occurs in the simplex tableau when all entries in the entering variable's column are non-positive, $a_{i, \\text{pivot}} \\le 0$), the problem has an **unbounded solution**.",
+            "formula": "\\boxed{\\text{All } a_{i, \\text{pivot}} \\le 0 \\implies \\theta = \\infty \\implies \\text{Unbounded Solution}}",
+            "stepByStep": "When the objective function can grow indefinitely while remaining feasible, by definition the solution is **unbounded (Option B)**.",
+            "shortcut": "Indefinite objective increase $\\implies$ Unbounded solution.",
+            "examTrap": "An unbounded feasible *region* does not guarantee an unbounded *solution* (e.g. min problems can be bounded on unbounded sets), but here the *objective itself* increases indefinitely."
+          },
+          {
+            "id": "W7-2026-Q14",
+            "year": "2026",
+            "conceptTag": "Unrestricted Variable Formulation",
+            "question": "In an LP, an unrestricted decision variable is represented as",
+            "options": [
+              "the difference of two real numbers",
+              "the difference of two positive numbers",
+              "the difference of two non-negative numbers",
+              "an unsigned variable"
+            ],
+            "correctAnswer": 2,
+            "theory": "Standard simplex requires all variables to be non-negative. An unrestricted decision variable $x$ ($x \\in \\mathbb{R}$) is substituted by $x = x' - x''$, where $x' \\ge 0$ and $x'' \\ge 0$ are two **non-negative** numbers.",
+            "formula": "\\boxed{x = x^+ - x^-, \\quad x^+ \\ge 0, \\; x^- \\ge 0}",
+            "stepByStep": "By linear programming standard form convention, unrestricted variables are replaced by the difference of two non-negative variables **(Option C)**.",
+            "shortcut": "Unrestricted variable = difference of two non-negative numbers.",
+            "examTrap": "Do not select 'positive numbers' (which excludes zero) or 'real numbers' (which doesn't enforce the $\\ge 0$ simplex requirement)."
+          },
+          {
+            "id": "W7-2026-Q15",
+            "year": "2026",
+            "conceptTag": "Degeneracy Definition in Simplex",
+            "question": "In a maximization problem solved by simplex, the basic variables and values at an iteration are x₁ = 0, x₂ = 2, S₁ = 0, S₂ = 3. Which is most appropriate?",
+            "options": [
+              "Degeneracy occurs due to S₁ = 0.",
+              "The solution is degenerate because more than one variable is zero.",
+              "The solution is degenerate because at least one basic variable is zero.",
+              "This is not a degenerate solution."
+            ],
+            "correctAnswer": 2,
+            "theory": "By definition, a basic feasible solution of a linear program is degenerate if **at least one basic variable equals zero**.",
+            "formula": "\\boxed{\\exists i \\text{ such that } x_{B_i} = 0 \\iff \\text{Degenerate Solution}}",
+            "stepByStep": "1. The basic variables are $x_1, x_2, S_1, S_2$.\n2. Here $x_1 = 0$ and $S_1 = 0$.\n3. The condition for degeneracy is that at least one basic variable is zero **(Option C)**.",
+            "shortcut": "Basic variable $= 0 \\implies$ Degeneracy because at least one basic variable is zero.",
+            "examTrap": "Degeneracy requires only AT LEAST ONE basic variable to be zero, not necessarily more than one."
+          },
+          {
+            "id": "W7-2026-Q16",
+            "year": "2026",
+            "conceptTag": "Two-Phase vs Big-M Method",
+            "question": "Minimize z = 4x₁ + x₂ subject to 5x₁ + 3x₂ ≥ 7, x₁ + 2x₂ ≤ 4, 3x₁ + x₂ = 8, x₁, x₂ ≥ 0. This problem can be solved",
+            "options": [
+              "either by two-phase method or by big M method",
+              "by big M method but not by two-phase method",
+              "by two-phase method but not by big M method",
+              "neither by two-phase method nor by big M method"
+            ],
+            "correctAnswer": 0,
+            "theory": "Any linear programming problem with '$\\ge$' or '$=$' constraints requires artificial variables to obtain an initial basic feasible solution. Such problems can be solved equivalently **either by the Two-Phase method or by the Big-M method**.",
+            "formula": "\\boxed{\\text{LPs requiring artificial variables can be solved by either Big-M or Two-Phase method}}",
+            "stepByStep": "The constraint set includes $\\ge$ and $=$ constraints, requiring artificial variables. Both the Two-Phase and Big-M methods are universal algorithms for handling artificial variables **(Option A)**.",
+            "shortcut": "Artificial variables needed $\\implies$ Either Two-Phase or Big-M.",
+            "examTrap": "Both methods are mathematically equivalent in identifying feasibility and finding optimal solutions."
+          },
+          {
+            "id": "W7-2026-Q17",
+            "year": "2026",
+            "conceptTag": "Big-M Solution Calculation",
+            "question": "Big M method: Maximize Z = 3x + 5y − M R₁ − M R₂ subject to x + y = 7, x − y = 3, x, y, R₁, R₂ ≥ 0. The value of Z is",
+            "options": [
+              "0",
+              "36",
+              "12",
+              "25"
+            ],
+            "correctAnswer": 3,
+            "theory": "Solve the system of equality constraints: $x + y = 7$ and $x - y = 3$. At the optimal feasible solution, the artificial variables $R_1 = R_2 = 0$.",
+            "formula": "\\boxed{x = \\frac{7+3}{2} = 5, \\quad y = \\frac{7-3}{2} = 2 \\implies Z = 3(5) + 5(2) = 25}",
+            "stepByStep": "1. Add the two equations: $(x + y) + (x - y) = 7 + 3 \\implies 2x = 10 \\implies x = 5$.\n2. Subtract: $(x + y) - (x - y) = 7 - 3 \\implies 2y = 4 \\implies y = 2$.\n3. Since $x = 5, y = 2$ satisfies the original constraints, $R_1 = 0$ and $R_2 = 0$.\n4. Optimal value: $Z = 3(5) + 5(2) = 15 + 10 = \\mathbf{25}$ **(Option D)**.",
+            "shortcut": "Solve $x+y=7, x-y=3 \\implies x=5, y=2 \\implies Z = 3(5) + 5(2) = 25$.",
+            "examTrap": "In 2025 the problem was $x+y=8, x-y=4$ with $5x+3y$, which gave 36. Here it gives 25."
+          },
+          {
+            "id": "W7-2026-Q18",
+            "year": "2026",
+            "conceptTag": "Two-Phase Phase 1 Consistent Tableau",
+            "question": "The initial table in phase 1 of two-phase simplex is:\n\n| Basic | x₁ | x₂ | R | RHS |\n|---|---|---|---|---|\n| Objective row | 0 | 0 | −1 | 0 |\n| R | 1 | 1 | 1 | 5 |\n\nThe consistent table is (R row is 1, 1, 1 | 5 in every option; only the objective row differs):",
+            "options": [
+              "Objective row: −1, −1, 0 | 5",
+              "Objective row: 1, 1, 0 | 5",
+              "Objective row: 1, 1, 1 | 5",
+              "Objective row: 1, 1, 0 | 0"
+            ],
+            "correctAnswer": 1,
+            "theory": "In Phase 1 of the two-phase simplex method, the objective is to minimize the sum of artificial variables, so $r = -R$ (or $r + R = 0$). To make the tableau canonical (consistent), the basic variable $R$ must have a coefficient of 0 in the objective row. This is achieved by adding row $R$ to the objective row: $[0+1, 0+1, -1+1 \\mid 0+5] = [1, 1, 0 \\mid 5]$.",
+            "formula": "\\boxed{\\text{New Objective Row} = \\text{Old Objective Row} + \\text{Row } R = [1, 1, 0 \\mid 5]}",
+            "stepByStep": "1. Basic variable $R$ currently has coefficient $-1$ in the objective row.\n2. Add the $R$-row ($1, 1, 1 \\mid 5$) to the objective row ($0, 0, -1 \\mid 0$):\n   - $x_1$: $0 + 1 = 1$\n   - $x_2$: $0 + 1 = 1$\n   - $R$: $-1 + 1 = 0$\n   - RHS: $0 + 5 = 5$\n3. Consistent objective row is **1, 1, 0 | 5 (Option B)**.",
+            "shortcut": "Add the constraint row to the objective row $\\implies 1, 1, 0 \\mid 5$.",
+            "examTrap": "RHS must also be updated: $0 + 5 = 5$. Do not leave RHS as 0."
+          },
+          {
+            "id": "W7-2026-Q19",
+            "year": "2026",
+            "conceptTag": "Infeasibility in Phase 1 Termination",
+            "question": "At the end of the first phase, the following table is obtained (r is the objective):\n\n| Basic | A | B | C | D | E | R₁ | R₂ | Solution |\n|---|---|---|---|---|---|---|---|---|\n| r | 0 | 0 | 0 | 0 | 0 | −1 | −1 | 3 |\n| B | 0 | 1 | −1 | 0 | 1 | 1 | −1 | 4 |\n| D | 0 | 0 | −5 | 1 | 7 | 5 | −7 | 15 |\n| R₁ | 1 | 0 | 1 | 0 | −2 | −1 | 2 | 3 |\n\nThis problem has",
+            "options": [
+              "feasible solution",
+              "infeasible solution",
+              "redundant constraint",
+              "no solution"
+            ],
+            "correctAnswer": 1,
+            "theory": "At the end of Phase 1, if the minimum value of the Phase 1 objective function is strictly greater than zero ($r > 0$) or an artificial variable ($R_1$) remains in the basis at a strictly positive value ($R_1 = 3$), then the original LP has **no feasible solution (infeasible)**.",
+            "formula": "\\boxed{\\min r > 0 \\text{ or } R_{\\text{artificial}} > 0 \\text{ in final Phase 1 basis} \\implies \\text{Infeasible}}",
+            "stepByStep": "1. The Phase 1 objective has value $r = 3 > 0$.\n2. The artificial variable $R_1$ is still in the basis with value $R_1 = 3$.\n3. Since artificial variables cannot be eliminated, the original problem is **infeasible (Option B)**.",
+            "shortcut": "Artificial variable $R_1 = 3 > 0$ at end of Phase 1 $\\implies$ Infeasible solution.",
+            "examTrap": "Phase 2 can only proceed if the Phase 1 objective reaches 0 with all artificial variables driven to 0."
+          },
+          {
+            "id": "W7-2026-Q20",
+            "year": "2026",
+            "conceptTag": "Simplex Pivot Selection",
+            "question": "Maximize z = 4x + 2y subject to x + 2y + S₁ = 5, x + y + S₂ = 4, x, y, S₁, S₂ ≥ 0. Initial table:\n\n| Basic | x | y | S₁ | S₂ | Solution |\n|---|---|---|---|---|---|\n| z | −4 | −2 | 0 | 0 | 0 |\n| S₁ | 1 | 2 | 1 | 0 | 5 |\n| S₂ | 1 | 1 | 0 | 1 | 4 |\n\nIn the first iteration, the",
+            "options": [
+              "entering variable is y and leaving variable S₂",
+              "entering variable is x and leaving variable S₂",
+              "entering variable is x and leaving variable S₁",
+              "entering variable is y and leaving variable S₁"
+            ],
+            "correctAnswer": 1,
+            "theory": "1. **Entering variable**: The non-basic variable with the most negative entry in the $z$-row (largest positive gradient in objective), which is $x$ with $-4$.\n2. **Leaving variable**: The basic variable that gives the minimum non-negative ratio of Solution / Pivot column entry: $\\theta = \\min(5/1, 4/1) = 4$ for row $S_2$.",
+            "formula": "\\boxed{\\text{Entering: } \\min(-4, -2) = x; \\quad \\text{Leaving: } \\min(5/1, 4/1) = 4 \\implies S_2}",
+            "stepByStep": "1. Most negative in $z$-row: $-4$ under $x \\implies$ **Entering variable is x**.\n2. Minimum ratio test for column $x$:\n   - Row $S_1$: $5 / 1 = 5$\n   - Row $S_2$: $4 / 1 = 4$\n   - Minimum ratio is $4 \\implies$ **Leaving variable is S₂**.\n3. Therefore, entering variable is $x$ and leaving variable is $S_2$ **(Option B)**.",
+            "shortcut": "Most negative $z$-row: $x$ (-4). Smallest ratio: $4/1 = 4$ ($S_2$) $\\implies$ Enter $x$, Leave $S_2$.",
+            "examTrap": "Do not pick $y$; $y$ has $-2$, which is less negative than $-4$."
+          }
+        ]
+      }
+    },
+
+    // Placeholders for Weeks 6 down to 1
+    ...[6, 5, 4, 3, 2, 1].map(wNum => ({
       number: wNum,
       title: getWeekTopicTitle(wNum),
       status: "upcoming",
