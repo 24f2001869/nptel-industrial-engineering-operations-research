@@ -6422,8 +6422,817 @@ const IEOR_DATA = {
       }
     },
 
-    // Placeholders for Weeks 4 down to 1
-    ...[4, 3, 2, 1].map(wNum => ({
+    // Week 4: Forecasting Methods, Job Shop Scheduling & Assignment Models (Active)
+    {
+      "number": 4,
+      "title": "Forecasting Methods, Job Shop Scheduling & Assignment Models",
+      "status": "active",
+      "summary": "Demand forecasting (time horizons: short < 3 months, medium 3 months to 3 years, long > 3 years; qualitative methods: Delphi, sales force composite; causal econometric regression; error metrics: Bias, MAD, MAPE), least squares line fitting, Moore-Penrose pseudo-inverse dimensions, job shop scheduling (FCFS, SPT, EDD, LPT priority rules; Critical Ratio; Johnson's rule 2-machine makespan; Gantt charts), and Assignment Models (Hungarian Method, unbalanced dummy rows/columns).",
+      "studyMaterials": {
+        "quickOverview": "Week 4 centers on operations planning, forecasting, and resource dispatching: Forecast horizons scale from short-range (< 3 months) to medium-range (3 months to 3 years) and long-range (> 3 years). Qualitative forecasting methods (Delphi method with anonymous multi-round iterations, sales force composite) complement quantitative time series and causal econometric regression models. Forecast bias (average error) assesses systematic over/under-predicting, while MAD and MAPE measure accuracy. Job shop scheduling uses dispatch priority rules (SPT minimizes mean flow time; EDD minimizes maximum tardiness; Critical Ratio evaluates schedule urgency). Johnson's algorithm minimizes two-machine makespan. Assignment problems allocate resources 1-to-1 using Hungarian reduction, balancing unbalanced matrices with zero-cost dummies.",
+        "formulaSheet": [
+          {
+            "name": "Forecast Error Metrics (MAD & MAPE)",
+            "formula": "\\text{MAD} = \\frac{1}{n}\\sum_{t=1}^n |A_t - F_t|, \\quad \\text{MAPE} = \\frac{1}{n}\\sum_{t=1}^n \\left|\\frac{A_t - F_t}{A_t}\\right| \\times 100\\%",
+            "units": "Units / Percentage (%)",
+            "desc": "Mean Absolute Deviation measures the average error magnitude. Mean Absolute Percentage Error scales error relative to actual demand."
+          },
+          {
+            "name": "Simple Linear Regression Parameters",
+            "formula": "m = \\frac{n\\sum xy - \\sum x \\sum y}{n\\sum x^2 - (\\sum x)^2}, \\quad c = \\bar{y} - m\\bar{x}",
+            "units": "Slope & Intercept",
+            "desc": "Fits the least squares line y = mx + c through bivariate data points (x_i, y_i)."
+          },
+          {
+            "name": "Matrix Pseudo-Inverse Size",
+            "formula": "\\text{If } \\mathbf{X} \\in \\mathbb{R}^{m \\times n} \\implies \\mathbf{X}^+ = (\\mathbf{X}^T \\mathbf{X})^{-1} \\mathbf{X}^T \\in \\mathbb{R}^{n \\times m}",
+            "units": "Matrix dimensions",
+            "desc": "The Moore-Penrose pseudo-inverse transposes the dimensions from m x n to n x m."
+          },
+          {
+            "name": "Critical Ratio (CR) for Job Scheduling",
+            "formula": "\\text{CR} = \\frac{\\text{Due Date} - \\text{Today's Date}}{\\text{Work Remaining (Processing Time)}}",
+            "units": "Dimensionless ratio",
+            "desc": "CR < 1: Behind schedule (expedite); CR = 1: On schedule; CR > 1: Ahead of schedule (has slack)."
+          },
+          {
+            "name": "Johnson's Rule for Two Machines",
+            "formula": "\\min(M_{1j}, M_{2j}) \\implies \\begin{cases} \\text{Schedule job } j \\text{ from front (earliest)} & \\text{if on } M_1 \\\\ \\text{Schedule job } j \\text{ from back (latest)} & \\text{if on } M_2 \\end{cases}",
+            "units": "Makespan minimization",
+            "desc": "Sequences n jobs through 2 machines in series to minimize total makespan."
+          },
+          {
+            "name": "Hungarian Method Optimality Condition",
+            "formula": "\\text{Minimum covering lines } L = \\text{Matrix order } n",
+            "units": "Lines count",
+            "desc": "An optimal 1-to-1 zero assignment is achievable when the minimum number of horizontal and vertical lines covering all zeros equals n."
+          }
+        ],
+        "examTraps": [
+          {
+            "trap": "Forecast Horizons: Short vs Medium vs Long",
+            "explanation": "Short-range: LESS than 3 months (up to 1 year). Medium-range: 3 MONTHS to 3 YEARS. Long-range: GREATER than 3 years (up to 10+ years). In 2025 Q1 the answer was 3 months to 3 years; in 2026 Q1 the answer was less than 3 months."
+          },
+          {
+            "trap": "Bias vs Accuracy (Small Average Error, High MAD)",
+            "explanation": "If average error (ME) is near zero, positive and negative errors cancel each other out (unbiased). But if MAD is large, individual predictions are far from reality (inaccurate). Thus, the model is 'inaccurate but unbiased'."
+          },
+          {
+            "trap": "2025 Q18 Assignment Table Permutation Trap",
+            "explanation": "In 2025 Q18, the four cost options are ₹1699, ₹1700, ₹1701, ₹1702. The question setter's intended assignment (W1->J4 189, W2->J1 400, W3->J2 413, W4->J3 700) sums exactly to ₹1702 (Option D). Always select ₹1702."
+          },
+          {
+            "trap": "Job Scheduling Combinations: Single Job vs Pair of Jobs",
+            "explanation": "Scheduling 7 jobs 1 at a time in sequence: $7! = 5040$ ways. Selecting 2 jobs out of 10 for execution: $\\binom{10}{2} = \\frac{10 \\times 9}{2} = 45$ ways."
+          },
+          {
+            "trap": "SPT vs EDD Rule Strengths",
+            "explanation": "SPT (Shortest Processing Time) minimizes AVERAGE FLOW TIME and average WIP. EDD (Earliest Due Date) minimizes MAXIMUM LATENESS and maximum tardiness."
+          }
+        ]
+      },
+      "years": {
+        "2025": [
+          {
+            "id": "W4-2025-Q1",
+            "year": "2025",
+            "conceptTag": "Medium-Range Forecast Horizon",
+            "question": "Medium range forecast refers to a range of",
+            "options": [
+              "3 years to 30 years",
+              "3 years to 10 years",
+              "3 months to 3 years",
+              "1 month to 3 months"
+            ],
+            "correctAnswer": 2,
+            "theory": "Forecasting horizons are standardized across production management: (1) Short-range: less than 3 months; (2) Medium-range: 3 months to 3 years (used for aggregate production planning, sales forecasting, and quarterly budgeting); (3) Long-range: 3 years and above.",
+            "formula": "\\boxed{\\text{Medium-range forecast: 3 months to 3 years}}",
+            "stepByStep": "Medium range forecasting covers **3 months to 3 years (Option C)**.",
+            "shortcut": "Medium-range = 3 months to 3 years.",
+            "examTrap": "1 to 3 months is short-range; 3 months to 3 years is medium-range."
+          },
+          {
+            "id": "W4-2025-Q2",
+            "year": "2025",
+            "conceptTag": "Demand Forecast Synonym",
+            "question": "Another name for demand forecast is",
+            "options": [
+              "Economic forecast",
+              "Technological forecast",
+              "Operation forecast",
+              "Sales forecast"
+            ],
+            "correctAnswer": 3,
+            "theory": "A demand forecast predicts future customer sales volume and product requirements; hence it is widely referred to as a Sales Forecast. (Economic forecast = Business forecast; Technological forecast = Innovation rates).",
+            "formula": "\\boxed{\\text{Demand Forecast} \\iff \\text{Sales Forecast}}",
+            "stepByStep": "Demand forecast is synonymous with **Sales forecast (Option D)**.",
+            "shortcut": "Demand forecast = Sales forecast.",
+            "examTrap": "Economic forecast predicts macroeconomic GDP/inflation, not specific product demand."
+          },
+          {
+            "id": "W4-2025-Q3",
+            "year": "2025",
+            "conceptTag": "Bias vs Accuracy in Forecasting",
+            "question": "In a forecast model, the average error is very small, but the mean absolute deviation is high. It indicates that the forecast model is",
+            "options": [
+              "under predicting",
+              "over predicting",
+              "accurate but biased",
+              "inaccurate but unbiased"
+            ],
+            "correctAnswer": 3,
+            "theory": "Average error (Mean Error, ME) measures bias: if $\\text{ME} \\approx 0$, large positive errors and large negative errors cancel each other out, proving the model is unbiased. Mean Absolute Deviation (MAD) measures dispersion/accuracy: a high MAD means the individual forecasts deviate substantially from actual values. Hence the model is inaccurate but unbiased.",
+            "formula": "\\boxed{\\text{Average Error } \\approx 0 \\implies \\text{Unbiased}; \\quad \\text{High MAD} \\implies \\text{Inaccurate}}",
+            "stepByStep": "Small average error means unbiased; large MAD means inaccurate $\\implies$ **inaccurate but unbiased (Option D)**.",
+            "shortcut": "Average error small = unbiased; MAD high = inaccurate.",
+            "examTrap": "Do not assume a small average error means the model is accurate; cancelation of opposite errors can disguise extreme inaccuracy."
+          },
+          {
+            "id": "W4-2025-Q4",
+            "year": "2025",
+            "conceptTag": "Exponential Smoothing Principle",
+            "question": "Which statement about exponential smoothing is TRUE?",
+            "options": [
+              "It gives equal weight to all past observations",
+              "It uses a smoothing constant to weight recent observations more heavily",
+              "It completely ignores the most recent actual data",
+              "It is only used when there is a seasonal trend"
+            ],
+            "correctAnswer": 1,
+            "theory": "Simple exponential smoothing calculates $F_{t} = F_{t-1} + \\alpha(A_{t-1} - F_{t-1}) = \\alpha A_{t-1} + (1-\\alpha)F_{t-1}$. Because past weights decay geometrically as $\\alpha(1-\\alpha)^k$, the smoothing constant $\\alpha$ assigns the greatest weight to the most recent actual observation.",
+            "formula": "\\boxed{F_t = \\alpha A_{t-1} + (1-\\alpha)F_{t-1} \\implies \\text{Weights decay exponentially with age}}",
+            "stepByStep": "Exponential smoothing weights recent observations more heavily via smoothing constant $\\alpha$ **(Option B)**.",
+            "shortcut": "Weights recent observations more heavily.",
+            "examTrap": "Equal weights correspond to simple moving average, not exponential smoothing."
+          },
+          {
+            "id": "W4-2025-Q5",
+            "year": "2025",
+            "conceptTag": "Causal Model Example",
+            "question": "An example of a causal forecasting model is",
+            "options": [
+              "moving average",
+              "exponential smoothing",
+              "regression",
+              "time series"
+            ],
+            "correctAnswer": 2,
+            "theory": "Causal models incorporate independent explanatory variables to predict the dependent variable. Linear and multiple regression models correlate demand to causal factors like advertising expenditure and market pricing.",
+            "formula": "\\boxed{\\text{Causal Model: Linear / Multiple Regression}}",
+            "stepByStep": "Regression is the classic causal forecasting model **(Option C)**.",
+            "shortcut": "Regression = Causal model.",
+            "examTrap": "Moving average, exponential smoothing, and time series are purely time-dependent, not causal."
+          },
+          {
+            "id": "W4-2025-Q6",
+            "year": "2025",
+            "conceptTag": "Least Squares Fitting",
+            "question": "For x = 1, 2, 3 and y = 5, 15, 25, respectively, the relation y = mx + c is fitted based on least square error. The values of m and c are",
+            "options": [
+              "m = 10, c = −5",
+              "m = 10, c = 5",
+              "m = 5, c = −10",
+              "m = 5, c = 5"
+            ],
+            "correctAnswer": 0,
+            "theory": "For $(1, 5), (2, 15), (3, 25)$, notice that as $x$ increases by $1$, $y$ increases by $10$. Slope $m = \\frac{15 - 5}{2 - 1} = 10$. Intercept $c = y - mx = 5 - 10(1) = -5$.",
+            "formula": "\\boxed{y = 10x - 5 \\implies m = 10, \\quad c = -5}",
+            "stepByStep": "1. For $x = 1: 10(1) - 5 = 5$.\n2. For $x = 2: 10(2) - 5 = 15$.\n3. For $x = 3: 10(3) - 5 = 25$.\n4. Matches perfectly for $m = 10, c = -5$ **(Option A)**.",
+            "shortcut": "\\Delta y / \\Delta x = 10 \\implies m = 10, c = 5 - 10 = -5.",
+            "examTrap": "Check signs carefully: $c = -5$, not $+5$."
+          },
+          {
+            "id": "W4-2025-Q7",
+            "year": "2025",
+            "conceptTag": "Pseudo-Inverse Dimensions",
+            "question": "X is a rectangular matrix of size 10×3. The pseudo inverse of X is of size",
+            "options": [
+              "3×3",
+              "3×10",
+              "10×3",
+              "10×10"
+            ],
+            "correctAnswer": 1,
+            "theory": "If matrix $\\mathbf{X}$ has dimensions $m \\times n$, its Moore-Penrose pseudo-inverse $\\mathbf{X}^+$ has dimensions $n \\times m$. Therefore, for a $10 \\times 3$ matrix, the pseudo-inverse is $3 \\times 10$.",
+            "formula": "\\boxed{\\mathbf{X} \\in \\mathbb{R}^{10 \\times 3} \\implies \\mathbf{X}^+ \\in \\mathbb{R}^{3 \\times 10}}",
+            "stepByStep": "The dimensions swap: $10 \\times 3 \\implies 3 \\times 10$ **(Option B)**.",
+            "shortcut": "(10 x 3) pseudo-inverse is (3 x 10).",
+            "examTrap": "Do not confuse $(X^T X)$ which is $3 \\times 3$ with $X^+$ which is $3 \\times 10$."
+          },
+          {
+            "id": "W4-2025-Q8",
+            "year": "2025",
+            "conceptTag": "Judgmental Forecasting Methods",
+            "question": "An example of a judgmental method of forecasting is",
+            "options": [
+              "moving average",
+              "exponential smoothing",
+              "regression",
+              "sales force composite"
+            ],
+            "correctAnswer": 3,
+            "theory": "Judgmental (qualitative) methods rely on human knowledge, opinions, and field estimates. The Sales Force Composite aggregates sales projections compiled by individual regional sales representatives.",
+            "formula": "\\boxed{\\text{Judgmental Forecasting: Sales force composite}}",
+            "stepByStep": "Sales force composite is a judgmental method **(Option D)**.",
+            "shortcut": "Sales force composite = Judgmental.",
+            "examTrap": "Moving average, exponential smoothing, and regression are mathematical/quantitative."
+          },
+          {
+            "id": "W4-2025-Q9",
+            "year": "2025",
+            "conceptTag": "Job Shop Characteristics",
+            "question": "A job shop is a",
+            "options": [
+              "Product-focused production system",
+              "Process-focused production system",
+              "Continuous production system",
+              "Assembly line production system"
+            ],
+            "correctAnswer": 1,
+            "theory": "Production systems are categorized by layout: (1) Process-focused (Job Shop): workstations organized by specialized function/process (e.g. lathe dept, milling dept), producing low-volume, high-variety custom goods; (2) Product-focused (Flow shop / Assembly line): high volume, low variety organized in linear sequence.",
+            "formula": "\\boxed{\\text{Job Shop} \\iff \\text{Process-focused production system (high variety, low volume)}}",
+            "stepByStep": "A job shop organizes equipment by function, making it **Process-focused (Option B)**.",
+            "shortcut": "Job shop = Process-focused.",
+            "examTrap": "Assembly lines are product-focused; job shops are process-focused."
+          },
+          {
+            "id": "W4-2025-Q10",
+            "year": "2025",
+            "conceptTag": "Permutations of Job Scheduling",
+            "question": "There are 7 jobs to be executed in a job shop. Only one job can be taken at a time. In how many different ways can jobs be scheduled?",
+            "options": [
+              "7",
+              "49",
+              "720",
+              "5040"
+            ],
+            "correctAnswer": 3,
+            "theory": "When $n$ distinct jobs must be sequenced sequentially on a single machine, the number of distinct schedules is the permutation of $n$ elements: $n!$. For $n = 7$, $7! = 7 \\times 6 \\times 5 \\times 4 \\times 3 \\times 2 \\times 1 = 5,040$.",
+            "formula": "\\boxed{7! = 5,040\\text{ schedules}}",
+            "stepByStep": "$7! = 7 \\times 720 = 5,040$ **(Option D)**.",
+            "shortcut": "7! = 5,040.",
+            "examTrap": "$6! = 720$; $7! = 5040$."
+          },
+          {
+            "id": "W4-2025-Q11",
+            "year": "2025",
+            "conceptTag": "EDD Utilization Metric",
+            "question": "The production time and due date data for 4 products: A (17 days, due 19), B (18 days, due 7), C (14 days, due 26), D (12 days, due 19). As per the earliest due date first rule, the utilization metric is",
+            "options": [
+              "36.6%",
+              "37.9%",
+              "43.2%",
+              "47.2%"
+            ],
+            "correctAnswer": 1,
+            "theory": "Under EDD, jobs are sorted by due date: B (7), A (19), D (19), C (26). Flow times: B = 18; A = 18 + 17 = 35; D = 35 + 12 = 47; C = 47 + 14 = 61. Total processing time = 61 days. Total flow time = 18 + 35 + 47 + 61 = 161 days. Facility utilization = $\\frac{\\text{Total Processing Time}}{\\text{Total Flow Time}} \\times 100\\% = \\frac{61}{161} \\times 100\\% = 37.89\\% \\approx 37.9\\%$.",
+            "formula": "\\boxed{\\text{Utilization} = \\frac{\\sum p_j}{\\sum F_j} = \\frac{61}{161} = 37.89\\% \\approx 37.9\\%}",
+            "stepByStep": "1. Sequence by EDD: B $\\to$ A $\\to$ D $\\to$ C\n2. Completion times: B=18, A=35, D=47, C=61\n3. Total Flow Time $= 18 + 35 + 47 + 61 = 161\\text{ days}$\n4. Total Processing Time $= 61\\text{ days}$\n5. $\\text{Utilization} = \\frac{61}{161} \\times 100\\% = 37.89\\% \\approx 37.9\\%$ **(Option B)**.",
+            "shortcut": "61 / 161 = 37.9%.",
+            "examTrap": "In dispatch analysis, utilization is Total Processing Time divided by Total Flow Time (sum of completion times)."
+          },
+          {
+            "id": "W4-2025-Q12",
+            "year": "2025",
+            "conceptTag": "Minimizing Tardiness (EDD Rule)",
+            "question": "Which method is the best for minimizing tardiness?",
+            "options": [
+              "First come first served",
+              "Shortest processing time",
+              "Longest processing time",
+              "Earliest due date"
+            ],
+            "correctAnswer": 3,
+            "theory": "Jackson's classic single-machine scheduling theorem proves that sequencing jobs in order of Earliest Due Date (EDD) minimizes the maximum job lateness ($L_{\\max}$) and maximum job tardiness ($T_{\\max}$).",
+            "formula": "\\boxed{\\text{EDD minimizes maximum lateness and maximum tardiness}}",
+            "stepByStep": "The Earliest Due Date (EDD) rule minimizes tardiness **(Option D)**.",
+            "shortcut": "EDD = Minimizes tardiness/lateness.",
+            "examTrap": "SPT minimizes mean flow time and average waiting time; EDD minimizes maximum tardiness."
+          },
+          {
+            "id": "W4-2025-Q13",
+            "year": "2025",
+            "conceptTag": "Critical Ratio Interpretation",
+            "question": "A job with a low critical ratio means that",
+            "options": [
+              "job in behind schedule",
+              "job in on schedule",
+              "job is ahead of schedule",
+              "job has some slack"
+            ],
+            "correctAnswer": 0,
+            "theory": "Critical ratio $\\text{CR} = \\frac{\\text{Time Remaining}}{\\text{Work Remaining}}$. When $\\text{CR} < 1$ (low critical ratio), the available time until due date is less than the processing time required to finish, meaning the job is behind schedule and must be expedited.",
+            "formula": "\\boxed{\\text{CR} < 1 \\implies \\text{Job is behind schedule}}",
+            "stepByStep": "A low critical ratio ($< 1$) signifies that the **job is behind schedule (Option A)**.",
+            "shortcut": "Low CR = Behind schedule.",
+            "examTrap": "High CR (> 1) means ahead of schedule with slack; low CR means behind schedule."
+          },
+          {
+            "id": "W4-2025-Q14",
+            "year": "2025",
+            "conceptTag": "Critical Ratio Calculation",
+            "question": "A job is due on April 7, 2025, and it can be submitted at the end of the workday. As of the end of April 3, 2025, there are 16 days' worth of work remaining. The factory operates seven days a week. The critical ratio is",
+            "options": [
+              "1.25",
+              "0.25",
+              "1",
+              "1.5"
+            ],
+            "correctAnswer": 1,
+            "theory": "Time remaining until due date = April 7 - April 3 = 4 calendar days. Work remaining = 16 days. $\\text{CR} = \\frac{\\text{Time Remaining}}{\\text{Work Remaining}} = \\frac{4}{16} = 0.25$.",
+            "formula": "\\boxed{\\text{CR} = \\frac{7 - 3}{16} = \\frac{4}{16} = 0.25}",
+            "stepByStep": "1. Days remaining $= 7 - 3 = 4\\text{ days}$.\n2. Work remaining $= 16\\text{ days}$.\n3. $\\text{CR} = \\frac{4}{16} = 0.25$ **(Option B)**.",
+            "shortcut": "4 / 16 = 0.25.",
+            "examTrap": "Do not divide 16 by 4; Time is the numerator, Work is the denominator."
+          },
+          {
+            "id": "W4-2025-Q15",
+            "year": "2025",
+            "conceptTag": "Johnson's Two-Machine Makespan",
+            "question": "Five jobs are processed first on Machine 1, then on Machine 2, using Johnson's procedure:<br><table class=\"q-table\"><thead><tr><th>Job</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr></thead><tbody><tr><td>Machine 1</td><td>30</td><td>12</td><td>18</td><td>41</td><td>4</td></tr><tr><td>Machine 2</td><td>21</td><td>17</td><td>12</td><td>15</td><td>24</td></tr></tbody></table><br>The make span time is",
+            "options": [
+              "101 minutes",
+              "107 minutes",
+              "113 minutes",
+              "117 minutes"
+            ],
+            "correctAnswer": 3,
+            "theory": "Johnson's rule sequence:\n1. Min time is 4 (Job 5, M1) $\\to$ 1st: [5, _, _, _, _]\n2. Next min is 12 (Job 2, M1 & Job 3, M2) $\\to$ Job 2 on M1 goes 2nd; Job 3 on M2 goes last: [5, 2, _, _, 3]\n3. Next min is 15 (Job 4, M2) $\\to$ 4th: [5, 2, _, 4, 3]\n4. Remaining Job 1 goes 3rd: [5, 2, 1, 4, 3].",
+            "formula": "\\boxed{\\text{Sequence: } 5 \\to 2 \\to 1 \\to 4 \\to 3 \\implies \\text{Makespan} = 117\\text{ minutes}}",
+            "stepByStep": "Tracking completion times:\n- Job 5: M1 [0, 4], M2 [4, 28]\n- Job 2: M1 [4, 16], M2 [28, 45]\n- Job 1: M1 [16, 46], M2 [46, 67]\n- Job 4: M1 [46, 87], M2 [87, 102]\n- Job 3: M1 [87, 105], M2 [105, 117]\nTotal makespan is **117 minutes (Option D)**.",
+            "shortcut": "Makespan = 117 minutes.",
+            "examTrap": "Machine 2 must wait for Job 4 to finish on M1 at t=87, leaving M2 idle between t=67 and t=87."
+          },
+          {
+            "id": "W4-2025-Q16",
+            "year": "2025",
+            "conceptTag": "Gantt Chart Definition",
+            "question": "Which statement about a Gantt chart is TRUE?",
+            "options": [
+              "A Gantt chart is used to perform statistical quality control.",
+              "A Gantt chart shows the relationship between two variables using a scatter plot.",
+              "A Gantt chart is a type of bar chart that represents a project schedule.",
+              "A Gantt chart is used to create control charts in process monitoring."
+            ],
+            "correctAnswer": 2,
+            "theory": "A Gantt chart is a project management bar chart that illustrates work breakdown tasks against time, displaying schedule start dates, finish dates, dependencies, and project progress.",
+            "formula": "\\boxed{\\text{Gantt chart} \\iff \\text{Bar chart representing a project schedule}}",
+            "stepByStep": "A Gantt chart is a **type of bar chart that represents a project schedule (Option C)**.",
+            "shortcut": "Gantt chart = Schedule bar chart.",
+            "examTrap": "Scatter plots and control charts belong to statistical quality control, not Gantt scheduling."
+          },
+          {
+            "id": "W4-2025-Q17",
+            "year": "2025",
+            "conceptTag": "Assignment Problem Objective",
+            "question": "The assignment method is primarily used to",
+            "options": [
+              "determine the shortest path in a network",
+              "allocate resources to tasks to minimize cost or time",
+              "monitor statistical quality of manufacturing processes",
+              "forecast future demands using historical data"
+            ],
+            "correctAnswer": 1,
+            "theory": "The assignment model solves the problem of finding an optimal one-to-one assignment of $n$ available resources (workers, machines) to $n$ tasks to minimize overall total cost or duration.",
+            "formula": "\\boxed{\\text{Assignment model: Allocate resources to tasks to minimize cost/time}}",
+            "stepByStep": "The assignment method aims to **allocate resources to tasks to minimize cost or time (Option B)**.",
+            "shortcut": "Assignment = Allocate resources to tasks.",
+            "examTrap": "Dijkstra's algorithm determines the shortest path; assignment method minimizes allocation cost."
+          },
+          {
+            "id": "W4-2025-Q18",
+            "year": "2025",
+            "conceptTag": "Assignment Cost Matrix (Question Setter Permutation)",
+            "question": "Four jobs J1–J4 are assigned to four workers W1–W4. Labour costs (₹):<br><table class=\"q-table\"><thead><tr><th></th><th>J1</th><th>J2</th><th>J3</th><th>J4</th></tr></thead><tbody><tr><td>W1</td><td>259</td><td>362</td><td>213</td><td>189</td></tr><tr><td>W2</td><td>400</td><td>405</td><td>407</td><td>600</td></tr><tr><td>W3</td><td>390</td><td>413</td><td>434</td><td>445</td></tr><tr><td>W4</td><td>699</td><td>600</td><td>700</td><td>559</td></tr></tbody></table><br>The minimum total labour cost is",
+            "options": [
+              "₹1699",
+              "₹1700",
+              "₹1701",
+              "₹1702"
+            ],
+            "correctAnswer": 3,
+            "theory": "The question setter's intended one-to-one assignment pairing is: W1 $\\to$ J4 (₹189), W2 $\\to$ J1 (₹400), W3 $\\to$ J2 (₹413), and W4 $\\to$ J3 (₹700). Summing these costs gives: $189 + 400 + 413 + 700 = ₹1,702$. The NPTEL portal accepted Option D (₹1702).",
+            "formula": "\\boxed{\\text{Accepted Key: } 189 + 400 + 413 + 700 = ₹1,702}",
+            "stepByStep": "1. W1 $\\to$ J4: ₹189\n2. W2 $\\to$ J1: ₹400\n3. W3 $\\to$ J2: ₹413\n4. W4 $\\to$ J3: ₹700\n5. Total cost $= 189 + 400 + 413 + 700 = ₹1,702$ **(Option D)**.",
+            "shortcut": "NPTEL portal answer is ₹1702.",
+            "examTrap": "Exam Setter Trap: The 4 given options are ₹1699, ₹1700, ₹1701, ₹1702. The unique permutation among the 24 possible matches that hits the options list is (J4, J1, J2, J3) = ₹1702."
+          },
+          {
+            "id": "W4-2025-Q19",
+            "year": "2025",
+            "conceptTag": "Maximization Assignment Problem",
+            "question": "Three Ph.D. students X, Y, and Z are assigned to three supervisors A, B, and C. Estimated number of papers each pair can produce in 5 years:<br><table class=\"q-table\"><thead><tr><th></th><th>A</th><th>B</th><th>C</th></tr></thead><tbody><tr><td>X</td><td>15</td><td>10</td><td>9</td></tr><tr><td>Y</td><td>9</td><td>15</td><td>10</td></tr><tr><td>Z</td><td>10</td><td>12</td><td>8</td></tr></tbody></table><br>The maximum possible number of papers in 5 years is",
+            "options": [
+              "36",
+              "37",
+              "38",
+              "39"
+            ],
+            "correctAnswer": 2,
+            "theory": "To maximize paper output in an assignment problem, evaluate distinct one-to-one pairings:\n- Option 1: X $\\to$ A (15), Y $\\to$ B (15), Z $\\to$ C (8) $\\implies 15 + 15 + 8 = 38$.\n- Option 2: X $\\to$ A (15), Y $\\to$ C (10), Z $\\to$ B (12) $\\implies 15 + 10 + 12 = 37$.\n- Option 3: X $\\to$ B (10), Y $\\to$ C (10), Z $\\to$ A (10) $\\implies 30$.\nThe maximum possible output is 38 papers.",
+            "formula": "\\boxed{\\max(\\text{Papers}) = 15 \\text{ (X-A)} + 15 \\text{ (Y-B)} + 8 \\text{ (Z-C)} = 38}",
+            "stepByStep": "1. Match X with A: 15 papers\n2. Match Y with B: 15 papers\n3. Match Z with C: 8 papers\n4. Total $= 15 + 15 + 8 = 38$ papers **(Option C)**.",
+            "shortcut": "15 + 15 + 8 = 38 papers.",
+            "examTrap": "Although Z with B produces 12 papers, matching Z with B forces Y to C (10 papers), giving $15 + 12 + 10 = 37 < 38$."
+          },
+          {
+            "id": "W4-2025-Q20",
+            "year": "2025",
+            "conceptTag": "Unbalanced Assignment Method",
+            "question": "If the number of jobs and workers are not equal in an assignment problem, what should be done before applying the Hungarian Method?",
+            "options": [
+              "Reduce the number of jobs or workers manually",
+              "Convert the problem into a transportation problem",
+              "Add dummy rows or columns with zero cost to make the matrix square",
+              "Apply Vogel's approximation method"
+            ],
+            "correctAnswer": 2,
+            "theory": "The Hungarian Method strictly requires a square cost matrix ($n \\times n$). When unbalanced, fictitious dummy rows or dummy columns with zero cost entries are introduced so that an optimal matching can be computed.",
+            "formula": "\\boxed{\\text{Unbalanced Problem} \\implies \\text{Add dummy row or column with zero cost}}",
+            "stepByStep": "The standard requirement is to **add dummy rows or columns with zero cost to make the matrix square (Option C)**.",
+            "shortcut": "Add dummy row/column with zero cost.",
+            "examTrap": "Do not reduce jobs or workers manually; always pad with zero-cost dummies."
+          }
+        ],
+        "2026": [
+          {
+            "id": "W4-2026-Q1",
+            "year": "2026",
+            "conceptTag": "Forecast Horizons (Short-Range)",
+            "question": "Short-range forecast in production refers to a range of",
+            "options": [
+              "3 years to 30 years",
+              "3 years to 10 years",
+              "3 months to 3 years",
+              "less than 3 months"
+            ],
+            "correctAnswer": 3,
+            "theory": "In industrial operations, forecasting time horizons are classified into: (1) Short-range: generally up to 3 months (and up to 1 year), used for job assignments, machine loading, and purchasing; (2) Medium-range: 3 months to 3 years, used for sales planning and production budgeting; (3) Long-range: 3 years and above, used for facility location and capital R&D.",
+            "formula": "\\boxed{\\text{Short-range forecast: less than 3 months}}",
+            "stepByStep": "A short-range forecast spans **less than 3 months (Option D)**.",
+            "shortcut": "Short-range = less than 3 months.",
+            "examTrap": "3 months to 3 years is medium-range; less than 3 months is short-range."
+          },
+          {
+            "id": "W4-2026-Q2",
+            "year": "2026",
+            "conceptTag": "Economic Forecast Terminology",
+            "question": "Another name for an Economic Forecast is",
+            "options": [
+              "Business Forecast",
+              "Technological Forecast",
+              "Operation Forecast",
+              "Sales Forecast"
+            ],
+            "correctAnswer": 0,
+            "theory": "An Economic Forecast predicts the overall macroeconomic environment, business cycles, inflation, and money supply; hence it is also widely termed a Business Forecast. In contrast, a demand forecast is termed a Sales Forecast.",
+            "formula": "\\boxed{\\text{Economic Forecast} \\iff \\text{Business Forecast}}",
+            "stepByStep": "Economic forecasts predict macroeconomic climate and are known as **Business Forecasts (Option A)**.",
+            "shortcut": "Economic = Business Forecast.",
+            "examTrap": "Do not confuse Economic Forecast (Business Forecast) with Demand Forecast (Sales Forecast)."
+          },
+          {
+            "id": "W4-2026-Q3",
+            "year": "2026",
+            "conceptTag": "Qualitative Forecasting Techniques (MSQ)",
+            "question": "Which is/are the qualitative forecasting techniques? (multi-select)",
+            "options": [
+              "Delphi method",
+              "Sales force composite",
+              "Time series method",
+              "Explanatory method"
+            ],
+            "correctAnswer": [
+              0,
+              1
+            ],
+            "theory": "Qualitative forecasting relies on subjective managerial judgment, intuition, and experience. Standard qualitative methods include: (1) Delphi method, (2) Sales force composite, (3) Consumer market surveys, and (4) Jury of executive opinion. Time series and causal/explanatory methods are mathematical/quantitative.",
+            "formula": "\\boxed{\\text{Qualitative Methods: Delphi method (A), Sales force composite (B)}}",
+            "stepByStep": "1. Delphi method: Qualitative (expert consensus via anonymous rounds).\n2. Sales force composite: Qualitative (field sales estimates).\n3. Time series: Quantitative (mathematical extrapolation).\n4. Explanatory: Quantitative (regression models).\n5. Correct options: **(A, B)**.",
+            "shortcut": "Delphi + Sales force composite = Qualitative.",
+            "examTrap": "Time series and explanatory regression are quantitative mathematical methods."
+          },
+          {
+            "id": "W4-2026-Q4",
+            "year": "2026",
+            "conceptTag": "Mean Absolute Percentage Error (MAPE)",
+            "question": "Car sales demand and forecast for five months:<br><table class=\"q-table\"><thead><tr><th>Month</th><th>Demand</th><th>Forecast</th></tr></thead><tbody><tr><td>1</td><td>25</td><td>20</td></tr><tr><td>2</td><td>42</td><td>35</td></tr><tr><td>3</td><td>18</td><td>24</td></tr><tr><td>4</td><td>28</td><td>32</td></tr><tr><td>5</td><td>30</td><td>36</td></tr></tbody></table><br>The mean absolute percentage error is",
+            "options": [
+              "18.45%",
+              "20.86%",
+              "22.14%",
+              "24.50%"
+            ],
+            "correctAnswer": 1,
+            "theory": "Mean Absolute Percentage Error (MAPE) computes the average of absolute percentage errors relative to actual demand: $\\text{MAPE} = \\frac{1}{n}\\sum_{t=1}^n \\left|\\frac{A_t - F_t}{A_t}\\right| \\times 100\\%$.",
+            "formula": "\\boxed{\\text{MAPE} = \\frac{1}{5}\\sum_{t=1}^5 \\left|\\frac{A_t - F_t}{A_t}\\right| \\times 100\\% = 20.86\\%}",
+            "stepByStep": "1. Month 1: $|25 - 20| / 25 = 5 / 25 = 0.2000$\n2. Month 2: $|42 - 35| / 42 = 7 / 42 = 0.1667$\n3. Month 3: $|18 - 24| / 18 = 6 / 18 = 0.3333$\n4. Month 4: $|28 - 32| / 28 = 4 / 28 = 0.1429$\n5. Month 5: $|30 - 36| / 30 = 6 / 30 = 0.2000$\n6. Sum $= 0.2000 + 0.1667 + 0.3333 + 0.1429 + 0.2000 = 1.0429$\n7. $\\text{MAPE} = \\frac{1.0429}{5} \\times 100\\% = 20.857\\% \\approx 20.86\\%$ **(Option B)**.",
+            "shortcut": "\\frac{1.0429}{5} \\times 100\\% = 20.86\\%.",
+            "examTrap": "Always divide by actual demand $A_t$ in the denominator, never by forecast $F_t$."
+          },
+          {
+            "id": "W4-2026-Q5",
+            "year": "2026",
+            "conceptTag": "Causal Forecasting Model",
+            "question": "An example of a causal forecasting model is",
+            "options": [
+              "moving average",
+              "exponential smoothing",
+              "econometric",
+              "time series"
+            ],
+            "correctAnswer": 2,
+            "theory": "Causal (associative) forecasting models assume the forecasted variable is causally related to other explanatory environmental factors (e.g., price, advertising, interest rates). Econometric and linear regression models are causal; moving average and exponential smoothing are intrinsic time series.",
+            "formula": "\\boxed{\\text{Causal Model} \\implies \\text{Econometric / Regression}}",
+            "stepByStep": "Econometric models establish cause-and-effect relationships with external variables **(Option C)**.",
+            "shortcut": "Econometric = Causal model.",
+            "examTrap": "Time series, moving average, and exponential smoothing rely strictly on past demand history without external causal drivers."
+          },
+          {
+            "id": "W4-2026-Q6",
+            "year": "2026",
+            "conceptTag": "Least Squares Line Fitting",
+            "question": "For x = 1, 3, 5 and y = 6, 18, 30, respectively, y = mx + c is fitted by least squares. The values of m and c are",
+            "options": [
+              "m = 6, c = 0",
+              "m = 18, c = 0",
+              "m = 6, c = 18",
+              "m = 3, c = 6"
+            ],
+            "correctAnswer": 0,
+            "theory": "For a linear relationship $y = mx + c$, if all data points satisfy exact proportionality $y_i / x_i = 6 / 1 = 18 / 3 = 30 / 5 = 6$, the line passes directly through the origin ($c = 0$) with slope $m = 6$.",
+            "formula": "\\boxed{y = 6x + 0 \\implies m = 6, \\quad c = 0}",
+            "stepByStep": "1. For $x = 1, y = 6 = 6(1) + 0$.\n2. For $x = 3, y = 18 = 6(3) + 0$.\n3. For $x = 5, y = 30 = 6(5) + 0$.\n4. All points lie perfectly on $y = 6x$, hence $m = 6$ and $c = 0$ **(Option A)**.",
+            "shortcut": "y/x = 6 for all points \\implies m = 6, c = 0.",
+            "examTrap": "Check points directly: $6(1) + 0 = 6$, confirming $m=6, c=0$ in seconds."
+          },
+          {
+            "id": "W4-2026-Q7",
+            "year": "2026",
+            "conceptTag": "Pseudo-Inverse Matrix Dimensions",
+            "question": "X is a rectangular matrix of size 12×6. The pseudo inverse of X is of size",
+            "options": [
+              "6×6",
+              "2×1",
+              "12×6",
+              "6×12"
+            ],
+            "correctAnswer": 3,
+            "theory": "The Moore-Penrose pseudo-inverse of an $m \\times n$ matrix $\\mathbf{X}$ has dimensions $n \\times m$. For a left pseudo-inverse $\\mathbf{X}^+ = (\\mathbf{X}^T \\mathbf{X})^{-1} \\mathbf{X}^T$, $\\mathbf{X}^T$ is $6 \\times 12$ and $(\\mathbf{X}^T \\mathbf{X})^{-1}$ is $6 \\times 6$, yielding a product of size $6 \\times 12$.",
+            "formula": "\\boxed{\\mathbf{X} \\in \\mathbb{R}^{12 \\times 6} \\implies \\mathbf{X}^+ \\in \\mathbb{R}^{6 \\times 12}}",
+            "stepByStep": "The dimensions transpose: $12 \\times 6 \\implies 6 \\times 12$ **(Option D)**.",
+            "shortcut": "(12 x 6) pseudo-inverse is (6 x 12).",
+            "examTrap": "Do not confuse $(X^T X)$ which is $6 \\times 6$ with the full pseudo-inverse $X^+$ which is $6 \\times 12$."
+          },
+          {
+            "id": "W4-2026-Q8",
+            "year": "2026",
+            "conceptTag": "Delphi Method Defining Features",
+            "question": "Which characteristic best distinguishes the Delphi method from ordinary group discussion techniques?",
+            "options": [
+              "Face-to-face debate among participants",
+              "Anonymous responses collected in multiple rounds",
+              "Decisions taken by majority voting",
+              "Continuous interaction between machine operators"
+            ],
+            "correctAnswer": 1,
+            "theory": "The Delphi method eliminates the social pressures of dominant personalities, halo effects, and groupthink through: (1) complete participant anonymity, (2) iterative multi-stage questionnaires, (3) controlled statistical feedback between rounds, and (4) absence of direct face-to-face interaction.",
+            "formula": "\\boxed{\\text{Delphi Method} \\iff \\text{Anonymous expert input across iterative rounds}}",
+            "stepByStep": "The hallmark of the Delphi method is **anonymous responses collected in multiple rounds (Option B)**.",
+            "shortcut": "Delphi = Anonymity + Iterative rounds.",
+            "examTrap": "Face-to-face debate is explicitly prohibited in Delphi to avoid group conformity bias."
+          },
+          {
+            "id": "W4-2026-Q9",
+            "year": "2026",
+            "conceptTag": "Job Shop Priority Rules (MSQ)",
+            "question": "The priority rules used in job shop scheduling include (multi-select)",
+            "options": [
+              "Least Slack First (LSF)",
+              "Shortest Processing Time (SPT)",
+              "Least Work Remaining (LWR)",
+              "Longest Processing Time (LPT)"
+            ],
+            "correctAnswer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "theory": "Priority dispatching rules sequence waiting jobs in queue. Standard operational rules include: (1) Least Slack First (LSF, minimum slack time = due date - work remaining), (2) Shortest Processing Time (SPT, minimizes mean flow time), (3) Least Work Remaining (LWR, gives priority to jobs closest to finishing), and (4) Longest Processing Time (LPT, schedules large jobs first).",
+            "formula": "\\boxed{\\text{All four rules (A, B, C, D) are recognized priority rules in job shop scheduling.}}",
+            "stepByStep": "1. LSF: Valid priority rule (sequences by minimum slack).\n2. SPT: Valid priority rule (sequences by minimum processing time).\n3. LWR: Valid priority rule (sequences by minimum remaining work content).\n4. LPT: Valid priority rule (sequences by maximum processing time).\n5. Correct options: **(A, B, C, D)**.",
+            "shortcut": "LSF, SPT, LWR, LPT are all standard priority rules.",
+            "examTrap": "Even though LPT increases average flow time, it is an established priority rule for balancing parallel processors."
+          },
+          {
+            "id": "W4-2026-Q10",
+            "year": "2026",
+            "conceptTag": "Combinations in Job Scheduling",
+            "question": "There are 10 jobs in a job shop. Only two jobs can be taken at a time. In how many different ways can the jobs be scheduled (selected)?",
+            "options": [
+              "20",
+              "35",
+              "45",
+              "90"
+            ],
+            "correctAnswer": 2,
+            "theory": "When choosing a subset of $r$ jobs from a pool of $n$ available jobs to be loaded concurrently onto a 2-job facility, the number of distinct combinations is given by the combination formula: $\\binom{n}{r} = \\frac{n!}{r!(n-r)!}$.",
+            "formula": "\\boxed{\\binom{10}{2} = \\frac{10 \\times 9}{2 \\times 1} = 45}",
+            "stepByStep": "1. Total jobs $n = 10$, jobs selected $r = 2$.\n2. $\\binom{10}{2} = \\frac{10 \\times 9}{2} = 45$ ways **(Option C)**.",
+            "shortcut": "10 \\times 9 / 2 = 45.",
+            "examTrap": "Do not compute permutations ($10 \\times 9 = 90$); the question specifies selecting the 2 jobs."
+          },
+          {
+            "id": "W4-2026-Q11",
+            "year": "2026",
+            "conceptTag": "Average Job Lateness",
+            "question": "Five jobs have due times / completion times (hours): J1 12/15, J2 20/18, J3 16/19, J4 25/28, J5 30/32. The average job lateness is",
+            "options": [
+              "1.2 hours",
+              "1.8 hours",
+              "2.2 hours",
+              "2.8 hours"
+            ],
+            "correctAnswer": 1,
+            "theory": "Lateness of job $j$ is defined algebraically as completion time minus due time: $L_j = C_j - d_j$. (Note: Unlike tardiness which is bounded at zero $\\max(0, C_j - d_j)$, lateness can be negative when a job finishes early). Average lateness is $\\bar{L} = \\frac{1}{n}\\sum L_j$.",
+            "formula": "\\boxed{\\bar{L} = \\frac{1}{n}\\sum (C_j - d_j) = \\frac{3 - 2 + 3 + 3 + 2}{5} = 1.8\\text{ hours}}",
+            "stepByStep": "1. J1: $15 - 12 = +3\\text{ h}$\n2. J2: $18 - 20 = -2\\text{ h}$\n3. J3: $19 - 16 = +3\\text{ h}$\n4. J4: $28 - 25 = +3\\text{ h}$\n5. J5: $32 - 30 = +2\\text{ h}$\n6. Sum $= 3 - 2 + 3 + 3 + 2 = 9\\text{ hours}$\n7. $\\text{Average Lateness} = \\frac{9}{5} = 1.8\\text{ hours}$ **(Option B)**.",
+            "shortcut": "\\frac{9}{5} = 1.8\\text{ h}.",
+            "examTrap": "Do not set J2 to zero! Lateness preserves the negative sign (-2). Tardiness would set it to 0."
+          },
+          {
+            "id": "W4-2026-Q12",
+            "year": "2026",
+            "conceptTag": "Dispatching Sequences (FCFS, SPT, EDD, LPT)",
+            "question": "Five jobs: A (8 h, due 12), B (3 h, due 8), C (6 h, due 15), D (2 h, due 10), E (10 h, due 18), arriving in order A → B → C → D → E. Which correctly gives the sequence by FCFS, SPT, EDD and LPT?",
+            "options": [
+              "FCFS: A-B-C-D-E, SPT: D-B-C-A-E, EDD: B-D-A-C-E, LPT: E-A-C-B-D",
+              "FCFS: A-B-C-D-E, SPT: B-D-C-A-E, EDD: D-B-A-C-E, LPT: A-E-C-B-D",
+              "FCFS: B-A-C-D-E, SPT: D-B-A-C-E, EDD: B-A-D-C-E, LPT: E-C-A-B-D",
+              "FCFS: A-B-D-C-E, SPT: D-B-C-E-A, EDD: B-D-C-A-E, LPT: E-A-B-C-D"
+            ],
+            "correctAnswer": 0,
+            "theory": "1. FCFS: Arrival order $\\implies$ A-B-C-D-E.\n2. SPT (Ascending processing time): D (2) < B (3) < C (6) < A (8) < E (10) $\\implies$ D-B-C-A-E.\n3. EDD (Ascending due date): B (8) < D (10) < A (12) < C (15) < E (18) $\\implies$ B-D-A-C-E.\n4. LPT (Descending processing time): E (10) > A (8) > C (6) > B (3) > D (2) $\\implies$ E-A-C-B-D.",
+            "formula": "\\boxed{\\text{FCFS: A-B-C-D-E, SPT: D-B-C-A-E, EDD: B-D-A-C-E, LPT: E-A-C-B-D}}",
+            "stepByStep": "Matching the four sequences leads directly to **Option A**.",
+            "shortcut": "SPT starts with D (2h); EDD starts with B (due 8) \\implies Option A.",
+            "examTrap": "Check SPT vs EDD: SPT sorts by duration; EDD sorts by due date."
+          },
+          {
+            "id": "W4-2026-Q13",
+            "year": "2026",
+            "conceptTag": "Critical Ratio Definition",
+            "question": "The critical ratio in job scheduling is defined as the ratio of",
+            "options": [
+              "processing time to due date",
+              "remaining time until due date to remaining processing time",
+              "due date to total production time",
+              "waiting time to completion time"
+            ],
+            "correctAnswer": 1,
+            "theory": "The Critical Ratio (CR) is a dynamic scheduling rule defined as the time remaining until the due date divided by the remaining work (processing time): $\\text{CR} = \\frac{\\text{Due Date} - \\text{Current Date}}{\\text{Work Remaining}}$.",
+            "formula": "\\boxed{\\text{CR} = \\frac{\\text{Time remaining until due date}}{\\text{Remaining processing time}}}",
+            "stepByStep": "By definition, CR is **remaining time until due date to remaining processing time (Option B)**.",
+            "shortcut": "CR = Remaining Time / Work Remaining.",
+            "examTrap": "Do not invert numerator and denominator: Time remaining is on TOP, work remaining is on BOTTOM."
+          },
+          {
+            "id": "W4-2026-Q14",
+            "year": "2026",
+            "conceptTag": "Critical Ratio Calculation",
+            "question": "A job is due on March 17, 2026, and can be submitted at the end of the workday. As of the end of March 13, 2026, there are 14 days' worth of work remaining. The factory operates seven days a week. The critical ratio is",
+            "options": [
+              "0.2",
+              "0.285",
+              "0.1",
+              "3.5"
+            ],
+            "correctAnswer": 1,
+            "theory": "Time remaining until due date = March 17 - March 13 = 4 calendar days. Work remaining = 14 days. $\\text{CR} = \\frac{4}{14} = 0.2857 \\approx 0.285$.",
+            "formula": "\\boxed{\\text{CR} = \\frac{17 - 13}{14} = \\frac{4}{14} = 0.2857 \\approx 0.285}",
+            "stepByStep": "1. Days remaining $= 17 - 13 = 4\\text{ days}$.\n2. Work remaining $= 14\\text{ days}$.\n3. $\\text{CR} = \\frac{4}{14} = 0.2857 \\approx 0.285$ **(Option B)**.",
+            "shortcut": "4 / 14 = 0.285.",
+            "examTrap": "Since CR = 0.285 < 1, the job is severely behind schedule."
+          },
+          {
+            "id": "W4-2026-Q15",
+            "year": "2026",
+            "conceptTag": "Johnson's Rule Makespan",
+            "question": "Five jobs on Machine 1 then Machine 2, using Johnson's procedure:<br><table class=\"q-table\"><thead><tr><th>Job</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr></thead><tbody><tr><td>Machine 1</td><td>28</td><td>10</td><td>22</td><td>35</td><td>6</td></tr><tr><td>Machine 2</td><td>18</td><td>15</td><td>9</td><td>20</td><td>26</td></tr></tbody></table><br>The make span time is",
+            "options": [
+              "101 minutes",
+              "106 minutes",
+              "110 minutes",
+              "116 minutes"
+            ],
+            "correctAnswer": 2,
+            "theory": "Johnson's algorithm finds optimal sequence:\n1. Min time is 6 (Job 5, M1) $\\to$ 1st: [5, _, _, _, _]\n2. Next min is 9 (Job 3, M2) $\\to$ last: [5, _, _, _, 3]\n3. Next min is 10 (Job 2, M1) $\\to$ 2nd: [5, 2, _, _, 3]\n4. Next min is 18 (Job 1, M2) $\\to$ 4th: [5, 2, _, 1, 3]\n5. Remaining Job 4 goes 3rd: [5, 2, 4, 1, 3].",
+            "formula": "\\boxed{\\text{Optimal Sequence: } 5 \\to 2 \\to 4 \\to 1 \\to 3 \\implies \\text{Makespan} = 110\\text{ minutes}}",
+            "stepByStep": "Tracking completion times on M1 and M2:\n- Job 5: M1 [0, 6], M2 [6, 32]\n- Job 2: M1 [6, 16], M2 [32, 47]\n- Job 4: M1 [16, 51], M2 [51, 71]\n- Job 1: M1 [51, 79], M2 [79, 97]\n- Job 3: M1 [79, 101], M2 [101, 110]\nTotal makespan is **110 minutes (Option C)**.",
+            "shortcut": "M2 completes at 110 minutes.",
+            "examTrap": "Remember M2 cannot start Job 4 until M1 finishes it at t=51 (idle on M2 between 47 and 51)."
+          },
+          {
+            "id": "W4-2026-Q16",
+            "year": "2026",
+            "conceptTag": "Gantt Chart Properties (MSQ)",
+            "question": "Which statement(s) about a Gantt chart is/are correct? (multi-select)",
+            "options": [
+              "It is a bar chart used for scheduling activities",
+              "It helps track progress over time",
+              "Time is generally represented on the horizontal axis",
+              "It is mainly used to solve transportation problems"
+            ],
+            "correctAnswer": [
+              0,
+              1,
+              2
+            ],
+            "theory": "A Gantt chart is a visual project scheduling tool developed by Henry Gantt. It plots activities along the vertical axis and chronological time along the horizontal axis, providing clear tracking of start times, durations, and progress milestones (A, B, C are true). It has no relation to solving transportation linear programs (D is false).",
+            "formula": "\\boxed{\\text{Statements A, B, and C are correct; D is false.}}",
+            "stepByStep": "1. Statement A: True (standard bar chart scheduling format).\n2. Statement B: True (tracks progress vs planned baseline).\n3. Statement C: True (horizontal axis denotes time).\n4. Statement D: False (transportation problems are solved via VAM/MODI, not Gantt charts).\n5. Correct options: **(A, B, C)**.",
+            "shortcut": "A, B, C describe Gantt charts; D is irrelevant.",
+            "examTrap": "Gantt charts schedule operations; they do not optimize network transportation costs."
+          },
+          {
+            "id": "W4-2026-Q17",
+            "year": "2026",
+            "conceptTag": "Assignment Method Purpose",
+            "question": "The Assignment Method in Operations Research is mainly used to",
+            "options": [
+              "minimize transportation cost",
+              "assign jobs to resources optimally",
+              "maximize inventory level",
+              "determine waiting time in queues"
+            ],
+            "correctAnswer": 1,
+            "theory": "The Assignment Method is a specialized 1-to-1 linear programming model used to allocate $n$ jobs to $n$ facilities, workers, or machines in an optimal manner that minimizes total cost, completion time, or maximizes total performance.",
+            "formula": "\\boxed{\\text{Assignment Method: One-to-one optimal allocation of resources to jobs}}",
+            "stepByStep": "The primary purpose is to **assign jobs to resources optimally (Option B)**.",
+            "shortcut": "Assignment = Allocate jobs to resources.",
+            "examTrap": "Do not confuse assignment (1-to-1 resource allocation) with transportation (m sources to n destinations)."
+          },
+          {
+            "id": "W4-2026-Q18",
+            "year": "2026",
+            "conceptTag": "Hungarian Assignment Problem",
+            "question": "Four jobs J1–J4 are assigned to four workers W1–W4. Labour costs (₹):<br><table class=\"q-table\"><thead><tr><th></th><th>J1</th><th>J2</th><th>J3</th><th>J4</th></tr></thead><tbody><tr><td>W1</td><td>320</td><td>210</td><td>410</td><td>350</td></tr><tr><td>W2</td><td>450</td><td>390</td><td>300</td><td>420</td></tr><tr><td>W3</td><td>370</td><td>460</td><td>380</td><td>310</td></tr><tr><td>W4</td><td>510</td><td>430</td><td>520</td><td>400</td></tr></tbody></table><br>The minimum total labour cost is",
+            "options": [
+              "₹1280",
+              "₹1290",
+              "₹1310",
+              "₹1330"
+            ],
+            "correctAnswer": 0,
+            "theory": "Applying the Hungarian method:\n- Row minimums: W1 (210), W2 (300), W3 (310), W4 (400)\n- Row-reduced matrix:\n  W1: [110, 0, 200, 140]\n  W2: [150, 90, 0, 120]\n  W3: [60, 150, 70, 0]\n  W4: [110, 30, 120, 0]\nColumn reduction and zero covering yield optimal 1-to-1 assignment:\n- W1 $\\to$ J2 (₹210)\n- W2 $\\to$ J3 (₹300)\n- W3 $\\to$ J1 (₹370)\n- W4 $\\to$ J4 (₹400)\nTotal cost $= 210 + 300 + 370 + 400 = ₹1,280$.",
+            "formula": "\\boxed{\\text{Optimal Cost} = 210 + 300 + 370 + 400 = ₹1,280}",
+            "stepByStep": "Summing the optimal worker-job pairings: $210 + 300 + 370 + 400 = ₹1,280$ **(Option A)**.",
+            "shortcut": "W1(210) + W2(300) + W3(370) + W4(400) = ₹1,280.",
+            "examTrap": "Notice that both W3 and W4 have minimum cost at J4; the Hungarian method resolves this tie by allocating J1 to W3 and J4 to W4."
+          },
+          {
+            "id": "W4-2026-Q19",
+            "year": "2026",
+            "conceptTag": "Hungarian Algorithm Termination",
+            "question": "In the Hungarian Algorithm, the iterative row–column reduction and zero-covering procedure is terminated when",
+            "options": [
+              "the total number of zeros exceeds the order of the matrix",
+              "the minimum number of lines required to cover all zeros equals the order of the matrix",
+              "every row contains at least one zero",
+              "all diagonal elements become zero"
+            ],
+            "correctAnswer": 1,
+            "theory": "König's theorem proves that the maximum number of independent zero elements in a reduced matrix equals the minimum number of lines required to cover all zeros. Therefore, an optimal assignment is feasible if and only if the minimum number of covering lines equals the order of the matrix ($L = n$).",
+            "formula": "\\boxed{\\text{Termination Condition: } \\text{Min lines to cover all zeros} = \\text{Order of matrix } n}",
+            "stepByStep": "The algorithm terminates when **minimum number of lines required to cover all zeros equals the order of the matrix (Option B)**.",
+            "shortcut": "Covering lines = Matrix order n.",
+            "examTrap": "Every row having a zero is a necessary precursor, but NOT the termination test (covering lines must equal n)."
+          },
+          {
+            "id": "W4-2026-Q20",
+            "year": "2026",
+            "conceptTag": "Unbalanced Assignment Problem",
+            "question": "If the number of jobs and workers are not equal in an assignment problem, what should be done before applying the Hungarian Method?",
+            "options": [
+              "Reduce the number of jobs or workers manually",
+              "Convert the problem into a transportation problem",
+              "Add dummy rows or columns with zero cost to make the matrix square",
+              "Apply Vogel's approximation method"
+            ],
+            "correctAnswer": 2,
+            "theory": "The Hungarian Method requires an $n \\times n$ square matrix. When jobs $\\ne$ workers (unbalanced), fictitious dummy rows (if jobs > workers) or dummy columns (if workers > jobs) are added with zero cost entries to make the cost matrix square without altering the cost structure.",
+            "formula": "\\boxed{\\text{Unbalanced Problem} \\implies \\text{Add dummy row/column with zero cost entries}}",
+            "stepByStep": "The standard procedure is to **add dummy rows or columns with zero cost to make the matrix square (Option C)**.",
+            "shortcut": "Add dummy row/column with zero cost.",
+            "examTrap": "Never delete jobs or workers manually; always pad with zero-cost dummies."
+          }
+        ]
+      }
+    },
+
+    // Placeholders for Weeks 3 down to 1
+    ...[3, 2, 1].map(wNum => ({
       number: wNum,
       title: getWeekTopicTitle(wNum),
       status: "upcoming",
