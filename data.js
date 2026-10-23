@@ -5596,8 +5596,834 @@ const IEOR_DATA = {
       }
     },
 
-    // Placeholders for Weeks 5 down to 1
-    ...[5, 4, 3, 2, 1].map(wNum => ({
+    // Week 5: Line Balancing, Break-Even Analysis, Industry 4.0 & Industry 5.0 (Active)
+    {
+      "number": 5,
+      "title": "Line Balancing, Break-Even Analysis, Industry 4.0 & Industry 5.0",
+      "status": "active",
+      "summary": "Assembly Line Balancing (workstation cycle time, smoothness index, Ranked Positional Weight method), Cost Accounting & Break-Even Analysis (fixed vs variable costs, contribution, P/V ratio, break-even point in units and currency), Industrial Revolutions timeline (1st: 1760-1840 CE, 2nd: 1870-1914 CE), Cloud Computing & Manufacturing (CDBM, IaaS/PaaS/SaaS), Computational Mechanics (FEM formulation, Lagrangian vs Eulerian, Molecular Dynamics Simulation), and Industry 5.0 pillars (human-centricity, sustainability, resilience).",
+      "studyMaterials": {
+        "quickOverview": "Week 5 integrates classic industrial engineering optimization with modern digital paradigms: Line balancing aims to equalize workloads, reduce cycle time, and eliminate bottlenecks while minimizing idle time. Break-even analysis evaluates operating leverage, contribution (S - V), and the break-even point (Fixed Cost / PV ratio). Historical revolutions span Industry 1.0 (mechanization, 1760-1840) to Industry 2.0 (mass production, 1870-1914) to Industry 4.0 (CPS, IIoT, cloud CDBM) and Industry 5.0 (human-centricity, sustainability, resilience). Computational simulation methods range from continuum FEM (Lagrangian/Eulerian) to atomic Molecular Dynamics (MDS).",
+        "formulaSheet": [
+          {
+            "name": "Smoothness Index (SI) of a Production Line",
+            "formula": "\\text{SI} = \\sqrt{\\sum_{i=1}^n (C - T_i)^2}, \\quad C = \\max_{i}(T_i)",
+            "units": "Time (minutes)",
+            "desc": "Measures the balance delay or unevenness between stations. An ideal line has SI = 0 when all stations take exactly the cycle time C."
+          },
+          {
+            "name": "Cycle Time & Line Balancing Efficiency",
+            "formula": "C = \\frac{\\text{Available Operating Time}}{\\text{Desired Output Rate}}, \\quad \\eta = \\frac{\\sum T_i}{n \\cdot C} \\times 100\\%",
+            "units": "Time / Percentage",
+            "desc": "Total work content divided by the product of number of workstations (n) and cycle time (C)."
+          },
+          {
+            "name": "Contribution & Profit-Volume (PV) Ratio",
+            "formula": "\\text{Contribution } C = S - V = (s - v) \\cdot Q, \\quad \\text{PV Ratio} = \\frac{s - v}{s} = \\frac{\\text{Total Contribution}}{\\text{Total Sales}}",
+            "units": "Currency / Percentage",
+            "desc": "Contribution covers fixed cost and provides profit. PV ratio represents the rate at which sales generate contribution."
+          },
+          {
+            "name": "Break-Even Point (BEP) in Units & Value",
+            "formula": "\\text{BEP}_{\\text{units}} = \\frac{\\text{Fixed Cost}}{s - v}, \\quad \\text{BEP}_{\\text{value}} = \\frac{\\text{Fixed Cost}}{\\text{PV Ratio}} = \\frac{F \\cdot s}{s - v}",
+            "units": "Units / Currency",
+            "desc": "The operating level where Total Revenue = Total Cost, resulting in zero net profit or loss."
+          },
+          {
+            "name": "Ranked Positional Weight (RPW) Task Weight",
+            "formula": "\\text{PW}_i = t_i + \\sum_{j \\in \\text{Successors}(i)} t_j",
+            "units": "Time (minutes/seconds)",
+            "desc": "Positional weight equals the task's own processing time plus the processing times of all its immediate and distant successor tasks."
+          },
+          {
+            "name": "Radial Basis Function (Gaussian RBF)",
+            "formula": "\\phi(r) = \\exp\\left(-\\frac{r^2}{2\\sigma^2}\\right) = \\exp\\left(-(c_k r)^2\\right)",
+            "units": "Dimensionless",
+            "desc": "Exhibits monotonic exponential decay with increasing radial distance r from the center."
+          }
+        ],
+        "examTraps": [
+          {
+            "trap": "Smoothness Index Cycle Time Trap",
+            "explanation": "Always use the maximum workstation duration C = max(T_i) as the cycle time when computing SI = sqrt(sum (C - T_i)^2). For T1 = 10 min, T2 = 1 min: SI = sqrt((10-10)^2 + (10-1)^2) = 9 min. For T1 = 12 min, T2 = 18 min: SI = sqrt((18-12)^2 + (18-18)^2) = 6 min."
+          },
+          {
+            "trap": "2026 Q9 Solution Document Setter Typo",
+            "explanation": "In 2026 Q9 (s = ₹1250, v = ₹700, F = ₹80,000), actual PV ratio is 550/1250 = 44%, which yields BEP = 80,000 / 0.44 = ₹181,818. However, the exam setter mistakenly calculated PV ratio as 550/1000 = 55% (borrowing s = 1000 from Q8), giving 80,000 / 0.55 = ₹145,455 (Option A). The NPTEL portal accepted Option A!"
+          },
+          {
+            "trap": "Selling at a Loss: Increasing Sales Reduces Loss",
+            "explanation": "When selling price exceeds variable cost (s > v), every additional unit sold yields positive contribution (s - v). If fixed costs cause an initial loss, selling MORE units absorbs more fixed cost and REDUCES the loss."
+          },
+          {
+            "trap": "Industrial Revolutions Eras",
+            "explanation": "1st Industrial Revolution: 1760-1840 CE (steam & mechanization). 2nd Industrial Revolution: 1870-1914 CE (electricity & assembly lines). Industry 3.0: 1969+ (electronics & PLCs). Industry 4.0: CPS & IIoT. Industry 5.0: Human-centric, resilient & sustainable."
+          },
+          {
+            "trap": "FEM vs Molecular Dynamics Simulation (MDS)",
+            "explanation": "Molecular Dynamics tracks discrete atomic motions and is NOT a Finite Element Method (FEM) technique. MDS is also the most computationally expensive due to femtosecond time steps."
+          }
+        ]
+      },
+      "years": {
+        "2025": [
+          {
+            "id": "W5-2025-Q1",
+            "year": "2025",
+            "conceptTag": "Cycle Time Definition",
+            "question": "The cycle time in line balancing is the",
+            "options": [
+              "total time to complete all tasks on a production line",
+              "time it takes for a product to move through a single workstation",
+              "time it takes for a product to move through the entire production line",
+              "time it takes for a worker to complete a single task"
+            ],
+            "correctAnswer": 1,
+            "theory": "In assembly line balancing, cycle time represents the maximum allowable time allocated to any single workstation to complete its assigned subset of tasks, which dictates the pace at which products exit each station.",
+            "formula": "\\boxed{C = \\text{Time available at a single workstation}}",
+            "stepByStep": "Cycle time corresponds to the dwell/processing time at a single workstation **(Option B)**.",
+            "shortcut": "Cycle time = Time through a single workstation.",
+            "examTrap": "Do not confuse cycle time with total line throughput time (time through entire line)."
+          },
+          {
+            "id": "W5-2025-Q2",
+            "year": "2025",
+            "conceptTag": "Single-Model Production Line",
+            "question": "Single-model lines are typically used for",
+            "options": [
+              "high-volume production of a homogenous product",
+              "high-volume production of a heterogenous product",
+              "low-volume production of a homogenous product",
+              "low-volume production of a heterogenous product"
+            ],
+            "correctAnswer": 0,
+            "theory": "A single-model assembly line is dedicated to producing large quantities of a single, standardized, identical (homogenous) product with no model variations, maximizing economies of scale.",
+            "formula": "\\boxed{\\text{Single-model line} \\implies \\text{High volume + Homogenous product}}",
+            "stepByStep": "Dedicated single-model lines manufacture uniform items at high volume **(Option A)**.",
+            "shortcut": "Single-model = High volume + Homogenous.",
+            "examTrap": "Mixed-model or multi-model lines handle heterogenous products; single-model handles homogenous."
+          },
+          {
+            "id": "W5-2025-Q3",
+            "year": "2025",
+            "conceptTag": "Smoothness Index Calculation",
+            "question": "A line contains two stations with cycle times of 10 minutes and 1 minute, respectively. The smoothness index is",
+            "options": [
+              "10.04 minutes",
+              "9 minutes",
+              "9.4 minutes",
+              "9.7 minutes"
+            ],
+            "correctAnswer": 1,
+            "theory": "The Smoothness Index (SI) is given by $\\text{SI} = \\sqrt{\\sum_{i=1}^n (C - T_i)^2}$, where $C = \\max(T_i)$. Here $C = \\max(10, 1) = 10\\text{ min}$.",
+            "formula": "\\boxed{\\text{SI} = \\sqrt{(10-10)^2 + (10-1)^2} = \\sqrt{0 + 81} = 9\\text{ minutes}}",
+            "stepByStep": "1. Station times: $T_1 = 10\\text{ min}$, $T_2 = 1\\text{ min}$.\n2. Cycle time $C = \\max(10, 1) = 10\\text{ min}$.\n3. Idle time at Station 1: $10 - 10 = 0\\text{ min}$.\n4. Idle time at Station 2: $10 - 1 = 9\\text{ min}$.\n5. $\\text{SI} = \\sqrt{0^2 + 9^2} = \\sqrt{81} = 9\\text{ minutes}$ **(Option B)**.",
+            "shortcut": "\\text{SI} = \\sqrt{0^2 + 9^2} = 9\\text{ min}.",
+            "examTrap": "Do not calculate $\\sqrt{10^2 + 1^2} = 10.04\\text{ min}$; you must subtract from $C=10$!"
+          },
+          {
+            "id": "W5-2025-Q4",
+            "year": "2025",
+            "conceptTag": "Ranked Positional Weight Method",
+            "question": "In ranked positional weight method, position weight of a task is equal to",
+            "options": [
+              "its own task time + all successors' task time",
+              "its own task time − all successors' task time",
+              "its own task time + all predecessors' task time",
+              "its own task time − all predecessors' task time"
+            ],
+            "correctAnswer": 0,
+            "theory": "In Helgeson and Birnie's Ranked Positional Weight (RPW) heuristic, the positional weight of task $i$ is defined as the sum of its own processing duration plus the durations of all tasks that follow it in the precedence network (all successors).",
+            "formula": "\\boxed{\\text{Positional Weight } \\text{PW}_i = t_i + \\sum_{j \\in \\text{Successors}(i)} t_j}",
+            "stepByStep": "The positional weight includes task $i$'s own duration PLUS all its successors' times **(Option A)**.",
+            "shortcut": "RPW = Own time + Successors' time.",
+            "examTrap": "Do not add predecessors; RPW sums downstream successors!"
+          },
+          {
+            "id": "W5-2025-Q5",
+            "year": "2025",
+            "conceptTag": "Fixed Cost in Machining",
+            "question": "Which one of the following is an example of fixed cost in machining?",
+            "options": [
+              "Raw material cost",
+              "Cutting tool cost",
+              "Cutting fluid cost",
+              "Depreciation"
+            ],
+            "correctAnswer": 3,
+            "theory": "Fixed costs do not change with the volume of production over a given timeframe. Machine depreciation, factory rent, and insurance occur regardless of whether 1 unit or 10,000 units are machined. Raw material, cutting tools, and cutting fluid are consumed proportionally with production volume (variable costs).",
+            "formula": "\\boxed{\\text{Fixed Cost: Depreciation of machine tools and plant}}",
+            "stepByStep": "Depreciation of capital machinery is incurred over time regardless of output level **(Option D)**.",
+            "shortcut": "Depreciation = Fixed cost.",
+            "examTrap": "Cutting tools wear out with cutting time and are classed as variable or semi-variable costs."
+          },
+          {
+            "id": "W5-2025-Q6",
+            "year": "2025",
+            "conceptTag": "Contribution Calculation",
+            "question": "A company makes 100 units of a product with a selling price of ₹200 per unit and variable costs of ₹120 per unit. The fixed cost for the period is ₹4000. The total contribution is",
+            "options": [
+              "₹4000",
+              "₹6000",
+              "₹8000",
+              "₹12000"
+            ],
+            "correctAnswer": 2,
+            "theory": "Unit contribution is selling price minus variable cost: $c = s - v = 200 - 120 = ₹80$. For $Q = 100$ units, total contribution is $100 \\times 80 = ₹8,000$.",
+            "formula": "\\boxed{\\text{Total Contribution} = Q \\cdot (s - v) = 100 \\times (200 - 120) = ₹8,000}",
+            "stepByStep": "1. Unit contribution $c = 200 - 120 = ₹80$.\n2. Total contribution for 100 units $= 100 \\times 80 = ₹8,000$ **(Option C)**.",
+            "shortcut": "100 \\times 80 = ₹8,000.",
+            "examTrap": "Do not subtract the fixed cost of ₹4,000; that would give profit (₹4,000), not contribution."
+          },
+          {
+            "id": "W5-2025-Q7",
+            "year": "2025",
+            "conceptTag": "Loss Reduction by Expanding Sales",
+            "question": "A company is making 100 units of a product at a variable cost of ₹900 per unit and selling at a price of ₹1,000 per unit. The fixed cost is ₹50,000. Which statement is TRUE?",
+            "options": [
+              "The company is selling the product at profit.",
+              "The company is selling the product at loss. Making and selling 150 units will further enhance the loss.",
+              "The company is selling the product at loss. Making and selling 150 units will reduce the loss.",
+              "The company is selling the product at loss. Making and selling only 50 units will reduce the loss."
+            ],
+            "correctAnswer": 2,
+            "theory": "At 100 units: Contribution $= 100 \\times (1000 - 900) = 100 \\times 100 = ₹10,000$. Since Fixed Cost is ₹50,000, Net Loss $= 10,000 - 50,000 = -₹40,000$. At 150 units: Contribution $= 150 \\times 100 = ₹15,000$. Net Loss $= 15,000 - 50,000 = -₹35,000$. Because unit contribution is positive (+₹100), increasing volume from 100 to 150 units generates ₹5,000 more contribution and reduces the loss.",
+            "formula": "\\boxed{\\text{Loss at 100 units: ₹40,000} \\to \\text{Loss at 150 units: ₹35,000 (Loss reduced)}}",
+            "stepByStep": "1. Unit contribution $c = 1000 - 900 = +₹100$.\n2. At 100 units, Profit $= 10,000 - 50,000 = -₹40,000$ (Loss).\n3. At 150 units, Profit $= 15,000 - 50,000 = -₹35,000$ (Loss reduced by ₹5,000).\n4. Hence, the firm is at a loss, and selling 150 units reduces the loss **(Option C)**.",
+            "shortcut": "Positive unit contribution (+₹100) always reduces operating losses as volume grows.",
+            "examTrap": "Selling fewer units (e.g. 50 units) gives only ₹5,000 contribution, worsening loss to ₹45,000."
+          },
+          {
+            "id": "W5-2025-Q8",
+            "year": "2025",
+            "conceptTag": "Profit-Volume (PV) Ratio",
+            "question": "Same data as Q7 (variable cost ₹900, price ₹1,000, fixed cost ₹50,000). The Profit-Volume (PV) ratio is",
+            "options": [
+              "5%",
+              "10%",
+              "20%",
+              "90%"
+            ],
+            "correctAnswer": 1,
+            "theory": "The PV ratio is the fraction of selling price that represents contribution: $\\text{PV Ratio} = \\frac{s - v}{s} \\times 100\\%$.",
+            "formula": "\\boxed{\\text{PV Ratio} = \\frac{1000 - 900}{1000} = \\frac{100}{1000} = 10\\%}",
+            "stepByStep": "1. Selling price $s = ₹1,000$.\n2. Variable cost $v = ₹900$.\n3. Contribution $c = 1000 - 900 = ₹100$.\n4. $\\text{PV Ratio} = \\frac{100}{1000} = 10\\%$ **(Option B)**.",
+            "shortcut": "\\frac{100}{1000} = 10\\%.",
+            "examTrap": "Do not compute variable cost ratio $(900/1000 = 90\\%)$; PV ratio is $(1 - 0.90) = 10\\%$."
+          },
+          {
+            "id": "W5-2025-Q9",
+            "year": "2025",
+            "conceptTag": "Break-Even Point in Value",
+            "question": "Same data as Q7. The breakeven point in value is",
+            "options": [
+              "₹500,000",
+              "₹450,000",
+              "₹90,000",
+              "₹50,000"
+            ],
+            "correctAnswer": 0,
+            "theory": "Break-even point in value (sales revenue) is calculated by dividing fixed costs by the PV ratio: $\\text{BEP}_{\\text{value}} = \\frac{\\text{Fixed Cost}}{\\text{PV Ratio}}$.",
+            "formula": "\\boxed{\\text{BEP}_{\\text{value}} = \\frac{50,000}{0.10} = ₹500,000}",
+            "stepByStep": "1. Fixed Cost $F = ₹50,000$.\n2. $\\text{PV Ratio} = 10\\% = 0.10$.\n3. $\\text{BEP} = \\frac{50,000}{0.10} = ₹500,000$ **(Option A)**.\n(Alternatively: $\\text{BEP}_{\\text{units}} = 50,000 / 100 = 500\\text{ units} \\implies 500 \\times 1000 = ₹500,000$).",
+            "shortcut": "50,000 / 0.10 = ₹500,000.",
+            "examTrap": "Do not confuse break-even in units (500 units) with break-even in value (₹500,000)."
+          },
+          {
+            "id": "W5-2025-Q10",
+            "year": "2025",
+            "conceptTag": "Break-Even Point from PV Ratio",
+            "question": "For a product, the fixed cost is ₹60,000, the variable cost is ₹120,000, and the PV ratio is 60%. The breakeven point is",
+            "options": [
+              "₹10,000",
+              "₹30,000",
+              "₹100,000",
+              "₹300,000"
+            ],
+            "correctAnswer": 2,
+            "theory": "Break-even sales value is obtained directly from fixed cost and PV ratio: $\\text{BEP} = \\frac{\\text{Fixed Cost}}{\\text{PV Ratio}}$. Total variable cost is irrelevant when the PV ratio is explicitly provided.",
+            "formula": "\\boxed{\\text{BEP} = \\frac{\\text{Fixed Cost}}{\\text{PV Ratio}} = \\frac{60,000}{0.60} = ₹100,000}",
+            "stepByStep": "1. Fixed Cost $F = ₹60,000$.\n2. $\\text{PV Ratio} = 60\\% = 0.60$.\n3. $\\text{BEP} = \\frac{60,000}{0.60} = ₹100,000$ **(Option C)**.",
+            "shortcut": "60,000 / 0.60 = ₹100,000.",
+            "examTrap": "Ignore the ₹120,000 variable cost given in the question; it is distractor data."
+          },
+          {
+            "id": "W5-2025-Q11",
+            "year": "2025",
+            "conceptTag": "Break-Even Definition",
+            "question": "The break-even point is the level of production at which",
+            "options": [
+              "total cost equals total assets",
+              "total cost equals total revenue",
+              "fixed cost equals variable cost",
+              "profit is maximized"
+            ],
+            "correctAnswer": 1,
+            "theory": "The break-even point represents the exact operating activity level where total revenue equals total cost (fixed costs plus variable costs), resulting in neither profit nor loss (operating profit = 0).",
+            "formula": "\\boxed{\\text{Break-Even Point} \\iff \\text{Total Revenue} = \\text{Total Cost}}",
+            "stepByStep": "By definition, the break-even condition occurs when Total Cost = Total Revenue **(Option B)**.",
+            "shortcut": "BEP: Total Cost = Total Revenue.",
+            "examTrap": "Break-even is NOT where fixed cost equals variable cost; it is where Total Revenue = Total Cost."
+          },
+          {
+            "id": "W5-2025-Q12",
+            "year": "2025",
+            "conceptTag": "Sensitivity of BEP to Fixed Cost",
+            "question": "If the fixed cost increases while all other factors remain constant, the break-even point will",
+            "options": [
+              "decrease",
+              "remain unchanged",
+              "increase",
+              "increase only if PV ratio is more than 50%"
+            ],
+            "correctAnswer": 2,
+            "theory": "Since $\\text{BEP} = \\frac{\\text{Fixed Cost}}{\\text{Contribution per unit}}$, the break-even point is directly proportional to fixed costs. Any increase in fixed costs elevates the numerator, requiring more units to be produced and sold to break even.",
+            "formula": "\\boxed{\\text{BEP} \\propto \\text{Fixed Cost} \\implies \\text{Higher Fixed Cost} \\implies \\text{Higher BEP}}",
+            "stepByStep": "Because BEP is directly proportional to fixed overhead, an increase in fixed cost increases the break-even point **(Option C)**.",
+            "shortcut": "Fixed cost up \\implies BEP up.",
+            "examTrap": "PV ratio does not restrict this relationship; it holds for any valid positive PV ratio."
+          },
+          {
+            "id": "W5-2025-Q13",
+            "year": "2025",
+            "conceptTag": "First Industrial Revolution Timeline",
+            "question": "The period of the First Industrial Revolution is",
+            "options": [
+              "1720–1780 CE",
+              "1760–1840 CE",
+              "1825–1900 CE",
+              "1870–1914 CE"
+            ],
+            "correctAnswer": 1,
+            "theory": "The First Industrial Revolution began in Britain around 1760 and extended to approximately 1840. It transformed agrarian society through the introduction of steam engines, water power, mechanized textile looms, and iron smelting.",
+            "formula": "\\boxed{\\text{First Industrial Revolution: 1760–1840 CE}}",
+            "stepByStep": "The First Industrial Revolution spanned **1760–1840 CE (Option B)**.",
+            "shortcut": "1st Industrial Revolution = 1760–1840 CE.",
+            "examTrap": "1870–1914 is the Second Industrial Revolution; 1760–1840 is the First."
+          },
+          {
+            "id": "W5-2025-Q14",
+            "year": "2025",
+            "conceptTag": "Invention of E-mail",
+            "question": "E-mail was invented in",
+            "options": [
+              "1947",
+              "1965",
+              "1971",
+              "1991"
+            ],
+            "correctAnswer": 2,
+            "theory": "Ray Tomlinson implemented the first network electronic mail system on the ARPANET in 1971, introducing the '@' symbol to separate the user name from the destination host computer.",
+            "formula": "\\boxed{\\text{E-mail Invention: 1971 (Ray Tomlinson, ARPANET)}}",
+            "stepByStep": "Network e-mail was invented and sent in **1971 (Option C)**.",
+            "shortcut": "E-mail = 1971.",
+            "examTrap": "Do not confuse 1971 (first email) with 1991 (public launch of the World Wide Web)."
+          },
+          {
+            "id": "W5-2025-Q15",
+            "year": "2025",
+            "conceptTag": "CDBM Acronym Definition",
+            "question": "In the context of digital manufacturing, CDBM stands for",
+            "options": [
+              "Centralized Database for Manufacturing",
+              "Collaborative Digital Build Management",
+              "Cloud-Based Design and Manufacturing",
+              "Computer-Driven Batch Machining"
+            ],
+            "correctAnswer": 2,
+            "theory": "CDBM stands for Cloud-Based Design and Manufacturing. It is a service-oriented networked product development model that enables ubiquitous, on-demand network access to a shared pool of configurable manufacturing resources.",
+            "formula": "\\boxed{\\text{CDBM} = \\text{Cloud-Based Design and Manufacturing}}",
+            "stepByStep": "CDBM stands for **Cloud-Based Design and Manufacturing (Option C)**.",
+            "shortcut": "CDBM = Cloud-Based Design and Manufacturing.",
+            "examTrap": "Watch the 'D' and 'M': Design and Manufacturing, hosted on the Cloud."
+          },
+          {
+            "id": "W5-2025-Q16",
+            "year": "2025",
+            "conceptTag": "Computational Simulation Complexity",
+            "question": "Which method is generally the most computationally expensive due to extremely small time steps and high number of degrees of freedom in simulations?",
+            "options": [
+              "Finite Element Method (FEM)",
+              "Finite Difference Method (FDM)",
+              "Finite Volume Method (FVM)",
+              "Molecular Dynamics Simulation (MDS)"
+            ],
+            "correctAnswer": 3,
+            "theory": "Molecular Dynamics Simulation (MDS) tracks the individual trajectories of millions of interacting atoms by integrating Newton's equations of motion. Because atomic vibrations occur at femtosecond ($10^{-15}\\text{ s}$) intervals, MDS requires hundreds of millions of time steps even for microsecond simulations, making it vastly more computationally expensive than continuum methods (FEM, FDM, FVM).",
+            "formula": "\\boxed{\\text{Computational Expense: MDS} \\gg \\text{FEM} \\approx \\text{FVM} \\approx \\text{FDM}}",
+            "stepByStep": "Atomic resolution and femtosecond time increments make Molecular Dynamics Simulation (MDS) the most computationally demanding **(Option D)**.",
+            "shortcut": "Molecular Dynamics = Most computationally expensive.",
+            "examTrap": "Continuum methods (FEM/FDM/FVM) use macro time steps; atomic MDS requires femtoseconds."
+          },
+          {
+            "id": "W5-2025-Q17",
+            "year": "2025",
+            "conceptTag": "FEM Formulations",
+            "question": "Which one of the following is NOT a formulation technique in FEM?",
+            "options": [
+              "Eulerian",
+              "Lagrangian",
+              "Arbitrary Lagrangian-Eulerian",
+              "Molecular dynamics"
+            ],
+            "correctAnswer": 3,
+            "theory": "In continuum Finite Element Method (FEM), kinematic formulations include: (1) Lagrangian (mesh follows material points), (2) Eulerian (mesh fixed in space, material flows through), and (3) Arbitrary Lagrangian-Eulerian (ALE, mesh moves independently to prevent distortion). Molecular dynamics is a discrete atomistic physics simulation method, NOT an FEM continuum formulation.",
+            "formula": "\\boxed{\\text{FEM Formulations: Lagrangian, Eulerian, ALE. (MDS is not FEM)}}",
+            "stepByStep": "Molecular Dynamics is an atomistic method, not an FEM continuum formulation **(Option D)**.",
+            "shortcut": "Molecular Dynamics is not an FEM technique.",
+            "examTrap": "ALE (Arbitrary Lagrangian-Eulerian) is a widely used FEM technique in metal forming."
+          },
+          {
+            "id": "W5-2025-Q18",
+            "year": "2025",
+            "conceptTag": "Meshless Numerical Methods",
+            "question": "Which one of the following is NOT an example of meshless method?",
+            "options": [
+              "Reproducing kernel particle method",
+              "Corrected smooth particle hydrodynamics",
+              "Element free Galerkin method",
+              "Random forest"
+            ],
+            "correctAnswer": 3,
+            "theory": "Meshless (or meshfree) methods solve partial differential equations (PDEs) using scattered sets of nodes without predefined mesh connectivity. Standard examples include Element Free Galerkin (EFG), Reproducing Kernel Particle Method (RKPM), and Smoothed Particle Hydrodynamics (SPH). Random Forest is an ensemble machine learning classification/regression algorithm, not a numerical PDE solver.",
+            "formula": "\\boxed{\\text{Random Forest} = \\text{Machine Learning Algorithm, not a meshless PDE method}}",
+            "stepByStep": "Random Forest is a machine learning algorithm, not a meshless numerical mechanics technique **(Option D)**.",
+            "shortcut": "Random Forest = Machine learning, not a meshless method.",
+            "examTrap": "RKPM, SPH, and EFG are classic meshless methods for large deformation solid mechanics."
+          },
+          {
+            "id": "W5-2025-Q19",
+            "year": "2025",
+            "conceptTag": "Industry 5.0 Core Philosophy",
+            "question": "Which set of features best characterizes Industry 5.0, as opposed to Industry 4.0?",
+            "options": [
+              "Autonomous machines, cyber-physical systems, real-time data analytics, IoT",
+              "Human-machine collaboration, personalization, sustainability, resilience",
+              "Additive manufacturing, cloud computing, big data, smart factories",
+              "Automation, machine-to-machine communication, predictive maintenance"
+            ],
+            "correctAnswer": 1,
+            "theory": "While Industry 4.0 focused heavily on cyber-physical automation, IoT, and smart machines, Industry 5.0 shifts the emphasis towards: (1) Human-centricity (human-machine collaboration / cobots), (2) Sustainability (circular economy, energy efficiency), (3) Personalization, and (4) Systemic Resilience against shocks.",
+            "formula": "\\boxed{\\text{Industry 5.0 Core Pillars: Human-centric, Sustainable, Resilient}}",
+            "stepByStep": "Human-machine collaboration, personalization, sustainability, and resilience define Industry 5.0 **(Option B)**.",
+            "shortcut": "Industry 5.0 = Human-centricity, Sustainability, Resilience.",
+            "examTrap": "Cyber-physical systems, IIoT, and cloud computing belong to Industry 4.0."
+          },
+          {
+            "id": "W5-2025-Q20",
+            "year": "2025",
+            "conceptTag": "Industry 4.0 vs Industry 5.0 Mapping",
+            "question": "Match the features to Industry 4.0 or Industry 5.0: 1. Automation, 2. Digitalization, 3. Smart factories, 4. Internet of Things, 5. Human-centricity, 6. Sustainability, 7. Personalization, 8. Resilience.",
+            "options": [
+              "Industry 4.0: 1, 2, 3, 4; Industry 5.0: 5, 6, 7, 8",
+              "Industry 4.0: 5, 6, 7, 8; Industry 5.0: 1, 2, 3, 4",
+              "Industry 4.0: 1, 3, 5, 7; Industry 5.0: 2, 4, 6, 8",
+              "Industry 4.0: 2, 4, 6, 8; Industry 5.0: 1, 3, 5, 7"
+            ],
+            "correctAnswer": 0,
+            "theory": "Features 1 (Automation), 2 (Digitalization), 3 (Smart factories), and 4 (Internet of Things) are the core technological enablers of Industry 4.0. Features 5 (Human-centricity), 6 (Sustainability), 7 (Personalization), and 8 (Resilience) constitute the human-and-environmental values of Industry 5.0.",
+            "formula": "\\boxed{\\text{Ind 4.0: 1, 2, 3, 4 } \\quad | \\quad \\text{Ind 5.0: 5, 6, 7, 8}}",
+            "stepByStep": "1. 1, 2, 3, 4 represent tech-driven Industry 4.0.\n2. 5, 6, 7, 8 represent value-driven Industry 5.0.\n3. Matches Option A **(Industry 4.0: 1, 2, 3, 4; Industry 5.0: 5, 6, 7, 8)**.",
+            "shortcut": "Tech (1-4) = Ind 4.0; Human/Planet (5-8) = Ind 5.0.",
+            "examTrap": "Ensure you don't invert the mapping: 1-4 is 4.0; 5-8 is 5.0."
+          }
+        ],
+        "2026": [
+          {
+            "id": "W5-2026-Q1",
+            "year": "2026",
+            "conceptTag": "Line Balancing Objective",
+            "question": "Which of the following is NOT a goal of line balancing?",
+            "options": [
+              "Equalize workloads",
+              "Reduce cost",
+              "Increase idle time",
+              "Maximize efficiency"
+            ],
+            "correctAnswer": 2,
+            "theory": "Assembly line balancing aims to distribute individual task times across workstations as evenly as possible to minimize balance delay (idle time), eliminate bottlenecks, maximize line efficiency, and minimize overall production costs. Increasing idle time directly contradicts these objectives.",
+            "formula": "\\boxed{\\text{Goal of Line Balancing: } \\min(\\text{Idle Time}) \\iff \\max(\\text{Line Efficiency})}",
+            "stepByStep": "1. Line balancing minimizes idle time so workers and stations are fully utilized.\n2. Therefore, 'Increase idle time' is NOT a goal of line balancing **(Option C)**.",
+            "shortcut": "Line balancing minimizes idle time; never increases it.",
+            "examTrap": "Do not confuse minimizing idle time with maximizing idle time."
+          },
+          {
+            "id": "W5-2026-Q2",
+            "year": "2026",
+            "conceptTag": "Line Balancing Benefits (MSQ)",
+            "question": "Which of the following is/are correct statement(s) of line balancing in a production system? (multi-select)",
+            "options": [
+              "It improves productivity and optimizes resource utilization.",
+              "It reduces cycle time and helps eliminate bottlenecks.",
+              "It maximizes idle time to avoid worker overload.",
+              "It helps determine manpower requirement and production speed."
+            ],
+            "correctAnswer": [
+              0,
+              1,
+              3
+            ],
+            "theory": "Line balancing improves productivity and resource utilization (A), reduces station cycle time, eliminates bottlenecks, minimizes delay (B), and aids in calculating required workstations, workforce, and line speed (D). Option (C) is incorrect because line balancing minimizes idle time rather than maximizing it.",
+            "formula": "\\boxed{\\text{Statements A, B, and D are correct; C is incorrect.}}",
+            "stepByStep": "1. Statement A: True (optimizes machines and manpower).\n2. Statement B: True (eliminates bottleneck stations).\n3. Statement C: False (line balancing minimizes, not maximizes, idle time).\n4. Statement D: True (determines number of operators n and conveyor speed).\n5. Correct options: **(A, B, D)**.",
+            "shortcut": "A, B, D are true; idle time is minimized, never maximized.",
+            "examTrap": "Watch out for Statement C: idle time must be minimized."
+          },
+          {
+            "id": "W5-2026-Q3",
+            "year": "2026",
+            "conceptTag": "Assembly Line Balancing Assumptions (MSQ)",
+            "question": "In basic Assembly Line Balancing models, which assumptions are commonly made? (multi-select)",
+            "options": [
+              "Task processing times are deterministic and known in advance, and task precedence relationships are predefined.",
+              "A task may be split among multiple workstations, and parallel workstations are permitted.",
+              "Worker learning effects, fatigue, and variability in task performance are neglected, and task times are assumed fixed.",
+              "No intermediate Work-in-Progress (WIP) buffers are considered between consecutive workstations."
+            ],
+            "correctAnswer": [
+              0,
+              2,
+              3
+            ],
+            "theory": "Standard (simple) assembly line balancing models assume: (1) deterministic, fixed task durations and rigid precedence diagrams (A); (2) unpaced or strictly synchronized transfer without intermediate WIP buffers (D); (3) exclusion of stochastic worker behavior such as fatigue or learning curves (C). Simple models do NOT permit task splitting or parallel workstations (B).",
+            "formula": "\\boxed{\\text{Assumptions: Deterministic times, fixed precedence, no buffers, no task splitting}}",
+            "stepByStep": "1. Statement A: Valid standard assumption (deterministic times & fixed precedence).\n2. Statement B: Invalid for simple models (task splitting is prohibited).\n3. Statement C: Valid assumption (learning & fatigue ignored).\n4. Statement D: Valid assumption (no intermediate WIP buffers).\n5. Correct options: **(A, C, D)**.",
+            "shortcut": "A, C, D are true; task splitting is prohibited in basic models.",
+            "examTrap": "In basic models, indivisible tasks cannot be split across multiple stations."
+          },
+          {
+            "id": "W5-2026-Q4",
+            "year": "2026",
+            "conceptTag": "Smoothness Index Calculation",
+            "question": "A line contains two stations with cycle times of 12 minutes and 18 minutes, respectively. The smoothness index is",
+            "options": [
+              "10 minutes",
+              "6 minutes",
+              "4 minutes",
+              "9.7 minutes"
+            ],
+            "correctAnswer": 1,
+            "theory": "The Smoothness Index (SI) measures the relative idle times across workstations. With station times $T_1, T_2, \\dots, T_n$, the line cycle time is $C = \\max(T_i)$. The smoothness index is $\\text{SI} = \\sqrt{\\sum_{i=1}^n (C - T_i)^2}$.",
+            "formula": "\\boxed{\\text{SI} = \\sqrt{\\sum (C - T_i)^2} = \\sqrt{(18-12)^2 + (18-18)^2} = 6\\text{ minutes}}",
+            "stepByStep": "1. Station times: $T_1 = 12\\text{ min}$, $T_2 = 18\\text{ min}$.\n2. Cycle time $C = \\max(12, 18) = 18\\text{ min}$.\n3. Idle time at Station 1: $18 - 12 = 6\\text{ min}$.\n4. Idle time at Station 2: $18 - 18 = 0\\text{ min}$.\n5. $\\text{SI} = \\sqrt{6^2 + 0^2} = \\sqrt{36} = 6\\text{ minutes}$ **(Option B)**.",
+            "shortcut": "\\text{SI} = \\sqrt{(18-12)^2 + 0^2} = 6\\text{ min}.",
+            "examTrap": "Do not average the cycle times; the cycle time is determined by the bottleneck station ($C = 18\\text{ min}$)."
+          },
+          {
+            "id": "W5-2026-Q5",
+            "year": "2026",
+            "conceptTag": "Significance of Contribution (MSQ)",
+            "question": "Which statement(s) regarding the importance of contribution is/are correct? (multi-select)",
+            "options": [
+              "A product with positive contribution may still not generate overall profit if fixed costs are not fully covered.",
+              "If an organization is already profitable, additional sales generally increase profit by the amount of contribution per unit.",
+              "When an organization incurs losses, additional sales with positive contribution can reduce losses.",
+              "Positive contribution necessarily implies that net profit is positive for the organization."
+            ],
+            "correctAnswer": [
+              0,
+              1,
+              2
+            ],
+            "theory": "Contribution = Sales - Variable Costs. It represents the portion of revenue available to cover fixed costs. If total contribution < fixed costs, the firm incurs a loss despite positive contribution (A is true, D is false). When fixed costs are already covered (profitable), each additional unit increases net profit by exactly the unit contribution (B is true). If operating at a loss, additional positive contribution reduces the loss (C is true).",
+            "formula": "\\boxed{\\text{Profit} = \\text{Total Contribution} - \\text{Fixed Cost}}",
+            "stepByStep": "1. Statement A: True (positive contribution with higher fixed cost yields net loss).\n2. Statement B: True (fixed costs are sunken/static; marginal profit = unit contribution).\n3. Statement C: True (positive contribution covers fixed deficit, reducing loss).\n4. Statement D: False (positive contribution does not guarantee profit if $F > \\text{Contribution}$).\n5. Correct options: **(A, B, C)**.",
+            "shortcut": "A, B, C are true; D is false because fixed cost may exceed contribution.",
+            "examTrap": "Positive contribution does not guarantee net profit; fixed cost must also be overcome."
+          },
+          {
+            "id": "W5-2026-Q6",
+            "year": "2026",
+            "conceptTag": "Total Contribution Calculation",
+            "question": "A company makes 1200 units with a selling price of ₹105 per unit and variable costs of ₹88 per unit. The fixed cost is ₹28,000. The total contribution is",
+            "options": [
+              "₹98,000",
+              "₹48,400",
+              "₹20,400",
+              "₹8,400"
+            ],
+            "correctAnswer": 2,
+            "theory": "Unit contribution equals unit selling price ($s$) minus unit variable cost ($v$). Total contribution equals total units produced multiplied by unit contribution: $\\text{Total Contribution} = Q \\times (s - v)$. Fixed cost does not affect contribution.",
+            "formula": "\\boxed{\\text{Contribution} = Q \\cdot (s - v) = 1200 \\times (105 - 88) = ₹20,400}",
+            "stepByStep": "1. Selling price per unit $s = ₹105$.\n2. Variable cost per unit $v = ₹88$.\n3. Contribution per unit $c = 105 - 88 = ₹17$.\n4. Total contribution $= 1200 \\times 17 = ₹20,400$ **(Option C)**.",
+            "shortcut": "1200 \\times 17 = ₹20,400.",
+            "examTrap": "Do NOT subtract fixed cost (₹28,000); subtracting fixed cost gives net profit (-₹7,600), not contribution."
+          },
+          {
+            "id": "W5-2026-Q7",
+            "year": "2026",
+            "conceptTag": "Profit vs Loss Evaluation",
+            "question": "A company makes 1200 units at a variable cost of ₹92 per unit and sells at ₹180 per unit. The fixed cost is ₹90,000. Which is TRUE?",
+            "options": [
+              "The company is selling the product at profit.",
+              "The company is selling the product at loss. Making and selling 1000 units will further enhance the loss.",
+              "The company is selling the product at loss. Making and selling 1000 units will reduce the loss to zero.",
+              "The company is selling the product at profit. Making and selling only 1,000 units will also yield profit."
+            ],
+            "correctAnswer": 0,
+            "theory": "Net Profit = Total Contribution - Fixed Cost. At 1200 units: Contribution = $1200 \\times (180 - 92) = 1200 \\times 88 = ₹105,600$. Since $105,600 > 90,000$, Profit $= 105,600 - 90,000 = ₹15,600$ (Selling at profit). At 1000 units: Contribution $= 1000 \\times 88 = ₹88,000 < 90,000$, resulting in a loss of ₹2,000.",
+            "formula": "\\boxed{\\text{At 1200 units: } \\text{Profit} = 105,600 - 90,000 = +₹15,600 \\implies \\text{Profit}}",
+            "stepByStep": "1. Unit contribution $c = 180 - 92 = ₹88$.\n2. Total contribution for 1200 units $= 1200 \\times 88 = ₹105,600$.\n3. Fixed cost $= ₹90,000$.\n4. Net Profit $= 105,600 - 90,000 = ₹15,600 > 0$.\n5. Therefore, the company is selling at profit **(Option A)**.",
+            "shortcut": "Contribution ₹105,600 > Fixed cost ₹90,000 \\implies Profit.",
+            "examTrap": "Notice that at 1000 units, contribution is ₹88,000, which is below ₹90,000, so 1000 units yields a loss, confirming Option A is uniquely true."
+          },
+          {
+            "id": "W5-2026-Q8",
+            "year": "2026",
+            "conceptTag": "Profit-Volume (PV) Ratio",
+            "question": "A company makes 800 units at a variable cost of ₹250 per unit and sells at ₹1,000 per unit. The fixed cost is ₹42,000. The PV ratio is",
+            "options": [
+              "28%",
+              "75%",
+              "31%",
+              "25%"
+            ],
+            "correctAnswer": 1,
+            "theory": "The Profit-Volume (PV) ratio, also termed contribution margin ratio, measures the percentage of sales revenue remaining after paying variable costs: $\\text{PV Ratio} = \\frac{s - v}{s} \\times 100\\%$.",
+            "formula": "\\boxed{\\text{PV Ratio} = \\frac{s - v}{s} = \\frac{1000 - 250}{1000} = 75\\%}",
+            "stepByStep": "1. Selling price per unit $s = ₹1,000$.\n2. Variable cost per unit $v = ₹250$.\n3. Contribution per unit $c = 1000 - 250 = ₹750$.\n4. $\\text{PV Ratio} = \\frac{750}{1000} = 0.75 = 75\\%$ **(Option B)**.",
+            "shortcut": "\\frac{750}{1000} = 75\\%.",
+            "examTrap": "Do not divide fixed cost by sales; PV ratio is strictly $(s-v)/s$."
+          },
+          {
+            "id": "W5-2026-Q9",
+            "year": "2026",
+            "conceptTag": "Break-Even Point in Value (Portal Key Trap)",
+            "question": "A company makes 1500 units at a variable cost of ₹700 per unit and sells at ₹1,250 per unit. The fixed cost is ₹80,000. The breakeven point in value is",
+            "options": [
+              "₹145,455",
+              "₹142,857",
+              "₹80,000",
+              "₹51,282"
+            ],
+            "correctAnswer": 0,
+            "theory": "The official answer key accepted by NPTEL is ₹145,455. In the solution document's internal formula, the author calculated: $\\text{BEP} = \\frac{80,000}{550 / 1000} = \\frac{80,000}{0.55} = ₹145,455$ (inadvertently dividing unit contribution ₹550 by ₹1,000 instead of the stated ₹1,250). Mathematically, with $s=1250$, $\\text{PV} = 550/1250 = 44\\% \\implies \\text{BEP} = 80,000/0.44 = ₹181,818$, but ₹181,818 is not among the options. Select ₹145,455.",
+            "formula": "\\boxed{\\text{Official Key: } \\text{BEP} = \\frac{80,000}{0.55} = ₹145,455}",
+            "stepByStep": "1. Fixed cost $F = ₹80,000$.\n2. Contribution $c = 1250 - 700 = ₹550$.\n3. Using the question setter's formula: $\\text{PV ratio} = 550/1000 = 0.55$.\n4. $\\text{BEP}_{\\text{value}} = \\frac{80,000}{0.55} = ₹145,454.55 \\approx ₹145,455$ **(Option A)**.",
+            "shortcut": "NPTEL Key: 80,000 / 0.55 = ₹145,455.",
+            "examTrap": "High-Frequency Portal Discrepancy: The question setter mistakenly used ₹1,000 instead of ₹1,250 in the denominator when computing the PV ratio! Always choose ₹145,455 (Option A)."
+          },
+          {
+            "id": "W5-2026-Q10",
+            "year": "2026",
+            "conceptTag": "Break-Even Point from PV Ratio",
+            "question": "For a product, the fixed cost is ₹40,000, the variable cost is ₹15,000, and the PV ratio is 35%. The breakeven point is",
+            "options": [
+              "₹71,728",
+              "₹42,857",
+              "₹114,286",
+              "₹57,142"
+            ],
+            "correctAnswer": 2,
+            "theory": "When the PV ratio is provided, the break-even sales revenue is calculated directly by dividing the total fixed cost by the PV ratio: $\\text{BEP}_{\\text{sales}} = \\frac{\\text{Fixed Cost}}{\\text{PV Ratio}}$. The variable cost given in the question is extraneous information.",
+            "formula": "\\boxed{\\text{BEP} = \\frac{\\text{Fixed Cost}}{\\text{PV Ratio}} = \\frac{40,000}{0.35} = ₹114,285.71 \\approx ₹114,286}",
+            "stepByStep": "1. Fixed Cost $F = ₹40,000$.\n2. $\\text{PV Ratio} = 35\\% = 0.35$.\n3. $\\text{BEP} = \\frac{40,000}{0.35} = 114,285.71 \\approx ₹114,286$ **(Option C)**.",
+            "shortcut": "40,000 / 0.35 = ₹114,286.",
+            "examTrap": "Ignore the variable cost figure; when fixed cost and PV ratio are given, BEP = Fixed Cost / PV ratio directly."
+          },
+          {
+            "id": "W5-2026-Q11",
+            "year": "2026",
+            "conceptTag": "Capacity Management Strategies (MSQ)",
+            "question": "A manufacturing plant operates a high-cost critical machine. Which actions are appropriate production management strategies? (multi-select)",
+            "options": [
+              "If the machine is significantly under-utilized, management may seek additional production orders or diversify product demand.",
+              "If the machine consistently operates beyond its effective capacity, management may consider outsourcing part of the workload or installing additional machines.",
+              "Machine utilization should always be maintained at 100%, irrespective of maintenance requirements or production variability.",
+              "Reducing preventive maintenance activities is an effective method for increasing long-term machine availability and productivity."
+            ],
+            "correctAnswer": [
+              0,
+              1
+            ],
+            "theory": "Sound production management aims for optimum utilization balanced against machine health. Under-utilization calls for acquiring more demand or diversifying product lines (A). Operating beyond capacity causes bottlenecks, requiring subcontracting/outsourcing or acquiring additional equipment (B). Targeting 100% utilization without maintenance buffers causes breakdowns (C is false), and curtailing preventive maintenance destroys long-term availability (D is false).",
+            "formula": "\\boxed{\\text{Correct Strategies: Diversify when under-utilized (A), Outsource when overloaded (B)}}",
+            "stepByStep": "1. Statement A: Valid strategy to recover fixed capital cost.\n2. Statement B: Valid strategy to relieve bottleneck overload.\n3. Statement C: Invalid (100% utilization without buffer leads to breakdown).\n4. Statement D: Invalid (skipping PM reduces machine life and increases downtime).\n5. Correct options: **(A, B)**.",
+            "shortcut": "A and B are sound management; C and D destroy equipment reliability.",
+            "examTrap": "100% continuous machine utilization is dangerous in practice because it ignores required preventive maintenance."
+          },
+          {
+            "id": "W5-2026-Q12",
+            "year": "2026",
+            "conceptTag": "Quantifiable Decision Parameters",
+            "question": "Which one is a quantifiable parameter in decision-making?",
+            "options": [
+              "Customer goodwill",
+              "Market conditions",
+              "Company's strategic focus",
+              "Contribution margin ratio"
+            ],
+            "correctAnswer": 3,
+            "theory": "A quantifiable parameter is an objective, numerically measurable metric. Contribution margin ratio is expressed as an exact numerical percentage ($[s-v]/s$). In contrast, customer goodwill, overall market sentiment, and corporate strategic orientation are qualitative parameters.",
+            "formula": "\\boxed{\\text{Quantifiable parameter: Contribution margin ratio } = \\frac{s-v}{s} \\times 100\\%}",
+            "stepByStep": "1. Goodwill, market conditions, and strategic focus are qualitative and subjective.\n2. Contribution margin ratio is an exact numerical accounting metric.\n3. Hence, contribution margin ratio is the quantifiable parameter **(Option D)**.",
+            "shortcut": "Contribution margin ratio has exact numerical value.",
+            "examTrap": "Do not confuse qualitative business assessments with quantifiable financial ratios."
+          },
+          {
+            "id": "W5-2026-Q13",
+            "year": "2026",
+            "conceptTag": "Second Industrial Revolution Timeline",
+            "question": "The period of the Second Industrial Revolution is",
+            "options": [
+              "1915–1918 CE",
+              "1760–1840 CE",
+              "1825–1900 CE",
+              "1870–1914 CE"
+            ],
+            "correctAnswer": 3,
+            "theory": "The Second Industrial Revolution (Technological Revolution) occurred between approximately 1870 and 1914 (ending with the outbreak of World War I). It was marked by widespread adoption of electrical power, the internal combustion engine, steel manufacturing, telegraph/telephone networks, and assembly-line mass production.",
+            "formula": "\\boxed{\\text{Second Industrial Revolution: 1870–1914 CE}}",
+            "stepByStep": "1. 1760–1840 CE: First Industrial Revolution (steam, coal, mechanization).\n2. 1870–1914 CE: Second Industrial Revolution (electricity, steel, mass production) **(Option D)**.",
+            "shortcut": "2nd Industrial Revolution = 1870–1914 CE.",
+            "examTrap": "1760–1840 is the FIRST Industrial Revolution; 1870–1914 is the SECOND."
+          },
+          {
+            "id": "W5-2026-Q14",
+            "year": "2026",
+            "conceptTag": "Invention of the Internet",
+            "question": "The Internet was invented in",
+            "options": [
+              "1950s",
+              "1970s",
+              "1990s",
+              "2010s"
+            ],
+            "correctAnswer": 1,
+            "theory": "The foundational architecture and protocols of the Internet (TCP/IP) were developed in the 1970s (specifically 1973-1974 by Vinton Cerf and Robert Kahn) under the auspices of DARPA, enabling distinct packet networks to interconnect.",
+            "formula": "\\boxed{\\text{Internet invention: 1970s (TCP/IP architecture, 1973)}}",
+            "stepByStep": "The inception of the modern Internet protocol suite took place during the **1970s (Option B)**.",
+            "shortcut": "Internet protocols (TCP/IP) = 1970s.",
+            "examTrap": "Do not confuse the Internet (1970s, network interconnection) with the World Wide Web (1989/1990s, Tim Berners-Lee)."
+          },
+          {
+            "id": "W5-2026-Q15",
+            "year": "2026",
+            "conceptTag": "Cloud Service Models",
+            "question": "In Cloud Computing, the three primary cloud service delivery models are",
+            "options": [
+              "IaaS, PaaS, and SaaS (Infrastructure, Platform, Software as a Service)",
+              "NaaS, HaaS, and SECaaS (Network, Hardware, Security as a Service)",
+              "DSaaS, CaaS, and INaaS (Data Storage, Computing, Internet as a Service)",
+              "PRaaS, DaaS, and SVaaS (Program, Device, Server as a Service)"
+            ],
+            "correctAnswer": 0,
+            "theory": "The National Institute of Standards and Technology (NIST) defines the three canonical cloud computing service models: (1) Infrastructure as a Service (IaaS), (2) Platform as a Service (PaaS), and (3) Software as a Service (SaaS).",
+            "formula": "\\boxed{\\text{Primary Cloud Models: IaaS, PaaS, SaaS}}",
+            "stepByStep": "The standard cloud triad is **IaaS, PaaS, and SaaS (Option A)**.",
+            "shortcut": "IaaS + PaaS + SaaS.",
+            "examTrap": "Other acronyms (like SECaaS, DaaS) are niche subsets, not the 3 foundational service models."
+          },
+          {
+            "id": "W5-2026-Q16",
+            "year": "2026",
+            "conceptTag": "Residual Stress Numerical Formulations (MSQ)",
+            "question": "With reference to numerical methods for estimating residual stress, which statements are correct? (multi-select)",
+            "options": [
+              "Accurate prediction of residual stresses generally requires elastic–plastic material analysis.",
+              "Updated Lagrangian formulations are computationally intensive for large deformation problems.",
+              "Pure Eulerian formulations are generally less suitable for residual stress prediction in solid deformation processes.",
+              "In Eulerian formulations, accumulation of discretization errors may affect solution accuracy."
+            ],
+            "correctAnswer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "theory": "Residual stresses originate from inhomogeneous plastic strain and thermal gradients remaining after unloading; thus, elastic-plastic material constitutive models are mandatory (A). Updated Lagrangian approaches track mesh distortion with material deformation, becoming computationally demanding and requiring frequent remeshing (B). Pure Eulerian formulations fix the mesh in space, making history-dependent tracking of plastic strain across material points difficult (C), while advective transport errors accumulate (D).",
+            "formula": "\\boxed{\\text{All four statements (A, B, C, D) are correct.}}",
+            "stepByStep": "1. Statement A: True (plastic strain history is required for residual stress).\n2. Statement B: True (tracking deformed coordinates is computationally heavy).\n3. Statement C: True (Eulerian lacks natural material point history tracking for solids).\n4. Statement D: True (advection discretization accumulates numerical error).\n5. Correct options: **(A, B, C, D)**.",
+            "shortcut": "All four statements are technically valid.",
+            "examTrap": "In advanced manufacturing simulation questions, when all options state fundamental computational mechanics properties, all four are correct."
+          },
+          {
+            "id": "W5-2026-Q17",
+            "year": "2026",
+            "conceptTag": "Radial Basis Function Exponential Decay",
+            "question": "In Radial Basis Function methods, which function exhibits exponential decay with distance?",
+            "options": [
+              "Multiquadric",
+              "Gaussian",
+              "Thin-Plate Splines",
+              "Inverse multiquadric"
+            ],
+            "correctAnswer": 1,
+            "theory": "In meshless and scattered data interpolation, the Gaussian Radial Basis Function (RBF) is formulated as $\\phi(r) = \\exp(-(c r)^2)$, where $r$ is the Euclidean distance from the node and $c$ is a shape parameter. It decays exponentially towards zero as $r \\to \\infty$.",
+            "formula": "\\boxed{\\phi(r) = e^{-(c r)^2} \\implies \\text{Gaussian RBF exhibits exponential decay}}",
+            "stepByStep": "1. Multiquadric $\\sqrt{r^2 + c^2}$ increases with distance.\n2. Thin-Plate Spline $r^2 \\ln(r)$ increases with distance.\n3. Gaussian $\\exp(-(cr)^2)$ decays exponentially with distance **(Option B)**.",
+            "shortcut": "Gaussian = Exponential decay with distance.",
+            "examTrap": "Inverse multiquadric $1/\\sqrt{r^2+c^2}$ exhibits algebraic decay, NOT exponential decay."
+          },
+          {
+            "id": "W5-2026-Q18",
+            "year": "2026",
+            "conceptTag": "Molecular Dynamics Simulation Capabilities (MSQ)",
+            "question": "With reference to Molecular Dynamics simulation, which statement(s) is/are correct? (multi-select)",
+            "options": [
+              "It provides fundamental insight into atomic-scale deformation mechanisms.",
+              "It can simulate material behavior without assuming the evolution path of deformation mechanisms in advance.",
+              "It is computationally expensive for simulations involving large spatial and temporal scales.",
+              "It is particularly useful when the underlying deformation mechanisms are not fully understood."
+            ],
+            "correctAnswer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "theory": "Molecular Dynamics Simulation (MDS) integrates Newton's equations of motion for atomic ensembles. It delivers atomic-scale resolution of dislocations and phase transformations (A), naturally simulates defect nucleation without predefined empirical paths (B), is computationally limited to nanometers and nanoseconds due to femtosecond time integration (C), and serves as an exploratory tool when macroscopic continuum mechanisms are unknown (D).",
+            "formula": "\\boxed{\\text{All four statements (A, B, C, D) are correct.}}",
+            "stepByStep": "1. Statement A: True (resolves atomistic physics).\n2. Statement B: True (trajectory emerges from interatomic potentials without prior assumptions).\n3. Statement C: True (femtosecond time steps make macro simulations intractable).\n4. Statement D: True (discovers unknown microscopic mechanisms).\n5. Correct options: **(A, B, C, D)**.",
+            "shortcut": "All four statements are valid characteristics of MDS.",
+            "examTrap": "MDS handles atomic scale, not macro scale, making it computationally heavy for macroscopic systems."
+          },
+          {
+            "id": "W5-2026-Q19",
+            "year": "2026",
+            "conceptTag": "Powder Manufacturing Sustainability",
+            "question": "Which feature contributes to the sustainability of powder-based manufacturing?",
+            "options": [
+              "Fine resolution",
+              "Recycling of powders",
+              "Slow process speed",
+              "Temperature sensitivity"
+            ],
+            "correctAnswer": 1,
+            "theory": "In additive manufacturing and powder metallurgy (e.g., Selective Laser Melting / Sintering), unsintered powder in the build chamber can be sieved and recycled back into subsequent production runs, dramatically reducing scrap material waste and raw resource consumption.",
+            "formula": "\\boxed{\\text{Sustainability} \\iff \\text{Recycling and re-using unmelted powder}}",
+            "stepByStep": "Powder re-usability and recycling reduces material waste, making powder-based processes sustainable **(Option B)**.",
+            "shortcut": "Recycling of powders = Sustainability.",
+            "examTrap": "Fine resolution relates to dimensional tolerance and surface quality, not sustainability."
+          },
+          {
+            "id": "W5-2026-Q20",
+            "year": "2026",
+            "conceptTag": "Industry 5.0 Resilience Pillars (MSQ)",
+            "question": "Which of the following contribute(s) to resilience in Industry 5.0? (multi-select)",
+            "options": [
+              "Adaptation to pandemics and supply chain disruptions",
+              "Smart automation",
+              "Human flexibility in decision-making",
+              "Dependence on a single rigid production system"
+            ],
+            "correctAnswer": [
+              0,
+              1,
+              2
+            ],
+            "theory": "Resilience in Industry 5.0 refers to the capability of an industrial ecosystem to withstand, absorb, and quickly recover from severe external shocks (such as natural disasters, geopolitical crises, and pandemics). This is achieved through adaptable supply chains (A), responsive smart automation (B), and human problem-solving agility (C). Rigid single-source systems (D) create fragility and vulnerability.",
+            "formula": "\\boxed{\\text{Resilience in Industry 5.0: Adaptation (A), Smart Automation (B), Human Agility (C)}}",
+            "stepByStep": "1. Statement A: True (core goal of resilience against global shocks).\n2. Statement B: True (automation provides modular adaptability).\n3. Statement C: True (human oversight provides agile crisis handling).\n4. Statement D: False (rigid single systems increase vulnerability).\n5. Correct options: **(A, B, C)**.",
+            "shortcut": "A, B, C enhance resilience; D destroys it.",
+            "examTrap": "Dependence on a rigid single system is the exact antithesis of resilience."
+          }
+        ]
+      }
+    },
+
+    // Placeholders for Weeks 4 down to 1
+    ...[4, 3, 2, 1].map(wNum => ({
       number: wNum,
       title: getWeekTopicTitle(wNum),
       status: "upcoming",

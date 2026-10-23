@@ -179,9 +179,9 @@
     if (!state.userResponses[weekNum][year]) {
       state.userResponses[weekNum][year] = {};
       const questions = getQuestionsList();
-      questions.forEach((_, idx) => {
+      questions.forEach((qItem, idx) => {
         state.userResponses[weekNum][year][idx] = {
-          selectedOption: null,
+          selectedOption: Array.isArray(qItem.correctAnswer) ? [] : null,
           status: idx === 0 ? 'not-answered' : 'not-visited'
         };
       });
@@ -243,7 +243,13 @@
 
     // Update Meta Bar
     elements.qNumberDisplay.textContent = `Question ${state.currentQuestionIndex + 1} of ${totalQuestions} (${state.currentYear})`;
-    elements.qConceptTag.textContent = q.conceptTag || 'Inventory Optimization';
+    const isMulti = Array.isArray(q.correctAnswer);
+    const tagText = q.conceptTag || 'Optimization';
+    if (isMulti) {
+      elements.qConceptTag.innerHTML = `${tagText} <span class="opt-badge" style="background:var(--primary); color:#ffffff; font-weight:700; margin-left:6px; display:inline-block; vertical-align:middle;">Multi-Select (MSQ)</span>`;
+    } else {
+      elements.qConceptTag.textContent = tagText;
+    }
 
     // Build Question Table HTML if question contains a demand matrix
     let tableHtml = '';
@@ -287,13 +293,26 @@
 
     let optionsHtml = '<div class="options-list">';
     q.options.forEach((optText, optIdx) => {
-      const isSelected = response && response.selectedOption === optIdx;
-      const isCorrect = optIdx === q.correctAnswer;
+      let isSelected = false;
+      let isCorrect = false;
+
+      if (isMulti) {
+        isSelected = Array.isArray(response && response.selectedOption) && response.selectedOption.includes(optIdx);
+        isCorrect = q.correctAnswer.includes(optIdx);
+      } else {
+        isSelected = response && response.selectedOption === optIdx;
+        isCorrect = optIdx === q.correctAnswer;
+      }
       
       let extraClass = '';
       let badgeHtml = '';
       
-      if (state.mode === 'study' && response && response.selectedOption !== null) {
+      const hasInteracted = response && (
+        (isMulti && Array.isArray(response.selectedOption) && response.selectedOption.length > 0) ||
+        (!isMulti && response.selectedOption !== null)
+      );
+
+      if (state.mode === 'study' && hasInteracted) {
         if (isSelected) {
           extraClass = isCorrect ? 'correct' : 'wrong';
           badgeHtml = isCorrect 
@@ -307,9 +326,12 @@
         extraClass = 'selected';
       }
 
+      const inputType = isMulti ? 'checkbox' : 'radio';
+      const inputName = isMulti ? `ieor_q_opt_${optIdx}` : 'ieor_q_opt';
+
       optionsHtml += `
         <div class="option-item ${extraClass}" data-option-idx="${optIdx}">
-          <input type="radio" name="ieor_q_opt" class="opt-radio" ${isSelected ? 'checked' : ''}>
+          <input type="${inputType}" name="${inputName}" class="opt-radio" ${isSelected ? 'checked' : ''}>
           <div class="opt-text">${optText}</div>
           ${badgeHtml}
         </div>
@@ -326,14 +348,22 @@
     // Attach Option Click Events
     const optionElements = elements.questionCard.querySelectorAll('.option-item');
     optionElements.forEach(item => {
-      item.addEventListener('click', () => {
+      item.addEventListener('click', (e) => {
+        // Prevent double event if input itself was clicked
+        if (e.target.tagName.toLowerCase() === 'input') {
+          e.stopPropagation();
+        }
         const selectedIdx = parseInt(item.getAttribute('data-option-idx'), 10);
         selectOption(selectedIdx);
       });
     });
 
     // Handle Theory Display
-    if (state.mode === 'study' && response && response.selectedOption !== null) {
+    const hasAnswer = isMulti 
+      ? (Array.isArray(response && response.selectedOption) && response.selectedOption.length > 0)
+      : (response && response.selectedOption !== null);
+
+    if (state.mode === 'study' && hasAnswer) {
       showTheoryCard(q);
     } else {
       elements.theoryCard.style.display = 'none';
@@ -353,12 +383,30 @@
     const response = getCurrentResponse();
     if (!response) return;
 
-    response.selectedOption = optIdx;
-    
-    if (response.status === 'review' || response.status === 'answered-review') {
-      response.status = 'answered-review';
+    const isMulti = Array.isArray(q.correctAnswer);
+
+    if (isMulti) {
+      if (!Array.isArray(response.selectedOption)) {
+        response.selectedOption = [];
+      }
+      if (response.selectedOption.includes(optIdx)) {
+        response.selectedOption = response.selectedOption.filter(i => i !== optIdx);
+      } else {
+        response.selectedOption.push(optIdx);
+      }
+
+      if (response.selectedOption.length === 0) {
+        response.status = 'not-answered';
+      } else {
+        response.status = (response.status === 'review' || response.status === 'answered-review')
+          ? 'answered-review'
+          : 'answered';
+      }
     } else {
-      response.status = 'answered';
+      response.selectedOption = optIdx;
+      response.status = (response.status === 'review' || response.status === 'answered-review')
+        ? 'answered-review'
+        : 'answered';
     }
 
     renderQuestion();
@@ -366,7 +414,12 @@
 
     // In Study Mode, instantly show the full theory & shortcuts
     if (state.mode === 'study') {
-      showTheoryCard(q);
+      const hasAnswer = isMulti 
+        ? (Array.isArray(response.selectedOption) && response.selectedOption.length > 0)
+        : (response.selectedOption !== null);
+      if (hasAnswer) {
+        showTheoryCard(q);
+      }
     }
   }
 
@@ -495,9 +548,11 @@
   }
 
   function handleClear() {
+    const q = getCurrentQuestion();
+    const isMulti = q && Array.isArray(q.correctAnswer);
     const r = getCurrentResponse();
     if (r) {
-      r.selectedOption = null;
+      r.selectedOption = isMulti ? [] : null;
       r.status = 'not-answered';
       renderQuestion();
       renderPalette();
@@ -505,9 +560,15 @@
   }
 
   function handleReview() {
+    const q = getCurrentQuestion();
+    const isMulti = q && Array.isArray(q.correctAnswer);
     const r = getCurrentResponse();
     if (r) {
-      if (r.selectedOption !== null) {
+      const hasAnswer = isMulti 
+        ? (Array.isArray(r.selectedOption) && r.selectedOption.length > 0)
+        : (r.selectedOption !== null);
+
+      if (hasAnswer) {
         r.status = 'answered-review';
       } else {
         r.status = 'review';
@@ -527,8 +588,16 @@
 
     questions.forEach((q, idx) => {
       const r = state.userResponses[state.currentWeek]?.[state.currentYear]?.[idx];
-      if (!r || r.selectedOption === null) {
+      const isMulti = Array.isArray(q.correctAnswer);
+
+      if (!r || r.selectedOption === null || (isMulti && (!Array.isArray(r.selectedOption) || r.selectedOption.length === 0))) {
         unattempted++;
+      } else if (isMulti) {
+        const userSel = [...r.selectedOption].sort();
+        const corrSel = [...q.correctAnswer].sort();
+        const isExactMatch = userSel.length === corrSel.length && userSel.every((val, i) => val === corrSel[i]);
+        if (isExactMatch) correct++;
+        else wrong++;
       } else if (r.selectedOption === q.correctAnswer) {
         correct++;
       } else {
