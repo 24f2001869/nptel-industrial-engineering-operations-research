@@ -7231,8 +7231,825 @@ const IEOR_DATA = {
       }
     },
 
-    // Placeholders for Weeks 3 down to 1
-    ...[3, 2, 1].map(wNum => ({
+    // Week 3: Total Quality Management (TQM), Statistical Quality Control & Six Sigma (Active)
+    {
+      "number": 3,
+      "title": "Total Quality Management (TQM), Statistical Quality Control & Six Sigma",
+      "status": "active",
+      "summary": "Total Quality Management (Deming 14 points, Juran, Crosby Zero Defects, Taguchi loss function, Deming Prize), Inferential Statistics & Hypothesis Testing (two-sample t-test degrees of freedom, parameters vs statistics, random error), Acceptance Sampling (Poisson probabilities, LTPD, AQL, Producer's & Consumer's risk, Average Outgoing Quality AOQ, Single/Double sampling plans), Statistical Process Control & Control Charts (c-chart, p-chart, np-chart, X-bar chart UCL/LCL), Design of Experiments (full factorial designs 3^5, 2^6, main effects of cutting parameters), and Six Sigma (DMAIC phases, DPMO calculation, Bill Smith, Belt hierarchy).",
+      "studyMaterials": {
+        "quickOverview": "Week 3 covers quality management from holistic philosophy to rigorous statistical process control and Six Sigma: TQM pioneers include Deming (father of quality management, dead against annual performance appraisals), Crosby (Zero Defects), Taguchi (quadratic quality loss function, two-time Deming Prize winner), and Shewhart (father of statistical control charts). Inferential statistics uses two-sample t-tests (df = n1 + n2 - 2) under normality assumptions. Acceptance sampling balances Producer's Risk (rejecting good lot at AQL) and Consumer's Risk (accepting bad lot at LTPD) with AOQ = [Pa * p * (N - n)] / N. Control charts distinguish assignable from chance causes (c-chart for defect counts with Poisson limits, p-chart for fraction defective, np-chart for defectives count in fixed n, X-bar chart using A2 * R-bar). Factorial designs evaluate L^k runs and factor main effects. Six Sigma (Bill Smith, Motorola) executes DMAIC to achieve <= 3.4 DPMO.",
+        "formulaSheet": [
+          {
+            "name": "Poisson Acceptance Probability",
+            "formula": "P_A(c) = \\frac{(np)^c e^{-np}}{c!}",
+            "units": "Probability in [0, 1]",
+            "desc": "Approximates binomial acceptance sampling when sample size n is large and fraction defective p is small. When np < 1, P_A(c) monotonically decreases with c."
+          },
+          {
+            "name": "Average Outgoing Quality (AOQ)",
+            "formula": "\\text{AOQ} = \\frac{P_a \\cdot p \\cdot (N - n)}{N}",
+            "units": "Fraction or Percentage (%)",
+            "desc": "Expected average proportion of defective items in outgoing lots assuming rejected lots are 100% screened and rectified."
+          },
+          {
+            "name": "Control Chart 3-Sigma Limits (c-chart & p-chart)",
+            "formula": "\\text{c-chart: } \\bar{c} \\pm 3\\sqrt{\\bar{c}}, \\quad \\text{p-chart: } \\bar{p} \\pm 3\\sqrt{\\frac{\\bar{p}(1-\\bar{p})}{n}}, \\quad \\bar{X}\\text{-chart: } \\bar{\\bar{X}} \\pm A_2 \\bar{R}",
+            "units": "Defects / Fraction / Measurement units",
+            "desc": "Upper and Lower Control Limits based on 3-sigma process dispersion. Any negative lower limit defaults to 0."
+          },
+          {
+            "name": "Full Factorial Experimental Runs & Main Effect",
+            "formula": "N_{\\text{exp}} = L^k, \\quad \\text{Main Effect}(A) = \\bar{Y}_{A^+} - \\bar{Y}_{A^-}",
+            "units": "Runs count / Response units",
+            "desc": "L levels across k factors requires L^k total trials. The main effect is the difference between average response at high level versus low level."
+          },
+          {
+            "name": "Defects Per Million Opportunities (DPMO)",
+            "formula": "\\text{DPMO} = \\frac{\\text{Total Defects Found}}{\\text{Total Units} \\times \\text{Defect Opportunities per Unit}} \\times 10^6",
+            "units": "Defects per 1,000,000 opportunities",
+            "desc": "Standard metric in Six Sigma to measure process capability across disparate products."
+          },
+          {
+            "name": "Two-Sample t-Test Degrees of Freedom",
+            "formula": "df = n_1 + n_2 - 2",
+            "units": "Integer degrees of freedom",
+            "desc": "Degrees of freedom when comparing the difference between means of two independent random samples."
+          }
+        ],
+        "examTraps": [
+          {
+            "trap": "2026 Q9 Setter Double-Typo Trap",
+            "explanation": "In 2026 Q9 (N=2000, n=70, 70 defectives), the exam setter mistakenly wrote p = 70/1000 = 0.07 (instead of 70/2000), giving np = 4.9. Then e^(-4.9) = 0.00744 was miscopied as 0.074, while P(1) = 4.9 * 0.00744 = 0.03648 ≈ 0.036 was copied correctly! The accepted portal option is '0.074 and 0.036, respectively' (Option A)."
+          },
+          {
+            "trap": "Quality Gurus Hall of Fame",
+            "explanation": "Deming: Against performance appraisals, 14 points, father of quality management. Crosby: Zero Defects ('Quality is Free'). Taguchi: Quality Loss Function, won Deming Prize twice. Walter Shewhart: Control charts / statistical quality control. Bill Smith: Father of Six Sigma (Motorola)."
+          },
+          {
+            "trap": "c-chart vs np-chart vs p-chart",
+            "explanation": "c-chart: Number of DEFECTS (flaws) per unit when sample size is constant (Poisson). np-chart: Number of DEFECTIVE ITEMS when sample size n is constant (Binomial). p-chart: PROPORTION of defective items (Binomial)."
+          },
+          {
+            "trap": "DPMO Calculation Denominator",
+            "explanation": "Never divide by units alone! You must divide by (Units produced * Opportunities per unit) before multiplying by 1,000,000."
+          },
+          {
+            "trap": "LCL Bounded at Zero",
+            "explanation": "Control limits for attribute charts (c-chart, p-chart, np-chart) can never be negative. If calculation yields c_bar - 3*sqrt(c_bar) < 0, LCL = 0."
+          }
+        ]
+      },
+      "years": {
+        "2025": [
+          {
+            "id": "W3-2025-Q1",
+            "year": "2025",
+            "conceptTag": "Deming Philosophy (Performance Appraisals)",
+            "question": "Which quality guru was dead against performance appraisals?",
+            "options": [
+              "W.E. Deming",
+              "J.M. Juran",
+              "P.B. Crosby",
+              "A.V. Feigenbaum"
+            ],
+            "correctAnswer": 0,
+            "theory": "Point 12b of W. Edwards Deming's famous 14 Points for Management explicitly demands: 'Remove barriers that rob people in management and in engineering of their right to pride of workmanship. This means, inter alia, abolishment of the annual or merit rating and of management by objective.' Deming argued that annual appraisals destroy teamwork, nourish short-term fear, and blame individuals for problems created by the system.",
+            "formula": "\\boxed{\\text{Abolish performance appraisals} \\iff \\text{W. Edwards Deming}}",
+            "stepByStep": "Deming strongly opposed performance appraisals and annual ratings **(Option A)**.",
+            "shortcut": "Against performance appraisals = W.E. Deming.",
+            "examTrap": "Deming argued that performance is 94% dictated by the system, so rating individuals is destructive."
+          },
+          {
+            "id": "W3-2025-Q2",
+            "year": "2025",
+            "conceptTag": "TQM Axioms",
+            "question": "The three axioms of TQM are",
+            "options": [
+              "commitment, safety, involvement",
+              "safety, sustainability, involvement",
+              "safety, quality, environment",
+              "commitment, scientific knowledge, involvement"
+            ],
+            "correctAnswer": 3,
+            "theory": "The standard tripartite axioms underpinning Total Quality Management are Commitment, Scientific Knowledge, and Involvement.",
+            "formula": "\\boxed{\\text{TQM Axioms: Commitment, Scientific Knowledge, Involvement}}",
+            "stepByStep": "The three axioms are **commitment, scientific knowledge, involvement (Option D)**.",
+            "shortcut": "Commitment, Scientific knowledge, Involvement.",
+            "examTrap": "Safety and sustainability are important plant objectives, but not the 3 classical TQM axioms."
+          },
+          {
+            "id": "W3-2025-Q3",
+            "year": "2025",
+            "conceptTag": "Zero Defects Creator",
+            "question": "Concept of zero defect was provided by",
+            "options": [
+              "W.E. Deming",
+              "J.M. Juran",
+              "P.B. Crosby",
+              "A.V. Feigenbaum"
+            ],
+            "correctAnswer": 2,
+            "theory": "Philip B. Crosby introduced the Zero Defects concept at the Martin Company during the Pershing missile project in 1961, establishing it as a quality performance benchmark.",
+            "formula": "\\boxed{\\text{Zero Defects} \\iff \\text{Philip B. Crosby}}",
+            "stepByStep": "Zero Defects was originated by **P.B. Crosby (Option C)**.",
+            "shortcut": "Zero Defects = P.B. Crosby.",
+            "examTrap": "Deming advocated continuous improvement (PDCA); Crosby advocated Zero Defects."
+          },
+          {
+            "id": "W3-2025-Q4",
+            "year": "2025",
+            "conceptTag": "Quality Loss Function",
+            "question": "Concept of loss function in quality was provided by",
+            "options": [
+              "W.E. Deming",
+              "J.M. Juran",
+              "P.B. Crosby",
+              "G. Taguchi"
+            ],
+            "correctAnswer": 3,
+            "theory": "Dr. Genichi Taguchi introduced the quadratic Quality Loss Function $L(y) = k(y - m)^2$, demonstrating that financial loss to society accumulates quadratically as a product parameter deviates from target $m$, even within specification limits.",
+            "formula": "\\boxed{L(y) = k(y - m)^2 \\iff \\text{Taguchi Quality Loss Function}}",
+            "stepByStep": "The quality loss function was developed by **G. Taguchi (Option D)**.",
+            "shortcut": "Loss function = G. Taguchi.",
+            "examTrap": "Traditional quality tolerated any point within specification limits; Taguchi proved any deviation from target causes loss."
+          },
+          {
+            "id": "W3-2025-Q5",
+            "year": "2025",
+            "conceptTag": "Inferential Statistics",
+            "question": "An example of inferential statistics is",
+            "options": [
+              "average rainfall in Kanpur",
+              "standard deviation of the heights of students",
+              "creating a histogram",
+              "regression analysis"
+            ],
+            "correctAnswer": 3,
+            "theory": "Descriptive statistics summarizes features of an observed dataset (mean, standard deviation, histograms). Inferential statistics uses sample data to draw generalized conclusions, make predictions, and test hypotheses about the wider population. Regression analysis estimates population functional dependencies from sample data.",
+            "formula": "\\boxed{\\text{Regression analysis} \\implies \\text{Inferential statistics}}",
+            "stepByStep": "Average, standard deviation, and histograms are descriptive; regression is **inferential (Option D)**.",
+            "shortcut": "Regression = Inferential statistics.",
+            "examTrap": "Mean and standard deviation describe only the sample collected; inferential methods generalize outward."
+          },
+          {
+            "id": "W3-2025-Q6",
+            "year": "2025",
+            "conceptTag": "Sample and Population Relationship",
+            "question": "Which statement is TRUE?",
+            "options": [
+              "Population is the subset of sample",
+              "Sample is the superset of the problem",
+              "Sample is the subset of population",
+              "Intersection of population and sample is null set"
+            ],
+            "correctAnswer": 2,
+            "theory": "A population represents the entire universe of items under study. A sample is a representative portion or subset drawn from the population: $\\text{Sample} \\subset \\text{Population}$.",
+            "formula": "\\boxed{\\text{Sample} \\subseteq \\text{Population}}",
+            "stepByStep": "A sample is by definition a **subset of the population (Option C)**.",
+            "shortcut": "Sample is a subset of population.",
+            "examTrap": "Do not invert the set relationship: Population is the parent set; sample is the subset."
+          },
+          {
+            "id": "W3-2025-Q7",
+            "year": "2025",
+            "conceptTag": "Student's t-Test Limitations",
+            "question": "Student's t-test cannot be used for",
+            "options": [
+              "large samples",
+              "small samples",
+              "comparing two samples of different sizes",
+              "non-normal small sample"
+            ],
+            "correctAnswer": 3,
+            "theory": "Student's t-test fundamentally assumes that the underlying population is normally distributed. While large samples can tolerate non-normality due to the Central Limit Theorem, small samples that are non-normal violate the core derivation of the t-distribution and produce invalid test results. In such cases, non-parametric tests (like Mann-Whitney U) must be used.",
+            "formula": "\\boxed{\\text{t-test requires normality; strictly invalid for non-normal small samples}}",
+            "stepByStep": "Student's t-test fails when applied to a **non-normal small sample (Option D)**.",
+            "shortcut": "Cannot be used for non-normal small samples.",
+            "examTrap": "t-test works fine with large samples and unequal sample sizes; it strictly fails under small non-normal distributions."
+          },
+          {
+            "id": "W3-2025-Q8",
+            "year": "2025",
+            "conceptTag": "Two-Sample Degrees of Freedom",
+            "question": "Weights of boys and girls are measured in random manner to test the null hypothesis that gender does not affect the weight. Weights of 103 girls and 107 boys were measured. The degree of freedom in hypothesis testing is",
+            "options": [
+              "103",
+              "107",
+              "208",
+              "209"
+            ],
+            "correctAnswer": 2,
+            "theory": "For a two-sample independent t-test: $df = n_1 + n_2 - 2 = 103 + 107 - 2 = 208$.",
+            "formula": "\\boxed{df = n_1 + n_2 - 2 = 103 + 107 - 2 = 208}",
+            "stepByStep": "1. $n_1 = 103$, $n_2 = 107$.\n2. $df = 103 + 107 - 2 = 210 - 2 = 208$ **(Option C)**.",
+            "shortcut": "103 + 107 - 2 = 208.",
+            "examTrap": "Subtract 2, not 1: each group mean consumes one degree of freedom."
+          },
+          {
+            "id": "W3-2025-Q9",
+            "year": "2025",
+            "conceptTag": "Poisson Lot Sampling",
+            "question": "A random sample of 50 items is chosen from a lot of 1000 items. The lot contains 50 defective items. As per Poisson distribution, the probabilities of getting 0 and 1 defective items in the sample are",
+            "options": [
+              "0.082 and 0.205, respectively",
+              "0.205 and 0.082, respectively",
+              "0.082 and 0.256, respectively",
+              "0.205 and 0.256, respectively"
+            ],
+            "correctAnswer": 0,
+            "theory": "Lot fraction defective $p = 50 / 1000 = 0.05$. For sample $n = 50$, Poisson parameter $\\lambda = np = 50 \\times 0.05 = 2.5$.\n- $P(0) = \\frac{2.5^0 e^{-2.5}}{0!} = e^{-2.5} \\approx 0.08208 \\approx 0.082$.\n- $P(1) = \\frac{2.5^1 e^{-2.5}}{1!} = 2.5 \\times 0.08208 = 0.2052 \\approx 0.205$.",
+            "formula": "\\boxed{P(0) = e^{-2.5} \\approx 0.082, \\quad P(1) = 2.5 e^{-2.5} \\approx 0.205}",
+            "stepByStep": "1. $\\lambda = np = 50 \\times 0.05 = 2.5$.\n2. $P(0) = e^{-2.5} = 0.082$.\n3. $P(1) = 2.5 \\times 0.082 = 0.205$.\n4. Matches **0.082 and 0.205, respectively (Option A)**.",
+            "shortcut": "e^(-2.5) = 0.082; 2.5 * 0.082 = 0.205.",
+            "examTrap": "Ensure you don't invert the order: P(0) = 0.082 comes first, P(1) = 0.205 second."
+          },
+          {
+            "id": "W3-2025-Q10",
+            "year": "2025",
+            "conceptTag": "Monotonicity of Poisson Acceptance",
+            "question": "The probability of acceptance of c defective items in a sample of size n is P_A(c) = (n·p)^c · e^(−n·p) / c!, where p is the fractional defective in the lot and np is less than 1. The probability",
+            "options": [
+              "monotonically increases with c",
+              "monotonically decreases with c",
+              "has one maxima at a finite value of c",
+              "has one minima at a finite value of c"
+            ],
+            "correctAnswer": 1,
+            "theory": "Consider the consecutive ratio of terms: $\\frac{P_A(c)}{P_A(c-1)} = \\frac{(np)^c e^{-np}/c!}{(np)^{c-1} e^{-np}/(c-1)!} = \\frac{np}{c}$. Because $np < 1$ and for any $c \\ge 1$, $\\frac{np}{c} < 1$. Thus, every subsequent term is smaller than its predecessor ($P_A(c) < P_A(c-1)$), meaning the probability monotonically decreases with $c$.",
+            "formula": "\\boxed{\\frac{P_A(c)}{P_A(c-1)} = \\frac{np}{c} < 1 \\implies P_A(c) \\text{ monotonically decreases with } c}",
+            "stepByStep": "Since $np < 1$, the ratio $np/c < 1$ for all $c \\ge 1$, causing $P_A(c)$ to **monotonically decrease with c (Option B)**.",
+            "shortcut": "np < 1 \\implies monotonically decreases with c.",
+            "examTrap": "If np > 1, the distribution would increase to a peak at mode and then decrease. But since np < 1, the peak is at c=0, so it decreases monotonically."
+          },
+          {
+            "id": "W3-2025-Q11",
+            "year": "2025",
+            "conceptTag": "LTPD Definition",
+            "question": "In a single sampling plan, the LTPD (Lot Tolerance Percent Defective) is",
+            "options": [
+              "The defect level the producer considers acceptable",
+              "The average fraction defective across all lots",
+              "The poorest quality level that the consumer is willing to accept with a low probability",
+              "The process average fraction defective"
+            ],
+            "correctAnswer": 2,
+            "theory": "Lot Tolerance Percent Defective (LTPD, or Limiting Quality LQ) designates the worst level of quality that the consumer is willing to tolerate. The sampling plan is designed such that lots with LTPD quality have a very low probability of acceptance (consumer's risk $\\beta$, typically 10%).",
+            "formula": "\\boxed{\\text{LTPD} \\iff \\text{Poorest quality accepted with low probability (Consumer's risk } \\beta)}",
+            "stepByStep": "LTPD represents the **poorest quality level that the consumer is willing to accept with a low probability (Option C)**.",
+            "shortcut": "LTPD = Poorest quality acceptable to consumer.",
+            "examTrap": "AQL is the quality the producer considers acceptable; LTPD is the poorest quality the consumer tolerates."
+          },
+          {
+            "id": "W3-2025-Q12",
+            "year": "2025",
+            "conceptTag": "Double Sampling Plan",
+            "question": "Which sampling plan uses information from a first sample to decide whether to accept, reject, or take a second sample?",
+            "options": [
+              "Single Sampling Plan",
+              "Double Sampling Plan",
+              "Sequential Sampling Plan",
+              "Stratified Sampling Plan"
+            ],
+            "correctAnswer": 1,
+            "theory": "A Double Sampling Plan inspects an initial sample $n_1$. If defectives $d_1 \\le c_1$, the lot is accepted; if $d_1 > r_1$, it is rejected; if $c_1 < d_1 \\le r_1$, a second sample $n_2$ is drawn before making a final acceptance decision.",
+            "formula": "\\boxed{\\text{First sample decides accept, reject, or draw second sample} \\implies \\text{Double Sampling Plan}}",
+            "stepByStep": "This two-stage procedure is the **Double Sampling Plan (Option B)**.",
+            "shortcut": "Decision to take a second sample = Double Sampling Plan.",
+            "examTrap": "Sequential sampling inspects item-by-item indefinitely; double sampling inspects at most 2 batches."
+          },
+          {
+            "id": "W3-2025-Q13",
+            "year": "2025",
+            "conceptTag": "Statistical Process Control Role",
+            "question": "Statistical process control is used for",
+            "options": [
+              "offline quality control",
+              "online quality control",
+              "offline pollution control",
+              "mistake-proofing"
+            ],
+            "correctAnswer": 1,
+            "theory": "Statistical Process Control (SPC) uses real-time control charts during live production to detect assignable causes of variation as they happen, making it the core tool for online quality control. (Taguchi methods constitute offline quality control during design).",
+            "formula": "\\boxed{\\text{SPC} \\iff \\text{Online Quality Control}}",
+            "stepByStep": "SPC monitors processes in real time, making it **online quality control (Option B)**.",
+            "shortcut": "SPC = Online quality control.",
+            "examTrap": "Taguchi parameter/tolerance design is offline; Shewhart SPC is online."
+          },
+          {
+            "id": "W3-2025-Q14",
+            "year": "2025",
+            "conceptTag": "Assignable Causes of Variation",
+            "question": "A person did not reach the office because there was a jam due to a major accident on the road. It is an example of",
+            "options": [
+              "Random cause",
+              "Assignable cause",
+              "Common cause",
+              "Natural variation"
+            ],
+            "correctAnswer": 1,
+            "theory": "Quality variation arises from two sources: (1) Common/random causes (inherent, ubiquitous background noise that is always present); (2) Assignable/special causes (unusual, identifiable, non-random disruptions originating outside normal operation). A major traffic accident is a specific, identifiable assignable cause.",
+            "formula": "\\boxed{\\text{Identifiable specific external disruption} \\implies \\text{Assignable Cause}}",
+            "stepByStep": "A road accident is an identifiable disruption, classified as an **Assignable cause (Option B)**.",
+            "shortcut": "Road accident = Assignable cause.",
+            "examTrap": "Normal day-to-day traffic delays are common causes; an unusual accident is an assignable cause."
+          },
+          {
+            "id": "W3-2025-Q15",
+            "year": "2025",
+            "conceptTag": "c-Chart Application",
+            "question": "Which statement is true about a c-chart in statistical quality control?",
+            "options": [
+              "A c-chart is used to monitor the proportion of defective items in a sample.",
+              "A c-chart is used when the number of defects per unit varies and the sample size is constant.",
+              "A c-chart is applicable only when the sample size changes over time.",
+              "A c-chart is used to monitor continuous measurements like length or weight."
+            ],
+            "correctAnswer": 1,
+            "theory": "A c-chart is an attribute control chart based on the Poisson distribution used to monitor the total count of defects per inspection unit when the inspection unit (sample size) is held constant. (A u-chart is used if sample size varies; a p-chart is used for proportion defective).",
+            "formula": "\\boxed{\\text{c-chart: Count of defects per unit with constant inspection unit size}}",
+            "stepByStep": "A c-chart monitors **the number of defects per unit when the sample size is constant (Option B)**.",
+            "shortcut": "c-chart = Number of defects, constant sample size.",
+            "examTrap": "Proportion of defectives is monitored by a p-chart, not a c-chart."
+          },
+          {
+            "id": "W3-2025-Q16",
+            "year": "2025",
+            "conceptTag": "c-Chart Limits Calculation",
+            "question": "The average number of surface defects per sheet of metal is 4. Based on Poisson distribution and 3-sigma limits, the UCL and LCL for the c-chart are",
+            "options": [
+              "UCL = 10, LCL = 0",
+              "UCL = 7.5, LCL = 0.5",
+              "UCL = 8, LCL = 0",
+              "UCL = 6, LCL = 2"
+            ],
+            "correctAnswer": 0,
+            "theory": "For a c-chart, standard deviation is $\\sigma_c = \\sqrt{\\bar{c}} = \\sqrt{4} = 2$. Limits are $\\text{UCL} = \\bar{c} + 3\\sqrt{\\bar{c}} = 4 + 3(2) = 10$. $\\text{LCL} = \\max(0, \\bar{c} - 3\\sqrt{\\bar{c}}) = \\max(0, 4 - 6) = 0$.",
+            "formula": "\\boxed{\\text{UCL} = 4 + 3(2) = 10, \\quad \\text{LCL} = 0}",
+            "stepByStep": "1. $\\bar{c} = 4$.\n2. $\\text{UCL} = 4 + 3\\sqrt{4} = 4 + 6 = 10$.\n3. $\\text{LCL} = 4 - 3\\sqrt{4} = 4 - 6 = -2 \\implies \\text{LCL} = 0$.\n4. **UCL = 10, LCL = 0 (Option A)**.",
+            "shortcut": "4 + 6 = 10; LCL = 0.",
+            "examTrap": "LCL cannot be negative; -2 truncates to 0."
+          },
+          {
+            "id": "W3-2025-Q17",
+            "year": "2025",
+            "conceptTag": "Full Factorial Runs",
+            "question": "In a design of experiments, there are five parameters, each taking three levels (low, medium, high). The number of experiments in a full factorial design is",
+            "options": [
+              "15",
+              "27",
+              "81",
+              "243"
+            ],
+            "correctAnswer": 3,
+            "theory": "For $k = 5$ factors each at $L = 3$ levels, the total number of experimental trials in a full factorial design is $N = L^k = 3^5 = 243$.",
+            "formula": "\\boxed{N = 3^5 = 243\\text{ experiments}}",
+            "stepByStep": "$3^5 = 3 \\times 3 \\times 3 \\times 3 \\times 3 = 243$ **(Option D)**.",
+            "shortcut": "3^5 = 243.",
+            "examTrap": "Do not multiply $5 \\times 3 = 15$; design of experiments scales exponentially ($3^5$)."
+          },
+          {
+            "id": "W3-2025-Q18",
+            "year": "2025",
+            "conceptTag": "Factorial Main Effect Calculation",
+            "question": "Full factorial experiments on tool life T (min) at two levels each of cutting speed v (135, 270 m/min), feed f (0.04, 0.32 mm/rev) and depth of cut d (0.3, 1.2 mm):<br><table class=\"q-table\"><thead><tr><th>S.No.</th><th>v</th><th>f</th><th>d</th><th>T</th></tr></thead><tbody><tr><td>1</td><td>135</td><td>0.04</td><td>0.3</td><td>160</td></tr><tr><td>2</td><td>135</td><td>0.04</td><td>1.2</td><td>120</td></tr><tr><td>3</td><td>135</td><td>0.32</td><td>0.3</td><td>110</td></tr><tr><td>4</td><td>135</td><td>0.32</td><td>1.2</td><td>20</td></tr><tr><td>5</td><td>270</td><td>0.04</td><td>0.3</td><td>60</td></tr><tr><td>6</td><td>270</td><td>0.04</td><td>1.2</td><td>50</td></tr><tr><td>7</td><td>270</td><td>0.32</td><td>0.3</td><td>7</td></tr><tr><td>8</td><td>270</td><td>0.32</td><td>1.2</td><td>2</td></tr></tbody></table><br>The main effect (in minutes) of parameter f is",
+            "options": [
+              "−97.75",
+              "−62.75",
+              "−60.75",
+              "39.75"
+            ],
+            "correctAnswer": 1,
+            "theory": "The main effect of a factor at two levels is the average response when the factor is at its high level minus the average response when it is at its low level: $\\text{Main Effect}(f) = \\bar{T}_{f_{\\text{high}}} - \\bar{T}_{f_{\\text{low}}}$.\n- At $f = 0.04$ (Runs 1, 2, 5, 6): $T = 160 + 120 + 60 + 50 = 390 \\implies \\bar{T}_{f_{\\text{low}}} = 390 / 4 = 97.5$.\n- At $f = 0.32$ (Runs 3, 4, 7, 8): $T = 110 + 20 + 7 + 2 = 139 \\implies \\bar{T}_{f_{\\text{high}}} = 139 / 4 = 34.75$.\n- Main effect $= 34.75 - 97.5 = -62.75\\text{ minutes}$.",
+            "formula": "\\boxed{\\text{Main Effect}(f) = \\bar{T}_{0.32} - \\bar{T}_{0.04} = 34.75 - 97.5 = -62.75\\text{ minutes}}",
+            "stepByStep": "1. Average at low feed $(f=0.04): (160 + 120 + 60 + 50) / 4 = 390 / 4 = 97.5\\text{ min}$.\n2. Average at high feed $(f=0.32): (110 + 20 + 7 + 2) / 4 = 139 / 4 = 34.75\\text{ min}$.\n3. Main effect $= 34.75 - 97.5 = -62.75\\text{ minutes}$ **(Option B)**.",
+            "shortcut": "34.75 - 97.5 = -62.75 min.",
+            "examTrap": "Main effect is High level minus Low level; increasing feed decreases tool life, so the main effect must be negative (-62.75)."
+          },
+          {
+            "id": "W3-2025-Q19",
+            "year": "2025",
+            "conceptTag": "Six Sigma DMAIC Sequence",
+            "question": "The correct sequence of phases in the Six Sigma DMAIC methodology is",
+            "options": [
+              "Define – Measure – Act – Implement – Control",
+              "Design – Manage – Analyze – Improve – Check",
+              "Define – Measure – Analyze – Improve – Control",
+              "Develop – Monitor – Apply – Inspect – Correct"
+            ],
+            "correctAnswer": 2,
+            "theory": "DMAIC is the standard data-driven quality strategy in Six Sigma comprising five chronological phases: Define $\\to$ Measure $\\to$ Analyze $\\to$ Improve $\\to$ Control.",
+            "formula": "\\boxed{\\text{DMAIC: Define } \\to \\text{Measure } \\to \\text{Analyze } \\to \\text{Improve } \\to \\text{Control}}",
+            "stepByStep": "The DMAIC sequence is **Define – Measure – Analyze – Improve – Control (Option C)**.",
+            "shortcut": "DMAIC = Define, Measure, Analyze, Improve, Control.",
+            "examTrap": "Do not confuse DMAIC (for existing processes) with DMADV (Define-Measure-Analyze-Design-Verify for new product design)."
+          },
+          {
+            "id": "W3-2025-Q20",
+            "year": "2025",
+            "conceptTag": "DPMO Calculation",
+            "question": "A process produces 10,000 units. Each unit has 4 defect opportunities. If 80 defects are found in total, the DPMO is",
+            "options": [
+              "2000",
+              "400",
+              "4000",
+              "8000"
+            ],
+            "correctAnswer": 0,
+            "theory": "Defects Per Million Opportunities: $\\text{DPMO} = \\frac{\\text{Total Defects}}{\\text{Total Units} \\times \\text{Opportunities per Unit}} \\times 10^6$.",
+            "formula": "\\boxed{\\text{DPMO} = \\frac{80}{10,000 \\times 4} \\times 10^6 = \\frac{80}{40,000} \\times 10^6 = 2,000}",
+            "stepByStep": "1. Total opportunities $= 10,000 \\times 4 = 40,000$.\n2. $\\text{DPO} = 80 / 40,000 = 0.002$.\n3. $\\text{DPMO} = 0.002 \\times 1,000,000 = 2,000$ **(Option A)**.",
+            "shortcut": "\\frac{80}{40,000} \\times 10^6 = 2,000.",
+            "examTrap": "Dividing only by 10,000 units gives 8,000 (Option D); you must include the 4 defect opportunities."
+          }
+        ],
+        "2026": [
+          {
+            "id": "W3-2026-Q1",
+            "year": "2026",
+            "conceptTag": "TQM Axioms (MSQ)",
+            "question": "Which are the axioms of Total Quality Management (TQM)? (multi-select)",
+            "options": [
+              "Commitment",
+              "Scientific knowledge",
+              "Involvement",
+              "Short-term profit maximization"
+            ],
+            "correctAnswer": [
+              0,
+              1,
+              2
+            ],
+            "theory": "The three foundational axioms of Total Quality Management (TQM) are: (1) Commitment (top management leadership and enduring dedication), (2) Scientific knowledge (data-driven decisions, statistical tools, and systematic problem solving), and (3) Involvement (empowering all employees and fostering cross-functional teamwork). Short-term profit maximization contradicts TQM's long-term customer-focused philosophy.",
+            "formula": "\\boxed{\\text{TQM Axioms: Commitment (A), Scientific Knowledge (B), Involvement (C)}}",
+            "stepByStep": "1. Commitment: True axiom (leadership commitment).\n2. Scientific knowledge: True axiom (SPC, Taguchi, statistical tools).\n3. Involvement: True axiom (total employee empowerment).\n4. Short-term profit: False (TQM prioritizes continuous long-term quality improvement).\n5. Correct options: **(A, B, C)**.",
+            "shortcut": "Commitment, Scientific Knowledge, Involvement = TQM Axioms.",
+            "examTrap": "TQM rejects short-term cost-cutting/profit maximization in favor of long-term total quality."
+          },
+          {
+            "id": "W3-2026-Q2",
+            "year": "2026",
+            "conceptTag": "Father of Quality Management",
+            "question": "Who is known as the father of quality management?",
+            "options": [
+              "W.E. Deming",
+              "J.M. Juran",
+              "P.B. Crosby",
+              "A.V. Feigenbaum"
+            ],
+            "correctAnswer": 0,
+            "theory": "Dr. W. Edwards Deming is universally recognized as the father of modern quality management. His 14 Points for Management and System of Profound Knowledge revolutionized Japanese industry in the 1950s and established worldwide quality standards.",
+            "formula": "\\boxed{\\text{Father of Quality Management: W. Edwards Deming}}",
+            "stepByStep": "W.E. Deming is the celebrated father of quality management **(Option A)**.",
+            "shortcut": "Father of Quality Management = W.E. Deming.",
+            "examTrap": "Juran introduced the Quality Trilogy; Crosby introduced Zero Defects; Deming is the Father of QM."
+          },
+          {
+            "id": "W3-2026-Q3",
+            "year": "2026",
+            "conceptTag": "Zero Defects Concept",
+            "question": "Concept of zero defect was provided by",
+            "options": [
+              "W.E. Deming",
+              "J.M. Juran",
+              "P.B. Crosby",
+              "A.V. Feigenbaum"
+            ],
+            "correctAnswer": 2,
+            "theory": "Philip B. Crosby formulated the 'Zero Defects' philosophy and the four absolutes of quality management in his seminal book 'Quality is Free' (1979), asserting that the only acceptable performance standard is zero defects.",
+            "formula": "\\boxed{\\text{Zero Defects} \\iff \\text{Philip B. Crosby}}",
+            "stepByStep": "Philip B. Crosby pioneered the Zero Defects movement **(Option C)**.",
+            "shortcut": "Zero Defects = P.B. Crosby.",
+            "examTrap": "Do not confuse Zero Defects (Crosby) with the Deming cycle (PDCA) or Taguchi loss function."
+          },
+          {
+            "id": "W3-2026-Q4",
+            "year": "2026",
+            "conceptTag": "Deming Prize Winner",
+            "question": "Who among the following has won the Deming Prize twice?",
+            "options": [
+              "W.E. Deming",
+              "J.M. Juran",
+              "P.B. Crosby",
+              "G. Taguchi"
+            ],
+            "correctAnswer": 3,
+            "theory": "Dr. Genichi Taguchi, renowned for Robust Design and the Quality Loss Function, was awarded the prestigious Deming Application Prize for individuals twice by the Union of Japanese Scientists and Engineers (JUSE) in 1960 and 1989.",
+            "formula": "\\boxed{\\text{Genichi Taguchi won the Deming Prize twice (1960, 1989)}}",
+            "stepByStep": "Genichi Taguchi received the Deming Prize on two separate occasions **(Option D)**.",
+            "shortcut": "Two-time Deming Prize winner = G. Taguchi.",
+            "examTrap": "W.E. Deming had the prize named in his honor; Taguchi was the recipient who won it twice."
+          },
+          {
+            "id": "W3-2026-Q5",
+            "year": "2026",
+            "conceptTag": "Parameters vs Statistics (MSQ)",
+            "question": "Which statement(s) is/are TRUE? (multi-select)",
+            "options": [
+              "A parameter is a value that describes a population.",
+              "Statistics is a value that describes a sample.",
+              "A goal of inferential statistics is to generalize from samples to populations.",
+              "A representative sample is a sample whose characteristics are dissimilar to the population."
+            ],
+            "correctAnswer": [
+              0,
+              1,
+              2
+            ],
+            "theory": "In statistical theory: (1) A parameter is a numerical summary of a population (e.g., $\\mu, \\sigma$); (2) A statistic is a numerical summary calculated from sample data (e.g., $\\bar{x}, s$); (3) Inferential statistics makes probabilistic inferences about population parameters from sample statistics (A, B, C are true). Statement D is false because a representative sample must accurately reflect and resemble population characteristics.",
+            "formula": "\\boxed{\\text{Parameter} \\to \\text{Population}; \\quad \\text{Statistic} \\to \\text{Sample}}",
+            "stepByStep": "1. Statement A: True (parameter describes population).\n2. Statement B: True (statistic describes sample).\n3. Statement C: True (inferential purpose is generalizing to population).\n4. Statement D: False (representative sample must be similar to population, not dissimilar).\n5. Correct options: **(A, B, C)**.",
+            "shortcut": "A, B, C are true; D contradicts the definition of representative sample.",
+            "examTrap": "Notice the word 'dissimilar' in Statement D makes it false."
+          },
+          {
+            "id": "W3-2026-Q6",
+            "year": "2026",
+            "conceptTag": "Estimation Random Error Magnitude",
+            "question": "The true average height of plants in a nursery is 25.5 cm. A random sample of 5 plants has heights 24.8, 26.2, 25.7, 24.9, 26.4 cm. The magnitude of random error in estimating the mean height is",
+            "options": [
+              "0.5 cm",
+              "0.4 cm",
+              "0.3 cm",
+              "0.1 cm"
+            ],
+            "correctAnswer": 3,
+            "theory": "The sample mean is $\\bar{x} = \\frac{1}{n}\\sum x_i$. The magnitude of estimation error is the absolute difference between the sample estimate and the true population mean: $|\\text{Error}| = |\\bar{x} - \\mu|$.",
+            "formula": "\\boxed{\\bar{x} = \\frac{24.8 + 26.2 + 25.7 + 24.9 + 26.4}{5} = 25.6\\text{ cm} \\implies |25.6 - 25.5| = 0.1\\text{ cm}}",
+            "stepByStep": "1. Sum of sample $= 24.8 + 26.2 + 25.7 + 24.9 + 26.4 = 128.0\\text{ cm}$.\n2. Sample mean $\\bar{x} = 128.0 / 5 = 25.6\\text{ cm}$.\n3. True mean $\\mu = 25.5\\text{ cm}$.\n4. Error magnitude $= |25.6 - 25.5| = 0.1\\text{ cm}$ **(Option D)**.",
+            "shortcut": "|25.6 - 25.5| = 0.1 cm.",
+            "examTrap": "Magnitude is absolute value; answer is $+0.1\\text{ cm}$."
+          },
+          {
+            "id": "W3-2026-Q7",
+            "year": "2026",
+            "conceptTag": "Hypothesis Formulation (MSQ)",
+            "question": "In hypothesis testing, the population mean height is 150 cm (mean m, null hypothesis H₀, alternate hypothesis Hα). Which option(s) is/are correct? (multi-select)",
+            "options": [
+              "H₀: m = 150 cm",
+              "Hα: m = 150 cm",
+              "Hα: m < 150 cm",
+              "Hα: m > 150 cm"
+            ],
+            "correctAnswer": [
+              0,
+              2,
+              3
+            ],
+            "theory": "In statistical hypothesis testing, the null hypothesis ($H_0$) always contains the condition of equality ($H_0: m = 150\\text{ cm}$, Option A). The alternative hypothesis ($H_\\alpha$) represents the complement or research claim and can be formulated as a one-tailed directional test ($H_\\alpha: m < 150\\text{ cm}$ or $H_\\alpha: m > 150\\text{ cm}$, Options C & D) or two-tailed ($H_\\alpha: m \\ne 150\\text{ cm}$). $H_\\alpha$ cannot contain equality (B is false).",
+            "formula": "\\boxed{H_0: m = 150\\text{ cm}; \\quad H_\\alpha: m < 150\\text{ cm} \\text{ or } m > 150\\text{ cm}}",
+            "stepByStep": "1. Option A: True ($H_0$ holds equality $m = 150$).\n2. Option B: False (alternate hypothesis never carries exact equality).\n3. Option C: True (valid left-tailed alternative hypothesis).\n4. Option D: True (valid right-tailed alternative hypothesis).\n5. Correct options: **(A, C, D)**.",
+            "shortcut": "A, C, D are valid; equality belongs solely to H0.",
+            "examTrap": "H_alpha can never be an equality; it must be <, >, or !=."
+          },
+          {
+            "id": "W3-2026-Q8",
+            "year": "2026",
+            "conceptTag": "Two-Sample t-Test Degrees of Freedom",
+            "question": "Weights of 82 female cadets and 108 male cadets were measured to test the null hypothesis that gender does not affect weight. The degree of freedom is",
+            "options": [
+              "81",
+              "107",
+              "187",
+              "188"
+            ],
+            "correctAnswer": 3,
+            "theory": "When performing an independent two-sample t-test with sample sizes $n_1$ and $n_2$, the degrees of freedom is calculated as: $df = n_1 + n_2 - 2$.",
+            "formula": "\\boxed{df = n_1 + n_2 - 2 = 82 + 108 - 2 = 188}",
+            "stepByStep": "1. Female sample size $n_1 = 82$.\n2. Male sample size $n_2 = 108$.\n3. $df = 82 + 108 - 2 = 190 - 2 = 188$ **(Option D)**.",
+            "shortcut": "82 + 108 - 2 = 188.",
+            "examTrap": "Subtract 2 (one degree of freedom lost for each sample mean), not 1."
+          },
+          {
+            "id": "W3-2026-Q9",
+            "year": "2026",
+            "conceptTag": "Poisson Acceptance Probabilities (Setter Typo)",
+            "question": "A random sample of 70 items is chosen from a lot of 2000 items. The lot contains 70 defective items. As per Poisson distribution, the probabilities of getting 0 and 1 defective items are",
+            "options": [
+              "0.074 and 0.036, respectively",
+              "0.205 and 0.036, respectively",
+              "0.074 and 0.256, respectively",
+              "0.205 and 0.256, respectively"
+            ],
+            "correctAnswer": 0,
+            "theory": "The official answer key accepted by NPTEL is (A) 0.074 and 0.036. In the official solution document, the setter wrote: $p = 70/1000 = 0.07$ (using $N=1000$ instead of 2000) $\\implies np = 70 \\times 0.07 = 4.9$. Then $P(0) = e^{-4.9} = 0.00744$ was mistakenly transcribed with one less leading zero as '0.074', and $P(1) = 4.9 e^{-4.9} = 0.03648 \\approx 0.036$ was calculated correctly. Always select Option A for the NPTEL portal.",
+            "formula": "\\boxed{\\text{NPTEL Key: } P(0) = 0.074, \\quad P(1) = 0.036}",
+            "stepByStep": "1. Question Setter working: $np = 70 \\times (70/1000) = 4.9$.\n2. $P(0) = e^{-4.9} = 0.00744 \\to$ transcribed as **0.074**.\n3. $P(1) = 4.9 e^{-4.9} = 0.03648 \\to$ rounded to **0.036**.\n4. Hence, option **(A) 0.074 and 0.036, respectively** is the marked portal answer.",
+            "shortcut": "NPTEL portal answer is 0.074 and 0.036 (Option A).",
+            "examTrap": "High-Frequency Portal Discrepancy: The setter made a transcription typo omitting a decimal zero (0.0074 -> 0.074) and used lot 1000 instead of 2000. Option A is the intended accepted answer."
+          },
+          {
+            "id": "W3-2026-Q10",
+            "year": "2026",
+            "conceptTag": "Acceptance Sampling Terminology (MSQ)",
+            "question": "Which statement(s) is/are TRUE? (multi-select)",
+            "options": [
+              "AQL represents the maximum proportion of defectives which the consumer finds definitely acceptable.",
+              "The producer's risk (α) is the probability that lots of good quality level will not be accepted.",
+              "The consumer's risk (β) is the probability that lots of non-acceptable quality level will be accepted, which otherwise should be rejected.",
+              "The AQL represents the average percent defective in the outgoing products after inspection."
+            ],
+            "correctAnswer": [
+              0,
+              1,
+              2
+            ],
+            "theory": "In acceptance sampling: (1) Acceptable Quality Level (AQL) is the worst quality level that the consumer considers satisfactory (A is true); (2) Producer's risk ($\\alpha$, Type I error) is the probability of rejecting a lot of AQL quality (B is true); (3) Consumer's risk ($\\beta$, Type II error) is the probability of accepting a lot of LTPD quality (C is true). Statement D is false because the average percent defective in outgoing product after inspection is the AOQ (Average Outgoing Quality), not AQL.",
+            "formula": "\\boxed{\\text{Statements A, B, and C are correct; D defines AOQ, not AQL.}}",
+            "stepByStep": "1. Statement A: True (definition of AQL).\n2. Statement B: True (Producer's risk $\\alpha$ rejects good lots).\n3. Statement C: True (Consumer's risk $\\beta$ accepts bad lots).\n4. Statement D: False (AOQ is outgoing quality; AQL is input benchmark).\n5. Correct options: **(A, B, C)**.",
+            "shortcut": "A, B, C are true; D defines AOQ.",
+            "examTrap": "Statement D describes AOQ (Average Outgoing Quality), not AQL."
+          },
+          {
+            "id": "W3-2026-Q11",
+            "year": "2026",
+            "conceptTag": "Average Outgoing Quality (AOQ)",
+            "question": "An acceptance sampling plan has probability of acceptance 0.85, fraction defective 0.04, sample size 100, lot size 1000. The Average Outgoing Quality (AOQ) is",
+            "options": [
+              "2.75%",
+              "3.06%",
+              "3.50%",
+              "4.25%"
+            ],
+            "correctAnswer": 1,
+            "theory": "Average Outgoing Quality (AOQ) measures the expected fraction defective after rectifying inspection (where rejected lots are 100% screened and defects replaced): $\\text{AOQ} = \\frac{P_a \\cdot p \\cdot (N - n)}{N}$.",
+            "formula": "\\boxed{\\text{AOQ} = \\frac{0.85 \\times 0.04 \\times (1000 - 100)}{1000} = \\frac{0.034 \\times 900}{1000} = 0.0306 = 3.06\\%}",
+            "stepByStep": "1. $P_a = 0.85$, $p = 0.04$, $n = 100$, $N = 1000$.\n2. $N - n = 1000 - 100 = 900$.\n3. $\\text{AOQ} = \\frac{0.85 \\times 0.04 \\times 900}{1000} = \\frac{30.6}{1000} = 0.0306 = 3.06\\%$ **(Option B)**.",
+            "shortcut": "0.85 \\times 0.04 \\times 0.9 = 0.0306 = 3.06\\%.",
+            "examTrap": "Do not forget the finite population correction $(N-n)/N = 900/1000 = 0.9$. Without it, $0.85 \\times 0.04 = 3.4\\%$."
+          },
+          {
+            "id": "W3-2026-Q12",
+            "year": "2026",
+            "conceptTag": "Single Sampling Plan Identification",
+            "question": "A company inspects 50 items randomly from a lot. If the number of defective items is 3 or less, the lot is accepted; otherwise, it is rejected. This is an example of",
+            "options": [
+              "Double sampling plan",
+              "Sequential sampling plan",
+              "Single sampling plan",
+              "Continuous sampling plan"
+            ],
+            "correctAnswer": 2,
+            "theory": "A Single Sampling Plan is completely defined by two parameters $(n, c)$: a single sample of $n$ items is inspected, and the decision to accept or reject the entire lot is based strictly on whether the observed defectives $d \\le c$.",
+            "formula": "\\boxed{\\text{Single Sampling Plan: Single sample } n=50, \\text{ acceptance number } c=3}",
+            "stepByStep": "A one-step decision based on a single sample is a **Single sampling plan (Option C)**.",
+            "shortcut": "One sample decision = Single sampling plan.",
+            "examTrap": "Double sampling requires taking a second sample if defectives fall in an intermediate range."
+          },
+          {
+            "id": "W3-2026-Q13",
+            "year": "2026",
+            "conceptTag": "Pioneer of Statistical Quality Control",
+            "question": "The first person to apply statistics in quality control is",
+            "options": [
+              "W.E. Deming",
+              "J.M. Juran",
+              "Walter A. Shewhart",
+              "Philip B. Crosby"
+            ],
+            "correctAnswer": 2,
+            "theory": "Dr. Walter A. Shewhart of Bell Telephone Laboratories pioneered the application of statistical methods to manufacturing in 1924 by inventing the statistical process control chart and distinguishing between chance and assignable causes.",
+            "formula": "\\boxed{\\text{First person to apply statistics in quality control: Walter A. Shewhart (1924)}}",
+            "stepByStep": "Walter A. Shewhart invented control charts and founded statistical quality control **(Option C)**.",
+            "shortcut": "First to apply statistics in QC = Walter A. Shewhart.",
+            "examTrap": "Deming was Shewhart's student who popularized his methods in Japan."
+          },
+          {
+            "id": "W3-2026-Q14",
+            "year": "2026",
+            "conceptTag": "X-bar Chart Upper Control Limit",
+            "question": "5 samples of size 4 have means 18, 20, 19, 21, 22. The average range is R̄ = 4. For n = 4, A₂ = 0.729. The UCL of the X̄-chart is",
+            "options": [
+              "22.92",
+              "21.92",
+              "20",
+              "17.71"
+            ],
+            "correctAnswer": 0,
+            "theory": "For an $\\bar{X}$-chart, the Upper Control Limit is $\\text{UCL} = \\bar{\\bar{X}} + A_2 \\bar{R}$, where $\\bar{\\bar{X}}$ is the grand mean of sample averages.",
+            "formula": "\\boxed{\\bar{\\bar{X}} = \\frac{18+20+19+21+22}{5} = 20 \\implies \\text{UCL} = 20 + 0.729(4) = 22.916 \\approx 22.92}",
+            "stepByStep": "1. Sum of sample means $= 18 + 20 + 19 + 21 + 22 = 100$.\n2. Grand mean $\\bar{\\bar{X}} = 100 / 5 = 20$.\n3. $A_2 = 0.729$, $\\bar{R} = 4$.\n4. $\\text{UCL} = 20 + (0.729 \\times 4) = 20 + 2.916 = 22.916 \\approx 22.92$ **(Option A)**.",
+            "shortcut": "20 + 0.729 \\times 4 = 22.92.",
+            "examTrap": "Do not confuse UCL (22.92, Option A) with LCL ($20 - 2.916 = 17.08$) or centerline (20)."
+          },
+          {
+            "id": "W3-2026-Q15",
+            "year": "2026",
+            "conceptTag": "Control Chart Selection (np-chart)",
+            "question": "A company monitors the number of defective items in samples of fixed size collected every day. The most appropriate control chart is",
+            "options": [
+              "p-chart",
+              "c-chart",
+              "np-chart",
+              "X̄-chart"
+            ],
+            "correctAnswer": 2,
+            "theory": "When monitoring the absolute count (number) of defective/nonconforming items and the sample size $n$ is constant across inspection intervals, the np-chart is specifically designed for this purpose. (p-chart monitors fraction defective; c-chart monitors defects count on a single unit).",
+            "formula": "\\boxed{\\text{Count of defective items with constant sample size } n \\implies \\text{np-chart}}",
+            "stepByStep": "Monitoring the number of defectives with fixed sample size calls for the **np-chart (Option C)**.",
+            "shortcut": "Number of defectives + fixed n = np-chart.",
+            "examTrap": "p-chart is for fraction defective; c-chart is for defect occurrences per unit."
+          },
+          {
+            "id": "W3-2026-Q16",
+            "year": "2026",
+            "conceptTag": "p-Chart Control Limits",
+            "question": "Samples of size 100 are taken from a process with average fraction defective 0.08. The UCL and LCL are",
+            "options": [
+              "UCL = 0.161, LCL = 0",
+              "UCL = 0.010, LCL = 0.016",
+              "UCL = 0.161, LCL = −0.001",
+              "UCL = 0.180, LCL = 0.040"
+            ],
+            "correctAnswer": 0,
+            "theory": "For a p-chart: $\\sigma_p = \\sqrt{\\frac{\\bar{p}(1-\\bar{p})}{n}} = \\sqrt{\\frac{0.08 \\times 0.92}{100}} = \\sqrt{0.000736} \\approx 0.02713$. 3-sigma limits are $\\bar{p} \\pm 3\\sigma_p$. Lower limit cannot be negative, so $\\text{LCL} = \\max(0, \\bar{p} - 3\\sigma_p) = 0$.",
+            "formula": "\\boxed{\\text{UCL} = 0.08 + 3(0.02713) = 0.16139 \\approx 0.161, \\quad \\text{LCL} = 0}",
+            "stepByStep": "1. $\\bar{p} = 0.08$, $n = 100$.\n2. $\\sigma_p = \\sqrt{(0.08 \\times 0.92)/100} = 0.02713$.\n3. $3\\sigma_p = 3 \\times 0.02713 = 0.08139$.\n4. $\\text{UCL} = 0.08 + 0.08139 = 0.16139 \\approx 0.161$.\n5. $\\text{LCL} = 0.08 - 0.08139 = -0.00139 \\implies \\text{LCL} = 0$.\n6. Correct limits: **UCL = 0.161, LCL = 0 (Option A)**.",
+            "shortcut": "UCL = 0.161, LCL = 0 (cannot be negative).",
+            "examTrap": "LCL can NEVER be negative in attribute charts; negative values truncate to 0 (eliminates Option C)."
+          },
+          {
+            "id": "W3-2026-Q17",
+            "year": "2026",
+            "conceptTag": "Full Factorial Design Runs",
+            "question": "In a design of experiments, there are six parameters, each taking two levels (low, high). The number of experiments in a full factorial design is",
+            "options": [
+              "8",
+              "12",
+              "36",
+              "64"
+            ],
+            "correctAnswer": 3,
+            "theory": "In a full factorial design with $k$ factors each at $L$ levels, the total number of experimental runs is $N = L^k$. For 6 parameters at 2 levels: $N = 2^6 = 64$.",
+            "formula": "\\boxed{N = 2^6 = 64\\text{ experiments}}",
+            "stepByStep": "$2^6 = 64$ **(Option D)**.",
+            "shortcut": "2^6 = 64.",
+            "examTrap": "Do not multiply $6 \\times 2 = 12$; factorial designs scale exponentially ($2^6$)."
+          },
+          {
+            "id": "W3-2026-Q18",
+            "year": "2026",
+            "conceptTag": "Father of Six Sigma",
+            "question": "Who is often credited as the \"Father of Six Sigma\"?",
+            "options": [
+              "W. Edwards Deming",
+              "Joseph M. Juran",
+              "Bill Smith",
+              "Philip B. Crosby"
+            ],
+            "correctAnswer": 2,
+            "theory": "Bill Smith, a senior engineer and quality manager at Motorola, conceived and standardized the Six Sigma quality methodology in 1986 to reduce manufacturing defects, earning him the title 'Father of Six Sigma'.",
+            "formula": "\\boxed{\\text{Father of Six Sigma: Bill Smith (Motorola, 1986)}}",
+            "stepByStep": "Bill Smith introduced Six Sigma at Motorola **(Option C)**.",
+            "shortcut": "Father of Six Sigma = Bill Smith.",
+            "examTrap": "Bob Galvin was the Motorola CEO who championed it, but engineer Bill Smith is the Father of Six Sigma."
+          },
+          {
+            "id": "W3-2026-Q19",
+            "year": "2026",
+            "conceptTag": "Six Sigma Belt Hierarchy (MSQ)",
+            "question": "With respect to Six Sigma belt hierarchy, which statement(s) is/are correct? (multi-select)",
+            "options": [
+              "White Belt professionals possess a basic understanding of Six Sigma concepts.",
+              "Yellow Belt professionals typically work as team members in Six Sigma projects.",
+              "Green Belt professionals can lead projects using the DMAIC methodology.",
+              "Master Black Belts are necessarily the heads of the quality control department."
+            ],
+            "correctAnswer": [
+              0,
+              1,
+              2
+            ],
+            "theory": "Six Sigma certification hierarchy: (1) White Belt provides fundamental conceptual awareness (A); (2) Yellow Belt participates as a contributing core team member (B); (3) Green Belt leads smaller DMAIC improvement projects alongside regular duties (C); (4) Black Belt works full-time on complex projects; (5) Master Black Belt acts as technical mentor and strategic coach, but is not necessarily the administrative head of the QC department (D is false).",
+            "formula": "\\boxed{\\text{Statements A, B, and C are correct; D is an organizational misconception.}}",
+            "stepByStep": "1. Statement A: True (introductory awareness level).\n2. Statement B: True (project support team role).\n3. Statement C: True (leads smaller DMAIC process projects).\n4. Statement D: False (MBB is a technical advisory/coaching role, not administrative QC head).\n5. Correct options: **(A, B, C)**.",
+            "shortcut": "A, B, C are accurate Six Sigma belt definitions.",
+            "examTrap": "Master Black Belt is a methodology expert/coach, not necessarily a department director."
+          },
+          {
+            "id": "W3-2026-Q20",
+            "year": "2026",
+            "conceptTag": "DPMO Calculation",
+            "question": "A process produces 15,000 units. Each unit has 3 defect opportunities. If 94 defects are found in total, the DPMO is",
+            "options": [
+              "2089",
+              "5000",
+              "1590",
+              "18800"
+            ],
+            "correctAnswer": 0,
+            "theory": "Defects Per Million Opportunities: $\\text{DPMO} = \\frac{\\text{Total Defects}}{\\text{Total Units} \\times \\text{Opportunities per Unit}} \\times 10^6$.",
+            "formula": "\\boxed{\\text{DPMO} = \\frac{94}{15,000 \\times 3} \\times 10^6 = \\frac{94}{45,000} \\times 10^6 = 2,088.89 \\approx 2,089}",
+            "stepByStep": "1. Total opportunities $= 15,000 \\times 3 = 45,000$.\n2. Defect rate per opportunity $\\text{DPO} = 94 / 45,000 = 0.00208889$.\n3. $\\text{DPMO} = 0.00208889 \\times 1,000,000 = 2,088.89 \\approx 2,089$ **(Option A)**.",
+            "shortcut": "\\frac{94}{45,000} \\times 10^6 = 2089.",
+            "examTrap": "Remember to multiply 15,000 by 3 defect opportunities in the denominator."
+          }
+        ]
+      }
+    },
+
+    // Placeholders for Weeks 2 down to 1
+    ...[2, 1].map(wNum => ({
       number: wNum,
       title: getWeekTopicTitle(wNum),
       status: "upcoming",
