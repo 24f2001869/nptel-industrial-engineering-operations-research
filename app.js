@@ -134,18 +134,19 @@
       
       tab.innerHTML = `
         <span>Week ${num}</span>
-        ${num === 12 ? '<span style="font-size:0.65rem; background:rgba(255,255,255,0.25); padding:1px 5px; border-radius:10px;">Active 🔥</span>' : '<span class="week-badge-upcoming">Soon</span>'}
+        ${isAvailable ? '<span style="font-size:0.65rem; background:rgba(255,255,255,0.25); padding:1px 5px; border-radius:10px;">Active 🔥</span>' : '<span class="week-badge-upcoming">Soon</span>'}
       `;
       
       tab.addEventListener('click', () => {
         if (!isAvailable) {
-          alert(`Week ${num} assignment module will be unlocked as you work backward! Start with Week 12.`);
+          alert(`Week ${num} assignment module will be unlocked as you work backward! Currently Weeks 12 and 11 are active.`);
           return;
         }
         loadWeekAndYear(num, state.currentYear);
       });
       
       elements.weeksTabsList.appendChild(tab);
+
     });
   }
 
@@ -655,7 +656,7 @@
     const week = getCurrentWeek();
     if (!week || !week.studyMaterials) return;
 
-    let formulasHtml = '<h3 style="margin-bottom:0.75rem; color:var(--primary);">📐 Core Exam Formulas (Week 12)</h3>';
+    let formulasHtml = `<h3 style="margin-bottom:0.75rem; color:var(--primary);">📐 Core Exam Formulas (Week ${week.number}: ${week.title})</h3>`;
     week.studyMaterials.formulaSheet.forEach(item => {
       formulasHtml += `
         <div class="formula-item">

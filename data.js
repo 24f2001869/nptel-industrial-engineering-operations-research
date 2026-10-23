@@ -823,8 +823,818 @@ const IEOR_DATA = {
       }
     },
 
-    // Placeholders for Weeks 11 down to 1
-    ...[11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1].map(wNum => ({
+    // Week 11: Queuing Models & Waiting Line Analysis (Active)
+    {
+      number: 11,
+      title: "Queuing Models & Waiting Line Analysis",
+      status: "active",
+      summary: "Inter-arrival times, queuing disciplines (FIFO/LIFO), customer behaviors (balking/reneging/jockeying), M/M/1, M/M/c multi-server, M/G/1 Pollaczek–Khinchine formula, Pure Death models, and finite state-dependent Markov queues.",
+      
+      studyMaterials: {
+        quickOverview: "Week 11 covers Queuing Theory (Waiting Line Models): Erlang's classical telephone models, Little's Law, single-server M/M/1 systems, multi-server M/M/c parallel queues, M/G/1 Pollaczek–Khinchine general service formula, Kendall notation, and Markov birth-death processes.",
+        
+        formulaSheet: [
+          {
+            name: "Little's Law",
+            formula: "L = \\lambda W, \\quad L_q = \\lambda W_q, \\quad W = W_q + \\frac{1}{\\mu}",
+            units: "Dimensionless / time",
+            desc: "Fundamental relationship connecting average number of customers in system/queue (L, Lq) with arrival rate λ and waiting time (W, Wq)."
+          },
+          {
+            name: "M/M/1 Server Idle Probability & Utilization",
+            formula: "\\rho = \\frac{\\lambda}{\\mu}, \\quad P_0 = 1 - \\rho = 1 - \\frac{\\lambda}{\\mu}",
+            units: "Probability (0 to 1)",
+            desc: "Server utilization factor ρ is the probability the server is busy; P0 is the probability the server is idle / system is empty."
+          },
+          {
+            name: "M/M/1 Queue Length & System Length",
+            formula: "L_q = \\frac{\\rho^2}{1 - \\rho} = \\frac{\\lambda^2}{\\mu(\\mu - \\lambda)}, \\quad L = \\frac{\\rho}{1 - \\rho} = \\frac{\\lambda}{\\mu - \\lambda}",
+            units: "Customers",
+            desc: "Expected number of customers waiting in queue (Lq) and total customers in system (L = Lq + ρ)."
+          },
+          {
+            name: "Pollaczek–Khinchine (P-K) Formula (M/G/1)",
+            formula: "L_q = \\frac{\\lambda^2 \\sigma^2 + \\rho^2}{2(1 - \\rho)}",
+            units: "Customers in queue",
+            desc: "Calculates expected queue length when service time has an arbitrary general distribution with standard deviation σ."
+          },
+          {
+            name: "M/M/c Multi-Server State Probability",
+            formula: "P_n = \\frac{r^n}{c! c^{n-c}} P_0 \\quad \\text{for } n \\ge c, \\quad r = \\frac{\\lambda}{\\mu}",
+            units: "Probability",
+            desc: "Probability of having n customers in an M/M/c queue with c parallel servers when n exceeds or equals c."
+          },
+          {
+            name: "Pure Death Completion Probability",
+            formula: "P(T \\le t) = 1 - e^{-\\mu t}",
+            units: "Probability",
+            desc: "Probability that a single customer with exponential service rate μ finishes service within time duration t."
+          },
+          {
+            name: "Mean Number of Idle Servers",
+            formula: "c_{\\text{idle}} = c - (L - L_q) = c - \\rho_{\\text{total}}",
+            units: "Servers",
+            desc: "Number of idle servers equals total servers minus the mean number of customers currently receiving service (L - Lq)."
+          },
+          {
+            name: "Exponential Inter-Arrival / Service Properties",
+            formula: "\\text{Mean} = \\frac{1}{\\lambda}, \\quad \\text{Standard Deviation } \\sigma = \\frac{1}{\\lambda}",
+            units: "Time units",
+            desc: "For any exponential distribution, the standard deviation is strictly equal to the mean."
+          }
+        ],
+        
+        examTraps: [
+          {
+            trap: "Queue Length (Lq) vs System Length (L) Trap",
+            explanation: "Do not mix $L_q = \\frac{\\rho^2}{1 - \\rho}$ (only waiting) with $L = \\frac{\\rho}{1 - \\rho}$ (waiting + in-service). Notice that $L = L_q + \\rho$."
+          },
+          {
+            trap: "P-K Formula Time Unit Consistency Trap",
+            explanation: "In the Pollaczek-Khinchine formula $L_q = \\frac{\\lambda^2\\sigma^2 + \\rho^2}{2(1-\\rho)}$, ensure arrival rate $\\lambda$ and service standard deviation $\\sigma$ use the EXACT SAME TIME UNITS (both hours, or both minutes)."
+          },
+          {
+            trap: "Exponential Mean Equals Standard Deviation",
+            explanation: "If arrival rate is 5/hr, mean inter-arrival time is 12 minutes, and standard deviation is ALSO 12 minutes, NOT $\\sqrt{12}$."
+          },
+          {
+            trap: "Balking vs Reneging vs Jockeying",
+            explanation: "Balking: customer never joins (queue too long). Reneging: customer joins, waits, then leaves without service. Jockeying: customer jumps from one line to an adjacent line."
+          }
+        ]
+      },
+
+      years: {
+        "2026": [
+          {
+            id: "W11-2026-Q1",
+            year: "2026",
+            conceptTag: "Inter-Arrival Time",
+            question: "On an average 200 customers visit a market complex in one hour. The inter-arrival time is",
+            options: [
+              "36 s",
+              "18 s",
+              "60 s",
+              "24 s"
+            ],
+            correctAnswer: 1,
+            theory: "The inter-arrival time is the reciprocal of the arrival rate $\\lambda$: $T = \\frac{1}{\\lambda}$. When converting from hours to seconds, multiply by 3600 seconds per hour.",
+            formula: "\\boxed{T = \\frac{3600}{\\lambda}\\text{ seconds}}",
+            stepByStep: "Given: Arrival rate $\\lambda = 200\\text{ customers/hour}$.\n$$T = \\frac{1\\text{ hour}}{200} = \\frac{3600\\text{ seconds}}{200} = \\mathbf{18\\text{ s}} \\quad (\\text{Option B})$$",
+            variant: "2025 Variant: 150 customers/hour $\\implies T = \\frac{3600}{150} = \\mathbf{24\\text{ s}}$.\nIf 120 customers/hour: $T = \\frac{3600}{120} = 30\\text{ s}$.",
+            trap: "Don't divide 60 by 200 (which gives minutes); convert to seconds by dividing 3600 by $\\lambda$."
+          },
+          {
+            id: "W11-2026-Q2",
+            year: "2026",
+            conceptTag: "Queuing Theory Scope",
+            question: "Queuing theory studies",
+            options: [
+              "inventory control systems",
+              "optimization of service facility",
+              "behavior of waiting lines",
+              "method to implement total quality management"
+            ],
+            correctAnswer: 2,
+            theory: "Queuing theory is the mathematical study of waiting lines (queues), analyzing arrival patterns, waiting times, queue capacities, and service mechanisms.",
+            formula: "\\boxed{\\text{Queuing Theory} \\equiv \\text{Mathematical Study of Waiting Lines}}",
+            stepByStep: "Direct definition: Queuing theory specifically models and evaluates the behavior of waiting lines (Option C).",
+            variant: "Exam variations may ask who pioneered it: Agner Krarup Erlang (1909) for telephone traffic.",
+            trap: "While queuing theory helps optimize facilities, its core scientific domain is the behavior of waiting lines."
+          },
+          {
+            id: "W11-2026-Q3",
+            year: "2026",
+            conceptTag: "Customer Behaviors (Jockeying)",
+            question: "The term 'jockeying' in queuing system means",
+            options: [
+              "refusing to join the queue",
+              "switching from one queue to another",
+              "leaving the queue after waiting for some time",
+              "skipping the queue entirely"
+            ],
+            correctAnswer: 1,
+            theory: "Customer behaviors in queues:\n1. Balking: Refusing to join a queue upon arrival.\n2. Reneging: Leaving the queue after waiting for some time.\n3. Jockeying: Switching from one queue line to another in a multi-server setup.",
+            formula: "\\boxed{\\text{Jockeying} = \\text{Switching from one queue to another}}",
+            stepByStep: "By definition: Jockeying refers to moving between parallel waiting lines to get served faster (Option B).",
+            variant: "2025 Variant: 'Reneging' = leaving the queue after waiting for some time.\n'Balking' = refusing to join the queue upon arrival.",
+            trap: "Do not confuse jockeying (switching lines) with reneging (abandoning the line entirely)."
+          },
+          {
+            id: "W11-2026-Q4",
+            year: "2026",
+            conceptTag: "Queue Disciplines (LIFO)",
+            question: "Which one of the following is an example of a LIFO (Last-In-First-Out) queue?",
+            options: [
+              "Railway reservation queue",
+              "Printer job queue",
+              "Lottery ticket draw",
+              "Stack of plates"
+            ],
+            correctAnswer: 3,
+            theory: "In LIFO (Last-In-First-Out), the customer or item that entered most recently is processed first. Classic examples are a stack of plates, a computer pushdown stack, or an Undo buffer.",
+            formula: "\\boxed{\\text{LIFO (Stack)} \\implies \\text{Last item added is first item removed}}",
+            stepByStep: "When washing or storing plates, the plate placed on top of the stack is the first one picked: Stack of plates is LIFO (Option D).",
+            variant: "FIFO (First-In-First-Out) examples: Printer job queue, railway reservation ticket counter, car wash queue.",
+            trap: "Printer job queue is FIFO, not LIFO. Stack of plates is the textbook LIFO example."
+          },
+          {
+            id: "W11-2026-Q5",
+            year: "2026",
+            conceptTag: "Origin of Queuing Theory",
+            question: "The origin of queuing theory can be traced to studies conducted in",
+            options: [
+              "telephone exchange systems",
+              "baking service systems",
+              "manufacturing assembly line",
+              "railway reservation system"
+            ],
+            correctAnswer: 0,
+            theory: "Danish engineer A.K. Erlang created queuing theory in 1909 to calculate the number of telephone circuits needed to handle incoming telephone calls in the Copenhagen Telephone Company.",
+            formula: "\\boxed{\\text{Origin: A.K. Erlang (1909) } \\to \\text{Telephone Exchange Systems}}",
+            stepByStep: "Historical fact: Queuing theory originated from telephone exchange systems (Option A).",
+            variant: "Question asking for the pioneer: Agner Krarup Erlang.",
+            trap: "Do not select manufacturing assembly lines—industrial engineering adopted queuing theory much later."
+          },
+          {
+            id: "W11-2026-Q6",
+            year: "2026",
+            conceptTag: "Calling Population (Infinite Source)",
+            question: "An example of an 'infinite' source in a queuing system is",
+            options: [
+              "jobs in a batch processing system",
+              "voters in an election booth",
+              "a fixed set of customers visiting a clinic",
+              "vehicles arriving at a highway toll plaza"
+            ],
+            correctAnswer: 3,
+            theory: "An infinite calling population occurs when the number of potential arrivals is so vast that arrivals do not perceptibly diminish the probability of future arrivals (e.g. vehicles on a highway, calls to an exchange, pedestrians at a supermarket).",
+            formula: "\\boxed{\\text{Infinite Source: Population size } N \\to \\infty}",
+            stepByStep: "Vehicles arriving at a highway toll plaza come from an essentially limitless external pool: Infinite source (Option D).",
+            variant: "Finite source examples: Machines in a single workshop breakdown pool, registered students in a lab.",
+            trap: "A fixed set of clinic patients or factory machines is a finite calling population."
+          },
+          {
+            id: "W11-2026-Q7",
+            year: "2026",
+            conceptTag: "Exponential Arrival Properties",
+            question: "Customers arrive in a shop at the rate of 10 customers per hour. Assuming exponential arrival, the mean and standard deviation (in minutes) is",
+            options: [
+              "6, 36",
+              "6, 6",
+              "12, 12",
+              "1, 10"
+            ],
+            correctAnswer: 1,
+            theory: "For an exponential distribution with rate parameter $\\lambda$, the mean is $1/\\lambda$ and the variance is $1/\\lambda^2$, which means the standard deviation is strictly equal to the mean: $\\sigma = 1/\\lambda$.",
+            formula: "\\boxed{\\text{Mean} = \\frac{1}{\\lambda}, \\quad \\sigma = \\frac{1}{\\lambda}}",
+            stepByStep: "Given: $\\lambda = 10\\text{ customers/hour} = \\frac{10}{60}\\text{ customers/min} = \\frac{1}{6}\\text{ cust/min}$.\n1. Mean inter-arrival time: $\\text{Mean} = \\frac{60}{10} = 6\\text{ minutes}$\n2. Standard deviation: $\\sigma = \\text{Mean} = \\mathbf{6\\text{ minutes}}$\nResult: **6, 6 (Option B)**.",
+            variant: "2025 Variant: 5 customers/hour $\\implies \\text{Mean} = 60/5 = 12\\text{ min}, \\sigma = 12\\text{ min}$ (Option C).",
+            trap: "Do not take variance (36) as standard deviation! Standard deviation is $\\sqrt{36} = 6$."
+          },
+          {
+            id: "W11-2026-Q8",
+            year: "2026",
+            conceptTag: "Poisson / Exponential Series Sum",
+            question: "Σ (from n=1 to ∞) (λt)ⁿ / n! =",
+            options: [
+              "1",
+              "0",
+              "e^(λt) − 1",
+              "1 − e^(−λt)"
+            ],
+            correctAnswer: 2,
+            theory: "By Taylor series expansion: $e^x = \\sum_{n=0}^\\infty \\frac{x^n}{n!} = 1 + \\sum_{n=1}^\\infty \\frac{x^n}{n!}$. Subtracting 1 gives $\\sum_{n=1}^\\infty \\frac{x^n}{n!} = e^x - 1$.",
+            formula: "\\boxed{\\sum_{n=1}^\\infty \\frac{(\\lambda t)^n}{n!} = e^{\\lambda t} - 1}",
+            stepByStep: "Let $x = \\lambda t$.\n$$e^{\\lambda t} = 1 + \\frac{\\lambda t}{1!} + \\frac{(\\lambda t)^2}{2!} + \\dots = 1 + \\sum_{n=1}^\\infty \\frac{(\\lambda t)^n}{n!}$$\n$$\\sum_{n=1}^\\infty \\frac{(\\lambda t)^n}{n!} = \\mathbf{e^{\\lambda t} - 1} \\quad (\\text{Option C})$$",
+            variant: "2025 Variant: If multiplied by $e^{-\\lambda t}$: $e^{-\\lambda t} \\sum_{n=1}^\\infty \\frac{(\\lambda t)^n}{n!} = e^{-\\lambda t}(e^{\\lambda t} - 1) = \\mathbf{1 - e^{-\\lambda t}}$.",
+            trap: "Notice this question does NOT have $e^{-\\lambda t}$ inside the sum; hence the answer is $e^{\\lambda t} - 1$, NOT $1 - e^{-\\lambda t}$."
+          },
+          {
+            id: "W11-2026-Q9",
+            year: "2026",
+            conceptTag: "Pure Death Service Completion",
+            question: "In a system, there is only one customer at 2 PM. The service rate is exponential at 2 customers per hour. The probability that there will be no customer at 3 PM is",
+            options: [
+              "0",
+              "0.6321",
+              "1",
+              "0.8647"
+            ],
+            correctAnswer: 3,
+            theory: "In a pure death service process with rate $\\mu$, the service time $T \\sim \\text{Exp}(\\mu)$. The probability that a customer is finished within time $t$ is $P(T \\le t) = 1 - e^{-\\mu t}$.",
+            formula: "\\boxed{P(N(t) = 0) = 1 - e^{-\\mu t}}",
+            stepByStep: "Given: $N(0) = 1, \\mu = 2\\text{ customers/hour}, t = 3\\text{ PM} - 2\\text{ PM} = 1\\text{ hour}$.\n$$P(T \\le 1) = 1 - e^{-2 \\times 1} = 1 - e^{-2}$$\n$$e^{-2} \\approx 0.135335$$\n$$P = 1 - 0.135335 = 0.864665 \\approx \\mathbf{0.8647} \\quad (\\text{Option D})$$",
+            variant: "2025 Variant: $\\mu = 1\\text{ cust/hr}, t = 1\\text{ hr} \\implies P = 1 - e^{-1} = 1 - 0.36788 = \\mathbf{0.632}$.",
+            trap: "Don't just write $e^{-\\mu t} = 0.1353$! That is the probability the customer is STILL waiting. Empty system $= 1 - e^{-\\mu t}$."
+          },
+          {
+            id: "W11-2026-Q10",
+            year: "2026",
+            conceptTag: "Pure Birth & Death Distribution",
+            question: "The exponential distribution is commonly used in Pure Birth and Pure Death models to describe",
+            options: [
+              "system capacity",
+              "inter-arrival and service times",
+              "number of customers in the system",
+              "the number of facilities"
+            ],
+            correctAnswer: 1,
+            theory: "Because of its memoryless (Markovian) property, the exponential distribution is uniquely suited to model continuous time between events: inter-arrival times and service durations.",
+            formula: "\\boxed{f(t) = \\lambda e^{-\\lambda t} \\quad (t \\ge 0)}",
+            stepByStep: "By Markovian formulation: Exponential distribution models the time between arrivals (inter-arrival) and the time spent in service (Option B).",
+            variant: "Poisson distribution models the discrete COUNT of arrivals $N(t)$ in a fixed interval.",
+            trap: "Number of customers is discrete (Poisson), whereas inter-arrival and service times are continuous (Exponential)."
+          },
+          {
+            id: "W11-2026-Q11",
+            year: "2026",
+            conceptTag: "Arrival Rate Conversion",
+            question: "A customer support center receives one call every 5 minutes. The arrival rate λ is",
+            options: [
+              "10 calls per hour",
+              "12 calls per hour",
+              "2.5 calls per minute",
+              "6 calls per hour"
+            ],
+            correctAnswer: 1,
+            theory: "Arrival rate $\\lambda = \\frac{1}{\\text{Mean inter-arrival time}}$. To express in calls per hour, divide 60 minutes by the minutes per call.",
+            formula: "\\boxed{\\lambda = \\frac{60\\text{ minutes}}{\\text{minutes per call}}}",
+            stepByStep: "Given: 1 call every 5 minutes.\n$$\\lambda = \\frac{60}{5} = \\mathbf{12\\text{ calls per hour}} \\quad (\\text{Option B})$$",
+            variant: "2025 Variant: 1 call every 4 minutes $\\implies \\lambda = \\frac{60}{4} = \\mathbf{15\\text{ calls per hour}}$.",
+            trap: "Don't multiply $5 \\times 60 = 300$; rate is frequency (calls divided by time)."
+          },
+          {
+            id: "W11-2026-Q12",
+            year: "2026",
+            conceptTag: "State-Dependent Markov Queue",
+            question: "In a state-dependent Poisson queueing system: λ0 = 4 customers/hour, λ1 = 5 customers/hour, μ = 3 customers/hour for all states. The system can hold a maximum of 2 customers (including the one in service). The steady-state probability of zero customers in the system is",
+            options: [
+              "10/49",
+              "11/53",
+              "9/41",
+              "12/35"
+            ],
+            correctAnswer: 2,
+            theory: "For a finite Markov queue with birth rates $\\lambda_n$ and death rates $\\mu_n$, steady-state balance equations give $P_n = P_0 \\prod_{i=0}^{n-1} \\frac{\\lambda_i}{\\mu_{i+1}}$, with $\\sum_{n=0}^K P_n = 1$.",
+            formula: "\\boxed{P_0\\left(1 + \\frac{\\lambda_0}{\\mu} + \\frac{\\lambda_0 \\lambda_1}{\\mu^2}\\right) = 1}",
+            stepByStep: "Given: $\\lambda_0 = 4, \\lambda_1 = 5, \\mu = 3$, maximum capacity $K = 2$.\n1. Express $P_1$ and $P_2$ in terms of $P_0$:\n$$P_1 = \\frac{\\lambda_0}{\\mu} P_0 = \\frac{4}{3} P_0$$\n$$P_2 = \\frac{\\lambda_1}{\\mu} P_1 = \\frac{5}{3} \\times \\left(\\frac{4}{3} P_0\\right) = \\frac{20}{9} P_0$$\n2. Normalization condition $P_0 + P_1 + P_2 = 1$:\n$$P_0 \\left(1 + \\frac{4}{3} + \\frac{20}{9}\\right) = 1$$\n$$P_0 \\left(\\frac{9 + 12 + 20}{9}\\right) = P_0 \\left(\\frac{41}{9}\\right) = 1$$\n$$P_0 = \\mathbf{\\frac{9}{41}} \\quad (\\text{Option C})$$",
+            variant: "2025 Variant: $\\lambda_0 = 6, \\lambda_1 = 3, \\mu = 3 \\implies P_1 = 2 P_0, P_2 = 2 P_0 \\implies P_0(1+2+2)=1 \\implies P_0 = \\mathbf{1/5}$.",
+            trap: "Do not forget the $+ 1$ for state 0 itself when normalizing $\\sum P_n = 1$."
+          },
+          {
+            id: "W11-2026-Q13",
+            year: "2026",
+            conceptTag: "M/M/1 Server Idle Probability",
+            question: "In a diagnostic center, patients arrive following a Poisson process at an average rate of 5 patients per hour. A doctor takes an average of 10 minutes per patient, and the service time follows an exponential distribution. Assume the system follows the M/M/1 queue model. The probability that there are no patients in the system is",
+            options: [
+              "0.83",
+              "0.66",
+              "0.17",
+              "0.33"
+            ],
+            correctAnswer: 2,
+            theory: "In an M/M/1 queue, the service rate $\\mu = 60 / \\text{service minutes}$. Traffic intensity is $\\rho = \\lambda / \\mu$, and the probability of an empty system (no patients) is $P_0 = 1 - \\rho$.",
+            formula: "\\boxed{P_0 = 1 - \\rho = 1 - \\frac{\\lambda}{\\mu}}",
+            stepByStep: "Given: $\\lambda = 5\\text{ patients/hour}$, service time $= 10\\text{ minutes} \\implies \\mu = \\frac{60}{10} = 6\\text{ patients/hour}$.\n1. Traffic utilization:\n$$\\rho = \\frac{\\lambda}{\\mu} = \\frac{5}{6} \\approx 0.8333$$\n2. Probability of zero patients:\n$$P_0 = 1 - \\rho = 1 - \\frac{5}{6} = \\frac{1}{6} \\approx 0.1667 \\approx \\mathbf{0.17} \\quad (\\text{Option C})$$",
+            variant: "2025 Variant: $\\lambda = 4, \\mu = 6 \\implies \\rho = 4/6 = 2/3 \\implies P_0 = 1 - 2/3 = 1/3 \\approx \\mathbf{0.33}$.",
+            trap: "0.83 is the utilization $\\rho$ (probability doctor is busy), NOT $P_0$. The idle probability is $1 - 0.83 = 0.17$."
+          },
+          {
+            id: "W11-2026-Q14",
+            year: "2026",
+            conceptTag: "Mean Number of Idle Servers",
+            question: "For a machine shop, there are five mechanics. On an average, 1.4 machines wait for the service, while the number of machines in service plus waiting is 2.5. The mean number of idle mechanics is",
+            options: [
+              "2.3",
+              "1.7",
+              "4.5",
+              "3.9"
+            ],
+            correctAnswer: 3,
+            theory: "The total number of machines receiving service is $L - L_q$ (total machines in system minus waiting machines). The mean number of idle servers is $c_{\\text{idle}} = c - \\text{busy servers} = c - (L - L_q)$.",
+            formula: "\\boxed{c_{\\text{idle}} = c - (L - L_q)}",
+            stepByStep: "Given:\n- Total mechanics $c = 5$\n- Waiting machines $L_q = 1.4$\n- Total machines in system $L = 2.5$\n1. Mechanics currently busy (in service):\n$$\\text{Busy} = L - L_q = 2.5 - 1.4 = 1.1$$\n2. Mean idle mechanics:\n$$c_{\\text{idle}} = 5 - 1.1 = \\mathbf{3.9} \\quad (\\text{Option D})$$",
+            variant: "2025 Variant: 4 mechanics, $L_q = 1.2, L = 2.7 \\implies \\text{Busy} = 1.5 \\implies \\text{Idle} = 4 - 1.5 = \\mathbf{2.5}$.",
+            trap: "Do not subtract $L$ directly from $c$ ($5 - 2.5 = 2.5$); waiting machines are not tying up mechanics!"
+          },
+          {
+            id: "W11-2026-Q15",
+            year: "2026",
+            conceptTag: "M/M/c Multi-Server State Probability",
+            question: "In a hospital, patients arrive at the rate of 12 per hour. There are three doctors in the hospital, who see the patients in three parallel chambers. Each doctor takes 15 minutes to see a patient on an average. Denote the probability of no patients in the system as P₀. Based on M/M/3 queue model, the probability of 5 patients in the system is",
+            options: [
+              "4.5 P₀",
+              "2.8 P₀",
+              "0.27 P₀",
+              "0.45 P₀"
+            ],
+            correctAnswer: 0,
+            theory: "In an M/M/c queue, for states $n \\ge c$, the state probability is $P_n = \\frac{r^n}{c! \\cdot c^{n-c}} P_0$, where $r = \\lambda / \\mu$.",
+            formula: "\\boxed{P_n = \\frac{(\\lambda / \\mu)^n}{c! \\cdot c^{n-c}} P_0 \\quad (n \\ge c)}",
+            stepByStep: "Given: $\\lambda = 12\\text{/hr}$, $c = 3$ doctors, service time $= 15\\text{ min} \\implies \\mu = \\frac{60}{15} = 4\\text{/hr}$.\n1. Intensity ratio:\n$$r = \\frac{\\lambda}{\\mu} = \\frac{12}{4} = 3$$\n2. Probability of $n = 5$ patients ($n \\ge 3$):\n$$P_5 = \\frac{3^5}{3! \\times 3^{5 - 3}} P_0 = \\frac{243}{6 \\times 3^2} P_0 = \\frac{243}{6 \\times 9} P_0 = \\frac{243}{54} P_0 = \\mathbf{4.5 P_0} \\quad (\\text{Option A})$$",
+            variant: "2025 Variant: $\\lambda = 10, \\mu = 6, c = 3, n = 5 \\implies r = 5/3 \\implies P_5 = \\frac{(5/3)^5}{54} P_0 = \\mathbf{0.24 P_0}$.",
+            trap: "In the denominator, do not use $5!$; the formula uses $c! \\cdot c^{n-c} = 3! \\times 3^2 = 54$."
+          },
+          {
+            id: "W11-2026-Q16",
+            year: "2026",
+            conceptTag: "Kendall Notation (Triple Server)",
+            question: "In Kendall's notation, a queue with Poisson arrival, exponential service time and triple server is represented as",
+            options: [
+              "P/E/3",
+              "P/3/E",
+              "M/M/3",
+              "M/3/M"
+            ],
+            correctAnswer: 2,
+            theory: "Kendall's standard notation uses A/B/c/K/N/D where:\n- A = Arrival distribution (M = Markovian/Poisson)\n- B = Service time distribution (M = Exponential/Markovian)\n- c = Number of parallel service channels (servers).",
+            formula: "\\boxed{\\text{Kendall Notation: } A/B/c = M/M/3}",
+            stepByStep: "Poisson arrival $\\implies$ M; Exponential service $\\implies$ M; 3 parallel servers $\\implies$ 3: **M/M/3 (Option C)**.",
+            variant: "2025 Variant: Double server $\\implies$ **M/M/2**.",
+            trap: "P is never used in Kendall's notation; Poisson/Exponential are denoted by M (Markovian)."
+          },
+          {
+            id: "W11-2026-Q17",
+            year: "2026",
+            conceptTag: "Pollaczek–Khinchine M/G/1 Formula",
+            question: "At a shop, customers arrive at a mean rate of 5 per hour. Customers are served at a mean rate of 10 per hour. The service time has a standard deviation of 1 hour. The expected number of customers in the queue is",
+            options: [
+              "30.12",
+              "25.25",
+              "12.36",
+              "10.54"
+            ],
+            correctAnswer: 1,
+            theory: "The Pollaczek–Khinchine (P-K) formula calculates the mean queue length $L_q$ in an M/G/1 queue with arbitrary service time variance $\\sigma^2$: $L_q = \\frac{\\lambda^2 \\sigma^2 + \\rho^2}{2(1 - \\rho)}$.",
+            formula: "\\boxed{L_q = \\frac{\\lambda^2 \\sigma^2 + \\rho^2}{2(1 - \\rho)}, \\quad \\rho = \\frac{\\lambda}{\\mu}}",
+            stepByStep: "Given: $\\lambda = 5\\text{/hr}, \\mu = 10\\text{/hr}, \\sigma = 1\\text{ hr}$.\n1. Utilization:\n$$\\rho = \\frac{5}{10} = 0.5$$\n2. Apply P-K formula:\n$$L_q = \\frac{5^2 (1^2) + (0.5)^2}{2(1 - 0.5)} = \\frac{25 + 0.25}{2(0.5)} = \\frac{25.25}{1.0} = \\mathbf{25.25} \\quad (\\text{Option B})$$",
+            variant: "2025 Variant: $\\lambda = 6, \\mu = 8 \\implies \\rho = 0.75, \\sigma = 1$.\n$$L_q = \\frac{6^2(1)^2 + 0.75^2}{2(1 - 0.75)} = \\frac{36 + 0.5625}{0.5} = \\mathbf{73.125}.$$",
+            trap: "Notice how high $L_q$ climbs when service variance $\\sigma^2$ is large! High variance causes severe queue accumulation."
+          },
+          {
+            id: "W11-2026-Q18",
+            year: "2026",
+            conceptTag: "Kendall Notation M/D/c",
+            question: "In the Kendall's notation M/D/2, M and D, respectively, correspond to",
+            options: [
+              "Exponential arrival rate and constant service time",
+              "Constant arrival rate and exponential service time",
+              "Poisson arrival and exponential service time",
+              "Poisson arrival and constant service time"
+            ],
+            correctAnswer: 3,
+            theory: "In Kendall's notation, 'M' stands for Markovian (Poisson arrivals or exponential inter-arrival times), and 'D' stands for Deterministic (constant, invariant service time).",
+            formula: "\\boxed{M = \\text{Poisson arrival}, \\quad D = \\text{Deterministic (constant) service time}}",
+            stepByStep: "M = Poisson arrival, D = constant service time: **Option D**.",
+            variant: "M/M/1: Poisson arrival and exponential service time.\nM/G/1: Poisson arrival and General service time.",
+            trap: "D does not stand for dynamic; it stands for deterministic (fixed constant)."
+          },
+          {
+            id: "W11-2026-Q19",
+            year: "2026",
+            conceptTag: "Single-Server Idle Probability",
+            question: "In a single-server queuing system with deterministic rates, the arrival rate (λ) is 8 customers per hour, and the service rate (μ) is 10 customers per hour. The probability that the server is idle is",
+            options: [
+              "0.1",
+              "0.2",
+              "0.8",
+              "0.4"
+            ],
+            correctAnswer: 1,
+            theory: "In any single-server G/G/1 or M/M/1 queue with $\\lambda < \\mu$, the proportion of time the server is busy is $\\rho = \\lambda / \\mu$. The fraction of time the server is idle is $P_0 = 1 - \\rho$.",
+            formula: "\\boxed{P_{\\text{idle}} = 1 - \\rho = 1 - \\frac{\\lambda}{\\mu}}",
+            stepByStep: "Given: $\\lambda = 8\\text{/hr}, \\mu = 10\\text{/hr}$.\n$$\\rho = \\frac{8}{10} = 0.8$$\n$$P_{\\text{idle}} = 1 - 0.8 = \\mathbf{0.2} \\quad (\\text{Option B})$$",
+            variant: "2025 Variant: $\\lambda = 10, \\mu = 12 \\implies \\rho = 10/12 = 5/6 \\implies P_0 = 1 - 5/6 \\approx \\mathbf{0.167}$.",
+            trap: "0.8 is the busy probability (utilization); the question specifically asks for the idle probability ($1 - 0.8 = 0.2$)."
+          },
+          {
+            id: "W11-2026-Q20",
+            year: "2026",
+            conceptTag: "M/M/1 Queue Length",
+            question: "In M/M/1 queue, the utilization factor is 0.75. The length of the queue is",
+            options: [
+              "2.25",
+              "3.25",
+              "4.21",
+              "3.58"
+            ],
+            correctAnswer: 0,
+            theory: "The expected queue length (number of customers waiting in line excluding the one being served) in an M/M/1 queue is $L_q = \\frac{\\rho^2}{1 - \\rho}$.",
+            formula: "\\boxed{L_q = \\frac{\\rho^2}{1 - \\rho}}",
+            stepByStep: "Given: Utilization $\\rho = 0.75$.\n$$L_q = \\frac{0.75^2}{1 - 0.75} = \\frac{0.5625}{0.25} = \\mathbf{2.25} \\quad (\\text{Option A})$$",
+            variant: "2025 Variant: $\\rho = 0.8 \\implies L_q = \\frac{0.8^2}{1 - 0.8} = \\frac{0.64}{0.2} = \\mathbf{3.2}$.\nIf asked for system length $L$: $L = \\frac{\\rho}{1-\\rho} = \\frac{0.75}{0.25} = 3.0$ (notice $L = L_q + \\rho = 2.25 + 0.75 = 3.0$).",
+            trap: "Do not calculate $L = \\frac{\\rho}{1-\\rho} = 3.0$! Length of QUEUE is $L_q = \\frac{\\rho^2}{1-\\rho} = 2.25$."
+          }
+        ],
+
+        "2025": [
+          {
+            id: "W11-2025-Q1",
+            year: "2025",
+            conceptTag: "Queuing Theory Scope",
+            question: "Queuing theory studies",
+            options: [
+              "product pricing",
+              "behavior of waiting lines",
+              "random number generation",
+              "method to implement total quality"
+            ],
+            correctAnswer: 1,
+            theory: "Queuing theory is the mathematical study of waiting lines (queues), analyzing arrival patterns, waiting times, queue capacities, and service mechanisms.",
+            formula: "\\boxed{\\text{Queuing Theory} \\equiv \\text{Mathematical Study of Waiting Lines}}",
+            stepByStep: "Direct definition: Queuing theory specifically models and evaluates the behavior of waiting lines (Option B).",
+            variant: "2026 Variant: Same question, option order slightly different.",
+            trap: "Do not select random number generation; that is Monte Carlo simulation."
+          },
+          {
+            id: "W11-2025-Q2",
+            year: "2025",
+            conceptTag: "Inter-Arrival Time",
+            question: "On an average 150 customers visit a market complex in one hour. The inter-arrival time is",
+            options: [
+              "24 s",
+              "15 s",
+              "6 s",
+              "2.4 s"
+            ],
+            correctAnswer: 0,
+            theory: "The inter-arrival time is the reciprocal of the arrival rate $\\lambda$: $T = \\frac{1}{\\lambda}$. When converting from hours to seconds, multiply by 3600 seconds per hour.",
+            formula: "\\boxed{T = \\frac{3600}{\\lambda}\\text{ seconds}}",
+            stepByStep: "Given: Arrival rate $\\lambda = 150\\text{ customers/hour}$.\n$$T = \\frac{3600\\text{ seconds}}{150} = \\mathbf{24\\text{ s}} \\quad (\\text{Option A})$$",
+            variant: "2026 Variant: 200 customers/hour $\\implies T = \\frac{3600}{200} = \\mathbf{18\\text{ s}}$.",
+            trap: "Do not divide 60 by 150 (0.4 min = 24 s). Make sure to convert minutes to seconds."
+          },
+          {
+            id: "W11-2025-Q3",
+            year: "2025",
+            conceptTag: "Queue Disciplines (FIFO)",
+            question: "Which one of the following is an example of a FIFO (First-In-First-Out) queue?",
+            options: [
+              "Undo function in a word processor",
+              "Stack of plates",
+              "Printer job queue",
+              "Lottery ticket draw"
+            ],
+            correctAnswer: 2,
+            theory: "In FIFO (First-In-First-Out), the first customer to arrive is served first. Classic examples include printer spools, ticket counters, and checkout lines.",
+            formula: "\\boxed{\\text{FIFO} = \\text{First-Come, First-Served (FCFS)}}",
+            stepByStep: "A printer prints documents in the order they were submitted: Printer job queue is FIFO (Option C).",
+            variant: "LIFO examples: Stack of plates, Undo command in a text editor (most recent action undone first).",
+            trap: "Undo function and Stack of plates are LIFO (Last-In-First-Out)."
+          },
+          {
+            id: "W11-2025-Q4",
+            year: "2025",
+            conceptTag: "Customer Behaviors (Reneging)",
+            question: "The term 'reneging' in queuing system means",
+            options: [
+              "refusing to join the queue",
+              "switching to another queue",
+              "leaving the queue after waiting for some time",
+              "skipping the queue entirely"
+            ],
+            correctAnswer: 2,
+            theory: "Customer behaviors in queues:\n- Balking: Deciding not to join upon seeing a long line.\n- Reneging: Joining the queue, losing patience after waiting, and leaving without service.\n- Jockeying: Jumping from one queue line to another.",
+            formula: "\\boxed{\\text{Reneging} = \\text{Leaving the queue after waiting for some time}}",
+            stepByStep: "Direct definition: Reneging occurs when a customer abandons the queue after waiting for a period (Option C).",
+            variant: "2026 Variant: Jockeying = switching from one queue to another.",
+            trap: "Balking is refusing to join; reneging is joining and then leaving."
+          },
+          {
+            id: "W11-2025-Q5",
+            year: "2025",
+            conceptTag: "Calling Population (Infinite Source)",
+            question: "An example of an 'infinite' source in a queuing system is",
+            options: [
+              "number of machines waiting for repair in a workshop",
+              "a fixed set of customers visiting a clinic",
+              "calls arriving at a telephone exchange",
+              "voters in an election booth"
+            ],
+            correctAnswer: 2,
+            theory: "An infinite source population has arrival generation independent of how many units are currently in the system, because the external population is practically limitless.",
+            formula: "\\boxed{\\text{Infinite Source: Calls arriving at a telephone exchange}}",
+            stepByStep: "Calls arriving at a telephone exchange originate from millions of potential users: Infinite source (Option C).",
+            variant: "2026 Variant: Vehicles arriving at a highway toll plaza.",
+            trap: "Workshop machines or registered clinic patients represent finite population systems."
+          },
+          {
+            id: "W11-2025-Q6",
+            year: "2025",
+            conceptTag: "Origin of Queuing Theory",
+            question: "Who is credited with the origin of queuing theory?",
+            options: [
+              "Agner Krarup Erlang",
+              "Albert Einstein",
+              "Isaac Newton",
+              "George Dantzig"
+            ],
+            correctAnswer: 0,
+            theory: "Agner Krarup Erlang (1878–1929), a Danish mathematician and engineer, published the foundational papers on telephone traffic congestion in 1909.",
+            formula: "\\boxed{\\text{Founder: Agner Krarup Erlang (A.K. Erlang)}}",
+            stepByStep: "Direct historical attribution: Agner Krarup Erlang (Option A).",
+            variant: "George Dantzig is famous for the Simplex method in Linear Programming, not queuing theory.",
+            trap: "Do not guess George Dantzig—he invented Simplex, while Erlang founded Queuing Theory."
+          },
+          {
+            id: "W11-2025-Q7",
+            year: "2025",
+            conceptTag: "Exponential Arrival Properties",
+            question: "Customers arrive in a shop at the rate of 5 customers per hour. Assuming exponential arrival, the mean and standard deviation (in minutes) is",
+            options: [
+              "12, 144",
+              "12, 3.46",
+              "12, 12",
+              "3.46, 3.46"
+            ],
+            correctAnswer: 2,
+            theory: "For an exponential distribution, the standard deviation is identically equal to the mean: $\\text{Mean} = 1/\\lambda$, $\\sigma = 1/\\lambda$.",
+            formula: "\\boxed{\\text{Mean} = \\frac{1}{\\lambda}, \\quad \\sigma = \\frac{1}{\\lambda}}",
+            stepByStep: "Given: $\\lambda = 5\\text{ customers/hour} = \\frac{5}{60} = \\frac{1}{12}\\text{ cust/min}$.\n1. Mean inter-arrival time: $\\text{Mean} = \\frac{60}{5} = 12\\text{ minutes}$\n2. Standard deviation: $\\sigma = \\text{Mean} = \\mathbf{12\\text{ minutes}}$\nResult: **12, 12 (Option C)**.",
+            variant: "2026 Variant: 10 customers/hour $\\implies \\text{Mean} = 6\\text{ min}, \\sigma = 6\\text{ min}$.",
+            trap: "Do not compute $\\sqrt{12} \\approx 3.46$! Standard deviation is equal to the mean, NOT the square root of the mean."
+          },
+          {
+            id: "W11-2025-Q8",
+            year: "2025",
+            conceptTag: "Poisson Series Sum",
+            question: "Σ (from n=1 to ∞) (λt)ⁿ e^(−λt) / n! =",
+            options: [
+              "1",
+              "1 − e^(−λt)",
+              "1 − e^(−λt) − λt·e^(−λt)",
+              "0"
+            ],
+            correctAnswer: 1,
+            theory: "The Poisson probability mass function is $P(N = n) = \\frac{(\\lambda t)^n e^{-\\lambda t}}{n!}$. The sum of all probabilities from $n=0$ to $\\infty$ is 1. Therefore, $\\sum_{n=1}^\\infty P(N = n) = 1 - P(N = 0) = 1 - e^{-\\lambda t}$.",
+            formula: "\\boxed{\\sum_{n=1}^\\infty \\frac{(\\lambda t)^n e^{-\\lambda t}}{n!} = 1 - P(0) = 1 - e^{-\\lambda t}}",
+            stepByStep: "Total probability sums to 1:\n$$\\sum_{n=0}^\\infty \\frac{(\\lambda t)^n e^{-\\lambda t}}{n!} = e^{-\\lambda t} + \\sum_{n=1}^\\infty \\frac{(\\lambda t)^n e^{-\\lambda t}}{n!} = 1$$\n$$\\sum_{n=1}^\\infty \\frac{(\\lambda t)^n e^{-\\lambda t}}{n!} = \\mathbf{1 - e^{-\\lambda t}} \\quad (\\text{Option B})$$",
+            variant: "2026 Variant: If $e^{-\\lambda t}$ is omitted from the sum: $\\sum_{n=1}^\\infty \\frac{(\\lambda t)^n}{n!} = \\mathbf{e^{\\lambda t} - 1}$.",
+            trap: "Notice that the summation starts at $n=1$, not $n=0$. If it started at $n=0$, the sum would be 1."
+          },
+          {
+            id: "W11-2025-Q9",
+            year: "2025",
+            conceptTag: "Pure Death Service Completion",
+            question: "In a system, there is only one customer at 4 PM. The service rate is exponential at 1 customer per hour. The probability that there will be no customer at 5 PM is",
+            options: [
+              "1",
+              "0.632",
+              "0.368",
+              "0"
+            ],
+            correctAnswer: 1,
+            theory: "With exponential service time $T \\sim \\text{Exp}(\\mu)$, the cumulative distribution function giving the probability service finishes by time $t$ is $F(t) = 1 - e^{-\\mu t}$.",
+            formula: "\\boxed{P(T \\le t) = 1 - e^{-\\mu t}}",
+            stepByStep: "Given: $N(0) = 1, \\mu = 1\\text{/hr}, t = 1\\text{ hour}$ (from 4 PM to 5 PM).\n$$P(T \\le 1) = 1 - e^{-1 \\times 1} = 1 - e^{-1} = 1 - 0.36788 = 0.63212 \\approx \\mathbf{0.632} \\quad (\\text{Option B})$$",
+            variant: "2026 Variant: $\\mu = 2\\text{/hr}, t = 1\\text{ hr} \\implies 1 - e^{-2} = 1 - 0.1353 = \\mathbf{0.8647}$.",
+            trap: "0.368 is $e^{-1}$ (the probability the customer is STILL in service). The probability of NO customer is $1 - 0.368 = 0.632$."
+          },
+          {
+            id: "W11-2025-Q10",
+            year: "2025",
+            conceptTag: "Arrival Rate Conversion",
+            question: "A customer support center receives one call every 4 minutes. The arrival rate λ is",
+            options: [
+              "0.25 calls per hour",
+              "15 calls per hour",
+              "4 calls per minute",
+              "4 calls per hour"
+            ],
+            correctAnswer: 1,
+            theory: "Arrival rate $\\lambda = \\frac{1}{\\text{Mean inter-arrival time}}$. To express in calls per hour, divide 60 minutes by the interval in minutes.",
+            formula: "\\boxed{\\lambda = \\frac{60\\text{ minutes}}{\\text{minutes per call}}}",
+            stepByStep: "Given: 1 call every 4 minutes.\n$$\\lambda = \\frac{60}{4} = \\mathbf{15\\text{ calls per hour}} \\quad (\\text{Option B})$$",
+            variant: "2026 Variant: 1 call every 5 minutes $\\implies \\lambda = \\frac{60}{5} = \\mathbf{12\\text{ calls per hour}}$.",
+            trap: "Do not divide 4 by 60; rate is total occurrences per hour (60 / 4)."
+          },
+          {
+            id: "W11-2025-Q11",
+            year: "2025",
+            conceptTag: "Pure Birth & Death Distribution",
+            question: "The exponential distribution is commonly used in Pure Birth and Pure Death models to describe",
+            options: [
+              "the number of servers",
+              "the queue length",
+              "inter-arrival and service times",
+              "the number of facilities"
+            ],
+            correctAnswer: 2,
+            theory: "Due to the memoryless property, the exponential distribution is uniquely suited to model continuous durations: inter-arrival times and service durations.",
+            formula: "\\boxed{f(t) = \\lambda e^{-\\lambda t}}",
+            stepByStep: "Direct concept: Inter-arrival and service times (Option C).",
+            variant: "Poisson distribution describes the discrete number of events in a fixed time interval.",
+            trap: "Queue length is discrete (0, 1, 2, ...), while exponential distribution is continuous."
+          },
+          {
+            id: "W11-2025-Q12",
+            year: "2025",
+            conceptTag: "M/M/1 Server Idle Probability",
+            question: "In a diagnostic center, patients arrive following a Poisson process at an average rate of 4 patients per hour. A doctor takes an average of 10 minutes per patient, and the service time follows an exponential distribution. Assume the system follows the M/M/1 queue model. The probability that there are no patients in the system is",
+            options: [
+              "0.6",
+              "0.4",
+              "0.5",
+              "0.33"
+            ],
+            correctAnswer: 3,
+            theory: "In an M/M/1 queue, server utilization is $\\rho = \\lambda / \\mu$. The probability of an idle system (zero patients) is $P_0 = 1 - \\rho$.",
+            formula: "\\boxed{P_0 = 1 - \\rho = 1 - \\frac{\\lambda}{\\mu}}",
+            stepByStep: "Given: $\\lambda = 4\\text{/hr}$, doctor takes $10\\text{ min} \\implies \\mu = \\frac{60}{10} = 6\\text{ patients/hour}$.\n1. Utilization factor:\n$$\\rho = \\frac{\\lambda}{\\mu} = \\frac{4}{6} = \\frac{2}{3} \\approx 0.667$$\n2. Probability of zero patients:\n$$P_0 = 1 - \\frac{2}{3} = \\frac{1}{3} \\approx \\mathbf{0.33} \\quad (\\text{Option D})$$",
+            variant: "2026 Variant: $\\lambda = 5, \\mu = 6 \\implies \\rho = 5/6 \\implies P_0 = 1/6 \\approx \\mathbf{0.17}$.",
+            trap: "0.667 is the busy probability; idle probability is $1 - 0.667 = 0.33$."
+          },
+          {
+            id: "W11-2025-Q13",
+            year: "2025",
+            conceptTag: "State-Dependent Markov Queue",
+            question: "In a state-dependent Poisson queueing system: λ₀ = 6 customers/hour, λ₁ = 3 customers/hour, μ = 3 customers/hour for all states. The system can hold a maximum of 2 customers (including the one in service). The steady-state probability of zero customers in the system is",
+            options: [
+              "1/4",
+              "1/5",
+              "1/6",
+              "1/3"
+            ],
+            correctAnswer: 1,
+            theory: "In a finite Markov birth-death queue, $P_n = \\frac{\\lambda_{n-1}}{\\mu_n} P_{n-1}$. Total probability normalizes to 1: $\\sum P_n = 1$.",
+            formula: "\\boxed{P_0\\left(1 + \\frac{\\lambda_0}{\\mu} + \\frac{\\lambda_0 \\lambda_1}{\\mu^2}\\right) = 1}",
+            stepByStep: "Given: $\\lambda_0 = 6, \\lambda_1 = 3, \\mu = 3$, capacity $K = 2$.\n1. Express states in terms of $P_0$:\n$$P_1 = \\frac{\\lambda_0}{\\mu} P_0 = \\frac{6}{3} P_0 = 2 P_0$$\n$$P_2 = \\frac{\\lambda_1}{\\mu} P_1 = \\frac{3}{3} (2 P_0) = 2 P_0$$\n2. Normalization condition $P_0 + P_1 + P_2 = 1$:\n$$P_0 + 2 P_0 + 2 P_0 = 1 \\implies 5 P_0 = 1 \\implies P_0 = \\mathbf{1/5} \\quad (\\text{Option B})$$",
+            variant: "2026 Variant: $\\lambda_0 = 4, \\lambda_1 = 5, \\mu = 3 \\implies P_0 = \\mathbf{9/41}$.",
+            trap: "Don't forget to include $P_0$ itself in the normalization sum ($1 + 2 + 2 = 5$)."
+          },
+          {
+            id: "W11-2025-Q14",
+            year: "2025",
+            conceptTag: "M/M/c Multi-Server State Probability",
+            question: "In a hospital, patients arrive at the rate of 10 per hour. There are three doctors in the hospital, who see the patients in three parallel chambers. Each doctor takes 10 minutes to see a patient on an average. Denote the probability of no patients in the system as P₀. Based on M/M/3 queue model, the probability of 5 patients in the system is",
+            options: [
+              "0.24 P₀",
+              "0.48 P₀",
+              "0.12 P₀",
+              "0.36 P₀"
+            ],
+            correctAnswer: 0,
+            theory: "In an M/M/c queue, for states $n \\ge c$, the state probability is $P_n = \\frac{r^n}{c! \\cdot c^{n-c}} P_0$, where $r = \\lambda / \\mu$.",
+            formula: "\\boxed{P_n = \\frac{(\\lambda / \\mu)^n}{c! \\cdot c^{n-c}} P_0 \\quad (n \\ge c)}",
+            stepByStep: "Given: $\\lambda = 10\\text{/hr}$, $c = 3$ doctors, service time $= 10\\text{ min} \\implies \\mu = \\frac{60}{10} = 6\\text{/hr}$.\n1. Intensity ratio:\n$$r = \\frac{\\lambda}{\\mu} = \\frac{10}{6} = \\frac{5}{3} \\approx 1.6667$$\n2. Probability of $n = 5$ patients ($n \\ge 3$):\n$$P_5 = \\frac{(5/3)^5}{3! \\times 3^{5-3}} P_0 = \\frac{3125 / 243}{6 \\times 9} P_0 = \\frac{12.860}{54} P_0 \\approx \\mathbf{0.238 P_0 \\approx 0.24 P_0} \\quad (\\text{Option A})$$",
+            variant: "2026 Variant: $\\lambda = 12, \\mu = 4, c = 3, n = 5 \\implies r = 3 \\implies P_5 = \\frac{3^5}{54} P_0 = \\mathbf{4.5 P_0}$.",
+            trap: "Notice $c! \\cdot c^{n-c} = 3! \\times 3^{5-3} = 6 \\times 9 = 54$."
+          },
+          {
+            id: "W11-2025-Q15",
+            year: "2025",
+            conceptTag: "Mean Number of Idle Servers",
+            question: "For a machine shop, there are four mechanics. On an average, 1.2 machines wait for the service, while the number of machines in service plus waiting is 2.7. The mean number of idle mechanics is",
+            options: [
+              "1.2",
+              "1.5",
+              "2.5",
+              "3"
+            ],
+            correctAnswer: 2,
+            theory: "The number of busy mechanics is equal to the number of machines currently in service, which is $L - L_q$. The mean idle mechanics is $c_{\\text{idle}} = c - (L - L_q)$.",
+            formula: "\\boxed{c_{\\text{idle}} = c - (L - L_q)}",
+            stepByStep: "Given:\n- Mechanics $c = 4$\n- Waiting machines $L_q = 1.2$\n- Total machines in system $L = 2.7$\n1. Busy mechanics:\n$$\\text{Busy} = L - L_q = 2.7 - 1.2 = 1.5$$\n2. Idle mechanics:\n$$c_{\\text{idle}} = 4 - 1.5 = \\mathbf{2.5} \\quad (\\text{Option C})$$",
+            variant: "2026 Variant: 5 mechanics, $L_q = 1.4, L = 2.5 \\implies \\text{Idle} = 5 - (2.5 - 1.4) = 5 - 1.1 = \\mathbf{3.9}$.",
+            trap: "Do not subtract $2.7$ from $4$ ($4 - 2.7 = 1.3$); $L$ includes machines waiting in line, which are not using mechanics."
+          },
+          {
+            id: "W11-2025-Q16",
+            year: "2025",
+            conceptTag: "Kendall Notation (Double Server)",
+            question: "In Kendall's notation, a queue with Poisson arrival, exponential service time and double server is represented as",
+            options: [
+              "P/E/2",
+              "P/2/E",
+              "M/M/1",
+              "M/M/2"
+            ],
+            correctAnswer: 3,
+            theory: "Kendall notation standard:\n- Arrival distribution = M (Markovian/Poisson)\n- Service distribution = M (Markovian/Exponential)\n- Server count = 2.",
+            formula: "\\boxed{\\text{Kendall Notation: } A/B/c = M/M/2}",
+            stepByStep: "Poisson arrival (M), exponential service (M), double server (2): **M/M/2 (Option D)**.",
+            variant: "2026 Variant: Triple server $\\implies$ **M/M/3**.",
+            trap: "Do not select P/E/2. P and E are not standard Kendall notation characters."
+          },
+          {
+            id: "W11-2025-Q17",
+            year: "2025",
+            conceptTag: "Pollaczek–Khinchine M/G/1 Formula",
+            question: "At a shop, customers arrive at a mean rate of 6 per hour. Customers are served at a mean rate of 8 per hour. The service time has a standard deviation of 1 hour. The expected number of customers in the queue is",
+            options: [
+              "73.125",
+              "74.75",
+              "2.35",
+              "10.93"
+            ],
+            correctAnswer: 0,
+            theory: "The Pollaczek–Khinchine (P-K) formula calculates queue length $L_q$ for general service time with standard deviation $\\sigma$: $L_q = \\frac{\\lambda^2 \\sigma^2 + \\rho^2}{2(1 - \\rho)}$.",
+            formula: "\\boxed{L_q = \\frac{\\lambda^2 \\sigma^2 + \\rho^2}{2(1 - \\rho)}, \\quad \\rho = \\frac{\\lambda}{\\mu}}",
+            stepByStep: "Given: $\\lambda = 6\\text{/hr}, \\mu = 8\\text{/hr}, \\sigma = 1\\text{ hr}$.\n1. Utilization:\n$$\\rho = \\frac{6}{8} = 0.75$$\n2. Apply P-K formula:\n$$L_q = \\frac{6^2(1^2) + (0.75)^2}{2(1 - 0.75)} = \\frac{36 + 0.5625}{2(0.25)} = \\frac{36.5625}{0.5} = \\mathbf{73.125} \\quad (\\text{Option A})$$",
+            variant: "2026 Variant: $\\lambda = 5, \\mu = 10, \\sigma = 1 \\implies \\rho = 0.5 \\implies L_q = \\frac{25 + 0.25}{1.0} = \\mathbf{25.25}$.",
+            trap: "Be sure to square $\\lambda$ ($6^2 = 36$) and square $\\rho$ ($0.75^2 = 0.5625$)."
+          },
+          {
+            id: "W11-2025-Q18",
+            year: "2025",
+            conceptTag: "Kendall Notation M/D/1",
+            question: "In the Kendall's notation M/D/1 means",
+            options: [
+              "Poisson arrival and exponential service time",
+              "Constant arrival rate and exponential service time",
+              "Constant arrival rate and constant service time",
+              "Poisson arrival and constant service time"
+            ],
+            correctAnswer: 3,
+            theory: "In Kendall notation, M denotes Markovian/Poisson arrival, and D denotes Deterministic (constant, fixed) service time.",
+            formula: "\\boxed{M = \\text{Poisson arrival}, \\quad D = \\text{Constant service time}}",
+            stepByStep: "M/D/1 represents Poisson arrival and constant service time with 1 server: **Option D**.",
+            variant: "M/M/1 = Poisson arrival and exponential service time.",
+            trap: "D stands for deterministic (constant), not discrete or dynamic."
+          },
+          {
+            id: "W11-2025-Q19",
+            year: "2025",
+            conceptTag: "M/M/1 Queue Length",
+            question: "In M/M/1 queue, the utilization factor is 0.8. The length of the queue is",
+            options: [
+              "2",
+              "3",
+              "3.2",
+              "4"
+            ],
+            correctAnswer: 2,
+            theory: "In an M/M/1 queue, the average number of customers waiting in queue is $L_q = \\frac{\\rho^2}{1 - \\rho}$.",
+            formula: "\\boxed{L_q = \\frac{\\rho^2}{1 - \\rho}}",
+            stepByStep: "Given: Utilization $\\rho = 0.8$.\n$$L_q = \\frac{0.8^2}{1 - 0.8} = \\frac{0.64}{0.2} = \\mathbf{3.2} \\quad (\\text{Option C})$$",
+            variant: "2026 Variant: $\\rho = 0.75 \\implies L_q = \\frac{0.75^2}{0.25} = \\frac{0.5625}{0.25} = \\mathbf{2.25}$.\nIf asked for total system length $L$: $L = \\frac{0.8}{1 - 0.8} = 4.0$.",
+            trap: "Do not calculate $L = \\frac{\\rho}{1-\\rho} = 4.0$. The question asks for the length of the QUEUE ($L_q$), which is 3.2."
+          },
+          {
+            id: "W11-2025-Q20",
+            year: "2025",
+            conceptTag: "Single-Server Idle Probability",
+            question: "In a single-server queuing system with deterministic rates, the arrival rate (λ) is 10 customers per hour, and the service rate (μ) is 12 customers per hour. The probability that the server is idle",
+            options: [
+              "0.167",
+              "0.200",
+              "0.833",
+              "0.120"
+            ],
+            correctAnswer: 0,
+            theory: "In a single-server queue with arrival rate $\\lambda$ and service rate $\\mu$, the server is idle when there are zero customers, with probability $P_0 = 1 - \\rho = 1 - \\lambda / \\mu$.",
+            formula: "\\boxed{P_{\\text{idle}} = 1 - \\rho = 1 - \\frac{\\lambda}{\\mu}}",
+            stepByStep: "Given: $\\lambda = 10\\text{/hr}, \\mu = 12\\text{/hr}$.\n$$\\rho = \\frac{10}{12} = \\frac{5}{6} \\approx 0.8333$$\n$$P_{\\text{idle}} = 1 - \\frac{5}{6} = \\frac{1}{6} \\approx \\mathbf{0.167} \\quad (\\text{Option A})$$",
+            variant: "2026 Variant: $\\lambda = 8, \\mu = 10 \\implies \\rho = 0.8 \\implies P_{\\text{idle}} = 1 - 0.8 = \\mathbf{0.200}$.",
+            trap: "0.833 is the server utilization (busy probability); idle probability is $1 - 0.833 = 0.167$."
+          }
+        ]
+      }
+    },
+
+    // Placeholders for Weeks 10 down to 1
+    ...[10, 9, 8, 7, 6, 5, 4, 3, 2, 1].map(wNum => ({
       number: wNum,
       title: getWeekTopicTitle(wNum),
       status: "upcoming",
@@ -835,6 +1645,7 @@ const IEOR_DATA = {
         "2025": []
       }
     }))
+
   ]
 };
 
