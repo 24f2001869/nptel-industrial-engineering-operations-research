@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NPTEL IEOR | Industrial Engineering & Operations Research (IIT Guwahati)</title>
+  <meta name="description" content="NPTEL Industrial Engineering and Operations Research (Course 112103774 / noc26-me193) by Prof. Uday Shanker Dixit, IIT Guwahati. Master Assignment Question Bank, Rapid Theory, Formulas, and Exam Shortcuts.">
+  
+  <link rel="stylesheet" href="./styles.css">
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+  <!-- KaTeX for crisp LaTeX formulas -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+</head>
+<body>
+
+  <div class="app-shell">
+
+    <!-- Top TCS Header -->
+    <header class="tcs-header">
+      <div class="tcs-brand">
+        <div class="brand-badge">IEOR</div>
+        <div class="brand-details">
+          <h1>Industrial Engineering & Operations Research</h1>
+          <div class="brand-sub">
+            <span class="course-pill">NPTEL 112103774</span>
+            <span>•</span>
+            <span>Prof. Uday Shanker Dixit (IIT Guwahati)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <!-- Mode Switcher -->
+        <div class="mode-toggle-group" title="Switch practice mode">
+          <button class="mode-btn active" id="btn-mode-study" title="Show theory & formulas instantly upon answering">
+            ⚡ Rapid Study
+          </button>
+          <button class="mode-btn" id="btn-mode-exam" title="Real TCS iON 3-hour exam simulation">
+            ⏱️ TCS Exam
+          </button>
+        </div>
+
+        <!-- Calculator Button -->
+        <button class="btn-header" id="btn-open-calc" title="Open Virtual Scientific Calculator">
+          <span>🧮</span> Calculator
+        </button>
+
+        <!-- Formula Sheet Button -->
+        <button class="btn-header" id="btn-open-formulas" title="Open High-Yield Formulas & Exam Traps">
+          <span>📜</span> Formulas
+        </button>
+
+        <!-- Theme Toggle -->
+        <button class="btn-header" id="btn-theme-toggle" title="Toggle Bright / Dark Mode">
+          <span id="theme-icon">🌙</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Backward Weeks Navigation Bar (Starting Week 12 -> Week 1) -->
+    <nav class="weeks-strip" id="weeks-strip-container" aria-label="Course Weeks Navigation">
+      <div class="weeks-label">
+        <span>⏪ Weeks (12 → 1):</span>
+      </div>
+      <div class="weeks-list" id="weeks-tabs-list">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </nav>
+
+    <!-- Main Workspace -->
+    <main class="workspace-container">
+      
+      <!-- Left Panel: Question and Rapid Theory Area -->
+      <section class="question-panel">
+        
+        <!-- Question Meta Information -->
+        <div class="exam-meta-bar">
+          <div class="q-title-wrap">
+            <span class="q-number-pill" id="q-number-display">Question 1 of 20</span>
+            <span class="concept-tag" id="q-concept-tag">Topic</span>
+          </div>
+          <div class="marking-scheme">
+            <span>Marking: <strong class="mark-positive">+1.0</strong>, <span class="mark-negative">0.0 (No Negative Marking)</span></span>
+          </div>
+        </div>
+
+        <!-- Question Card -->
+        <div class="question-card" id="question-card-container">
+          <!-- Injected dynamically by app.js -->
+        </div>
+
+        <!-- Rapid Theory & Shortcut Card (User's primary requirement) -->
+        <div class="theory-card" id="theory-card" style="display: none;">
+          <div class="theory-header">
+            <span class="theory-title">🎯 Rapid Theory & Value-Changed Shortcuts (No Bakwas)</span>
+            <button class="btn btn-outline" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;" id="btn-hide-theory">Hide</button>
+          </div>
+
+          <div class="theory-section">
+            <div class="section-label">📌 Core Concept (Short & Crisp)</div>
+            <div class="concept-text" id="theory-concept-text"></div>
+          </div>
+
+          <div class="theory-section">
+            <div class="section-label">📐 Direct Formula Needed</div>
+            <div class="formula-callout" id="theory-formula-math"></div>
+          </div>
+
+          <div class="theory-section">
+            <div class="section-label">🔢 Step-by-Step Arithmetic Calculation</div>
+            <div class="step-box" id="theory-steps-text"></div>
+          </div>
+
+          <div class="theory-section">
+            <div class="section-label">⚡ Exam Shortcut & Value-Changed Variations (If Numbers Change)</div>
+            <div class="variant-box" id="theory-variant-text"></div>
+          </div>
+
+          <div class="theory-section">
+            <div class="section-label">⚠️ Common Exam Trap to Avoid</div>
+            <div class="trap-box" id="theory-trap-text"></div>
+          </div>
+        </div>
+
+        <!-- Action Controls Bar -->
+        <div class="action-controls-bar">
+          <div style="display: flex; gap: 0.5rem;">
+            <button class="btn btn-outline" id="btn-prev-q">⬅️ Previous</button>
+            <button class="btn btn-secondary" id="btn-clear-q">Clear Response</button>
+          </div>
+          <div style="display: flex; gap: 0.5rem;">
+            <button class="btn btn-warning" id="btn-review-q">Mark for Review & Next</button>
+            <button class="btn btn-primary" id="btn-next-q">Save & Next ➡️</button>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Right Panel: TCS Status Palette & Exam Tools -->
+      <aside class="sidebar-panel">
+        
+        <!-- Timer Card -->
+        <div class="timer-card">
+          <div class="timer-label">Time Remaining</div>
+          <div class="timer-digits" id="timer-display">03:00:00</div>
+        </div>
+
+        <!-- Palette Card -->
+        <div class="palette-card">
+          <div class="palette-header">
+            <span>Question Palette</span>
+            <span style="font-size: 0.78rem; font-weight: 500; color: var(--text-dim);" id="palette-week-indicator">Week 12</span>
+          </div>
+
+          <!-- TCS Legend -->
+          <div class="palette-legend">
+            <div class="legend-item">
+              <span class="legend-chip chip-answered" id="count-answered">0</span>
+              <span>Answered</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-chip chip-not-answered" id="count-not-answered">0</span>
+              <span>Not Answered</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-chip chip-review" id="count-review">0</span>
+              <span>Marked Review</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-chip chip-not-visited" id="count-not-visited">20</span>
+              <span>Not Visited</span>
+            </div>
+          </div>
+
+          <!-- Question Grid 1 to 20 -->
+          <div class="palette-grid" id="palette-grid-container">
+            <!-- Injected dynamically -->
+          </div>
+
+          <!-- Submit Button -->
+          <div class="submit-block">
+            <button class="btn-submit" id="btn-submit-exam">
+              Submit Assessment & View Scorecard
+            </button>
+          </div>
+        </div>
+
+      </aside>
+
+    </main>
+
+  </div>
+
+  <!-- MODAL: TCS Scientific Calculator -->
+  <div class="modal-backdrop" id="modal-calc">
+    <div class="modal-box" style="max-width: 380px;">
+      <div class="modal-header">
+        <div class="modal-title">🧮 TCS Virtual Scientific Calculator</div>
+        <button class="btn-close" id="btn-close-calc">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="calc-display" id="calc-screen">0</div>
+        <div class="calc-grid">
+          <button class="calc-btn op" data-calc="sin">sin</button>
+          <button class="calc-btn op" data-calc="cos">cos</button>
+          <button class="calc-btn op" data-calc="tan">tan</button>
+          <button class="calc-btn op" data-calc="sqrt">√</button>
+          <button class="calc-btn danger" data-calc="C">C</button>
+
+          <button class="calc-btn op" data-calc="ln">ln</button>
+          <button class="calc-btn op" data-calc="log">log</button>
+          <button class="calc-btn op" data-calc="(">(</button>
+          <button class="calc-btn op" data-calc=")">)</button>
+          <button class="calc-btn danger" data-calc="DEL">⌫</button>
+
+          <button class="calc-btn" data-calc="7">7</button>
+          <button class="calc-btn" data-calc="8">8</button>
+          <button class="calc-btn" data-calc="9">9</button>
+          <button class="calc-btn op" data-calc="/">÷</button>
+          <button class="calc-btn op" data-calc="^">xʸ</button>
+
+          <button class="calc-btn" data-calc="4">4</button>
+          <button class="calc-btn" data-calc="5">5</button>
+          <button class="calc-btn" data-calc="6">6</button>
+          <button class="calc-btn op" data-calc="*">×</button>
+          <button class="calc-btn op" data-calc="pi">π</button>
+
+          <button class="calc-btn" data-calc="1">1</button>
+          <button class="calc-btn" data-calc="2">2</button>
+          <button class="calc-btn" data-calc="3">3</button>
+          <button class="calc-btn op" data-calc="-">−</button>
+          <button class="calc-btn op" data-calc="e">e</button>
+
+          <button class="calc-btn" data-calc="0">0</button>
+          <button class="calc-btn" data-calc=".">.</button>
+          <button class="calc-btn op" data-calc="+">+</button>
+          <button class="calc-btn eq" data-calc="=">=</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Formula Sheet & Exam Traps -->
+  <div class="modal-backdrop" id="modal-formulas">
+    <div class="modal-box" style="max-width: 680px;">
+      <div class="modal-header">
+        <div class="modal-title">📜 High-Yield Formulas & Exam Traps</div>
+        <button class="btn-close" id="btn-close-formulas">&times;</button>
+      </div>
+      <div class="modal-body" id="formula-modal-content">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Scorecard & Analytics -->
+  <div class="modal-backdrop" id="modal-scorecard">
+    <div class="modal-box" style="max-width: 500px;">
+      <div class="modal-header">
+        <div class="modal-title">🏆 Exam Performance Scorecard</div>
+        <button class="btn-close" id="btn-close-scorecard">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="score-circle-wrap">
+          <div style="font-size: 0.9rem; color: var(--text-muted); font-weight: 600;">Overall Score</div>
+          <div class="score-badge-large" id="score-percentage">0%</div>
+          <div style="font-size: 0.9rem; font-weight: 700;" id="score-status-text">Assessment Complete</div>
+        </div>
+
+        <div class="score-stats-grid">
+          <div class="score-stat-box">
+            <div style="font-size: 0.72rem; color: var(--text-dim); text-transform: uppercase;">Correct</div>
+            <div class="stat-num" style="color: var(--success);" id="score-correct-count">0</div>
+          </div>
+          <div class="score-stat-box">
+            <div style="font-size: 0.72rem; color: var(--text-dim); text-transform: uppercase;">Wrong</div>
+            <div class="stat-num" style="color: var(--danger);" id="score-wrong-count">0</div>
+          </div>
+          <div class="score-stat-box">
+            <div style="font-size: 0.72rem; color: var(--text-dim); text-transform: uppercase;">Unattempted</div>
+            <div class="stat-num" style="color: var(--text-dim);" id="score-unattempted-count">0</div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: 1rem;" id="btn-review-answers">
+          Review Solutions & Theory
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logic Scripts -->
+  <script src="./data.js"></script>
+  <script src="./app.js"></script>
+
+</body>
+</html>
